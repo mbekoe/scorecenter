@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ScoreCenter" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:simpleType name="Operation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EQ" />
+      <xs:enumeration value="NQ" />
+      <xs:enumeration value="GT" />
+      <xs:enumeration value="LT" />
+      <xs:enumeration value="GE" />
+      <xs:enumeration value="LE" />
+      <xs:enumeration value="IN" />
+      <xs:enumeration value="NI" />
+      <xs:enumeration value="SW" />
+      <xs:enumeration value="NS" />
+      <xs:enumeration value="EW" />
+      <xs:enumeration value="NE" />
+      <xs:enumeration value="MOD" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RuleAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FormatCell" />
+      <xs:enumeration value="FormatLine" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Style">
+    <xs:complexType>
+      <xs:attribute name="Name" type="xs:string" use="required" />
+      <xs:attribute name="ForeColor" type="xs:long" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Rule">
+    <xs:complexType>
+      <xs:attribute name="Column" type="xs:int" use="required" />
+      <xs:attribute name="Value" type="xs:string" use="required" />
+      <xs:attribute name="Operator" type="Operation" use="required" />
+      <xs:attribute name="Action" type="RuleAction" use="required" />
+      <xs:attribute name="Format" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Score">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Category" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Ligue" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Url" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="utf-8" />
+        <xs:element name="XPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+        <xs:element name="Sizes" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+        <xs:element name="Skip" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
+        <xs:element name="MaxLines" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
+        <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+        <xs:element name="Rules" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Rule" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="enable" type="xs:boolean" default="false" />
+      <xs:attribute name="Id" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CategoryImg">
+    <xs:complexType>
+      <xs:attribute name="Name" type="xs:string" use="required" />
+      <xs:attribute name="Path" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeagueImg">
+    <xs:complexType>
+      <xs:attribute name="Category" type="xs:string" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required" />
+      <xs:attribute name="Path" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScoreCenter" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Setup" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="CacheExpiration" type="xs:int" minOccurs="0" maxOccurs="1" default="5" />
+              <xs:element name="DefaultSkinColor" type="xs:int" minOccurs="0" maxOccurs="1" default="-16776961" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Images" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="CategoryImg" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="LeagueImg" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Styles" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Style" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Scores" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Score" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
