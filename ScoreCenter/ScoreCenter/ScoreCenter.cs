@@ -132,10 +132,10 @@ namespace MediaPortal.Plugin.ScoreCenter {
     public enum Operation {
         
         /// <remarks/>
-        EQ,
+        EqualTo,
         
         /// <remarks/>
-        NQ,
+        NotEqualTo,
         
         /// <remarks/>
         GT,
@@ -150,25 +150,28 @@ namespace MediaPortal.Plugin.ScoreCenter {
         LE,
         
         /// <remarks/>
-        IN,
+        Contains,
         
         /// <remarks/>
-        NI,
+        NotContains,
         
         /// <remarks/>
-        SW,
+        StartsWith,
         
         /// <remarks/>
-        NS,
+        NotStartsWith,
         
         /// <remarks/>
-        EW,
+        EndsWith,
         
         /// <remarks/>
-        NE,
+        NotEndsWith,
         
         /// <remarks/>
         MOD,
+        
+        /// <remarks/>
+        InList,
     }
     
     /// <remarks/>

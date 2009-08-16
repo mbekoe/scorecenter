@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -15,6 +16,45 @@ namespace MediaPortal.Plugin.ScoreCenter
         Parsing = 2,
         Rules = 4,
         All = Names | Parsing | Rules
+    }
+
+    public static class EnumManager
+    {
+        public static DataTable ReadRuleAction()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(RuleAction.FormatCell.ToString(), "Format Cell");
+            dt.Rows.Add(RuleAction.FormatLine.ToString(), "Format Line");
+
+            return dt;
+        }
+
+        public static DataTable ReadOperation()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(Operation.EqualTo, "=");
+            dt.Rows.Add(Operation.NotEqualTo, "!=");
+            dt.Rows.Add(Operation.GT, ">");
+            dt.Rows.Add(Operation.GE, ">=");
+            dt.Rows.Add(Operation.LT, "<");
+            dt.Rows.Add(Operation.LE, "<=");
+            dt.Rows.Add(Operation.Contains, "Contains");
+            dt.Rows.Add(Operation.NotContains, "Not Contains");
+            dt.Rows.Add(Operation.MOD, "Modulo");
+            dt.Rows.Add(Operation.EndsWith, "Ends with");
+            dt.Rows.Add(Operation.NotEndsWith, "Not Ends with");
+            dt.Rows.Add(Operation.StartsWith, "Starts with");
+            dt.Rows.Add(Operation.NotStartsWith, "Not Starts with");
+            dt.Rows.Add(Operation.InList, "In List");
+
+            return dt;
+        }
     }
 
     partial class ScoreCenter

@@ -76,12 +76,12 @@
             this.grdRule = new System.Windows.Forms.DataGridView();
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
+            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colOperator = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -416,8 +416,8 @@
             this.grdRule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdRule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colColumn,
-            this.colValue,
             this.colOperator,
+            this.colValue,
             this.colAction,
             this.colStyle});
             resources.ApplyResources(this.grdRule, "grdRule");
@@ -435,36 +435,6 @@
             // 
             resources.ApplyResources(this.ofdImport, "ofdImport");
             // 
-            // colColumn
-            // 
-            resources.ApplyResources(this.colColumn, "colColumn");
-            this.colColumn.MaxInputLength = 5;
-            this.colColumn.Name = "colColumn";
-            // 
-            // colValue
-            // 
-            resources.ApplyResources(this.colValue, "colValue");
-            this.colValue.MaxInputLength = 100;
-            this.colValue.Name = "colValue";
-            // 
-            // colOperator
-            // 
-            this.colOperator.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            resources.ApplyResources(this.colOperator, "colOperator");
-            this.colOperator.Name = "colOperator";
-            // 
-            // colAction
-            // 
-            this.colAction.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            resources.ApplyResources(this.colAction, "colAction");
-            this.colAction.Name = "colAction";
-            // 
-            // colStyle
-            // 
-            resources.ApplyResources(this.colStyle, "colStyle");
-            this.colStyle.Name = "colStyle";
-            this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
             // tvwScores
             // 
             resources.ApplyResources(this.tvwScores, "tvwScores");
@@ -477,6 +447,37 @@
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
+            // 
+            // colColumn
+            // 
+            resources.ApplyResources(this.colColumn, "colColumn");
+            this.colColumn.MaxInputLength = 5;
+            this.colColumn.Name = "colColumn";
+            // 
+            // colOperator
+            // 
+            this.colOperator.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            resources.ApplyResources(this.colOperator, "colOperator");
+            this.colOperator.Name = "colOperator";
+            // 
+            // colValue
+            // 
+            resources.ApplyResources(this.colValue, "colValue");
+            this.colValue.MaxInputLength = 100;
+            this.colValue.Name = "colValue";
+            // 
+            // colAction
+            // 
+            this.colAction.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            resources.ApplyResources(this.colAction, "colAction");
+            this.colAction.Name = "colAction";
+            // 
+            // colStyle
+            // 
+            this.colStyle.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            resources.ApplyResources(this.colStyle, "colStyle");
+            this.colStyle.Name = "colStyle";
+            this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ScoreCenterConfig
             // 
@@ -558,8 +559,8 @@
         private System.Windows.Forms.OpenFileDialog ofdImport;
         private System.Windows.Forms.ToolStripButton tsbOptions;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colOperator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colAction;
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
     }

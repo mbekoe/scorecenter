@@ -83,10 +83,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             switch (rule.Operator)
             {
-                case Operation.EQ:
+                case Operation.EqualTo:
                     result = String.Compare(newText, newValue) == 0;
                     break;
-                case Operation.NQ:
+                case Operation.NotEqualTo:
                     result = String.Compare(newText, newValue) != 0;
                     break;
                 case Operation.GT:
@@ -97,27 +97,26 @@ namespace MediaPortal.Plugin.ScoreCenter
                     break;
                 case Operation.GE:
                     result = CompareStr(newText, newValue) >= 0;
-                    Log.Debug("RULE: {0} >= {1} ==> {2}", newText, newValue, result);
                     break;
                 case Operation.LE:
                     result = CompareStr(newText, newValue) <= 0;
                     break;
-                case Operation.IN:
+                case Operation.Contains:
                     result = newText.Contains(newValue);
                     break;
-                case Operation.NI:
+                case Operation.NotContains:
                     result = !newText.Contains(newValue);
                     break;
-                case Operation.SW:
+                case Operation.StartsWith:
                     result = newText.StartsWith(newValue);
                     break;
-                case Operation.NS:
+                case Operation.NotStartsWith:
                     result = !newText.StartsWith(newValue);
                     break;
-                case Operation.EW:
+                case Operation.EndsWith:
                     result = newText.EndsWith(newValue);
                     break;
-                case Operation.NE:
+                case Operation.NotEndsWith:
                     result = !newText.EndsWith(newValue);
                     break;
                 case Operation.MOD:
@@ -125,6 +124,17 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (int.TryParse(newText, out vi) && int.TryParse(newValue, out vv))
                     {
                         result = (vi % vv == 0);
+                    }
+                    break;
+                case Operation.InList:
+                    string[] list = newValue.Split(',');
+                    foreach (string str in list)
+                    {
+                        if (str == newText)
+                        {
+                            result = true;
+                            break;
+                        }
                     }
                     break;
             }
