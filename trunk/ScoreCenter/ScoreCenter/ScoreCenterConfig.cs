@@ -30,6 +30,7 @@ using System.IO;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
+using System.Data;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -59,8 +60,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterGui.SettingsFileName);
                 m_center = Tools.ReadSettings(m_settings, true);
 
-                colAction.Items.AddRange(Enum.GetNames(typeof(RuleAction)));
-                colOperator.Items.AddRange(Enum.GetNames(typeof(Operation)));
+                // rule action
+                colAction.DataSource = EnumManager.ReadRuleAction();
+                colAction.ValueMember = "ID";
+                colAction.DisplayMember = "NAME";
+
+                colOperator.DataSource = EnumManager.ReadOperation();
+                colOperator.ValueMember = "ID";
+                colOperator.DisplayMember = "NAME";
+
+
                 UpdateStyleList();
 
                 BuildScoreList(tvwScores, m_center, true);
@@ -250,8 +259,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 Style st = m_center.FindStyle(rule.Format);
                 grdRule.Rows.Add(rule.Column.ToString(),
-                    rule.Value,
                     rule.Operator.ToString(),
+                    rule.Value,
                     rule.Action.ToString(),
                     st == null ? "" : rule.Format);
             }

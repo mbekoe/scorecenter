@@ -2,19 +2,20 @@
 <xs:schema id="ScoreCenter" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
   <xs:simpleType name="Operation">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="EQ" />
-      <xs:enumeration value="NQ" />
+      <xs:enumeration value="EqualTo" />
+      <xs:enumeration value="NotEqualTo" />
       <xs:enumeration value="GT" />
       <xs:enumeration value="LT" />
       <xs:enumeration value="GE" />
       <xs:enumeration value="LE" />
-      <xs:enumeration value="IN" />
-      <xs:enumeration value="NI" />
-      <xs:enumeration value="SW" />
-      <xs:enumeration value="NS" />
-      <xs:enumeration value="EW" />
-      <xs:enumeration value="NE" />
+      <xs:enumeration value="Contains" />
+      <xs:enumeration value="NotContains" />
+      <xs:enumeration value="StartsWith" />
+      <xs:enumeration value="NotStartsWith" />
+      <xs:enumeration value="EndsWith" />
+      <xs:enumeration value="NotEndsWith" />
       <xs:enumeration value="MOD" />
+      <xs:enumeration value="InList" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="RuleAction">
