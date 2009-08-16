@@ -43,9 +43,8 @@
     <LeagueImg Category="Football" Name="Tunisia" Path="Flags\Tunisia" />
     <LeagueImg Category="Baseball" Name="American League" Path="Baseball\AmericanLeague" />
     <LeagueImg Category="Baseball" Name="National League" Path="Baseball\NationalLeague" />
-    <LeagueImg Category="Tennis" Name="WTA" Path="WTA_Tour" />
-    <LeagueImg Category="Tennis" Name="ATP" Path="ATP_World_Tour" />
-    <LeagueImg Category="Baseball" Name="Americam League" Path="Baseball\AmericanLeague" />
+    <LeagueImg Category="Tennis" Name="WTA" Path="Tennis\WTA_Tour" />
+    <LeagueImg Category="Tennis" Name="ATP" Path="Tennis\ATP_World_Tour" />
   </Images>
   <Styles>
     <Style Name="Champ" ForeColor="-32768" />
@@ -493,7 +492,7 @@
     </Score>
     <Score enable="true" Id="05ec28c4-09b9-4dd9-8b86-1a3571fe5c9f">
       <Category>Baseball</Category>
-      <Ligue>Americam League</Ligue>
+      <Ligue>American League</Ligue>
       <Name>East</Name>
       <Url>http://espn.go.com/mlb/standings</Url>
       <XPath>//table</XPath>
@@ -503,7 +502,7 @@
     </Score>
     <Score enable="true" Id="6cfca581-ce54-496b-a657-1124153f869e">
       <Category>Baseball</Category>
-      <Ligue>Americam League</Ligue>
+      <Ligue>American League</Ligue>
       <Name>Central</Name>
       <Url>http://espn.go.com/mlb/standings</Url>
       <XPath>//table</XPath>
@@ -513,7 +512,7 @@
     </Score>
     <Score enable="true" Id="c8f7ba16-5539-447b-99c7-2c74ff9d80d2">
       <Category>Baseball</Category>
-      <Ligue>Americam League</Ligue>
+      <Ligue>American League</Ligue>
       <Name>West</Name>
       <Url>http://espn.go.com/mlb/standings</Url>
       <XPath>//table</XPath>
@@ -642,7 +641,7 @@
       <MaxLines>21</MaxLines>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="3" Operator="MOD" Action="FormatCell" Format="First" />
+        <Rule Column="-1" Value="3" Operator="MOD" Action="FormatLine" Format="First" />
       </Rules>
     </Score>
     <Score enable="true" Id="33a80f7f-b701-4da8-be9d-7ad56d801e50">
@@ -849,7 +848,7 @@
       <Category>Tennis</Category>
       <Ligue>ATP</Ligue>
       <Name>Resutls</Name>
-      <Url>http://www.lequipe.fr/Tennis/TennisCalendrierATP_{M}_{yyyy}.html</Url>
+      <Url>http://www.lequipe.fr/Tennis/TennisCalendrierATP_{M_yyyy}.html</Url>
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
       <Sizes>-8,-16,-9,-12,0,-15</Sizes>
@@ -860,7 +859,7 @@
       <Category>Tennis</Category>
       <Ligue>WTA</Ligue>
       <Name>Resutls</Name>
-      <Url>http://www.lequipe.fr/Tennis/TennisCalendrierWTA_{M}_{yyyy}.html</Url>
+      <Url>http://www.lequipe.fr/Tennis/TennisCalendrierWTA_{M_yyyy}.html</Url>
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
       <Sizes>-8,-16,-9,-12,0,-15</Sizes>
@@ -888,14 +887,15 @@
     </Score>
     <Score enable="true" Id="4507c88d-509b-425b-932f-30a8103f9710">
       <Category>Baseball</Category>
-      <Ligue>Americam League</Ligue>
+      <Ligue>American League</Ligue>
       <Name>Results</Name>
       <Url>http://scores.espn.go.com/mlb/scoreboard?date={yyyyMMdd}</Url>
       <XPath>//div[@id='gamesLeft-1']//table[@class='game-details']</XPath>
-      <Sizes>-5,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
+      <Headers>Team,1,2,3,4,5,6,7,8,9,,R,H,E</Headers>
+      <Sizes>-6,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="2" Operator="MOD" Action="FormatLine" Format="" />
+        <Rule Column="-1" Value="1,2,5,6,9,10,13,14,17,18" Operator="InList" Action="FormatLine" Format="First" />
       </Rules>
     </Score>
     <Score enable="true" Id="93a5b312-bef8-4c6b-9f2a-3018a66eeb82">
@@ -904,10 +904,11 @@
       <Name>Results</Name>
       <Url>http://scores.espn.go.com/mlb/scoreboard?date={yyyyMMdd}</Url>
       <XPath>//div[@id='gamesRight-1']//table[@class='game-details']</XPath>
-      <Sizes>-5,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
+      <Headers>Team,1,2,3,4,5,6,7,8,9,,R,H,E</Headers>
+      <Sizes>-6,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="2" Operator="MOD" Action="FormatLine" Format="" />
+        <Rule Column="-1" Value="1,2,5,6,9,10,13,14,17,18" Operator="InList" Action="FormatLine" Format="First" />
       </Rules>
     </Score>
   </Scores>
