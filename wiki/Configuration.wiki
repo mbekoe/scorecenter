@@ -20,7 +20,9 @@ Example:
 == Variables URL ==
 Sometimes the URL is not fixed and depend on the date (current year or current month). To define a variable url use {} and [http://msdn.microsoft.com/en-us/library/8kb3ddd4(VS.96).aspx .Net custom date formatting].
 
-For example: {dd_MM_yy} = 18_6_09 if current is 18 June 2009.
+Example: if date is May 25th 2009.
+{dd_M_yy} = 25_5_09
+{yyyyMMdd} = 20090625
 
 == XPath ==
 If the XPath expression is followed by a semi column ';' and a number n then it means that only the nth element will be processed.
