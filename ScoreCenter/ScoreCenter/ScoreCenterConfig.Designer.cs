@@ -74,14 +74,15 @@
             this.tabScore = new System.Windows.Forms.TabControl();
             this.tpgRules = new System.Windows.Forms.TabPage();
             this.grdRule = new System.Windows.Forms.DataGridView();
-            this.tpgTest = new System.Windows.Forms.TabPage();
-            this.ofdImport = new System.Windows.Forms.OpenFileDialog();
-            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colOperator = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.tpgTest = new System.Windows.Forms.TabPage();
+            this.ofdImport = new System.Windows.Forms.OpenFileDialog();
+            this.btnOpenUrl = new System.Windows.Forms.Button();
+            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -97,6 +98,7 @@
             // gbxScore
             // 
             resources.ApplyResources(this.gbxScore, "gbxScore");
+            this.gbxScore.Controls.Add(this.btnOpenUrl);
             this.gbxScore.Controls.Add(this.btnAuto);
             this.gbxScore.Controls.Add(this.tbxScore);
             this.gbxScore.Controls.Add(this.tbxLeague);
@@ -424,30 +426,6 @@
             this.grdRule.Name = "grdRule";
             this.grdRule.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdRule_DataError);
             // 
-            // tpgTest
-            // 
-            this.tpgTest.Controls.Add(this.grdTest);
-            resources.ApplyResources(this.tpgTest, "tpgTest");
-            this.tpgTest.Name = "tpgTest";
-            this.tpgTest.UseVisualStyleBackColor = true;
-            // 
-            // ofdImport
-            // 
-            resources.ApplyResources(this.ofdImport, "ofdImport");
-            // 
-            // tvwScores
-            // 
-            resources.ApplyResources(this.tvwScores, "tvwScores");
-            this.tvwScores.CheckBoxes = true;
-            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
-            this.tvwScores.FullRowSelect = true;
-            this.tvwScores.HideSelection = false;
-            this.tvwScores.LabelEdit = true;
-            this.tvwScores.Name = "tvwScores";
-            this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
-            this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
-            this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
-            // 
             // colColumn
             // 
             resources.ApplyResources(this.colColumn, "colColumn");
@@ -478,6 +456,39 @@
             resources.ApplyResources(this.colStyle, "colStyle");
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // tpgTest
+            // 
+            this.tpgTest.Controls.Add(this.grdTest);
+            resources.ApplyResources(this.tpgTest, "tpgTest");
+            this.tpgTest.Name = "tpgTest";
+            this.tpgTest.UseVisualStyleBackColor = true;
+            // 
+            // ofdImport
+            // 
+            resources.ApplyResources(this.ofdImport, "ofdImport");
+            // 
+            // btnOpenUrl
+            // 
+            this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
+            resources.ApplyResources(this.btnOpenUrl, "btnOpenUrl");
+            this.btnOpenUrl.Name = "btnOpenUrl";
+            this.toolTip1.SetToolTip(this.btnOpenUrl, resources.GetString("btnOpenUrl.ToolTip"));
+            this.btnOpenUrl.UseVisualStyleBackColor = true;
+            this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
+            // 
+            // tvwScores
+            // 
+            resources.ApplyResources(this.tvwScores, "tvwScores");
+            this.tvwScores.CheckBoxes = true;
+            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
+            this.tvwScores.FullRowSelect = true;
+            this.tvwScores.HideSelection = false;
+            this.tvwScores.LabelEdit = true;
+            this.tvwScores.Name = "tvwScores";
+            this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
+            this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
+            this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
             // 
             // ScoreCenterConfig
             // 
@@ -563,5 +574,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colAction;
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
+        private System.Windows.Forms.Button btnOpenUrl;
     }
 }

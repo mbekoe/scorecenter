@@ -170,6 +170,13 @@ namespace MediaPortal.Plugin.ScoreCenter.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Web {
+            get {
+                object obj = ResourceManager.GetObject("Web", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Webcontrol_Fileupload {
             get {
                 object obj = ResourceManager.GetObject("Webcontrol_Fileupload", resourceCulture);
