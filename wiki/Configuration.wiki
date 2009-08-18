@@ -1,13 +1,34 @@
 #summary How to configure My Score Center
 
-= Introduction =
+= Navigation =
+The different scores are classified by _Category_ and _League_.
+A category is for example a sport, like football (or soccer) and a league a championship for this sport. Then for a league you can have different scores: last results, standing...
 
-Add your content here.
+
+= Score Definition =
+A score is defined by an URL and an XPath expression (both are required).
+
+The XPath expression can include any type of HTML elements. If the element is an HTML table, then its lines will be processed. For all other kind of elements the inner text (i.e. the html without the tags) will be output as a line.
+
+Example:
+||//table||all the tables in the document||
+||//table`[`@class='score'`]`||all the tables with the class attributes equal to 'score'||
+||//div`[`@id='team'`]`//table`[`1`]`||the first table included in a div with id='team'||
 
 
-= Details =
+= Additional Parsing Rules =
+== Variables URL ==
+Sometimes the URL is not fixed and depend on the date (current year or current month). To define a variable url use {} and [http://msdn.microsoft.com/en-us/library/8kb3ddd4(VS.96).aspx .Net custom date formatting].
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+For example: {dd_MM_yy} = 18_6_09 if current is 18 June 2009.
+
+== XPath ==
+If the XPath expression is followed by a semi column ';' and a number n then it means that only the nth element will be processed.
+This is useful because sometimes it is difficult to find an expression that returns only the desired element.
+
+== Skip, Max Lines and Headers ==
+
+= Formatting the results =
+It is possible to format the results by applying rules to it.
+Rules can be defined in the configuration screen in the _Rules_ tab.
+The rules are defined for the current score.
