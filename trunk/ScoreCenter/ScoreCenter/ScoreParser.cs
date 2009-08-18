@@ -158,7 +158,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private static string[][] ParseTable(HtmlNode table,
             int skip, int max)
         {
-            HtmlNodeCollection lines = table.SelectNodes(".//tr");
+            HtmlNodeCollection lines = table.SelectNodes(".//tr | .//thead");
             if (lines == null)
             {
                 string[][] aa = new string[1][];

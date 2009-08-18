@@ -24,18 +24,20 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
+    /// <summary>
+    /// About dialog box.
+    /// </summary>
     public partial class AboutDialog : Form
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public AboutDialog()
         {
             InitializeComponent();
@@ -47,6 +49,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void lnkSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"http://code.google.com/p/scorecenter/");
         }
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.btnOpenUrl = new System.Windows.Forms.Button();
             this.btnAuto = new System.Windows.Forms.Button();
             this.tbxScore = new System.Windows.Forms.TextBox();
             this.tbxLeague = new System.Windows.Forms.TextBox();
@@ -81,7 +82,6 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
-            this.btnOpenUrl = new System.Windows.Forms.Button();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
@@ -121,6 +121,15 @@
             this.gbxScore.Controls.Add(this.lblUrl);
             this.gbxScore.Name = "gbxScore";
             this.gbxScore.TabStop = false;
+            // 
+            // btnOpenUrl
+            // 
+            this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
+            resources.ApplyResources(this.btnOpenUrl, "btnOpenUrl");
+            this.btnOpenUrl.Name = "btnOpenUrl";
+            this.toolTip1.SetToolTip(this.btnOpenUrl, resources.GetString("btnOpenUrl.ToolTip"));
+            this.btnOpenUrl.UseVisualStyleBackColor = true;
+            this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
             // btnAuto
             // 
@@ -468,15 +477,6 @@
             // 
             resources.ApplyResources(this.ofdImport, "ofdImport");
             // 
-            // btnOpenUrl
-            // 
-            this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
-            resources.ApplyResources(this.btnOpenUrl, "btnOpenUrl");
-            this.btnOpenUrl.Name = "btnOpenUrl";
-            this.toolTip1.SetToolTip(this.btnOpenUrl, resources.GetString("btnOpenUrl.ToolTip"));
-            this.btnOpenUrl.UseVisualStyleBackColor = true;
-            this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
-            // 
             // tvwScores
             // 
             resources.ApplyResources(this.tvwScores, "tvwScores");
@@ -502,6 +502,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tvwScores);
             this.Name = "ScoreCenterConfig";
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.ScoreCenterConfig_Load);
             this.gbxScore.ResumeLayout(false);
             this.gbxScore.PerformLayout();
