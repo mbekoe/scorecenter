@@ -526,10 +526,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (row == null)
                     continue;
 
-                // ignore controls outside area
-                if (posX > maxX || posY > maxY)
-                    continue;
-
                 posX = startX;
                 lineNumber++;
                 bool isHeader = !String.IsNullOrEmpty(score.Headers) && lineNumber == 0;
@@ -543,6 +539,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 for (int colIndex = 0; colIndex < row.Length; colIndex++)
                 {
+                    // ignore controls outside area
+                    if (posX > maxX || posY > maxY)
+                        continue;
+
                     string cell = row[colIndex];
 
                     // size of the columns (can be < 0)
@@ -552,10 +552,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     GUIControl.Alignment alignement = colSize > 0 ? GUIControl.Alignment.Right : GUIControl.Alignment.Left;
 
-                    // number of char
+                    // evaluate size of the control in pixel
                     int maxChar = Math.Abs(colSize + 1);
-
-                    // length in pixel
                     int length = charWidth * maxChar;
 
                     // set style for the cell
