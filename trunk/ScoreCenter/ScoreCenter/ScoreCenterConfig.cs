@@ -25,12 +25,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
-using System.Data;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -903,6 +904,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (e.ColumnIndex == colStyle.Index)
                 grdRule[e.ColumnIndex, e.RowIndex].Value = "";
+        }
+
+        private void btnOpenUrl_Click(object sender, EventArgs e)
+        {
+            if (tbxUrl.Text.Length > 0)
+            {
+                string url = ScoreParser.ParseUrl(tbxUrl.Text);
+                Process.Start(url);
+            }
         }
     }
 }

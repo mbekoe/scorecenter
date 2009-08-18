@@ -131,7 +131,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// </summary>
         /// <param name="url">The URL to parse.</param>
         /// <returns>The parsed URL.</returns>
-        private static string ParseUrl(string url)
+        public static string ParseUrl(string url)
         {
             string result = url;
 
