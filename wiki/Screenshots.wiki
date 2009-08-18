@@ -1,0 +1,13 @@
+#summary A few screenshots
+
+= Main Screen =
+
+The main screen displays all the available categories:
+
+http://scorecenter.googlecode.com/svn/wiki/images/Main.jpg
+
+= Category Screen =
+
+= League Screen =
+
+= Using Backdrops =
