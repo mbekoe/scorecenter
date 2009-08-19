@@ -52,6 +52,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
             m_parser = new ScoreParser(0);
+
+#if DEBUG
+            this.ShowInTaskbar = true;
+#endif
         }
 
         private void ScoreCenterConfig_Load(object sender, EventArgs e)
@@ -70,6 +74,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 colOperator.ValueMember = "ID";
                 colOperator.DisplayMember = "NAME";
 
+                cbxEncoding.Items.Add("utf-8");
+                cbxEncoding.Items.Add("utf-16");
+                cbxEncoding.Items.Add("utf-16BE");
+                cbxEncoding.Items.Add("utf-16LE");
 
                 UpdateStyleList();
 
@@ -210,6 +218,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxSizes.Text = score.Sizes;
                 tbxSkip.Text = score.Skip.ToString();
                 tbxMaxLines.Text = score.MaxLines.ToString();
+                cbxEncoding.SelectedItem = score.Encoding;
 
                 SetIcon(score.Image);
 
@@ -342,6 +351,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.XPath = tbxXpath.Text;
                 score.Headers = tbxHeaders.Text;
                 score.Sizes = tbxSizes.Text;
+                score.Encoding = cbxEncoding.SelectedItem.ToString();
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);

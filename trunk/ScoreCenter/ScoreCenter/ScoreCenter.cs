@@ -559,9 +559,12 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private int defaultSkinColorField;
         
+        private string backdropDirField;
+        
         public ScoreCenterSetup() {
             this.cacheExpirationField = 5;
             this.defaultSkinColorField = -16776961;
+            this.backdropDirField = "";
         }
         
         /// <remarks/>
@@ -596,6 +599,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.defaultSkinColorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string BackdropDir {
+            get {
+                return this.backdropDirField;
+            }
+            set {
+                this.backdropDirField = value;
             }
         }
     }

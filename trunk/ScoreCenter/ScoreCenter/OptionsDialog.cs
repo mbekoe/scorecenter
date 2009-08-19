@@ -22,9 +22,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void OptionsDialog_Load(object sender, EventArgs e)
         {
             string name = ScoreCenterPlugin.DefaultPluginName;
-            if (m_center.Setup != null && !String.IsNullOrEmpty(m_center.Setup.Name))
+            if (m_center.Setup != null)
             {
-                name = m_center.Setup.Name;
+                if (!String.IsNullOrEmpty(m_center.Setup.Name))
+                {
+                    name = m_center.Setup.Name;
+                }
+
+                tbxBackdrop.Text = m_center.Setup.BackdropDir;
             }
             
             tbxName.Text = name;
@@ -39,6 +44,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_center.Setup = new ScoreCenterSetup();
 
                 m_center.Setup.Name = tbxName.Text;
+                m_center.Setup.BackdropDir = tbxBackdrop.Text;
+            }
+        }
+
+        private void btnSelectDir_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                tbxBackdrop.Text = folderBrowserDialog1.SelectedPath;
             }
         }
     }

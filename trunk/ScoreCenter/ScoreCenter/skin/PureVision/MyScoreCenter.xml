@@ -19,7 +19,6 @@
     <import>common.window.xml</import>
 
 	<!-- uncomment to add backdrop matching current sport -->
-	<!--
     <control>
       <description>backdrop</description>
       <type>image</type>
@@ -28,12 +27,11 @@
       <posY>0</posY>
       <width>1280</width>
       <height>720</height>
-      <texture>C:\Team MediaPortal\FanArt\Sport\#ScoreCenter.Category.jpg</texture>
+      <texture>#ScoreCenter.bd.jpg</texture>
       <colordiffuse>500000FF</colordiffuse>
       <animation effect="fade" time="400">WindowClose</animation>
       <animation effect="fade" time="400">WindowOpen</animation>
     </control>
-    -->
 	
     <!--control>
       <type>fadelabel</type>

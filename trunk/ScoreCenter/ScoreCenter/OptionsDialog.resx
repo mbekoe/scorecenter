@@ -123,14 +123,14 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 89</value>
+    <value>261, 119</value>
   </data>
   <data name="btnOk.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnOk.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="btnOk.Text" xml:space="preserve">
     <value>OK</value>
@@ -145,7 +145,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnOk.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -154,13 +154,13 @@
     <value>NoControl</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 89</value>
+    <value>342, 119</value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -175,10 +175,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="tbxName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 18</value>
+    <value>131, 18</value>
   </data>
   <data name="tbxName.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 21</value>
@@ -196,7 +196,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbxName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -223,10 +223,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="numericUpDown1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 44</value>
+    <value>131, 44</value>
   </data>
   <data name="numericUpDown1.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 21</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;numericUpDown1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -274,8 +274,83 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
+  <data name="tbxBackdrop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 71</value>
+  </data>
+  <data name="tbxBackdrop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 21</value>
+  </data>
+  <data name="tbxBackdrop.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;tbxBackdrop.Name" xml:space="preserve">
+    <value>tbxBackdrop</value>
+  </data>
+  <data name="&gt;&gt;tbxBackdrop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbxBackdrop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbxBackdrop.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 76</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Backdrop Directory</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnSelectDir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>353, 71</value>
+  </data>
+  <data name="btnSelectDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 23</value>
+  </data>
+  <data name="btnSelectDir.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;btnSelectDir.Name" xml:space="preserve">
+    <value>btnSelectDir</value>
+  </data>
+  <data name="&gt;&gt;btnSelectDir.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSelectDir.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnSelectDir.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -283,7 +358,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>391, 124</value>
+    <value>429, 154</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -293,6 +368,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialog1.Name" xml:space="preserve">
+    <value>folderBrowserDialog1</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>

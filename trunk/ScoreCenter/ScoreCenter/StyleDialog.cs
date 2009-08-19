@@ -37,6 +37,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (this.DialogResult == DialogResult.OK)
             {
                 List<Style> toSave = new List<Style>();
+                Dictionary<string, string> rename = new Dictionary<string, string>();
                 foreach (StyleControl ctrl in flowLayoutPanel1.Controls)
                 {
                     Style style = ctrl.Tag as Style;
@@ -45,12 +46,30 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (style.Name.Length > 0)
                     {
                         toSave.Add(style);
+                        if (ctrl.OriginalName != style.Name)
+                        {
+                            rename.Add(ctrl.OriginalName.ToUpper(), style.Name);
+                        }
                     }
                 }
 
                 m_center.Styles = new Style[toSave.Count];
                 toSave.CopyTo(m_center.Styles, 0);
 
+                // rename in scores
+                foreach (Score score in m_center.Scores)
+                {
+                    if (score.Rules != null)
+                    {
+                        foreach (Rule r in score.Rules)
+                        {
+                            if (rename.ContainsKey(r.Format.ToUpper()))
+                                r.Format = rename[r.Format.ToUpper()];
+                        }
+                    }
+                }
+
+                // save setup
                 if (m_center.Setup == null)
                 {
                     m_center.Setup = new ScoreCenterSetup();
