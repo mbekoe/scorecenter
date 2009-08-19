@@ -11,6 +11,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public partial class StyleControl : UserControl
     {
+        private string m_originalName;
         public EventHandler OnDelete;
         public StyleControl()
         {
@@ -21,9 +22,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
 
+            m_originalName = name;
             tbxStyleName.Text = name;
             pnlStyle.BackColor = Color.FromArgb((int)code);
             tbxStyleName.ForeColor = pnlStyle.BackColor;
+        }
+
+        public string OriginalName
+        {
+            get { return m_originalName; }
         }
 
         public string StyleName

@@ -87,6 +87,7 @@
               <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
               <xs:element name="CacheExpiration" type="xs:int" minOccurs="0" maxOccurs="1" default="5" />
               <xs:element name="DefaultSkinColor" type="xs:int" minOccurs="0" maxOccurs="1" default="-16776961" />
+              <xs:element name="BackdropDir" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

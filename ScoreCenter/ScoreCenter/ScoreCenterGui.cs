@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
@@ -420,6 +421,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             GUIPropertyManager.SetProperty("#ScoreCenter.Category", name);
             GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", GetCategoryImage(name));
+
+            string bd = "-";
+            if (m_center.Setup != null && !String.IsNullOrEmpty(m_center.Setup.BackdropDir))
+            {
+                bd = Path.Combine(m_center.Setup.BackdropDir, name);
+                GUIPropertyManager.SetProperty("#ScoreCenter.bd", bd);
+            }
         }
 
         private void SetLeague(string name)

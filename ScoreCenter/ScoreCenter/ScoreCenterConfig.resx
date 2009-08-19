@@ -121,10 +121,32 @@
   <data name="gbxScore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cbxEncoding.Location" type="System.Drawing.Point, System.Drawing">
+    <value>59, 98</value>
+  </data>
+  <data name="cbxEncoding.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cbxEncoding.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;cbxEncoding.Name" xml:space="preserve">
+    <value>cbxEncoding</value>
+  </data>
+  <data name="&gt;&gt;cbxEncoding.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbxEncoding.Parent" xml:space="preserve">
+    <value>gbxScore</value>
+  </data>
+  <data name="&gt;&gt;cbxEncoding.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnOpenUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnOpenUrl.Location" type="System.Drawing.Point, System.Drawing">
     <value>520, 43</value>
   </data>
@@ -134,7 +156,6 @@
   <data name="btnOpenUrl.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 25</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnOpenUrl.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
@@ -154,19 +175,19 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnOpenUrl.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnAuto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnAuto.Location" type="System.Drawing.Point, System.Drawing">
-    <value>526, 121</value>
+    <value>527, 149</value>
   </data>
   <data name="btnAuto.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="btnAuto.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="btnAuto.Text" xml:space="preserve">
     <value>Auto</value>
@@ -184,7 +205,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnAuto.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tbxScore.Location" type="System.Drawing.Point, System.Drawing">
     <value>370, 19</value>
@@ -211,7 +232,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxScore.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tbxLeague.Location" type="System.Drawing.Point, System.Drawing">
     <value>214, 19</value>
@@ -238,7 +259,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxLeague.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tbxCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 19</value>
@@ -265,7 +286,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxCategory.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -295,7 +316,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ckxReload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -307,13 +328,13 @@
     <value>NoControl</value>
   </data>
   <data name="ckxReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 161</value>
+    <value>168, 183</value>
   </data>
   <data name="ckxReload.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 17</value>
   </data>
   <data name="ckxReload.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="ckxReload.Text" xml:space="preserve">
     <value>Reload</value>
@@ -331,7 +352,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;ckxReload.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btnSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -340,13 +361,13 @@
     <value>NoControl</value>
   </data>
   <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 157</value>
+    <value>6, 179</value>
   </data>
   <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="btnSave.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="btnSave.Text" xml:space="preserve">
     <value>Save</value>
@@ -364,7 +385,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btnTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -373,13 +394,13 @@
     <value>NoControl</value>
   </data>
   <data name="btnTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 157</value>
+    <value>87, 179</value>
   </data>
   <data name="btnTest.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="btnTest.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="btnTest.Text" xml:space="preserve">
     <value>Test</value>
@@ -397,7 +418,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnTest.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="lblMaxLines.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -412,7 +433,7 @@
     <value>54, 13</value>
   </data>
   <data name="lblMaxLines.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="lblMaxLines.Text" xml:space="preserve">
     <value>Max Lines</value>
@@ -427,7 +448,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblMaxLines.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="lblSkip.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -442,7 +463,7 @@
     <value>26, 13</value>
   </data>
   <data name="lblSkip.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="lblSkip.Text" xml:space="preserve">
     <value>Skip</value>
@@ -457,7 +478,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblSkip.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="tbxSkip.Location" type="System.Drawing.Point, System.Drawing">
     <value>615, 45</value>
@@ -469,7 +490,7 @@
     <value>45, 21</value>
   </data>
   <data name="tbxSkip.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="tbxSkip.ToolTip" xml:space="preserve">
     <value>Number of lines to skip in the table</value>
@@ -484,7 +505,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxSkip.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="tbxMaxLines.Location" type="System.Drawing.Point, System.Drawing">
     <value>615, 71</value>
@@ -496,7 +517,7 @@
     <value>45, 21</value>
   </data>
   <data name="tbxMaxLines.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="tbxMaxLines.ToolTip" xml:space="preserve">
     <value>Number of lines to display</value>
@@ -511,10 +532,10 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxMaxLines.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="tbxSizes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>58, 123</value>
+    <value>59, 151</value>
   </data>
   <data name="tbxSizes.MaxLength" type="System.Int32, mscorlib">
     <value>100</value>
@@ -523,7 +544,7 @@
     <value>462, 21</value>
   </data>
   <data name="tbxSizes.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="&gt;&gt;tbxSizes.Name" xml:space="preserve">
     <value>tbxSizes</value>
@@ -535,10 +556,10 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxSizes.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="tbxHeaders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>58, 97</value>
+    <value>59, 125</value>
   </data>
   <data name="tbxHeaders.MaxLength" type="System.Int32, mscorlib">
     <value>200</value>
@@ -547,7 +568,7 @@
     <value>462, 21</value>
   </data>
   <data name="tbxHeaders.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="tbxHeaders.ToolTip" xml:space="preserve">
     <value>Custom Headers</value>
@@ -562,7 +583,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxHeaders.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="tbxXpath.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 71</value>
@@ -589,7 +610,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxXpath.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="tbxUrl.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 45</value>
@@ -619,7 +640,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="lblSizes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -628,13 +649,13 @@
     <value>NoControl</value>
   </data>
   <data name="lblSizes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 126</value>
+    <value>21, 154</value>
   </data>
   <data name="lblSizes.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
   </data>
   <data name="lblSizes.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="lblSizes.Text" xml:space="preserve">
     <value>Sizes</value>
@@ -649,7 +670,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblSizes.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="lblHeaders.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -658,13 +679,13 @@
     <value>NoControl</value>
   </data>
   <data name="lblHeaders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 100</value>
+    <value>6, 128</value>
   </data>
   <data name="lblHeaders.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 13</value>
   </data>
   <data name="lblHeaders.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="lblHeaders.Text" xml:space="preserve">
     <value>Headers</value>
@@ -679,7 +700,37 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblHeaders.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 101</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>gbxScore</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>20</value>
   </data>
   <data name="lblXPath.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -709,7 +760,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblXPath.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="lblUrl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -739,13 +790,13 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblUrl.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="gbxScore.Location" type="System.Drawing.Point, System.Drawing">
     <value>218, 28</value>
   </data>
   <data name="gbxScore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 188</value>
+    <value>667, 210</value>
   </data>
   <data name="gbxScore.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -870,11 +921,17 @@
   <data name="colColumn.HeaderText" xml:space="preserve">
     <value>Column</value>
   </data>
+  <data name="colColumn.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
   <metadata name="colOperator.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="colOperator.HeaderText" xml:space="preserve">
     <value>Operator</value>
+  </data>
+  <data name="colOperator.Width" type="System.Int32, mscorlib">
+    <value>120</value>
   </data>
   <metadata name="colValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -882,11 +939,17 @@
   <data name="colValue.HeaderText" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="colValue.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
   <metadata name="colAction.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="colAction.HeaderText" xml:space="preserve">
     <value>Action</value>
+  </data>
+  <data name="colAction.Width" type="System.Int32, mscorlib">
+    <value>120</value>
   </data>
   <metadata name="colStyle.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -901,7 +964,7 @@
     <value>3, 3</value>
   </data>
   <data name="grdRule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 353</value>
+    <value>653, 331</value>
   </data>
   <data name="grdRule.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -925,7 +988,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpgRules.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 359</value>
+    <value>659, 337</value>
   </data>
   <data name="tpgRules.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -952,7 +1015,7 @@
     <value>3, 3</value>
   </data>
   <data name="grdTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 353</value>
+    <value>653, 331</value>
   </data>
   <data name="grdTest.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -976,7 +1039,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpgTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 359</value>
+    <value>659, 337</value>
   </data>
   <data name="tpgTest.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -997,10 +1060,10 @@
     <value>1</value>
   </data>
   <data name="tabScore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>218, 222</value>
+    <value>218, 244</value>
   </data>
   <data name="tabScore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 385</value>
+    <value>667, 363</value>
   </data>
   <data name="tabScore.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1763,6 +1826,12 @@
   <data name="&gt;&gt;ofdSelectIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ofdImport.Name" xml:space="preserve">
+    <value>ofdImport</value>
+  </data>
+  <data name="&gt;&gt;ofdImport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;colColumn.Name" xml:space="preserve">
     <value>colColumn</value>
   </data>
@@ -1792,12 +1861,6 @@
   </data>
   <data name="&gt;&gt;colStyle.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ofdImport.Name" xml:space="preserve">
-    <value>ofdImport</value>
-  </data>
-  <data name="&gt;&gt;ofdImport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ScoreCenterConfig</value>

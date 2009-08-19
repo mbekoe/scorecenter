@@ -120,7 +120,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             int nbLines = ll.Count;
-            if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = score.MaxLines;
+            if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = Math.Min(ll.Count, score.MaxLines);
             string[][] aa = new string[nbLines][];
             ll.CopyTo(0, aa, 0, nbLines);
             return aa;

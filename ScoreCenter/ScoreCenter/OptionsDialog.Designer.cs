@@ -35,6 +35,10 @@
             this.lblName = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbxBackdrop = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSelectDir = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,15 +76,36 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // tbxBackdrop
+            // 
+            resources.ApplyResources(this.tbxBackdrop, "tbxBackdrop");
+            this.tbxBackdrop.Name = "tbxBackdrop";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // btnSelectDir
+            // 
+            this.btnSelectDir.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.openfolderHS;
+            resources.ApplyResources(this.btnSelectDir, "btnSelectDir");
+            this.btnSelectDir.Name = "btnSelectDir";
+            this.btnSelectDir.UseVisualStyleBackColor = true;
+            this.btnSelectDir.Click += new System.EventHandler(this.btnSelectDir_Click);
+            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.btnOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.btnSelectDir);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblName);
+            this.Controls.Add(this.tbxBackdrop);
             this.Controls.Add(this.tbxName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -106,5 +131,9 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbxBackdrop;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSelectDir;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

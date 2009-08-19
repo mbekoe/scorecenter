@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.cbxEncoding = new System.Windows.Forms.ComboBox();
             this.btnOpenUrl = new System.Windows.Forms.Button();
             this.btnAuto = new System.Windows.Forms.Button();
             this.tbxScore = new System.Windows.Forms.TextBox();
@@ -50,6 +51,7 @@
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.lblSizes = new System.Windows.Forms.Label();
             this.lblHeaders = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblXPath = new System.Windows.Forms.Label();
             this.lblUrl = new System.Windows.Forms.Label();
             this.btnClearIcon = new System.Windows.Forms.Button();
@@ -75,14 +77,14 @@
             this.tabScore = new System.Windows.Forms.TabControl();
             this.tpgRules = new System.Windows.Forms.TabPage();
             this.grdRule = new System.Windows.Forms.DataGridView();
+            this.tpgTest = new System.Windows.Forms.TabPage();
+            this.ofdImport = new System.Windows.Forms.OpenFileDialog();
+            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colOperator = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tpgTest = new System.Windows.Forms.TabPage();
-            this.ofdImport = new System.Windows.Forms.OpenFileDialog();
-            this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -98,6 +100,7 @@
             // gbxScore
             // 
             resources.ApplyResources(this.gbxScore, "gbxScore");
+            this.gbxScore.Controls.Add(this.cbxEncoding);
             this.gbxScore.Controls.Add(this.btnOpenUrl);
             this.gbxScore.Controls.Add(this.btnAuto);
             this.gbxScore.Controls.Add(this.tbxScore);
@@ -117,10 +120,18 @@
             this.gbxScore.Controls.Add(this.tbxUrl);
             this.gbxScore.Controls.Add(this.lblSizes);
             this.gbxScore.Controls.Add(this.lblHeaders);
+            this.gbxScore.Controls.Add(this.label1);
             this.gbxScore.Controls.Add(this.lblXPath);
             this.gbxScore.Controls.Add(this.lblUrl);
             this.gbxScore.Name = "gbxScore";
             this.gbxScore.TabStop = false;
+            // 
+            // cbxEncoding
+            // 
+            this.cbxEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxEncoding.FormattingEnabled = true;
+            resources.ApplyResources(this.cbxEncoding, "cbxEncoding");
+            this.cbxEncoding.Name = "cbxEncoding";
             // 
             // btnOpenUrl
             // 
@@ -239,6 +250,11 @@
             // 
             resources.ApplyResources(this.lblHeaders, "lblHeaders");
             this.lblHeaders.Name = "lblHeaders";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // lblXPath
             // 
@@ -435,6 +451,30 @@
             this.grdRule.Name = "grdRule";
             this.grdRule.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdRule_DataError);
             // 
+            // tpgTest
+            // 
+            this.tpgTest.Controls.Add(this.grdTest);
+            resources.ApplyResources(this.tpgTest, "tpgTest");
+            this.tpgTest.Name = "tpgTest";
+            this.tpgTest.UseVisualStyleBackColor = true;
+            // 
+            // ofdImport
+            // 
+            resources.ApplyResources(this.ofdImport, "ofdImport");
+            // 
+            // tvwScores
+            // 
+            resources.ApplyResources(this.tvwScores, "tvwScores");
+            this.tvwScores.CheckBoxes = true;
+            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
+            this.tvwScores.FullRowSelect = true;
+            this.tvwScores.HideSelection = false;
+            this.tvwScores.LabelEdit = true;
+            this.tvwScores.Name = "tvwScores";
+            this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
+            this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
+            this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
+            // 
             // colColumn
             // 
             resources.ApplyResources(this.colColumn, "colColumn");
@@ -461,34 +501,11 @@
             // 
             // colStyle
             // 
+            this.colStyle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colStyle.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             resources.ApplyResources(this.colStyle, "colStyle");
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // tpgTest
-            // 
-            this.tpgTest.Controls.Add(this.grdTest);
-            resources.ApplyResources(this.tpgTest, "tpgTest");
-            this.tpgTest.Name = "tpgTest";
-            this.tpgTest.UseVisualStyleBackColor = true;
-            // 
-            // ofdImport
-            // 
-            resources.ApplyResources(this.ofdImport, "ofdImport");
-            // 
-            // tvwScores
-            // 
-            resources.ApplyResources(this.tvwScores, "tvwScores");
-            this.tvwScores.CheckBoxes = true;
-            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
-            this.tvwScores.FullRowSelect = true;
-            this.tvwScores.HideSelection = false;
-            this.tvwScores.LabelEdit = true;
-            this.tvwScores.Name = "tvwScores";
-            this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
-            this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
-            this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
             // 
             // ScoreCenterConfig
             // 
@@ -570,11 +587,13 @@
         private System.Windows.Forms.ToolStripButton tsbEditStyles;
         private System.Windows.Forms.OpenFileDialog ofdImport;
         private System.Windows.Forms.ToolStripButton tsbOptions;
+        private System.Windows.Forms.Button btnOpenUrl;
+        private System.Windows.Forms.ComboBox cbxEncoding;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn colOperator;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colAction;
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
-        private System.Windows.Forms.Button btnOpenUrl;
     }
 }

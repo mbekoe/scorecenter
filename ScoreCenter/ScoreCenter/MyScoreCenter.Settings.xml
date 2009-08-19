@@ -47,9 +47,10 @@
     <LeagueImg Category="Tennis" Name="ATP" Path="Tennis\ATP_World_Tour" />
   </Images>
   <Styles>
-    <Style Name="Champ" ForeColor="-32768" />
-    <Style Name="First" ForeColor="-128" />
-    <Style Name="Last" ForeColor="-32640" />
+    <Style Name="Orange" ForeColor="-32768" />
+    <Style Name="Yellow" ForeColor="-128" />
+    <Style Name="Red" ForeColor="-65536" />
+    <Style Name="White" ForeColor="-1" />
   </Styles>
   <Scores>
     <Score enable="true" Id="bd4d9510-76f9-4024-af3f-2aa4a09c1d13">
@@ -110,8 +111,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="47bcc4f7-49ef-4586-b7ed-320c10bfb658">
@@ -134,8 +135,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="7ad0c577-93a0-4b35-9552-3360d0d93f4a">
@@ -158,8 +159,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="40a40d2a-3254-4d6c-a4eb-3f489ff553e1">
@@ -182,8 +183,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="447e0a56-b692-47a9-87da-08a7497567bb">
@@ -206,8 +207,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="18" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="17397bd5-d31e-4505-8a98-81478ea30771">
@@ -230,8 +231,8 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="First" />
-        <Rule Column="-1" Value="16" Operator="GE" Action="FormatLine" Format="Last" />
+        <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="-1" Value="16" Operator="GE" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="31c82375-b200-4dc1-a592-fce37357905b">
@@ -269,8 +270,12 @@
       <Name>Standings Pilots</Name>
       <Url>http://www.lequipe.fr/Formule1/f1-classement-pilotes.html</Url>
       <XPath>//table[@class='ClassementPilotes']</XPath>
-      <Sizes>2,-16,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3</Sizes>
+      <Sizes>2,-12,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2</Sizes>
       <Image>Motors\Standings Pilots</Image>
+      <Rules>
+        <Rule Column="1" Value="z" Operator="NotContains" Action="FormatCell" Format="White" />
+        <Rule Column="0" Value="10" Operator="Contains" Action="FormatCell" Format="Orange" />
+      </Rules>
     </Score>
     <Score enable="true" Id="63374540-869f-4929-80b9-510430b876bc">
       <Category>Motors</Category>
@@ -278,7 +283,7 @@
       <Name>Standings Teams</Name>
       <Url>http://www.lequipe.fr/Formule1/f1-classement-ecuries.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Sizes>1,-23,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3</Sizes>
+      <Sizes>1,-13,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2</Sizes>
       <Image>Motors\Standings Teams</Image>
     </Score>
     <Score enable="true" Id="89cc812a-95d3-4ac7-b780-720571d204e9">
@@ -561,7 +566,7 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="2" Operator="LE" Action="FormatLine" Format="First" />
+        <Rule Column="-1" Value="2" Operator="LE" Action="FormatLine" Format="Orange" />
       </Rules>
     </Score>
     <Score enable="true" Id="c8b6eb71-5fa6-413a-89d7-c9a0674e76e1">
@@ -584,7 +589,7 @@
       <Skip>1</Skip>
       <Image>Standings</Image>
       <Rules>
-        <Rule Column="-1" Value="1" Operator="LE" Action="FormatLine" Format="First" />
+        <Rule Column="-1" Value="1" Operator="LE" Action="FormatLine" Format="Orange" />
       </Rules>
     </Score>
     <Score enable="true" Id="b5b57e34-1689-492e-8d3e-0b234f2ce035">
@@ -641,7 +646,7 @@
       <MaxLines>21</MaxLines>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="3" Operator="MOD" Action="FormatLine" Format="First" />
+        <Rule Column="-1" Value="3" Operator="MOD" Action="FormatLine" Format="Orange" />
       </Rules>
     </Score>
     <Score enable="true" Id="33a80f7f-b701-4da8-be9d-7ad56d801e50">
@@ -891,11 +896,10 @@
       <Name>Results</Name>
       <Url>http://scores.espn.go.com/mlb/scoreboard?date={yyyyMMdd}</Url>
       <XPath>//div[@id='gamesLeft-1']//table[@class='game-details']</XPath>
-      <Headers>Team,1,2,3,4,5,6,7,8,9,,R,H,E</Headers>
       <Sizes>-6,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="1,2,5,6,9,10,13,14,17,18" Operator="InList" Action="FormatLine" Format="First" />
+        <Rule Column="-1" Value="3" Operator="MOD" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
     <Score enable="true" Id="93a5b312-bef8-4c6b-9f2a-3018a66eeb82">
@@ -904,11 +908,10 @@
       <Name>Results</Name>
       <Url>http://scores.espn.go.com/mlb/scoreboard?date={yyyyMMdd}</Url>
       <XPath>//div[@id='gamesRight-1']//table[@class='game-details']</XPath>
-      <Headers>Team,1,2,3,4,5,6,7,8,9,,R,H,E</Headers>
       <Sizes>-6,2,2,2,2,2,2,2,2,2,0,2,2,2</Sizes>
       <Image>Results</Image>
       <Rules>
-        <Rule Column="-1" Value="1,2,5,6,9,10,13,14,17,18" Operator="InList" Action="FormatLine" Format="First" />
+        <Rule Column="1" Value="" Operator="EqualTo" Action="FormatLine" Format="Red" />
       </Rules>
     </Score>
   </Scores>
