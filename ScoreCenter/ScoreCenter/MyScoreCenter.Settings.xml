@@ -108,7 +108,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -132,7 +132,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -156,7 +156,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -180,7 +180,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -204,7 +204,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="4" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -228,7 +228,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="3" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -243,7 +243,7 @@
       <XPath>//div[@id='programme']//table[1]</XPath>
       <Headers>Team,Pts,B,P,W,L,sf,sa,Diff</Headers>
       <Sizes>-20,4,3,3,3,3,4,4,5</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="2920ba03-c820-4b2f-8ff9-3d22a35e0e89">
@@ -261,7 +261,9 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Formule1/f1-calendrier.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
+      <Headers>,Race,Winner</Headers>
       <Sizes>2,-30,-50</Sizes>
+      <Skip>2</Skip>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="a05d71d4-836e-4aed-b267-06718821c488">
@@ -283,7 +285,9 @@
       <Name>Standings Teams</Name>
       <Url>http://www.lequipe.fr/Formule1/f1-classement-ecuries.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
+      <Headers>,Team,Pts</Headers>
       <Sizes>1,-13,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2</Sizes>
+      <Skip>1</Skip>
       <Image>Motors\Standings Teams</Image>
     </Score>
     <Score enable="true" Id="89cc812a-95d3-4ac7-b780-720571d204e9">
@@ -310,7 +314,9 @@
       <Name>East</Name>
       <Url>http://www.lequipe.fr/Basket/BasketClassementNBA{yyyy}_E.html</Url>
       <XPath>//table[@id='class_nba']</XPath>
+      <Headers>,Team,%W,P,W,L,H,A</Headers>
       <Sizes>2,-25,5,2,2,2,7,7</Sizes>
+      <Skip>2</Skip>
     </Score>
     <Score enable="true" Id="627a9c56-194e-4fc4-a248-6d2982d91096">
       <Category>Basketball</Category>
@@ -318,7 +324,9 @@
       <Name>West</Name>
       <Url>http://www.lequipe.fr/Basket/BasketClassementNBA{yyyy}_W.html</Url>
       <XPath>//table[@id='class_nba']</XPath>
+      <Headers>,Team,%W,P,W,L,H,A</Headers>
       <Sizes>2,-25,5,2,2,2,7,7</Sizes>
+      <Skip>2</Skip>
     </Score>
     <Score enable="true" Id="6024d314-cd2b-4367-9de7-7d954d298418">
       <Category>Football</Category>
@@ -350,7 +358,7 @@
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>4,-30,4,6,10</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
@@ -362,7 +370,7 @@
       <XPath>//div[@id='ClassementButeurs']/table</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>4,-30,4,6,10</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
@@ -374,7 +382,7 @@
       <XPath>//div[@id='ClassementButeurs']/table</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>2,-35,2,2,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
@@ -384,8 +392,9 @@
       <Name>General</Name>
       <Url>http://www.lequipe.fr/Cyclisme/RES_GIR.html</Url>
       <XPath>//div[@id='programme']/table</XPath>
+      <Headers>R,Rider,Time</Headers>
       <Sizes>5,-30,13</Sizes>
-      <Skip>2</Skip>
+      <Skip>3</Skip>
       <MaxLines>20</MaxLines>
       <Image>Cycling\Giro General</Image>
     </Score>
@@ -397,7 +406,7 @@
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>4,-40,4,4,10</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
@@ -409,7 +418,7 @@
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>3,-44,4,4,10</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
@@ -419,7 +428,7 @@
       <Name>Stage</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_ETAPE.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Rider,Time</Headers>
+      <Headers>R,Rider,Time</Headers>
       <Sizes>5,-30,10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -431,7 +440,7 @@
       <Name>General</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_GENERAL.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Rider,Time</Headers>
+      <Headers>R,Rider,Time</Headers>
       <Sizes>5,-30,-10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -443,7 +452,7 @@
       <Name>Points</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_POINTS.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Rider,Points</Headers>
+      <Headers>R,Rider,Points</Headers>
       <Sizes>5,-30,10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -455,7 +464,7 @@
       <Name>Mountain</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_MONTAGNE.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Rider,Points</Headers>
+      <Headers>R,Rider,Points</Headers>
       <Sizes>5,-30,10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -467,7 +476,7 @@
       <Name>Team</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_EQUPE.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Team,Time</Headers>
+      <Headers>R,Team,Time</Headers>
       <Sizes>5,-30,10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -489,7 +498,7 @@
       <Name>Young Rider</Name>
       <Url>http://www.lequipe.fr/Cyclisme/resultats/TDF_JEUNE.html</Url>
       <XPath>//div[@id='programme']/table[1]</XPath>
-      <Headers>Place,Rider,Time</Headers>
+      <Headers>R,Rider,Time</Headers>
       <Sizes>5,-30,-10</Sizes>
       <Skip>3</Skip>
       <MaxLines>20</MaxLines>
@@ -563,7 +572,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="2" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -586,7 +595,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
       <Rules>
         <Rule Column="-1" Value="1" Operator="LE" Action="FormatLine" Format="Orange" />
@@ -609,7 +618,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="28a8e3d4-812d-4a41-b6ab-8179f35fcafd">
@@ -657,7 +666,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="c9576996-c848-4d20-8b3f-85c299c7aff3">
@@ -677,7 +686,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="22627327-8592-4c75-9404-5ae1330ffa05">
@@ -697,7 +706,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="4d8cbcec-a874-4f88-a2d5-d1060c6c27ad">
@@ -717,7 +726,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="e49f27ab-0b77-4bf7-95b5-577a3f1ba877">
@@ -746,7 +755,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="21f06b8e-75ae-40a7-b2d9-910ed276fab1">
@@ -757,7 +766,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="3d3f8b4d-a12a-4e7a-9959-35bf8364f31c">
@@ -786,7 +795,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="3073b973-4e64-45fd-bbdd-79417f452111">
@@ -797,7 +806,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="ce255698-1514-4779-9742-2cf877bcabfa">
@@ -817,7 +826,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="3415cf38-547e-4ec9-830a-c7ac53bb48a6">
@@ -837,7 +846,7 @@
       <XPath>//div[@id='ClassementGeneral']/table[1]</XPath>
       <Headers>N°,Team,Pts,GP,W,T,L,GF,GA,Diff</Headers>
       <Sizes>3,-20,3,3,3,3,3,3,3,4</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Standings</Image>
     </Score>
     <Score enable="true" Id="44550b3b-67b5-4a8e-a8fd-bda6cbf02d51">
@@ -857,7 +866,7 @@
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
       <Sizes>-8,-16,-9,-12,0,-15</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="286c660b-d5fc-4205-afe1-326f49fc52b7">
@@ -868,7 +877,7 @@
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
       <Sizes>-8,-16,-9,-12,0,-15</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="b808a235-9729-4dc7-be26-d33460b02970">
@@ -879,7 +888,7 @@
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>4,-40,4,4,10</Sizes>
-      <Skip>1</Skip>
+      <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
     </Score>
