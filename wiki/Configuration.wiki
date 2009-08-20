@@ -1,4 +1,5 @@
 #summary How to configure My Score Center
+#labels Featured
 
 = Navigation =
 The different scores are classified by _Category_ and _League_.
