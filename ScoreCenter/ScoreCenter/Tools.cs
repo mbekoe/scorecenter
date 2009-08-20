@@ -48,7 +48,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             try
             {
-                Encoding code = encoding.Length == 0 ? Encoding.Default : Encoding.GetEncoding(encoding);
+                Encoding code = GetEncoding(encoding);
                 response = client.OpenRead(url);
                 StreamReader sr = new StreamReader(response, code);
                 file = sr.ReadToEnd();
@@ -60,6 +60,37 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return file;
+        }
+
+        /// <summary>
+        /// Get the encoding from a name or a code page.
+        /// </summary>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static Encoding GetEncoding(string encoding)
+        {
+            Encoding result = Encoding.UTF8;
+            if (String.IsNullOrEmpty(encoding))
+                return result;
+
+            try
+            {
+                int code;
+                if (int.TryParse(encoding, out code))
+                {
+                    result = Encoding.GetEncoding(code);
+                }
+                else
+                {
+                    result = Encoding.GetEncoding(encoding);
+                }
+            }
+            catch (Exception)
+            {
+                result = Encoding.UTF8;
+            }
+
+            return result;
         }
 
         /// <summary>

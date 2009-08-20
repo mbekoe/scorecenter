@@ -74,11 +74,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 colOperator.ValueMember = "ID";
                 colOperator.DisplayMember = "NAME";
 
-                cbxEncoding.Items.Add("utf-8");
-                cbxEncoding.Items.Add("utf-16");
-                cbxEncoding.Items.Add("utf-16BE");
-                cbxEncoding.Items.Add("utf-16LE");
-
                 UpdateStyleList();
 
                 BuildScoreList(tvwScores, m_center, true);
@@ -214,11 +209,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 tbxUrl.Text = score.Url;
                 tbxXpath.Text = score.XPath;
+                tbxEncoding.Text = score.Encoding;
                 tbxHeaders.Text = score.Headers;
                 tbxSizes.Text = score.Sizes;
                 tbxSkip.Text = score.Skip.ToString();
                 tbxMaxLines.Text = score.MaxLines.ToString();
-                cbxEncoding.SelectedItem = score.Encoding;
+                tbxElement.Text = score.Element;
 
                 SetIcon(score.Image);
 
@@ -235,10 +231,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 tbxUrl.Text = String.Empty;
                 tbxXpath.Text = String.Empty;
+                tbxEncoding.Text = String.Empty;
                 tbxHeaders.Text = String.Empty;
                 tbxSizes.Text = String.Empty;
                 tbxSkip.Text = String.Empty;
                 tbxMaxLines.Text = String.Empty;
+                tbxElement.Text = String.Empty;
 
                 ClearIcon();
                 if (tvwScores.SelectedNode.Level == 0)
@@ -351,7 +349,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.XPath = tbxXpath.Text;
                 score.Headers = tbxHeaders.Text;
                 score.Sizes = tbxSizes.Text;
-                score.Encoding = cbxEncoding.SelectedItem.ToString();
+                score.Encoding = tbxEncoding.Text;
+                score.Element = tbxElement.Text;
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);
@@ -453,21 +452,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SaveConfig()
         {
-            //ScoreCenter center = new ScoreCenter();
-
-            ////
-            //center.Setup = new ScoreCenterSetup();
-
-            ////
-            //if (m_center.Scores != null)
-            //{
-            //    center.Scores = new Score[m_center.Scores.Length];
-            //    for (int i = 0; i < m_scores.Count; i++)
-            //    {
-            //        center.Scores[i] = m_center.Scores[i];
-            //    }
-            //}
-
             Tools.SaveSettings(m_settings, m_center, true);
         }
 
@@ -482,10 +466,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 // instead of saved values
                 Score score = new Score();
                 score.Url = tbxUrl.Text;
+                score.Encoding = tbxEncoding.Text;
                 score.XPath = tbxXpath.Text;
                 score.Sizes = tbxSizes.Text;
                 score.Headers = tbxHeaders.Text;
 
+                score.Element = tbxElement.Text;
                 score.Skip = ReadInt(tbxSkip);
                 score.MaxLines = ReadInt(tbxMaxLines);
 

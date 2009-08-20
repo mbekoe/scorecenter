@@ -207,6 +207,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string xPathField;
         
+        private string elementField;
+        
         private string headersField;
         
         private string sizesField;
@@ -224,7 +226,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         private string idField;
         
         public Score() {
-            this.encodingField = "utf-8";
+            this.encodingField = "";
+            this.elementField = "";
             this.headersField = "";
             this.sizesField = "";
             this.skipField = 0;
@@ -279,7 +282,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute("utf-8")]
+        [System.ComponentModel.DefaultValueAttribute("")]
         public string Encoding {
             get {
                 return this.encodingField;
@@ -297,6 +300,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.xPathField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Element {
+            get {
+                return this.elementField;
+            }
+            set {
+                this.elementField = value;
             }
         }
         
