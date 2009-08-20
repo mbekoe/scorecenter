@@ -272,7 +272,9 @@
       <Name>Standings Pilots</Name>
       <Url>http://www.lequipe.fr/Formule1/f1-classement-pilotes.html</Url>
       <XPath>//table[@class='ClassementPilotes']</XPath>
+      <Headers>,Driver,Pts</Headers>
       <Sizes>2,-12,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2</Sizes>
+      <Skip>1</Skip>
       <Image>Motors\Standings Pilots</Image>
       <Rules>
         <Rule Column="1" Value="z" Operator="NotContains" Action="FormatCell" Format="White" />
@@ -296,7 +298,9 @@
       <Name>Standings Pilots</Name>
       <Url>http://www.lequipe.fr/Rallye/{yyyy}/classement-pilotes-wrc.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
+      <Headers>R,Driver,Pts</Headers>
       <Sizes>5,-30,6</Sizes>
+      <Skip>2</Skip>
       <Image>Motors\Standings Pilots</Image>
     </Score>
     <Score enable="true" Id="3098f8f7-7f2f-4522-9389-1241ff2e8bb3">
@@ -305,7 +309,9 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Rallye/{yyyy}/calendrier-wrc.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
+      <Headers>Date,Race,Winner</Headers>
       <Sizes>-25,-25,-20</Sizes>
+      <Skip>2</Skip>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="71496b69-e0e1-48dd-a356-9e4f9e86ef60">
@@ -414,10 +420,10 @@
       <Category>Football</Category>
       <Ligue>Serie A</Ligue>
       <Name>Top Scorers</Name>
-      <Url>http://www.lequipe.fr/Football/FootballClassementChampionnat1068_BUT_1.html</Url>
+      <Url>http://www.lequipe.fr/Football/FootballClassementChampionnat886_BUT_1.html</Url>
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
-      <Sizes>3,-44,4,4,10</Sizes>
+      <Sizes>3,-35,3,3,10</Sizes>
       <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
@@ -635,7 +641,8 @@
       <Ligue>ICC</Ligue>
       <Name>ODI Championship</Name>
       <Url>http://www.cricinfo.com/ci-icc/content/page/211271.html</Url>
-      <XPath>//table[@class='StoryengineTable'];1</XPath>
+      <XPath>//table[@class='StoryengineTable']</XPath>
+      <Element>1</Element>
       <Sizes>-20,7,6,6</Sizes>
     </Score>
     <Score enable="true" Id="ee249b08-3ff9-40f2-92f4-4df496fefe14">
@@ -643,7 +650,8 @@
       <Ligue>ICC</Ligue>
       <Name>Test Championship</Name>
       <Url>http://www.cricinfo.com/ci-icc/content/page/211271.html</Url>
-      <XPath>//table[@class='StoryengineTable'];0</XPath>
+      <XPath>//table[@class='StoryengineTable']</XPath>
+      <Element>0</Element>
       <Sizes>-20,7,6,6</Sizes>
     </Score>
     <Score enable="true" Id="55af7758-d4cc-485c-826f-caf91912953d">
@@ -887,7 +895,7 @@
       <Url>http://www.lequipe.fr/Football/FootballClassementChampionnat1065_BUT_1.html</Url>
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
-      <Sizes>4,-40,4,4,10</Sizes>
+      <Sizes>2,-35,2,2,4</Sizes>
       <Skip>2</Skip>
       <MaxLines>20</MaxLines>
       <Image>Football\Top Scorers</Image>
