@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
@@ -387,6 +388,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             GUIWaitCursor.Show();
             System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
             {
+                string url = String.Empty;
                 try
                 {
                     GUIListItem item = lstDetails.SelectedListItem;
@@ -394,12 +396,20 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (score == null)
                         return;
 
+                    url = score.Url;
                     LogMessage("ShowScore: Url={0}", score.Url);
                     LogMessage("ShowScore: XPath={0}", score.XPath);
 
                     string[][] results = Parser.Read(score, false);
                     SetScore(score);
                     CreateGrid(results, score);
+                }
+                catch (WebException exc)
+                {
+                    LogError("Error in LoadScore", exc);
+                    string txt = "Address not found:" + Environment.NewLine;
+                    txt += url;
+                    GUIControl.SetControlLabel(GetID, 20, txt);
                 }
                 catch (Exception exc)
                 {
