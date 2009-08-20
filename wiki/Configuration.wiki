@@ -34,3 +34,24 @@ This is useful because sometimes it is difficult to find an expression that retu
 It is possible to format the results by applying rules to it.
 Rules can be defined in the configuration screen in the _Rules_ tab.
 The rules are defined for the current score.
+
+A rule is composed of:
+ * a column number
+     * 1-based index of the column
+     * -1 means the line number
+     * 0 means any columns
+ * an operator
+     * equal, not equal, <, <=, >, >=
+     * contains, not contains, starts/ends with, not starts/ends with
+     * in list
+     * modulo
+ * a value
+     * in list: values are separated by a comma => 1,2,3
+     * modulo: the value is the divisor and the test is true if the result is 0
+ * an action
+     * format the cell
+     * format the line containing the cell
+ * a style to apply the format
+     * styles are defined separately and contain only the font color
+
+The default configuration file contains several examples.
