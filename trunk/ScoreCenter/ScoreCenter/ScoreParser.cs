@@ -61,10 +61,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             string url = ParseUrl(score.Url);
             string xpath = score.XPath;
             int index = -1;
-            if (xpath.Contains(";"))
+            if (score.Element.Length > 0)
             {
-                xpath = score.XPath.Split(';')[0];
-                index = int.Parse(score.XPath.Split(';')[1]);
+                if (int.TryParse(score.Element, out index) == false)
+                    index = -1;
             }
 
             int skip = score.Skip;

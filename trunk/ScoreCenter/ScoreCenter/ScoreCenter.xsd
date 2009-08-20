@@ -46,8 +46,9 @@
         <xs:element name="Ligue" type="xs:string" minOccurs="1" maxOccurs="1" />
         <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
         <xs:element name="Url" type="xs:string" minOccurs="1" maxOccurs="1" />
-        <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="utf-8" />
+        <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="XPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Element" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="Sizes" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="Skip" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
