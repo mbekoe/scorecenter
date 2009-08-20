@@ -4,7 +4,7 @@
 The different scores are classified by _Category_ and _League_.
 A category is for example a sport, like football (or soccer) and a league a championship for this sport. Then for a league you can have different scores: last results, standing...
 
-
+----
 = Score Definition =
 A score is defined by an URL and an XPath expression (both are required).
 
@@ -15,7 +15,10 @@ Example:
 ||//table`[`@class='score'`]`||all the tables with the class attributes equal to 'score'||
 ||//div`[`@id='team'`]`//table`[`1`]`||the first table included in a div with id='team'||
 
+You can select several path with the operator |
+Ex: //table[@id='1'] | //table[@id='2']
 
+----
 = Additional Parsing Rules =
 == Variables URL ==
 Sometimes the URL is not fixed and depend on the date (current year or current month). To define a variable url use {} and [http://msdn.microsoft.com/en-us/library/8kb3ddd4(VS.96).aspx .Net custom date formatting].
@@ -30,6 +33,13 @@ This is useful because sometimes it is difficult to find an expression that retu
 
 == Skip, Max Lines and Headers ==
 
+The skip property indicates the number of lines to skip.
+Max Lines indicates the maximum number of lines to include in the results.
+_Note_ these properties apply to each tables.
+
+The header property allows you to enter your own header.
+
+----
 = Formatting the results =
 It is possible to format the results by applying rules to it.
 Rules can be defined in the configuration screen in the _Rules_ tab.
