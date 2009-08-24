@@ -67,6 +67,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExchangeManager.cs" />
     <Compile Include="ExportDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +92,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RuleEvaluator.cs" />
+    <Compile Include="ScoreCache.cs" />
     <Compile Include="ScoreCenter.cs">
       <DependentUpon>ScoreCenter.xsd</DependentUpon>
     </Compile>

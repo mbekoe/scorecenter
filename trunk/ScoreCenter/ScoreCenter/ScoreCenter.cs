@@ -184,6 +184,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         FormatLine,
+        
+        /// <remarks/>
+        MergeCells,
     }
     
     /// <remarks/>
@@ -576,10 +579,19 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string backdropDirField;
         
+        private bool updateOnlineField;
+        
+        private string updateUrlField;
+        
+        private string updateRuleField;
+        
         public ScoreCenterSetup() {
             this.cacheExpirationField = 5;
             this.defaultSkinColorField = -16776961;
             this.backdropDirField = "";
+            this.updateOnlineField = false;
+            this.updateUrlField = "";
+            this.updateRuleField = "";
         }
         
         /// <remarks/>
@@ -626,6 +638,42 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.backdropDirField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool UpdateOnline {
+            get {
+                return this.updateOnlineField;
+            }
+            set {
+                this.updateOnlineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string UpdateUrl {
+            get {
+                return this.updateUrlField;
+            }
+            set {
+                this.updateUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string UpdateRule {
+            get {
+                return this.updateRuleField;
+            }
+            set {
+                this.updateRuleField = value;
             }
         }
     }

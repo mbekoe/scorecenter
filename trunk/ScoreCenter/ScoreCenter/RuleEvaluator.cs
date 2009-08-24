@@ -9,15 +9,13 @@ namespace MediaPortal.Plugin.ScoreCenter
     public class RuleEvaluator
     {
         private Rule[] m_rules;
-        private ScoreCenter m_center;
 
-        public RuleEvaluator(Rule[] rules, ScoreCenter center)
+        public RuleEvaluator(Rule[] rules)
         {
             m_rules = rules;
-            m_center = center;
         }
 
-        public Style CheckCell(string text, int colIndex)
+        public Rule CheckCell(string text, int colIndex)
         {
             if (m_rules == null || m_rules.Length == 0)
                 return null;
@@ -28,16 +26,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                     continue;
                 
                 if (rule.Column == 0 && Evaluate(rule, text))
-                    return m_center.FindStyle(rule.Format);
+                    return rule;
 
                 if ((rule.Column == colIndex + 1) && Evaluate(rule, text))
-                    return m_center.FindStyle(rule.Format);
+                    return rule;
             }
 
             return null;
         }
 
-        public Style CheckLine(string[] text, int line)
+        public Rule CheckLine(string[] text, int line)
         {
             if (m_rules == null || m_rules.Length == 0)
                 return null;
@@ -45,7 +43,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             foreach (Rule rule in m_rules)
             {
                 // only check rules applying to line
-                if (rule.Action != RuleAction.FormatLine)
+                if (rule.Action != RuleAction.FormatLine
+                    && rule.Action != RuleAction.MergeCells)
                     continue;
 
                 if (rule.Column == 0)
@@ -54,20 +53,20 @@ namespace MediaPortal.Plugin.ScoreCenter
                     for (int i = 0; i < text.Length; i++)
                     {
                         if (Evaluate(rule, text[i]))
-                            return m_center.FindStyle(rule.Format);
+                            return rule;
                     }
                 }
                 else if (rule.Column == -1)
                 {
                     // rule applies to the line number
                     if (Evaluate(rule, line.ToString()))
-                        return m_center.FindStyle(rule.Format);
+                        return rule;
                 }
                 else if (text.Length >= rule.Column)
                 {
                     // rule applies to a specific column
                     if (Evaluate(rule, text[rule.Column - 1]))
-                        return m_center.FindStyle(rule.Format);
+                        return rule;
                 }
             }
 

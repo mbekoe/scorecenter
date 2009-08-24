@@ -490,9 +490,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                         }
                     }
 
-                    grdTest.Columns.Clear();
                     for (int i = 0; i < Math.Min(20, nbColumns); i++)
+                    {
                         grdTest.Columns.Add(i.ToString(), i.ToString());
+                    }
 
                     foreach (string[] ss in lines)
                     {
@@ -883,7 +884,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void tsbOptions_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog(m_center);
-            dlg.ShowDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                RefreshTree();
+            }
+            
             dlg.Dispose();
         }
 

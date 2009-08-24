@@ -6,7 +6,7 @@
   <controls>
     <import>common.time.xml</import>
 
-	<!-- uncomment to add backdrop matching current sport -->
+	<!-- backdrop matching current sport -->
     <control>
       <description>backdrop</description>
       <type>image</type>
@@ -152,6 +152,7 @@
       <spinPosX>10</spinPosX>
       <spinPosY>650</spinPosY>
       <textcolor>ffffffff</textcolor>
+      <onright>40</onright>
     </control>
 
     <control>
@@ -165,6 +166,18 @@
       <height>660</height>
       <font>font14</font>
       <textcolor>ff000000</textcolor>
+    </control>
+
+    <control>
+      <description>Next Button</description>
+      <type>button</type>
+      <id>40</id>
+      <posX>200</posX>
+      <posY>670</posY>
+      <width>100</width>
+      <label>Next</label>
+      <onup>10</onup>
+      <ondown>10</ondown>
     </control>
 
   </controls>

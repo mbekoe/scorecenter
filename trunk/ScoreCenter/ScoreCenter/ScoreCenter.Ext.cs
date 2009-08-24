@@ -6,16 +6,17 @@ using System.Data;
 namespace MediaPortal.Plugin.ScoreCenter
 {
     /// <summary>
-    /// Type of merge.
+    /// Import Options.
     /// </summary>
     [Flags]
-    public enum MergeType
+    public enum ImportOptions
     {
         None = 0,
-        Names = 1,
-        Parsing = 2,
-        Rules = 4,
-        All = Names | Parsing | Rules
+        New = 1,
+        Names = 2,
+        Parsing = 4,
+        Rules = 8,
+        All = New | Names | Parsing | Rules
     }
 
     public static class EnumManager
@@ -28,6 +29,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             dt.Rows.Add(RuleAction.FormatCell.ToString(), "Format Cell");
             dt.Rows.Add(RuleAction.FormatLine.ToString(), "Format Line");
+            dt.Rows.Add(RuleAction.MergeCells.ToString(), "Merge Cells");
 
             return dt;
         }
@@ -100,25 +102,45 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return null;
         }
+
+        public bool IsCategoryUpdated(string category)
+        {
+            return false;
+        }
     }
 
     partial class Score
     {
-        public void Merge(Score newScore, MergeType type)
+        public bool Merge(Score newScore, ImportOptions type)
         {
-            if ((type & MergeType.Names) == MergeType.Names)
+            bool result = false;
+            if ((type & ImportOptions.Names) == ImportOptions.Names)
             {
+                result |= (String.Compare(this.Name, newScore.Name, true) != 0)
+                    || (String.Compare(this.Category, newScore.Category, true) != 0)
+                    || (String.Compare(this.Ligue, newScore.Ligue, true) != 0);
+
                 this.Name = newScore.Name;
                 this.Category = newScore.Category;
                 this.Ligue = newScore.Ligue;
                 this.Image = newScore.Image;
 
                 if (newScore.Headers.Length > 0 || this.Headers.Length == 0)
+                {
                     this.Headers = newScore.Headers;
+                    result = true;
+                }
             }
 
-            if ((type & MergeType.Names) == MergeType.Parsing)
+            if ((type & ImportOptions.Parsing) == ImportOptions.Parsing)
             {
+                result |= (String.Compare(this.Url, newScore.Url, true) != 0)
+                    || (String.Compare(this.XPath, newScore.XPath, true) != 0)
+                    || (this.Skip != newScore.Skip)
+                    || (this.MaxLines != newScore.MaxLines)
+                    || (String.Compare(this.Encoding, newScore.Encoding, true) != 0)
+                    || (String.Compare(this.Element, newScore.Element, true) != 0);
+
                 this.Url = newScore.Url;
                 this.XPath = newScore.XPath;
                 this.Skip = newScore.Skip;
@@ -126,12 +148,23 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Sizes = newScore.Sizes;
             }
 
-            if ((type & MergeType.Names) == MergeType.Rules)
+            if ((type & ImportOptions.Rules) == ImportOptions.Rules)
             {
-                if (newScore.Rules != null)
+                if (newScore.Rules != null && newScore.Rules.Length > 0)
                 {
                     this.Rules = newScore.Rules;
+                    result = true;
                 }
+            }
+
+            return result;
+        }
+
+        public string LeagueFullName
+        {
+            get
+            {
+                return String.Format("{0}#{1}", Category, Ligue);
             }
         }
 

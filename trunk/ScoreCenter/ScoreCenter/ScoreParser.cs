@@ -26,33 +26,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net;
 using HtmlAgilityPack;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
     public class ScoreParser
     {
-        /// <summary>
-        /// Client used to download files.
-        /// </summary>
-        private WebClient m_client;
-
-        /// <summary>
-        /// Cache.
-        /// </summary>
-        private IDictionary<string, CacheElement> m_cache;
-
-        private int m_lifeTime = 0;
+        private ScoreCache m_cache;
 
         /// <summary>
         /// Default Constructor.
         /// </summary>
         public ScoreParser(int lifeTime)
         {
-            m_client = new WebClient();
-            m_cache = new Dictionary<string, CacheElement>();
-            m_lifeTime = lifeTime;
+            m_cache = new ScoreCache(lifeTime);
         }
 
         public string[][] Read(Score score, bool reload)
@@ -71,18 +58,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             int max = score.MaxLines;
             if (max > 0) max += skip;
 
-            string html = String.Empty;
-            if (!reload && m_cache.ContainsKey(url))
-            {
-                if (!m_cache[url].Expired)
-                    html = m_cache[url].Value;
-            }
-
-            if (html.Length == 0)
-            {
-                html = Tools.DownloadFile(m_client, url, score.Encoding);
-                m_cache[url] = new CacheElement(m_lifeTime, html);
-            }
+            string html = m_cache.GetScore(url, score.Encoding, reload);
 
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
@@ -200,6 +176,36 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
+        public List<Score> ParseDynamicList(Score source, bool reload)
+        {
+            string html = m_cache.GetScore(source.Url, source.Encoding, reload);
+
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(html);
+
+            List<Score> scores = new List<Score>();
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(source.XPath);
+            if (nodes != null)
+            {
+                foreach (HtmlNode node in nodes)
+                {
+                    string url = node.Attributes[0].Value;
+
+                    Score item = new Score();
+                    item.Name = node.NextSibling.InnerHtml;
+                    item.Url = Tools.GetDomain(source.Url, source.Headers + "/" + url);
+                    item.Category = source.Category;
+                    item.Ligue = source.Ligue;
+                    item.Encoding = source.Encoding;
+                    item.XPath = source.Name;
+
+                    scores.Add(item);
+                }
+            }
+
+            return scores;
+        }
+
         #region Format
         /// <summary>
         /// Format a string.
@@ -243,23 +249,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         public void ClearCache()
         {
             m_cache.Clear(); ;
-        }
-
-        private class CacheElement
-        {
-            public string Value;
-            public DateTime ExpirationDate;
-
-            public CacheElement(int lifeTime, string value)
-            {
-                Value = value;
-                ExpirationDate = lifeTime == 0 ? DateTime.MaxValue : DateTime.Now.AddMinutes(lifeTime);
-            }
-
-            public bool Expired
-            {
-                get { return DateTime.Now > ExpirationDate; }
-            }
         }
     }
 }

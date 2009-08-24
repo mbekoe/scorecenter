@@ -25,62 +25,30 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             m_center = center;
             m_fileName = file;
-            rbnNewOnly.Checked = true;
-        }
-
-        private void rbn_CheckedChanged(object sender, EventArgs e)
-        {
-            ckxNames.Enabled = rbnMerge.Enabled;
-            ckxRules.Enabled = ckxNames.Enabled;
-            ckxUrl.Enabled = ckxNames.Enabled;
         }
 
         private void ImportDialog_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (this.DialogResult == DialogResult.OK)
             {
-                ImportScores();
+                ImportOptions type = ImportOptions.None;
+                if (ckxNewScore.Checked) type |= ImportOptions.New;
+                if (ckxMergeExisting.Checked)
+                {
+                    if (ckxNames.Checked) type |= ImportOptions.Names;
+                    if (ckxUrl.Checked) type |= ImportOptions.Parsing;
+                    if (ckxRules.Checked) type |= ImportOptions.Rules;
+                }
+
+                ExchangeManager.Import(m_center, m_fileName, type);
             }
         }
 
-        private void ImportScores()
+        private void ckxMergeExisting_CheckedChanged(object sender, EventArgs e)
         {
-            ScoreCenter imported = Tools.ReadSettings(m_fileName, true);
-            if (imported.Scores == null)
-                return;
-
-            MergeType type = MergeType.None;
-            if (ckxNames.Checked) type |= MergeType.Names;
-            if (ckxUrl.Checked) type |= MergeType.Parsing;
-            if (ckxRules.Checked) type |= MergeType.Rules;
-
-            List<Score> toImport = new List<Score>();
-            foreach (Score score in imported.Scores)
-            {
-                Score exist = m_center.FindScore(score.Id);
-                if (exist == null)
-                {
-                    toImport.Add(score);
-                }
-                else
-                {
-                    exist.Merge(score, type);
-                }
-            }
-
-            if (toImport.Count > 0)
-            {
-                Score[] list = new Score[m_center.Scores.Length + toImport.Count];
-                m_center.Scores.CopyTo(list, 0);
-                
-                int i = m_center.Scores.Length;
-                foreach (Score sc in toImport)
-                {
-                    list[i++] = sc;
-                }
-
-                m_center.Scores = list;
-            }
+            ckxNames.Enabled = ckxMergeExisting.Checked;
+            ckxRules.Enabled = ckxMergeExisting.Checked;
+            ckxUrl.Enabled = ckxMergeExisting.Checked;
         }
     }
 }
