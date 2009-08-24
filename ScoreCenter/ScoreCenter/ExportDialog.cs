@@ -75,18 +75,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             }
 
-            // create a new object and add the exported scores
-            ScoreCenter center = new ScoreCenter();
-            center.Scores = new Score[scores.Count];
-            scores.CopyTo(center.Scores);
-
-            // add the styles
-            center.Styles = new Style[styles.Count];
-            int i = 0;
-            foreach (string str in styles)
-                center.Styles[i++] = m_center.FindStyle(str);
-
-            Tools.SaveSettings(fileName, center, false);
+            ExchangeManager.Export(m_center, fileName, scores, styles);
         }
 
         private void ExportDialog_FormClosed(object sender, FormClosedEventArgs e)

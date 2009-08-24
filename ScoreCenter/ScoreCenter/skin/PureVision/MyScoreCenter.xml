@@ -18,7 +18,7 @@
     <import>common.time.xml</import>
     <import>common.window.xml</import>
 
-	<!-- uncomment to add backdrop matching current sport -->
+	<!-- backdrop matching current sport -->
     <control>
       <description>backdrop</description>
       <type>image</type>
@@ -132,6 +132,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <spinPosX>10</spinPosX>
       <spinPosY>650</spinPosY>
+      <onright>40</onright>
     </control>
 
     <control>
@@ -144,6 +145,18 @@
       <width>900</width>
       <height>600</height>
       <font>font11</font>
+    </control>
+
+    <control>
+      <description>Next Button</description>
+      <type>button</type>
+      <id>40</id>
+      <posX>200</posX>
+      <posY>650</posY>
+      <width>100</width>
+      <label>Next</label>
+      <onup>10</onup>
+      <ondown>10</ondown>
     </control>
 
   </controls>

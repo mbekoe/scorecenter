@@ -29,31 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportDialog));
-            this.rbnNewOnly = new System.Windows.Forms.RadioButton();
-            this.rbnMerge = new System.Windows.Forms.RadioButton();
             this.ckxNames = new System.Windows.Forms.CheckBox();
             this.ckxUrl = new System.Windows.Forms.CheckBox();
             this.ckxRules = new System.Windows.Forms.CheckBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.ckxNewScore = new System.Windows.Forms.CheckBox();
+            this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
-            // rbnNewOnly
-            // 
-            resources.ApplyResources(this.rbnNewOnly, "rbnNewOnly");
-            this.rbnNewOnly.Name = "rbnNewOnly";
-            this.rbnNewOnly.TabStop = true;
-            this.rbnNewOnly.UseVisualStyleBackColor = true;
-            this.rbnNewOnly.CheckedChanged += new System.EventHandler(this.rbn_CheckedChanged);
-            // 
-            // rbnMerge
-            // 
-            resources.ApplyResources(this.rbnMerge, "rbnMerge");
-            this.rbnMerge.Name = "rbnMerge";
-            this.rbnMerge.TabStop = true;
-            this.rbnMerge.UseVisualStyleBackColor = true;
-            this.rbnMerge.CheckedChanged += new System.EventHandler(this.rbn_CheckedChanged);
             // 
             // ckxNames
             // 
@@ -92,6 +76,19 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // ckxNewScore
+            // 
+            resources.ApplyResources(this.ckxNewScore, "ckxNewScore");
+            this.ckxNewScore.Name = "ckxNewScore";
+            this.ckxNewScore.UseVisualStyleBackColor = true;
+            // 
+            // ckxMergeExisting
+            // 
+            resources.ApplyResources(this.ckxMergeExisting, "ckxMergeExisting");
+            this.ckxMergeExisting.Name = "ckxMergeExisting";
+            this.ckxMergeExisting.UseVisualStyleBackColor = true;
+            this.ckxMergeExisting.CheckedChanged += new System.EventHandler(this.ckxMergeExisting_CheckedChanged);
+            // 
             // ImportDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -103,9 +100,9 @@
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.ckxRules);
             this.Controls.Add(this.ckxUrl);
+            this.Controls.Add(this.ckxMergeExisting);
+            this.Controls.Add(this.ckxNewScore);
             this.Controls.Add(this.ckxNames);
-            this.Controls.Add(this.rbnMerge);
-            this.Controls.Add(this.rbnNewOnly);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImportDialog";
@@ -119,13 +116,13 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rbnNewOnly;
-        private System.Windows.Forms.RadioButton rbnMerge;
         private System.Windows.Forms.CheckBox ckxNames;
         private System.Windows.Forms.CheckBox ckxUrl;
         private System.Windows.Forms.CheckBox ckxRules;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox ckxNewScore;
+        private System.Windows.Forms.CheckBox ckxMergeExisting;
     }
 }

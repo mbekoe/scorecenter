@@ -29,6 +29,7 @@ using System.Net;
 using System.Text;
 using System.Xml.Serialization;
 using System.Drawing;
+using MediaPortal.ServiceImplementations;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -134,6 +135,53 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         /// <summary>
+        /// Reads the settings.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="allowException">True to rethrow any exceptions.</param>
+        /// <returns>The settings objects.</returns>
+        public static ScoreCenter ReadOnlineSettings(string url, bool allowException)
+        {
+            ScoreCenter scores = null;
+
+            Stream response = null;
+            try
+            {
+                AppDomain.CurrentDomain.AssemblyResolve += Tools.CurrentDomain_AssemblyResolve;
+
+                WebClient client = new WebClient();
+                response = client.OpenRead(url);
+                using (StreamReader sr = new StreamReader(response, Encoding.UTF8))
+                {
+                    XmlSerializer xml = new XmlSerializer(typeof(ScoreCenter));
+                    scores = (ScoreCenter)xml.Deserialize(sr);
+                }
+
+                foreach (Score s in scores.Scores)
+                {
+                    if (String.IsNullOrEmpty(s.Id))
+                    {
+                        s.Id = GenerateId();
+                    }
+                }
+
+                client.Dispose();
+            }
+            catch (Exception)
+            {
+                if (allowException)
+                    throw;
+                scores = null;
+            }
+            finally
+            {
+                AppDomain.CurrentDomain.AssemblyResolve -= Tools.CurrentDomain_AssemblyResolve;
+            }
+
+            return scores;
+        }
+
+        /// <summary>
         /// Save the settings to a file.
         /// </summary>
         /// <param name="file">The file tosave to.</param>
@@ -210,7 +258,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             "&Ouml;", "Ö", "&Ocirc;", "Ô",
             "&uuml;", "ü", "&ucirc;", "û",
             "&Uuml;", "Ü", "&Ucirc;", "Û",
-            "&gt;", ">", "&lt;", "<"
+            "&gt;", ">", "&lt;", "<", "&quot;", "\"",
         };
 
         /// <summary>
@@ -292,5 +340,27 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return path;
         }
+
+        public static string GetDomain(string url, string path)
+        {
+            Uri root = new Uri(url);
+            UriBuilder bld = new UriBuilder(root.Host);
+            bld.Path = path;
+
+            return bld.Uri.ToString();
+        }
+        
+        #region Log
+        public static void LogMessage(string format, params object[] args)
+        {
+            Log.Debug("[ScoreCenter] " + format, args);
+        }
+
+        public static void LogError(string message, Exception exc)
+        {
+            Log.Error("[ScoreCenter] " + message);
+            Log.Error("[ScoreCenter] " + exc);
+        }
+        #endregion
     }
 }

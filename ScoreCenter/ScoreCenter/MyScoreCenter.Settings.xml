@@ -3,6 +3,9 @@
   <Setup>
     <Name>Score Center</Name>
     <DefaultSkinColor>-16752449</DefaultSkinColor>
+    <BackdropDir>C:\Team MediaPortal\FanArt\Sport</BackdropDir>
+    <UpdateUrl>http://scorecenter.googlecode.com/files/MyScoreCenter.Settings.xml</UpdateUrl>
+    <UpdateRule>New</UpdateRule>
   </Setup>
   <Images>
     <CategoryImg Name="Baseball" Path="Baseball" />
@@ -45,6 +48,7 @@
     <LeagueImg Category="Baseball" Name="National League" Path="Baseball\NationalLeague" />
     <LeagueImg Category="Tennis" Name="WTA" Path="Tennis\WTA_Tour" />
     <LeagueImg Category="Tennis" Name="ATP" Path="Tennis\ATP_World_Tour" />
+    <LeagueImg Category="Football" Name="Championship" Path="Flags\England" />
   </Images>
   <Styles>
     <Style Name="Orange" ForeColor="-32768" />
@@ -420,7 +424,7 @@
       <Category>Football</Category>
       <Ligue>Serie A</Ligue>
       <Name>Top Scorers</Name>
-      <Url>http://www.lequipe.fr/Football/FootballClassementChampionnat886_BUT_1.html</Url>
+      <Url>http://www.lequipe.fr/Football/FootballClassementChampionnat1068_BUT_1.html</Url>
       <XPath>//div[@id='ClassementButeurs']/table[1]</XPath>
       <Headers>,Player,G,M,G/M</Headers>
       <Sizes>3,-35,3,3,10</Sizes>
@@ -869,7 +873,7 @@
     <Score enable="true" Id="78f5c5e8-6396-47d0-8265-8247b830ea76">
       <Category>Tennis</Category>
       <Ligue>ATP</Ligue>
-      <Name>Resutls</Name>
+      <Name>Results</Name>
       <Url>http://www.lequipe.fr/Tennis/TennisCalendrierATP_{M_yyyy}.html</Url>
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
@@ -880,7 +884,7 @@
     <Score enable="true" Id="286c660b-d5fc-4205-afe1-326f49fc52b7">
       <Category>Tennis</Category>
       <Ligue>WTA</Ligue>
-      <Name>Resutls</Name>
+      <Name>Results</Name>
       <Url>http://www.lequipe.fr/Tennis/TennisCalendrierWTA_{M_yyyy}.html</Url>
       <XPath>//table</XPath>
       <Headers>Dates,Tournament,Surface,Class,Price,Winner</Headers>
@@ -930,6 +934,56 @@
       <Rules>
         <Rule Column="1" Value="" Operator="EqualTo" Action="FormatLine" Format="Red" />
       </Rules>
+    </Score>
+    <Score enable="true" Id="3580b752-bf01-4a3c-b5c7-be24c0ff0cf4">
+      <Category>Football</Category>
+      <Ligue>Championship</Ligue>
+      <Name>Standings</Name>
+      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/league-tables/</Url>
+      <XPath>//table</XPath>
+      <Headers>,Team,P,W,D,L,GF,GA,+/-,Pts</Headers>
+      <Sizes>2,-19,2,2,2,2,3,3,3,3</Sizes>
+      <Skip>2</Skip>
+      <Image>Standings</Image>
+      <Rules>
+        <Rule Column="1" Value="2" Operator="LE" Action="FormatLine" Format="Orange" />
+        <Rule Column="1" Value="5" Operator="LE" Action="FormatLine" Format="Yellow" />
+        <Rule Column="1" Value="21" Operator="GE" Action="FormatLine" Format="Red" />
+      </Rules>
+    </Score>
+    <Score enable="true" Id="6d933603-ae92-4fa3-9996-54b4809f4223">
+      <Category>Football</Category>
+      <Ligue>Championship</Ligue>
+      <Name>Results</Name>
+      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/results/2009_08.html</Url>
+      <XPath>//table[@class='fixtures-results']</XPath>
+      <Sizes>-20,-45,0</Sizes>
+      <Image>Results</Image>
+      <Rules>
+        <Rule Column="1" Value="- Day" Operator="Contains" Action="MergeCells" Format="Yellow" />
+      </Rules>
+    </Score>
+    <Score enable="true" Id="fadb9e48-31cb-4cf8-87e4-760eb139fdce">
+      <Category>Football</Category>
+      <Ligue>Championship</Ligue>
+      <Name>Top Scorers</Name>
+      <Url>http://news.bbc.co.uk/sport2/hi/football/eng_div_1/top_scorers/default.stm</Url>
+      <XPath>//table[@class='fulltable']</XPath>
+      <Sizes>-15,-15,5</Sizes>
+      <Image>Football\Top Scorers</Image>
+    </Score>
+    <Score enable="true" Id="b5d27c31-5065-471c-abf4-c6fa7be7161c">
+      <Category>Football</Category>
+      <Ligue>Championship</Ligue>
+      <Name>Results2</Name>
+      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/results/2009_08.html</Url>
+      <XPath>//table[@class='fixtures-results']</XPath>
+      <Sizes>-20,-45,0</Sizes>
+      <Image>Results</Image>
+      <Rules>
+        <Rule Column="1" Value="- Day" Operator="Contains" Action="MergeCells" Format="Yellow" />
+      </Rules>
+    </Score>
     </Score>
   </Scores>
 </ScoreCenter>

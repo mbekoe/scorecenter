@@ -39,7 +39,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnSelectDir = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ckxRules = new System.Windows.Forms.CheckBox();
+            this.ckxUrl = new System.Windows.Forms.CheckBox();
+            this.ckxNew = new System.Windows.Forms.CheckBox();
+            this.ckxNames = new System.Windows.Forms.CheckBox();
+            this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
+            this.tbxUrl = new System.Windows.Forms.TextBox();
+            this.ckxUpdateOnline = new System.Windows.Forms.CheckBox();
+            this.btnUpdateNow = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
@@ -94,19 +107,95 @@
             this.btnSelectDir.UseVisualStyleBackColor = true;
             this.btnSelectDir.Click += new System.EventHandler(this.btnSelectDir_Click);
             // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.tbxName);
+            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.btnSelectDir);
+            this.groupBox1.Controls.Add(this.lblName);
+            this.groupBox1.Controls.Add(this.tbxBackdrop);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.btnUpdateNow);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.ckxRules);
+            this.groupBox2.Controls.Add(this.ckxUrl);
+            this.groupBox2.Controls.Add(this.ckxNew);
+            this.groupBox2.Controls.Add(this.ckxNames);
+            this.groupBox2.Controls.Add(this.ckxMergeExisting);
+            this.groupBox2.Controls.Add(this.tbxUrl);
+            this.groupBox2.Controls.Add(this.ckxUpdateOnline);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // ckxRules
+            // 
+            resources.ApplyResources(this.ckxRules, "ckxRules");
+            this.ckxRules.Name = "ckxRules";
+            this.ckxRules.UseVisualStyleBackColor = true;
+            // 
+            // ckxUrl
+            // 
+            resources.ApplyResources(this.ckxUrl, "ckxUrl");
+            this.ckxUrl.Name = "ckxUrl";
+            this.ckxUrl.UseVisualStyleBackColor = true;
+            // 
+            // ckxNew
+            // 
+            resources.ApplyResources(this.ckxNew, "ckxNew");
+            this.ckxNew.Name = "ckxNew";
+            this.ckxNew.UseVisualStyleBackColor = true;
+            // 
+            // ckxNames
+            // 
+            resources.ApplyResources(this.ckxNames, "ckxNames");
+            this.ckxNames.Name = "ckxNames";
+            this.ckxNames.UseVisualStyleBackColor = true;
+            // 
+            // ckxMergeExisting
+            // 
+            resources.ApplyResources(this.ckxMergeExisting, "ckxMergeExisting");
+            this.ckxMergeExisting.Name = "ckxMergeExisting";
+            this.ckxMergeExisting.UseVisualStyleBackColor = true;
+            // 
+            // tbxUrl
+            // 
+            resources.ApplyResources(this.tbxUrl, "tbxUrl");
+            this.tbxUrl.Name = "tbxUrl";
+            // 
+            // ckxUpdateOnline
+            // 
+            resources.ApplyResources(this.ckxUpdateOnline, "ckxUpdateOnline");
+            this.ckxUpdateOnline.Name = "ckxUpdateOnline";
+            this.ckxUpdateOnline.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdateNow
+            // 
+            resources.ApplyResources(this.btnUpdateNow, "btnUpdateNow");
+            this.btnUpdateNow.Name = "btnUpdateNow";
+            this.btnUpdateNow.UseVisualStyleBackColor = true;
+            this.btnUpdateNow.Click += new System.EventHandler(this.btnUpdateNow_Click);
+            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.btnOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.Controls.Add(this.btnSelectDir);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.tbxBackdrop);
-            this.Controls.Add(this.tbxName);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -118,8 +207,11 @@
             this.Load += new System.EventHandler(this.OptionsDialog_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -135,5 +227,16 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSelectDir;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox ckxRules;
+        private System.Windows.Forms.CheckBox ckxUrl;
+        private System.Windows.Forms.CheckBox ckxNew;
+        private System.Windows.Forms.CheckBox ckxNames;
+        private System.Windows.Forms.CheckBox ckxMergeExisting;
+        private System.Windows.Forms.TextBox tbxUrl;
+        private System.Windows.Forms.CheckBox ckxUpdateOnline;
+        private System.Windows.Forms.Button btnUpdateNow;
     }
 }
