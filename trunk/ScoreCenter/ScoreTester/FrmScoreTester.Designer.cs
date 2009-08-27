@@ -33,6 +33,7 @@
             this.tbxElement = new System.Windows.Forms.TextBox();
             this.btnOpenUrl = new System.Windows.Forms.Button();
             this.btnAuto = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ckxReload = new System.Windows.Forms.CheckBox();
             this.btnTest = new System.Windows.Forms.Button();
             this.lblMaxLines = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.lblXPath = new System.Windows.Forms.Label();
             this.lblUrl = new System.Windows.Forms.Label();
             this.grdTest = new System.Windows.Forms.DataGridView();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTest)).BeginInit();
             this.SuspendLayout();
@@ -111,6 +111,7 @@
             this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
             this.btnOpenUrl.TabIndex = 6;
             this.btnOpenUrl.UseVisualStyleBackColor = true;
+            this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
             // btnAuto
             // 
@@ -121,6 +122,19 @@
             this.btnAuto.TabIndex = 17;
             this.btnAuto.Text = "Auto";
             this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.checkBox1.Location = new System.Drawing.Point(261, 166);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(67, 17);
+            this.checkBox1.TabIndex = 24;
+            this.checkBox1.Text = "Dynamic";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // ckxReload
             // 
@@ -283,6 +297,7 @@
             this.grdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.grdTest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grdTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdTest.ColumnHeadersVisible = false;
             this.grdTest.Location = new System.Drawing.Point(12, 209);
@@ -291,18 +306,6 @@
             this.grdTest.RowHeadersVisible = false;
             this.grdTest.Size = new System.Drawing.Size(820, 371);
             this.grdTest.TabIndex = 4;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.checkBox1.Location = new System.Drawing.Point(261, 166);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(67, 17);
-            this.checkBox1.TabIndex = 24;
-            this.checkBox1.Text = "Dynamic";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // FrmScoreTester
             // 
