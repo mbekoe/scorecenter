@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MediaPortal.Plugin.ScoreCenter;
+using System.Diagnostics;
 
 namespace ScoreTester
 {
@@ -26,7 +27,6 @@ namespace ScoreTester
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                int[] colSizes = Tools.GetSizes(tbxSizes.Text);
 
                 // note create a fake ScoreCenterScore to use current values
                 // instead of saved values
@@ -93,7 +93,6 @@ namespace ScoreTester
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                int[] colSizes = Tools.GetSizes(tbxSizes.Text);
 
                 // note create a fake ScoreCenterScore to use current values
                 // instead of saved values
@@ -150,6 +149,37 @@ namespace ScoreTester
         {
             tbxUrl.Text = @"http://www.lequipe.fr/Football/ligue-des-champions-resultats.html";
             tbxXpath.Text = @"//div[@class='ListeDeroulante']//option";
+        }
+
+        private void btnAuto_Click(object sender, EventArgs e)
+        {
+            string result = String.Empty;
+            for (int i = 0; i < grdTest.Columns.Count; i++)
+            {
+                int max = 0;
+                foreach (DataGridViewRow row in grdTest.Rows)
+                {
+                    if (row.Cells.Count > i)
+                    {
+                        int v = (row.Cells[i].Value == null ? 0 : row.Cells[i].Value.ToString().Length);
+                        max = Math.Max(max, v);
+                    }
+                }
+
+                if (result.Length > 0) result += ",";
+                result += max.ToString();
+            }
+
+            tbxSizes.Text = result;
+        }
+
+        private void btnOpenUrl_Click(object sender, EventArgs e)
+        {
+            if (tbxUrl.Text.Length > 0)
+            {
+                string url = ScoreParser.ParseUrl(tbxUrl.Text);
+                Process.Start(url);
+            }
         }
     }
 }
