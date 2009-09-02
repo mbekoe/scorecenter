@@ -961,16 +961,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (node == null || node.PrevNode == null)
                 return;
 
-            Score first = node.Parent.FirstNode.Tag as Score;
-            if (first.Order == 99)
-            {
-                int i = 1;
-                foreach (TreeNode n in node.Parent.Nodes)
-                {
-                    Score score = n.Tag as Score;
-                    score.Order = i++;
-                }
-            }
+            ReorderNodes(node);
 
             Score prevScore = node.PrevNode.Tag as Score;
             Score currScore = node.Tag as Score;
@@ -1002,15 +993,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private static void ReorderNodes(TreeNode node)
         {
-            Score first = node.Parent.FirstNode.Tag as Score;
-            if (first.Order == 99)
+            int i = 1;
+            foreach (TreeNode n in node.Parent.Nodes)
             {
-                int i = 1;
-                foreach (TreeNode n in node.Parent.Nodes)
-                {
-                    Score score = n.Tag as Score;
-                    score.Order = i;
-                }
+                Score score = n.Tag as Score;
+                score.Order = i++;
             }
         }
     }
