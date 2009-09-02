@@ -16,6 +16,7 @@
       <xs:enumeration value="NotEndsWith" />
       <xs:enumeration value="MOD" />
       <xs:enumeration value="InList" />
+      <xs:enumeration value="IsNull" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="RuleAction">
@@ -23,6 +24,15 @@
       <xs:enumeration value="FormatCell" />
       <xs:enumeration value="FormatLine" />
       <xs:enumeration value="MergeCells" />
+      <xs:enumeration value="ReplaceText" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Never" />
+      <xs:enumeration value="Once" />
+      <xs:enumeration value="Always" />
+      <xs:enumeration value="Manually" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Style">
@@ -65,6 +75,7 @@
       </xs:sequence>
       <xs:attribute name="enable" type="xs:boolean" default="false" />
       <xs:attribute name="Id" type="xs:string" use="required" />
+      <xs:attribute name="Order" type="xs:int" default="99" />
     </xs:complexType>
   </xs:element>
   <xs:element name="CategoryImg">
@@ -90,7 +101,7 @@
               <xs:element name="CacheExpiration" type="xs:int" minOccurs="0" maxOccurs="1" default="5" />
               <xs:element name="DefaultSkinColor" type="xs:int" minOccurs="0" maxOccurs="1" default="-16776961" />
               <xs:element name="BackdropDir" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-              <xs:element name="UpdateOnline" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
+              <xs:element name="UpdateOnlineMode" type="UpdateMode" minOccurs="0" maxOccurs="1" default="Never" />
               <xs:element name="UpdateUrl" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="UpdateRule" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
             </xs:sequence>

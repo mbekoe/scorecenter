@@ -24,16 +24,16 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml.Serialization;
-using System.Drawing;
-using MediaPortal.ServiceImplementations;
+using MediaPortal.GUI.Library;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
-    public class Tools
+    public static class Tools
     {
         /// <summary>
         /// Downloads a file.
@@ -114,11 +114,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scores = (ScoreCenter)xml.Deserialize(tr);
                 }
 
-                foreach (Score s in scores.Scores)
+                if (scores.Scores != null)
                 {
-                    if (String.IsNullOrEmpty(s.Id))
+                    foreach (Score s in scores.Scores)
                     {
-                        s.Id = GenerateId();
+                        if (String.IsNullOrEmpty(s.Id))
+                        {
+                            s.Id = GenerateId();
+                        }
                     }
                 }
 
@@ -219,27 +222,54 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         /// <summary>
-        /// Parse a string "1,2,3,4" to an integer array.
+        /// Parse a string "1,2,3,4" to a ColumnDisplay array.
         /// </summary>
         /// <param name="size">The string to parse.</param>
         /// <returns>The integer array.</returns>
-        public static int[] GetSizes(string size)
+        public static ColumnDisplay[] GetSizes(string size)
         {
-            int[] sizes = null;
+            ColumnDisplay[] sizes = null;
             if (String.IsNullOrEmpty(size) == false)
             {
                 string[] elts = size.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                sizes = new int[elts.Length];
+                sizes = new ColumnDisplay[elts.Length];
                 for (int i = 0; i < elts.Length; i++)
                 {
-                    if (false == int.TryParse(elts[i].Trim(), out sizes[i]))
-                    {
-                        sizes[i] = 5;
-                    }
+                    sizes[i] = new ColumnDisplay(elts[i]);
                 }
             }
 
             return sizes;
+        }
+
+        /// <summary>
+        /// Describes how to display a column (size and alignement).
+        /// </summary>
+        public class ColumnDisplay
+        {
+            public int Size { get; set; }
+            public GUIControl.Alignment Alignement { get; set; }
+
+            public ColumnDisplay(int size, GUIControl.Alignment alignement)
+            {
+                Size = size;
+                Alignement = alignement;
+            }
+            
+            public ColumnDisplay(string strCol)
+            {
+                int c = 0;
+                if (false == int.TryParse(strCol.Trim(), out c))
+                {
+                    // default size
+                    c = 5;
+                }
+
+                Size = c;
+                Alignement = GUIControl.Alignment.Right;
+                if (strCol.StartsWith("-")) Alignement = GUIControl.Alignment.Left;
+                else if (strCol.StartsWith("+")) Alignement = GUIControl.Alignment.Center;
+            }
         }
 
         /// <summary>
@@ -353,14 +383,27 @@ namespace MediaPortal.Plugin.ScoreCenter
         #region Log
         public static void LogMessage(string format, params object[] args)
         {
-            Log.Debug("[ScoreCenter] " + format, args);
+            MediaPortal.ServiceImplementations.Log.Debug("[ScoreCenter] " + format, args);
         }
 
         public static void LogError(string message, Exception exc)
         {
-            Log.Error("[ScoreCenter] " + message);
-            Log.Error("[ScoreCenter] " + exc);
+            MediaPortal.ServiceImplementations.Log.Error("[ScoreCenter] " + message);
+            MediaPortal.ServiceImplementations.Log.Error("[ScoreCenter] " + exc);
         }
         #endregion
+
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            foreach (T element in source)
+            {
+                action(element);
+            }
+        }
     }
 }

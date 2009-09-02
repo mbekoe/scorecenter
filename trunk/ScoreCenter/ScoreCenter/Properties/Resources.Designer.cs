@@ -69,6 +69,20 @@ namespace MediaPortal.Plugin.ScoreCenter.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BuilderDialog_movedown {
+            get {
+                object obj = ResourceManager.GetObject("BuilderDialog_movedown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap BuilderDialog_moveup {
+            get {
+                object obj = ResourceManager.GetObject("BuilderDialog_moveup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ChooseColor {
             get {
                 object obj = ResourceManager.GetObject("ChooseColor", resourceCulture);

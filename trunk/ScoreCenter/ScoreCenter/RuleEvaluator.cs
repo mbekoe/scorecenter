@@ -22,7 +22,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             foreach (Rule rule in m_rules)
             {
-                if (rule.Action != RuleAction.FormatCell)
+                if (rule.Action != RuleAction.FormatCell
+                    && rule.Action != RuleAction.ReplaceText)
                     continue;
                 
                 if (rule.Column == 0 && Evaluate(rule, text))
@@ -78,7 +79,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             bool result = false;
 
             string newText = text.Trim().ToUpper();
-            string newValue = rule.Value.Trim().ToUpper();
+            string newValue = rule.Value;
+            if (rule.Action == RuleAction.ReplaceText) newValue = rule.Value.Split(',')[0];
+            newValue = newValue.Trim().ToUpper();
 
             switch (rule.Operator)
             {
@@ -135,6 +138,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                             break;
                         }
                     }
+                    break;
+                case Operation.IsNull:
+                    result = String.IsNullOrEmpty(newText);
+                    Tools.LogMessage("Rule IsNull '{1}' : {0}", result, newText);
                     break;
             }
 

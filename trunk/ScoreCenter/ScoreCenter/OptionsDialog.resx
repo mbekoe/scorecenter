@@ -381,6 +381,27 @@
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 22</value>
+  </data>
+  <data name="comboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="comboBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Name" xml:space="preserve">
+    <value>comboBox1</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnUpdateNow.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 194</value>
   </data>
@@ -403,7 +424,37 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;btnUpdateNow.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 25</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 13</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Update Mode</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -430,7 +481,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="ckxRules.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -460,7 +511,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxRules.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="ckxUrl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -490,7 +541,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxUrl.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="ckxNew.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -499,7 +550,7 @@
     <value>NoControl</value>
   </data>
   <data name="ckxNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 76</value>
+    <value>93, 76</value>
   </data>
   <data name="ckxNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 17</value>
@@ -520,7 +571,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxNew.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="ckxNames.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -550,13 +601,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxNames.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="ckxMergeExisting.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="ckxMergeExisting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 99</value>
+    <value>93, 99</value>
   </data>
   <data name="ckxMergeExisting.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 17</value>
@@ -577,19 +628,19 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxMergeExisting.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="tbxUrl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="tbxUrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 49</value>
+    <value>93, 49</value>
   </data>
   <data name="tbxUrl.MaxLength" type="System.Int32, mscorlib">
     <value>200</value>
   </data>
   <data name="tbxUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 21</value>
+    <value>302, 21</value>
   </data>
   <data name="tbxUrl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -604,34 +655,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="ckxUpdateOnline.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ckxUpdateOnline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 26</value>
-  </data>
-  <data name="ckxUpdateOnline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 17</value>
-  </data>
-  <data name="ckxUpdateOnline.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ckxUpdateOnline.Text" xml:space="preserve">
-    <value>Update Settings with online file</value>
-  </data>
-  <data name="&gt;&gt;ckxUpdateOnline.Name" xml:space="preserve">
-    <value>ckxUpdateOnline</value>
-  </data>
-  <data name="&gt;&gt;ckxUpdateOnline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckxUpdateOnline.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;ckxUpdateOnline.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 132</value>

@@ -41,6 +41,7 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnUpdateNow = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.ckxRules = new System.Windows.Forms.CheckBox();
             this.ckxUrl = new System.Windows.Forms.CheckBox();
@@ -48,8 +49,8 @@
             this.ckxNames = new System.Windows.Forms.CheckBox();
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
-            this.ckxUpdateOnline = new System.Windows.Forms.CheckBox();
-            this.btnUpdateNow = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -123,7 +124,9 @@
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.btnUpdateNow);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.ckxRules);
             this.groupBox2.Controls.Add(this.ckxUrl);
@@ -131,9 +134,15 @@
             this.groupBox2.Controls.Add(this.ckxNames);
             this.groupBox2.Controls.Add(this.ckxMergeExisting);
             this.groupBox2.Controls.Add(this.tbxUrl);
-            this.groupBox2.Controls.Add(this.ckxUpdateOnline);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // btnUpdateNow
+            // 
+            resources.ApplyResources(this.btnUpdateNow, "btnUpdateNow");
+            this.btnUpdateNow.Name = "btnUpdateNow";
+            this.btnUpdateNow.UseVisualStyleBackColor = true;
+            this.btnUpdateNow.Click += new System.EventHandler(this.btnUpdateNow_Click);
             // 
             // label3
             // 
@@ -175,18 +184,17 @@
             resources.ApplyResources(this.tbxUrl, "tbxUrl");
             this.tbxUrl.Name = "tbxUrl";
             // 
-            // ckxUpdateOnline
+            // label4
             // 
-            resources.ApplyResources(this.ckxUpdateOnline, "ckxUpdateOnline");
-            this.ckxUpdateOnline.Name = "ckxUpdateOnline";
-            this.ckxUpdateOnline.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
             // 
-            // btnUpdateNow
+            // comboBox1
             // 
-            resources.ApplyResources(this.btnUpdateNow, "btnUpdateNow");
-            this.btnUpdateNow.Name = "btnUpdateNow";
-            this.btnUpdateNow.UseVisualStyleBackColor = true;
-            this.btnUpdateNow.Click += new System.EventHandler(this.btnUpdateNow_Click);
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
+            this.comboBox1.Name = "comboBox1";
             // 
             // OptionsDialog
             // 
@@ -236,7 +244,8 @@
         private System.Windows.Forms.CheckBox ckxNames;
         private System.Windows.Forms.CheckBox ckxMergeExisting;
         private System.Windows.Forms.TextBox tbxUrl;
-        private System.Windows.Forms.CheckBox ckxUpdateOnline;
         private System.Windows.Forms.Button btnUpdateNow;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
