@@ -6,7 +6,7 @@
   <controls>
     <import>common.time.xml</import>
 
-	<!-- backdrop matching current sport -->
+    <!-- backdrop matching current sport -->
     <control>
       <description>backdrop</description>
       <type>image</type>
@@ -16,11 +16,11 @@
       <width>1366</width>
       <height>768</height>
       <texture>#ScoreCenter.bd.jpg</texture>
-	  <dimColor>50ffffff</dimColor>
+      <colordiffuse>60ffffff</colordiffuse>
       <animation effect="fade" time="400">WindowClose</animation>
       <animation effect="fade" time="400">WindowOpen</animation>
     </control>
-    
+    <!--
     <control>
       <description>BackGround</description>
       <type>image</type>
@@ -28,9 +28,10 @@
       <posY>0</posY>
       <width>1366</width>
       <height>768</height>
-	  <dimColor>50ffffff</dimColor>
+      <dimColor>aaffffff</dimColor>
       <texture>chrome_bg85%.png</texture>
     </control>
+    -->
     <control>
       <type>image</type>
       <id>0</id>
@@ -129,7 +130,7 @@
       <label>#ScoreCenter.Results</label>
       <font>font14</font>
       <align>left</align>
-      <textcolor>ff484848</textcolor>
+      <textcolor>ffffffff</textcolor>
     </control>
     
     <control>
@@ -138,7 +139,7 @@
       <id>10</id>
       <posX>10</posX>
       <posY>100</posY>
-      <width>290</width>
+      <width>280</width>
       <height>610</height>
       <textXOff>10</textXOff>
       <textYOff>2</textYOff>
@@ -155,17 +156,18 @@
       <onright>40</onright>
     </control>
 
+	<!-- This control defines the area and the format (font and color)
+	in which the score will be displayed -->
     <control>
       <description>Results</description>
       <type>textboxscrollup</type>
       <id>20</id>
-      <posX>350</posX>
+      <posX>300</posX>
       <posY>100</posY>
       <visible>yes</visible>
-      <width>1000</width>
+      <width>1060</width>
       <height>660</height>
       <font>font14</font>
-      <textcolor>ff000000</textcolor>
     </control>
 
     <control>
