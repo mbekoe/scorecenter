@@ -174,7 +174,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("        Options: {0}", center.Setup.UpdateRule);
             Tools.LogMessage("        Force: {0}", force);
 
-            if (center.Setup.DoUpdate(force)
+            if (center.Setup.DoUpdate(force, center.Scores == null ? 0 : center.Scores.Length)
                 && String.IsNullOrEmpty(center.Setup.UpdateUrl) == false)
             {
                 ImportOptions options = (ImportOptions)Enum.Parse(typeof(ImportOptions), center.Setup.UpdateRule, true);

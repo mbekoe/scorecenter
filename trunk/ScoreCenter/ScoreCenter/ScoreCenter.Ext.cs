@@ -249,17 +249,14 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     partial class ScoreCenterSetup
     {
-        [NonSerialized]
-        private int m_updateCount = 0;
-
-        public bool DoUpdate(bool force)
+        public bool DoUpdate(bool force, int nb)
         {
             bool result = false;
 
             switch (this.UpdateOnlineMode)
             {
                 case UpdateMode.Once:
-                    result = m_updateCount == 0;
+                    result = nb == 0;
                     break;
                 case UpdateMode.Never:
                     result = false;
@@ -272,7 +269,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     break;
             }
 
-            m_updateCount++;
             return result;
         }
     }
