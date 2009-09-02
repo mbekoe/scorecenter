@@ -24,14 +24,14 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -51,7 +51,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         public ScoreCenterConfig()
         {
             InitializeComponent();
+            
             m_parser = new ScoreParser(0);
+            tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
 #if DEBUG
             this.ShowInTaskbar = true;
@@ -88,13 +90,16 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             colStyle.Items.Clear();
             colStyle.Items.Add("");
-            foreach (Style st in m_center.Styles)
+
+            if (m_center.Styles != null)
             {
-                colStyle.Items.AddRange(st.Name);
+                foreach (Style st in m_center.Styles)
+                {
+                    colStyle.Items.AddRange(st.Name);
+                }
             }
         }
-
-        public static void BuildScoreList(ThreeStateTreeView tree, ScoreCenter center, bool show)
+        public static void BuildScoreList2(ThreeStateTreeView tree, ScoreCenter center, bool show)
         {
             tree.Nodes.Clear();
             if (center == null || center.Scores == null)
@@ -111,7 +116,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 TreeNode cat = tree.Nodes[score.Category];
-                
+
                 // create league node if necessary
                 if (cat.Nodes.ContainsKey(score.Ligue) == false)
                 {
@@ -130,6 +135,49 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     snode.State = CheckBoxState.Checked;
                     snode.UpdateStateOfRelatedNodes();
+                }
+            }
+
+            tree.TreeViewNodeSorter = new ScoreNodeComparer();
+            tree.Sort();
+        }
+
+        public static void BuildScoreList(ThreeStateTreeView tree, ScoreCenter center, bool show)
+        {
+            tree.Nodes.Clear();
+            if (center == null || center.Scores == null)
+                return;
+
+            IEnumerable<string> categories = center.Scores.Select(sc => sc.Category).Distinct();
+
+            foreach (string cat in categories)
+            {
+                ThreeStateTreeNode cnode = new ThreeStateTreeNode(cat);
+                cnode.Name = cat;
+                tree.Nodes.Add(cnode);
+
+                IEnumerable<Score> scores = center.Scores.Where(sc => sc.Category == cat);
+                IEnumerable<string> leagues = scores.Select(sc => sc.Ligue).Distinct();
+                foreach (string league in leagues)
+                {
+                    ThreeStateTreeNode lnode = new ThreeStateTreeNode(league);
+                    lnode.Name = league;
+                    cnode.Nodes.Add(lnode);
+
+                    IEnumerable<Score> leagueScores = scores.Where(sc => sc.Ligue == league);
+                    foreach (Score score in leagueScores)
+                    {
+                        ThreeStateTreeNode snode = new ThreeStateTreeNode(score.Name);
+                        lnode.Nodes.Add(snode);
+                        snode.Tag = score;
+                        if (score.enable && show)
+                        {
+                            snode.State = CheckBoxState.Checked;
+                        }
+                    }
+
+                    ThreeStateTreeNode leaf = lnode.FirstNode as ThreeStateTreeNode;
+                    leaf.UpdateStateOfRelatedNodes();
                 }
             }
 
@@ -166,7 +214,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // reselect
             TreeNode selected = SelectNodes(tvwScores.Nodes, keys, selectedPath);
-            if (selected == null) selected = tvwScores.Nodes[0];
+            if (selected == null && tvwScores.Nodes.Count > 0) selected = tvwScores.Nodes[0];
             tvwScores.SelectedNode = selected;
         }
 
@@ -241,12 +289,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 ClearIcon();
                 if (tvwScores.SelectedNode.Level == 0)
                 {
-                    CategoryImg img = GetCategoryIcon(tvwScores.SelectedNode.Text);
+                    CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
                     if (img != null) SetIcon(img.Path);
                 }
                 else
                 {
-                    LeagueImg img = GetLeagueIcon(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
+                    LeagueImg img = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
                     if (img != null) SetIcon(img.Path);
                 }
 
@@ -255,6 +303,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             tsbCopyScore.Enabled = (tvwScores.SelectedNode.Level == 2);
+            tsbMoveUp.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.PrevNode != null;
+            tsbMoveDown.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.NextNode != null;
         }
 
         private void SetRules(Score score)
@@ -297,37 +347,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        private CategoryImg GetCategoryIcon(string category)
-        {
-            if (m_center.Images != null && m_center.Images.CategoryImg != null)
-            {
-                foreach (CategoryImg img in m_center.Images.CategoryImg)
-                {
-                    if (img.Name == category)
-                    {
-                        return img;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        private LeagueImg GetLeagueIcon(string category, string league)
-        {
-            if (m_center.Images != null && m_center.Images.LeagueImg != null)
-            {
-                foreach (LeagueImg img in m_center.Images.LeagueImg)
-                {
-                    if (img.Name == league && img.Category == category)
-                    {
-                        return img;
-                    }
-                }
-            }
-
-            return null;
-        }
         #endregion
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -340,6 +359,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (CheckData())
             {
                 Score score = tvwScores.SelectedNode.Tag as Score;
+
+                // check if hierarchie changed
+                bool refresh = true;
+                if (score.Category == tbxCategory.Text
+                    && score.Ligue == tbxLeague.Text)
+                {
+                    refresh = false;
+                }
+
+                if (score.Name != tbxScore.Text)
+                {
+                    tvwScores.SelectedNode.Text = tbxScore.Text;
+                }
 
                 score.Category = tbxCategory.Text;
                 score.Ligue = tbxLeague.Text;
@@ -360,7 +392,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 SaveRules(score);
 
-                RefreshTree();
+                if (refresh)
+                {
+                    RefreshTree();
+                }
             }
         }
 
@@ -378,9 +413,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     Rule r = new Rule();
                     r.Column = int.Parse(row.Cells[colColumn.Name].Value.ToString());
-                    r.Value = row.Cells[colValue.Name].Value.ToString();
-                    r.Operator = (Operation)Enum.Parse(typeof(Operation), row.Cells[colOperator.Name].Value.ToString());
-                    r.Action = (RuleAction)Enum.Parse(typeof(RuleAction), row.Cells[colAction.Name].Value.ToString());
+                    r.Value = (row.Cells[colValue.Name].Value == null ? String.Empty : row.Cells[colValue.Name].Value.ToString());
+                    r.Operator = Tools.ParseEnum<Operation>(row.Cells[colOperator.Name].Value.ToString());
+                    r.Action = Tools.ParseEnum<RuleAction>(row.Cells[colAction.Name].Value.ToString());
                     r.Format = row.Cells[colStyle.Name].Value.ToString();
 
                     score.Rules[i++] = r;
@@ -452,6 +487,29 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SaveConfig()
         {
+            #region Order
+            if (m_center.Images != null && m_center.Images.CategoryImg != null)
+            {
+                m_center.Images.CategoryImg = m_center.Images.CategoryImg.OrderBy(img => img.Name).ToArray();
+            }
+
+            if (m_center.Images !=null && m_center.Images.LeagueImg != null)
+            {
+                m_center.Images.LeagueImg = m_center.Images.LeagueImg.OrderBy(img => img.Category)
+                    .ThenBy(img => img.Name)
+                    .ToArray();
+            }
+
+            if (m_center.Scores != null)
+            {
+                m_center.Scores = m_center.Scores.OrderBy(sc => sc.Category)
+                    .ThenBy(sc => sc.Ligue)
+                    .ThenBy(sc => sc.Order)
+                    .ThenBy(sc => sc.Name)
+                    .ToArray();
+            }
+            #endregion
+
             Tools.SaveSettings(m_settings, m_center, true);
         }
 
@@ -460,7 +518,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                int[] colSizes = Tools.GetSizes(tbxSizes.Text);
 
                 // note create a fake ScoreCenterScore to use current values
                 // instead of saved values
@@ -513,36 +570,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             finally
             {
                 this.Cursor = Cursors.Default;
-            }
-        }
-
-        private void Test(string[][] labels)
-        {
-            Dictionary<int, int> coldic = new Dictionary<int, int>();
-            foreach (string[] row in labels)
-            {
-                if (row == null)
-                    continue;
-
-                for (int i = 0; i < row.Length; i++)
-                {
-                    string cell = row[i];
-                    int length = String.IsNullOrEmpty(cell) ? 0 : cell.Length;
-                    if (coldic.ContainsKey(i))
-                    {
-                        coldic[i] = Math.Max(coldic[i], length);
-                    }
-                    else
-                    {
-                        coldic[i] = length;
-                    }
-                }
-            }
-
-            int[] cols = new int[coldic.Count];
-            foreach (int key in coldic.Keys)
-            {
-                cols[key] = coldic[key];
             }
         }
 
@@ -801,7 +828,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 switch (tvwScores.SelectedNode.Level)
                 {
                     case 0:
-                        CategoryImg img = GetCategoryIcon(tvwScores.SelectedNode.Text);
+                        CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
                         if (img == null)
                         {
                             img = new CategoryImg();
@@ -812,7 +839,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         img.Path = iconName;
                         break;
                     case 1:
-                        LeagueImg limg = GetLeagueIcon(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
+                        LeagueImg limg = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
                         if (limg == null)
                         {
                             limg = new LeagueImg();
@@ -839,20 +866,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             switch (tvwScores.SelectedNode.Level)
             {
                 case 0:
-                    CategoryImg img = GetCategoryIcon(tvwScores.SelectedNode.Text);
-                    if (img != null)
-                    {
-                        m_center.Images.CategoryImg = Tools.RemoveElement<CategoryImg>(m_center.Images.CategoryImg, img);
-                    }
-
+                    m_center.Images.CategoryImg = m_center.Images.CategoryImg.Where(limg => limg.Name != tvwScores.SelectedNode.Text).ToArray();
                     break;
                 case 1:
-                    LeagueImg limg = GetLeagueIcon(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
-                    if (limg != null)
-                    {
-                        m_center.Images.LeagueImg = Tools.RemoveElement<LeagueImg>(m_center.Images.LeagueImg, limg);
-                    }
-
+                    m_center.Images.LeagueImg = m_center.Images.LeagueImg.Where(limg => limg.Category != tvwScores.SelectedNode.Parent.Text
+                        || limg.Name != tvwScores.SelectedNode.Text).ToArray();
                     break;
                 case 2:
                     Score score = tvwScores.SelectedNode.Tag as Score;
@@ -884,10 +902,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void tsbOptions_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog(m_center);
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                RefreshTree();
-            }
+            dlg.ShowDialog();
+            RefreshTree();
             
             dlg.Dispose();
         }
@@ -913,6 +929,88 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 string url = ScoreParser.ParseUrl(tbxUrl.Text);
                 Process.Start(url);
+            }
+        }
+
+        private class ScoreNodeComparer : IComparer
+        {
+            #region IComparer Members
+
+            public int Compare(object x, object y)
+            {
+                TreeNode tx = x as TreeNode;
+                TreeNode ty = y as TreeNode;
+                if (tx.Nodes.Count > 0)
+                    return String.Compare(tx.Text, ty.Text);
+
+                Score scx = tx.Tag as Score;
+                Score scy = ty.Tag as Score;
+                if (scx == null && scy == null)
+                    return 0;
+                if (scx == null) return -1;
+                if (scy == null) return 1;
+                return scx.CompareTo(scy);
+            }
+
+            #endregion
+        }
+
+        private void tsbMoveUp_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.PrevNode == null)
+                return;
+
+            Score first = node.Parent.FirstNode.Tag as Score;
+            if (first.Order == 99)
+            {
+                int i = 1;
+                foreach (TreeNode n in node.Parent.Nodes)
+                {
+                    Score score = n.Tag as Score;
+                    score.Order = i++;
+                }
+            }
+
+            Score prevScore = node.PrevNode.Tag as Score;
+            Score currScore = node.Tag as Score;
+            int tmp = currScore.Order;
+            currScore.Order = prevScore.Order;
+            prevScore.Order = tmp;
+
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
+        private void tsbMoveDown_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.NextNode == null)
+                return;
+
+            ReorderNodes(node);
+
+            Score nextScore = node.NextNode.Tag as Score;
+            Score currScore = node.Tag as Score;
+            int tmp = currScore.Order;
+            currScore.Order = nextScore.Order;
+            nextScore.Order = tmp;
+
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
+        private static void ReorderNodes(TreeNode node)
+        {
+            Score first = node.Parent.FirstNode.Tag as Score;
+            if (first.Order == 99)
+            {
+                int i = 1;
+                foreach (TreeNode n in node.Parent.Nodes)
+                {
+                    Score score = n.Tag as Score;
+                    score.Order = i;
+                }
             }
         }
     }

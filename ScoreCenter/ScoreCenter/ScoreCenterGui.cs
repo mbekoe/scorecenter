@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
@@ -51,6 +52,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <summary>List of indices of dymacally build controls.</summary>
         private List<int> m_indices = new List<int>();
         private int m_currentLine = 0;
+        private int m_currentColumn = 0;
         private Score m_currentScore = null;
         private string[][] m_lines = null;
 
@@ -117,33 +119,33 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("entering OnPageLoad()");
             base.OnPageLoad();
 
-            try
-            {
-                btnNextPage.Visibility = System.Windows.Visibility.Hidden;
-                GUIWaitCursor.Init();
-                GUIWaitCursor.Show();
+            ShowNextButton(false);
+            GUIWaitCursor.Init();
+            GUIWaitCursor.Show();
 
-                System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+            System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+            {
+                try
                 {
                     ReadSettings();
-                    UpdateSettings();
 
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
                     GUIPropertyManager.SetProperty("#ScoreCenter.Category", "_");
                     GUIPropertyManager.SetProperty("#ScoreCenter.League", " ");
                     GUIPropertyManager.SetProperty("#ScoreCenter.Results", " ");
 
+                    UpdateSettings(false);
                     LoadCategories();
-                });
-            }
-            catch (Exception ex)
-            {
-                Tools.LogError("Error occured while executing the OnPageLoad: ", ex);
-            }
-            finally
-            {
-                GUIWaitCursor.Hide();
-            }
+                }
+                catch (Exception ex)
+                {
+                    Tools.LogError("Error occured while executing the OnPageLoad: ", ex);
+                }
+                finally
+                {
+                    GUIWaitCursor.Hide();
+                }
+            });
         }
 
         protected override void OnPageDestroy(int new_windowId)
@@ -185,6 +187,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             else
                 menu.Add("Use Auto Resize Columns Mode");
 
+            menu.Add("Synchronize Online");
+
             if (item.Label != "..")
             {
                 menu.Add(String.Format("Hide '{0}'", item.Label));
@@ -200,6 +204,23 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_autoSize = !m_autoSize;
                     break;
                 case 3:
+                    System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+                    {
+                        try
+                        {
+                            UpdateSettings(true);
+                        }
+                        catch (Exception ex)
+                        {
+                            Tools.LogError("Error occured while executing the Update Online: ", ex);
+                        }
+                        finally
+                        {
+                            GUIWaitCursor.Hide();
+                        }
+                    });
+                    break;
+                case 4:
                     GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
                     dlg.SetHeading("Disable");
                     dlg.SetLine(1, String.Format("Hide '{0}'?", item.Label));
@@ -216,12 +237,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             base.OnShowContextMenu();
         }
 
-        private void UpdateSettings()
+        private void UpdateSettings(bool force)
         {
-            bool updated = ExchangeManager.OnlineUpdate(m_center);
+            bool updated = ExchangeManager.OnlineUpdate(m_center, force);
             if (updated)
             {
                 SaveSettings();
+                LoadCategories();
             }
         }
 
@@ -230,30 +252,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             switch (m_mode)
             {
                 case ViewMode.Results:
-                    foreach (Score score in m_center.Scores)
-                    {
-                        if (score.Category == m_currentCategory
-                            && score.Ligue == m_currentLeague
-                            && score.Name == name)
-                            score.enable = false;
-                    }
+                    m_center.Scores.Where(sc => sc.Category == m_currentCategory && sc.Ligue == m_currentLeague && sc.Name == name)
+                        .ForEach(sc => sc.enable = false);
                     LoadScores();
                     break;
                 case ViewMode.League:
-                    foreach (Score score in m_center.Scores)
-                    {
-                        if (score.Category == m_currentCategory
-                            && score.Ligue == name)
-                            score.enable = false;
-                    }
+                    m_center.Scores.Where(sc => sc.Category == m_currentCategory && sc.Ligue == name)
+                        .ForEach(sc => sc.enable = false);
                     LoadLeagues();
                     break;
                 case ViewMode.Category:
-                    foreach (Score score in m_center.Scores)
-                    {
-                        if (score.Category == name)
-                            score.enable = false;
-                    }
+                    m_center.Scores.Where(sc => sc.Category == name).ForEach(sc => sc.enable = false);
                     LoadCategories();
                     break;
             }
@@ -269,7 +278,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (m_currentScore != null && m_lines != null)
                 {
                     ClearGrid();
-                    CreateGrid(m_lines, m_currentScore, m_currentLine);
+                    CreateGrid(m_lines, m_currentScore, m_currentLine, m_currentColumn);
                 }
             }
             else if (control == lstDetails)
@@ -285,6 +294,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void UpdateListView(GUIListItem item, bool back)
         {
             m_currentLine = 0;
+            m_currentColumn = 0;
             m_currentScore = null;
             m_lines = null;
 
@@ -308,7 +318,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         #endregion
-        
+
+        #region Load Selection
         private void LoadCategories()
         {
             lstDetails.Clear();
@@ -316,6 +327,18 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 SetCategory("_");
 
+                foreach (string category in m_center.ReadCategories())
+                {
+                    GUIListItem item = new GUIListItem();
+                    item.Label = category;
+                    item.IsFolder = true;
+                    item.IconImage = GetCategoryImage(category);
+                    item.IsPlayed = m_center.IsCategoryUpdated(category);
+
+                    lstDetails.ListItems.Add(item);
+                }
+
+                /*
                 List<string> categories = new List<string>();
                 foreach (Score score in m_center.Scores)
                 {
@@ -328,14 +351,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                         item.Label = score.Category;
                         item.IsFolder = true;
                         item.IconImage = GetCategoryImage(score.Category);
+                        item.IsDownloading = m_center.IsCategoryUpdated(score.Category);
 
                         lstDetails.ListItems.Add(item);
                         categories.Add(score.Category);
                     }
-                }
+                }*/
             }
 
-            lstDetails.Sort(new ListComparer());
+            lstDetails.Sort(new ListComparer(m_mode));
             m_mode = ViewMode.Category;
         }
 
@@ -354,7 +378,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             MediaPortal.Util.Utils.SetDefaultIcons(item1);
             lstDetails.Add(item1);
 
-            List<string> leagues = new List<string>();
+            foreach (string league in m_center.ReadLeagues(m_currentCategory))
+            {
+                GUIListItem item = new GUIListItem();
+                item.Label = league;
+                item.IsFolder = true;
+                item.IconImage = GetLeagueImage(m_currentCategory, league);
+                item.IsPlayed = m_center.IsLeagueUpdated(m_currentCategory, league);
+
+                lstDetails.ListItems.Add(item);
+            }
+            /*List<string> leagues = new List<string>();
             foreach (Score score in m_center.Scores)
             {
                 if (score.enable == false)
@@ -367,13 +401,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.Label = score.Ligue;
                     item.IsFolder = true;
                     item.IconImage = GetLeagueImage(m_currentCategory, score.Ligue);
+                    item.IsDownloading = m_center.IsLeagueUpdated(score.Category, score.Ligue);
 
                     lstDetails.ListItems.Add(item);
                     leagues.Add(score.Ligue);
                 }
-            }
+            }*/
 
-            lstDetails.Sort(new ListComparer());
+            lstDetails.Sort(new ListComparer(m_mode));
             m_mode = ViewMode.League;
         }
 
@@ -402,13 +437,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.IsFolder = false;
                     item.IconImage = GetImage(score.Image);
                     item.TVTag = score;
+                    item.IsPlayed = score.IsNew();
 
                     lstDetails.ListItems.Add(item);
                 }
             }
 
-            lstDetails.Sort(new ListComparer());
             m_mode = ViewMode.Results;
+            lstDetails.Sort(new ListComparer(m_mode));
         }
         
         private void DisplayScore()
@@ -432,10 +468,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                     string[][] results = Parser.Read(score, false);
                     SetScore(score);
                     m_currentLine = 0;
+                    m_currentColumn = 0;
                     m_currentScore = score;
                     m_lines = results;
-                    btnNextPage.Visibility = System.Windows.Visibility.Hidden;
-                    CreateGrid(results, score, 0);
+                    ShowNextButton(false);
+                    CreateGrid(results, score, 0, 0);
                 }
                 catch (WebException exc)
                 {
@@ -457,6 +494,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             });
         }
+
+        #endregion
 
         #region Properties
 
@@ -513,6 +552,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_indices.Clear();
             m_currentIndex = StartIndex;
             GUIControl.SetControlLabel(GetID, 20, " ");
+            ShowNextButton(false);
         }
 
         /// <summary>
@@ -521,7 +561,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="labels">The labels to fill the grid with.</param>
         /// <param name="score">The Score to display.</param>
         /// <param name="startLine">The first line to display.</param>
-        private void CreateGrid(string[][] labels, Score score, int startLine)
+        private void CreateGrid(string[][] labels, Score score, int startLine, int startColumn)
         {
             int startX = tbxDetails.XPosition;
             int maxX = startX + tbxDetails.Width;
@@ -538,7 +578,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             GetCharFonSize(fontSize, ref charWidth, ref charHeight);
 
             #region Get Columns Sizes
-            int[] cols = null;
+            Tools.ColumnDisplay[] cols = null;
             if (!m_autoSize)
             {
                 cols = Tools.GetSizes(score.Sizes);
@@ -566,10 +606,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                 }
 
-                cols = new int[coldic.Count];
+                cols = new Tools.ColumnDisplay[coldic.Count];
                 foreach (int key in coldic.Keys)
                 {
-                    cols[key] = coldic[key];
+                    cols[key] = new Tools.ColumnDisplay(coldic[key].ToString());
                 }
             }
             #endregion
@@ -577,24 +617,34 @@ namespace MediaPortal.Plugin.ScoreCenter
             RuleEvaluator engine = new RuleEvaluator(score.Rules);
 
             int lineNumber = - 1;
+            bool overRight = false;
+            bool overDown = false;
+
+            // for all the rows
             foreach (string[] row in labels)
             {
+                // ignore empty lines
                 if (row == null)
                     continue;
 
                 lineNumber++;
+
+                // ignore lines on previous page
                 if (lineNumber < startLine)
                     continue;
 
-                posX = startX;
+                // calculate X position
+                posX = startX - m_currentColumn;
+
+                // ignore if outside and break to next row
                 if (posY > maxY)
                 {
                     m_currentLine = lineNumber - 1;
-                    btnNextPage.Visibility = System.Windows.Visibility.Visible;
-                    return;
+                    overDown = true;
+                    break;
                 }
 
-                // set style for the line
+                #region Evaluate rule for full line
                 bool isHeader = !String.IsNullOrEmpty(score.Headers) && lineNumber == 0;
                 Style lineStyle = defaultStyle;
                 bool merge = false;
@@ -607,27 +657,33 @@ namespace MediaPortal.Plugin.ScoreCenter
                         lineStyle = m_center.FindStyle(rule.Format) ?? defaultStyle;
                     }
                 }
+                #endregion
 
                 for (int colIndex = 0; colIndex < row.Length; colIndex++)
                 {
                     // ignore controls outside area
                     if (posX > maxX)
+                    {
+                        overRight = true;
                         continue;
+                    }
 
+                    // get cell
                     string cell = row[colIndex];
-
-                    // size of the columns (can be < 0)
-                    int colSize = GetColumnSize(colIndex, cols, cell, merge);
-                    if (colSize == 0)
+                    Tools.ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
+                    if (colSize.Size == 0)
                         continue;
-
-                    GUIControl.Alignment alignement = colSize > 0 && !merge ? GUIControl.Alignment.Right : GUIControl.Alignment.Left;
 
                     // evaluate size of the control in pixel
-                    int maxChar = Math.Abs(colSize + 1);
+                    int maxChar = Math.Abs(colSize.Size + 1);
                     int length = charWidth * maxChar;
+                    if (posX < startX)
+                    {
+                        posX += length;
+                        continue;
+                    }
 
-                    // set style for the cell
+                    #region Evaluate rule for the cell
                     Style cellStyle = lineStyle;
                     if (!isHeader)
                     {
@@ -635,20 +691,55 @@ namespace MediaPortal.Plugin.ScoreCenter
                         if (cellRule != null)
                         {
                             cellStyle = m_center.FindStyle(cellRule.Format) ?? lineStyle;
+                            if (cellRule.Action == RuleAction.ReplaceText)
+                            {
+                                string str1 = cellRule.Value;
+                                string str2 = String.Empty;
+                                if (cellRule.Value.Contains(","))
+                                {
+                                    string[] elts = cellRule.Value.Split(',');
+                                    str1 = elts[0];
+                                    str2 = elts[1];
+                                }
+
+                                cell = cell.Replace(str1, str2);
+                            }
                         }
                     }
+                    #endregion
 
-                    //LogMessage("Label: {0}, {1}, {2}, {3}", cell, colSize, length, posX);
-                    GUIControl control = CreateControl(posX, posY, length, charHeight, alignement,
-                        cell, fontName, cellStyle, maxChar);
+                    // create the control
+                    GUIControl control = CreateControl(posX, posY, length, charHeight,
+                        colSize.Alignement,
+                        cell,
+                        fontName, cellStyle, maxChar);
 
+                    // set X pos to the end of the control
                     posX += length;
                 }
 
+                // set Y pos to the bottom of the control
                 posY += charHeight;
             }
 
-            m_currentLine = 0;
+            if (overRight)
+            {
+                m_currentColumn += maxX - startX;
+                ShowNextButton(true);
+            }
+            else
+            {
+                m_currentColumn = 0;
+
+                if (overDown)
+                {
+                    ShowNextButton(true);
+                }
+                else
+                {
+                    m_currentLine = 0;
+                }
+            }
         }
 
         private void GetCharFonSize(int fontSize, ref int width, ref int height)
@@ -662,12 +753,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             height = (int)h1;
         }
 
-        private static int GetColumnSize(int colIndex, int[] cols, string text, bool span)
+        private static Tools.ColumnDisplay GetColumnSize(int colIndex, Tools.ColumnDisplay[] cols, string text, bool span)
         {
             if (cols == null || span)
-                return -text.Length;
+                return new Tools.ColumnDisplay(text.Length, GUIControl.Alignment.Left);
 
-            return colIndex < cols.Length ? cols[colIndex] : 0;
+            return colIndex < cols.Length ? cols[colIndex] : new Tools.ColumnDisplay("0");
         }
 
         private GUIControl CreateControl(int posX, int posY, int width, int height,
@@ -714,6 +805,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             return control;
         }
 
+        private void ShowNextButton(bool visible)
+        {
+            if (btnNextPage != null)
+            {
+                btnNextPage.Visibility = visible
+                    ? System.Windows.Visibility.Visible
+                    : System.Windows.Visibility.Hidden;
+            }
+        }
+
         #endregion
 
         #region Utils
@@ -753,52 +854,44 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private string GetCategoryImage(string name)
         {
-            if (name == " ")
+            CategoryImg img = m_center.FindCategoryImage(name);
+            if (img == null)
                 return "-";
-
-            if (m_center.Images != null && m_center.Images.CategoryImg != null)
-            {
-                foreach (CategoryImg img in m_center.Images.CategoryImg)
-                {
-                    if (String.Compare(name, img.Name, true) == 0)
-                    {
-                        return GetImage(img.Path);
-                    }
-                }
-            }
-
-            return "-";
+            return GetImage(img.Path);
         }
 
         private string GetLeagueImage(string category, string name)
         {
-            if (name == " ")
+            LeagueImg img = m_center.FindLeagueImage(category, name);
+            if (img == null)
                 return "-";
-
-            if (m_center.Images != null && m_center.Images.LeagueImg != null)
-            {
-                foreach (LeagueImg img in m_center.Images.LeagueImg)
-                {
-                    if (String.Compare(category, img.Category, true) == 0
-                        && String.Compare(name, img.Name, true) == 0)
-                    {
-                        return GetImage(img.Path);
-                    }
-                }
-            }
-
-            return "-";
+            return GetImage(img.Path);
         }
 
         #endregion
 
         private class ListComparer : IComparer<GUIListItem>
         {
+            private ViewMode m_mode = ViewMode.Category;
+
+            public ListComparer(ViewMode mode)
+            {
+                m_mode = mode;
+            }
+
             #region IComparer<GUIListItem> Members
 
             public int Compare(GUIListItem x, GUIListItem y)
             {
-                return String.Compare(x.Label, y.Label);
+                if (m_mode != ViewMode.Results)
+                    return String.Compare(x.Label, y.Label);
+
+                Score scx = x.TVTag as Score;
+                Score scy = y.TVTag as Score;
+                if (scx == null || scy == null)
+                    return String.Compare(x.Label, y.Label);
+
+                return scx.CompareTo(scy);
             }
 
             #endregion

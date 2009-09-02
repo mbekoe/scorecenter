@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScoreCenter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Setup>
-    <Name>Score Center</Name>
+    <Name>My Score Center</Name>
     <DefaultSkinColor>-16752449</DefaultSkinColor>
     <BackdropDir>C:\Team MediaPortal\FanArt\Sport</BackdropDir>
     <UpdateUrl>http://scorecenter.googlecode.com/files/MyScoreCenter.Settings.xml</UpdateUrl>
@@ -10,51 +10,52 @@
   <Images>
     <CategoryImg Name="Baseball" Path="Baseball" />
     <CategoryImg Name="Basketball" Path="Basketball" />
+    <CategoryImg Name="Cricket" Path="Cricket" />
     <CategoryImg Name="Cycling" Path="Cycling" />
     <CategoryImg Name="Football" Path="Football" />
     <CategoryImg Name="Motors" Path="Motors" />
     <CategoryImg Name="Rugby" Path="Rugby" />
     <CategoryImg Name="Tennis" Path="Tennis" />
     <CategoryImg Name="US Football" Path="US Football" />
-    <CategoryImg Name="Cricket" Path="Cricket" />
-    <LeagueImg Category="Football" Name="Belgium" Path="Flags\Belgium" />
-    <LeagueImg Category="Football" Name="Bundesligua" Path="Flags\Germany" />
-    <LeagueImg Category="Football" Name="Liga" Path="Flags\Spain" />
-    <LeagueImg Category="Football" Name="Ligue 1" Path="Flags\France" />
-    <LeagueImg Category="Football" Name="Ligue 2" Path="Flags\France" />
-    <LeagueImg Category="Football" Name="MLS" Path="Football\MLS" />
-    <LeagueImg Category="Football" Name="Portugal" Path="Flags\Portugal" />
-    <LeagueImg Category="Football" Name="Premier League" Path="Flags\England" />
-    <LeagueImg Category="Football" Name="Serie A" Path="Flags\Italy" />
-    <LeagueImg Category="Rugby" Name="Top 14" Path="Flags\France" />
+    <LeagueImg Category="Baseball" Name="American League" Path="Baseball\AmericanLeague" />
+    <LeagueImg Category="Baseball" Name="National League" Path="Baseball\NationalLeague" />
     <LeagueImg Category="Basketball" Name="NBA" Path="Basketball\NBA" />
     <LeagueImg Category="Cycling" Name="Giro" Path="Flags\Italy" />
     <LeagueImg Category="Cycling" Name="Tour de France" Path="Flags\France" />
-    <LeagueImg Category="Rugby" Name="Top 14" Path="Flags\France" />
+    <LeagueImg Category="Football" Name="Algeria" Path="Flags\Algeria" />
+    <LeagueImg Category="Football" Name="Argentina" Path="Flags\Argentina" />
+    <LeagueImg Category="Football" Name="Belgium" Path="Flags\Belgium" />
+    <LeagueImg Category="Football" Name="Brazil" Path="Flags\Brazil" />
+    <LeagueImg Category="Football" Name="Bundesligua" Path="Flags\Germany" />
+    <LeagueImg Category="Football" Name="Championship" Path="Flags\England2" />
+    <LeagueImg Category="Football" Name="Czech Republic" Path="Flags\Czech" />
+    <LeagueImg Category="Football" Name="Greece" Path="Flags\Greece" />
+    <LeagueImg Category="Football" Name="Liga" Path="Flags\Spain" />
+    <LeagueImg Category="Football" Name="Ligue 1" Path="Flags\France" />
+    <LeagueImg Category="Football" Name="Ligue 2" Path="Flags\France2" />
+    <LeagueImg Category="Football" Name="MLS" Path="Football\MLS" />
+    <LeagueImg Category="Football" Name="Morocco" Path="Flags\Morocco" />
+    <LeagueImg Category="Football" Name="Portugal" Path="Flags\Portugal" />
+    <LeagueImg Category="Football" Name="Premier League" Path="Flags\England" />
+    <LeagueImg Category="Football" Name="Russia" Path="Flags\Russia" />
+    <LeagueImg Category="Football" Name="Scotland" Path="Flags\Scotland" />
+    <LeagueImg Category="Football" Name="Serie A" Path="Flags\Italy" />
+    <LeagueImg Category="Football" Name="Switzerland" Path="Flags\Switzerland" />
+    <LeagueImg Category="Football" Name="Tunisia" Path="Flags\Tunisia" />
+    <LeagueImg Category="Football" Name="Turkey" Path="Flags\Turkey" />
     <LeagueImg Category="Motors" Name="Formula 1" Path="Motors\Formula 1" />
     <LeagueImg Category="Motors" Name="WRC" Path="Motors\WRC" />
-    <LeagueImg Category="Football" Name="Scotland" Path="Flags\Scotland" />
-    <LeagueImg Category="Football" Name="Greece" Path="Flags\Greece" />
-    <LeagueImg Category="Football" Name="Argentina" Path="Flags\Argentina" />
-    <LeagueImg Category="Football" Name="Brazil" Path="Flags\Brazil" />
-    <LeagueImg Category="Football" Name="Algeria" Path="Flags\Algeria" />
-    <LeagueImg Category="Football" Name="Morocco" Path="Flags\Morocco" />
-    <LeagueImg Category="Football" Name="Russia" Path="Flags\Russia" />
-    <LeagueImg Category="Football" Name="Switzerland" Path="Flags\Switzerland" />
-    <LeagueImg Category="Football" Name="Turkey" Path="Flags\Turkey" />
-    <LeagueImg Category="Football" Name="Czech Republic" Path="Flags\Czech" />
-    <LeagueImg Category="Football" Name="Tunisia" Path="Flags\Tunisia" />
-    <LeagueImg Category="Baseball" Name="American League" Path="Baseball\AmericanLeague" />
-    <LeagueImg Category="Baseball" Name="National League" Path="Baseball\NationalLeague" />
+    <LeagueImg Category="Rugby" Name="Top 14" Path="Flags\France" />
     <LeagueImg Category="Tennis" Name="WTA" Path="Tennis\WTA_Tour" />
     <LeagueImg Category="Tennis" Name="ATP" Path="Tennis\ATP_World_Tour" />
-    <LeagueImg Category="Football" Name="Championship" Path="Flags\England" />
+    <LeagueImg Category="Tennis" Name="WTA" Path="Tennis\WTA_Tour" />
+    <LeagueImg Category="Football" Name="Bundesligua 2" Path="Flags\Germany2" />
   </Images>
   <Styles>
     <Style Name="Orange" ForeColor="-32768" />
-    <Style Name="Yellow" ForeColor="-128" />
     <Style Name="Red" ForeColor="-65536" />
     <Style Name="White" ForeColor="-1" />
+    <Style Name="Yellow" ForeColor="-128" />
   </Styles>
   <Scores>
     <Score enable="true" Id="bd4d9510-76f9-4024-af3f-2aa4a09c1d13">
@@ -149,7 +150,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ITA.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="0ee1b96f-d2ac-4837-91f8-79c57b560ace">
@@ -173,7 +174,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ESP.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="ffd614d6-f40a-439a-9e0f-56222f96fcd8">
@@ -197,7 +198,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ANG.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="d6ea6fc7-e9a8-4a48-a72b-3a0d1a74498d">
@@ -221,7 +222,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ALL.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="90dc1f1d-c684-4bc6-bafc-82043b14808f">
@@ -492,7 +493,7 @@
       <MaxLines>20</MaxLines>
       <Image>Cycling\TDF Team</Image>
     </Score>
-    <Score Id="ab0bfa15-58f5-4042-b85c-e04b87ac4301">
+    <Score enable="true" Id="ab0bfa15-58f5-4042-b85c-e04b87ac4301">
       <Category>Motors</Category>
       <Ligue>Formula 1</Ligue>
       <Name>Pilot (alt)</Name>
@@ -594,7 +595,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_POR.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="0c2f6caa-1add-40bf-a77b-38166df3e5cb">
@@ -617,7 +618,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_BEL.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="c0f444f2-8c94-423d-bcb4-2582c331321d">
@@ -637,7 +638,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ECO.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="7e536991-92ae-4882-a359-214ce87c78d9">
@@ -687,7 +688,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_GRE.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="c38efc96-de1c-4c4f-be61-6feabcfaba8a">
@@ -707,7 +708,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_RTC.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="f47340d4-2861-4b57-83c0-b70b1c4f7212">
@@ -727,7 +728,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_SUI.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="811ead55-874b-4610-8622-3736701d91bf">
@@ -747,7 +748,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_TUR.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="b76c8db6-ae5d-4dcf-ba79-66e6a36f1daa">
@@ -756,7 +757,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_RUS.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="3bb24a37-e34f-4019-987e-e99d99d1098d">
@@ -787,7 +788,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_BRE.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="2cc19641-8296-4c8b-ab6a-e30e0c702d2c">
@@ -796,7 +797,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ARG.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="93354140-794d-4ac8-b405-be23ab5e7f92">
@@ -827,7 +828,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_ALG.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="8216dbe0-7fa7-418e-88dc-2ef10e20f3d0">
@@ -847,7 +848,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_MAR.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="e6ab5bbe-2631-4e9b-96b2-a56a9a1b4494">
@@ -867,7 +868,7 @@
       <Name>Results</Name>
       <Url>http://www.lequipe.fr/Football/RES_TUN.html</Url>
       <XPath>//div[@id='programme']//table[1]</XPath>
-      <Sizes>0,25,5,-25,0</Sizes>
+      <Sizes>0,25,+5,-25,0</Sizes>
       <Image>Results</Image>
     </Score>
     <Score enable="true" Id="78f5c5e8-6396-47d0-8265-8247b830ea76">
@@ -955,7 +956,7 @@
       <Category>Football</Category>
       <Ligue>Championship</Ligue>
       <Name>Results</Name>
-      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/results/2009_08.html</Url>
+      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/results/{yyyy_MM}.html</Url>
       <XPath>//table[@class='fixtures-results']</XPath>
       <Sizes>-20,-45,0</Sizes>
       <Image>Results</Image>
@@ -972,18 +973,41 @@
       <Sizes>-15,-15,5</Sizes>
       <Image>Football\Top Scorers</Image>
     </Score>
-    <Score enable="true" Id="b5d27c31-5065-471c-abf4-c6fa7be7161c">
+    <Score enable="true" Id="96e17cfa-5756-45b9-b036-814c2c2d05b0">
       <Category>Football</Category>
-      <Ligue>Championship</Ligue>
-      <Name>Results2</Name>
-      <Url>http://uk.eurosport.yahoo.com/football/championship/2009-2010/results/2009_08.html</Url>
-      <XPath>//table[@class='fixtures-results']</XPath>
-      <Sizes>-20,-45,0</Sizes>
+      <Ligue>Bundesligua 2</Ligue>
+      <Name>Results</Name>
+      <Url>http://www.kicker.de/news/fussball/2bundesliga/spieltag/2-bundesliga/2009-10/spieltag.html</Url>
+      <Encoding>ISO-8859-1</Encoding>
+      <XPath>//table[@class='tStat']</XPath>
+      <Element>0</Element>
+      <Sizes>2,12,20,1,20,9,0,12,0,0</Sizes>
+      <Skip>1</Skip>
       <Image>Results</Image>
-      <Rules>
-        <Rule Column="1" Value="- Day" Operator="Contains" Action="MergeCells" Format="Yellow" />
-      </Rules>
     </Score>
+    <Score enable="true" Id="b80996d5-3ee8-473c-b8d1-d4fd44d3c62e">
+      <Category>Football</Category>
+      <Ligue>Bundesligua 2</Ligue>
+      <Name>Standings</Name>
+      <Url>http://www.kicker.de/news/fussball/2bundesliga/spieltag/2-bundesliga/2009-10/spieltag.html</Url>
+      <Encoding>ISO-8859-1</Encoding>
+      <XPath>//table[@class='tStat']</XPath>
+      <Element>1</Element>
+      <Sizes>2,0,-24,0,2,0,2,2,2,0,5,3,0,2</Sizes>
+      <Skip>1</Skip>
+      <Image>Standings</Image>
+    </Score>
+    <Score enable="true" Id="c8032973-f057-44ff-a7f9-4df433d4c3f9">
+      <Category>Football</Category>
+      <Ligue>Bundesligua 2</Ligue>
+      <Name>Top Scorers</Name>
+      <Url>http://www.kicker.de/news/fussball/2bundesliga/spieltag/2-bundesliga/2009-10/34/scorer-der-saison.html</Url>
+      <Encoding>ISO-8859-1</Encoding>
+      <XPath>//table[@class='tStat']</XPath>
+      <Headers>,Spieler,Verein,S,Sp,To,As,Pt</Headers>
+      <Sizes>3,-24,-20,2,2,2,2,2</Sizes>
+      <Skip>1</Skip>
+      <Image>Football\Top Scorers</Image>
     </Score>
   </Scores>
 </ScoreCenter>

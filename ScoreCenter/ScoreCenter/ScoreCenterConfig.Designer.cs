@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.tbxEncoding = new System.Windows.Forms.TextBox();
             this.tbxElement = new System.Windows.Forms.TextBox();
             this.btnOpenUrl = new System.Windows.Forms.Button();
             this.btnAuto = new System.Windows.Forms.Button();
@@ -66,6 +67,9 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.tsbCopyScore = new System.Windows.Forms.ToolStripButton();
             this.tsbDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMoveUp = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveDown = new System.Windows.Forms.ToolStripButton();
             this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
@@ -86,7 +90,6 @@
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
-            this.tbxEncoding = new System.Windows.Forms.TextBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -129,6 +132,11 @@
             this.gbxScore.Controls.Add(this.lblUrl);
             this.gbxScore.Name = "gbxScore";
             this.gbxScore.TabStop = false;
+            // 
+            // tbxEncoding
+            // 
+            resources.ApplyResources(this.tbxEncoding, "tbxEncoding");
+            this.tbxEncoding.Name = "tbxEncoding";
             // 
             // tbxElement
             // 
@@ -325,6 +333,9 @@
             this.tsbAbout,
             this.tsbCopyScore,
             this.tsbDelete,
+            this.toolStripSeparator2,
+            this.tsbMoveUp,
+            this.tsbMoveDown,
             this.tsbEditStyles,
             this.toolStripSeparator1,
             this.tsbExport,
@@ -367,6 +378,27 @@
             resources.ApplyResources(this.tsbDelete, "tsbDelete");
             this.tsbDelete.Name = "tsbDelete";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // tsbMoveUp
+            // 
+            this.tsbMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbMoveUp.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_moveup;
+            resources.ApplyResources(this.tsbMoveUp, "tsbMoveUp");
+            this.tsbMoveUp.Name = "tsbMoveUp";
+            this.tsbMoveUp.Click += new System.EventHandler(this.tsbMoveUp_Click);
+            // 
+            // tsbMoveDown
+            // 
+            this.tsbMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbMoveDown.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_movedown;
+            resources.ApplyResources(this.tsbMoveDown, "tsbMoveDown");
+            this.tsbMoveDown.Name = "tsbMoveDown";
+            this.tsbMoveDown.Click += new System.EventHandler(this.tsbMoveDown_Click);
             // 
             // tsbEditStyles
             // 
@@ -515,11 +547,6 @@
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
             // 
-            // tbxEncoding
-            // 
-            resources.ApplyResources(this.tbxEncoding, "tbxEncoding");
-            this.tbxEncoding.Name = "tbxEncoding";
-            // 
             // ScoreCenterConfig
             // 
             resources.ApplyResources(this, "$this");
@@ -610,5 +637,8 @@
         private System.Windows.Forms.TextBox tbxElement;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbxEncoding;
+        private System.Windows.Forms.ToolStripButton tsbMoveUp;
+        private System.Windows.Forms.ToolStripButton tsbMoveDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

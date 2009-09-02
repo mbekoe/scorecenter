@@ -26,6 +26,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void StyleDialog_Load(object sender, EventArgs e)
         {
+            if (m_center.Styles == null)
+                return;
+            
             foreach (Style style in m_center.Styles)
             {
                 AddControl(style);
@@ -46,7 +49,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (style.Name.Length > 0)
                     {
                         toSave.Add(style);
-                        if (ctrl.OriginalName != style.Name)
+                        if (!String.IsNullOrEmpty(ctrl.OriginalName) && ctrl.OriginalName != style.Name)
                         {
                             rename.Add(ctrl.OriginalName.ToUpper(), style.Name);
                         }

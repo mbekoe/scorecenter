@@ -172,6 +172,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         InList,
+        
+        /// <remarks/>
+        IsNull,
     }
     
     /// <remarks/>
@@ -187,6 +190,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         MergeCells,
+        
+        /// <remarks/>
+        ReplaceText,
     }
     
     /// <remarks/>
@@ -228,6 +234,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string idField;
         
+        private int orderField;
+        
         public Score() {
             this.encodingField = "";
             this.elementField = "";
@@ -237,6 +245,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.maxLinesField = 0;
             this.imageField = "";
             this.enableField = false;
+            this.orderField = 99;
         }
         
         /// <remarks/>
@@ -412,6 +421,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
                 this.idField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(99)]
+        public int Order {
+            get {
+                return this.orderField;
+            }
+            set {
+                this.orderField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -579,7 +600,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string backdropDirField;
         
-        private bool updateOnlineField;
+        private UpdateMode updateOnlineModeField;
         
         private string updateUrlField;
         
@@ -589,7 +610,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.cacheExpirationField = 5;
             this.defaultSkinColorField = -16776961;
             this.backdropDirField = "";
-            this.updateOnlineField = false;
+            this.updateOnlineModeField = UpdateMode.Never;
             this.updateUrlField = "";
             this.updateRuleField = "";
         }
@@ -643,13 +664,13 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool UpdateOnline {
+        [System.ComponentModel.DefaultValueAttribute(UpdateMode.Never)]
+        public UpdateMode UpdateOnlineMode {
             get {
-                return this.updateOnlineField;
+                return this.updateOnlineModeField;
             }
             set {
-                this.updateOnlineField = value;
+                this.updateOnlineModeField = value;
             }
         }
         
@@ -676,6 +697,24 @@ namespace MediaPortal.Plugin.ScoreCenter {
                 this.updateRuleField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    public enum UpdateMode {
+        
+        /// <remarks/>
+        Never,
+        
+        /// <remarks/>
+        Once,
+        
+        /// <remarks/>
+        Always,
+        
+        /// <remarks/>
+        Manually,
     }
     
     /// <remarks/>
