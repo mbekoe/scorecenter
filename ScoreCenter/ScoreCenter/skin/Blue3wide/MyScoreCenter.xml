@@ -15,7 +15,7 @@
       <texture>background.png</texture>
     </control>
 
-	<!-- uncomment to add backdrop matching current sport -->
+    <!-- backdrop matching current sport -->
     <control>
       <description>backdrop</description>
       <type>image</type>
@@ -77,7 +77,7 @@
       <centered>yes</centered>
     </control>
 
-	<!--
+    <!--
     <control>
       <description>Current Category</description>
       <type>label</type>
@@ -98,7 +98,7 @@
       <align>left</align>
       <textcolor>ffffffff</textcolor>
     </control>
-	-->
+    -->
     <control>
       <description>Current Results</description>
       <type>label</type>
@@ -132,6 +132,8 @@
       <onright>40</onright>
     </control>
 
+    <!-- This control defines the area and the format (font and color)
+    in which the score will be displayed -->
     <control>
       <description>Results</description>
       <type>textboxscrollup</type>
