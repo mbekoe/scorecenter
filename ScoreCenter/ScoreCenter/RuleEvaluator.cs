@@ -69,6 +69,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (Evaluate(rule, text[rule.Column - 1]))
                         return rule;
                 }
+                else if (rule.Operator == Operation.IsNull)
+                {
+                    return rule;
+                }
             }
 
             return null;
@@ -141,7 +145,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     break;
                 case Operation.IsNull:
                     result = String.IsNullOrEmpty(newText);
-                    Tools.LogMessage("Rule IsNull '{1}' : {0}", result, newText);
                     break;
             }
 
