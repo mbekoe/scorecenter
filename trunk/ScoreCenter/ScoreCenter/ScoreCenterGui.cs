@@ -298,6 +298,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_currentScore = null;
             m_lines = null;
 
+            ShowNextButton(false);
             ClearGrid();
             switch (m_mode)
             {
@@ -337,26 +338,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     lstDetails.ListItems.Add(item);
                 }
-
-                /*
-                List<string> categories = new List<string>();
-                foreach (Score score in m_center.Scores)
-                {
-                    if (score.enable == false)
-                        continue;
-
-                    if (categories.Contains(score.Category) == false)
-                    {
-                        GUIListItem item = new GUIListItem();
-                        item.Label = score.Category;
-                        item.IsFolder = true;
-                        item.IconImage = GetCategoryImage(score.Category);
-                        item.IsDownloading = m_center.IsCategoryUpdated(score.Category);
-
-                        lstDetails.ListItems.Add(item);
-                        categories.Add(score.Category);
-                    }
-                }*/
             }
 
             lstDetails.Sort(new ListComparer(m_mode));
@@ -388,25 +369,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 lstDetails.ListItems.Add(item);
             }
-            /*List<string> leagues = new List<string>();
-            foreach (Score score in m_center.Scores)
-            {
-                if (score.enable == false)
-                    continue;
-
-                if (score.Category == m_currentCategory
-                    && leagues.Contains(score.Ligue) == false)
-                {
-                    GUIListItem item = new GUIListItem();
-                    item.Label = score.Ligue;
-                    item.IsFolder = true;
-                    item.IconImage = GetLeagueImage(m_currentCategory, score.Ligue);
-                    item.IsDownloading = m_center.IsLeagueUpdated(score.Category, score.Ligue);
-
-                    lstDetails.ListItems.Add(item);
-                    leagues.Add(score.Ligue);
-                }
-            }*/
 
             lstDetails.Sort(new ListComparer(m_mode));
             m_mode = ViewMode.League;
@@ -552,7 +514,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_indices.Clear();
             m_currentIndex = StartIndex;
             GUIControl.SetControlLabel(GetID, 20, " ");
-            ShowNextButton(false);
         }
 
         /// <summary>
@@ -563,6 +524,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="startLine">The first line to display.</param>
         private void CreateGrid(string[][] labels, Score score, int startLine, int startColumn)
         {
+            //Tools.LogMessage("CreateGrid: L={0}, C={1}", startLine, startColumn);
             int startX = tbxDetails.XPosition;
             int maxX = startX + tbxDetails.Width;
             int maxY = tbxDetails.YPosition + tbxDetails.Height;
@@ -571,6 +533,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string fontName = tbxDetails.FontName;
             Style defaultStyle = new Style();
             defaultStyle.ForeColor = tbxDetails.TextColor;
+            //Tools.LogMessage("StartX={0}, startY={1}", startX, posY);
 
             GUIFont font = GUIFontManager.GetFont(fontName);
             int fontSize = font.FontSize;
@@ -634,12 +597,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                     continue;
 
                 // calculate X position
-                posX = startX - m_currentColumn;
+                posX = startX - startColumn;
+                //Tools.LogMessage("L={0}, C={1}, V={2}", lineNumber, m_currentColumn, row[0]);
 
                 // ignore if outside and break to next row
                 if (posY > maxY)
                 {
-                    m_currentLine = lineNumber - 1;
                     overDown = true;
                     break;
                 }
@@ -672,7 +635,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                     string cell = row[colIndex];
                     Tools.ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
                     if (colSize.Size == 0)
+                    {
                         continue;
+                    }
 
                     // evaluate size of the control in pixel
                     int maxChar = Math.Abs(colSize.Size + 1);
@@ -709,6 +674,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     #endregion
 
                     // create the control
+                    //Tools.LogMessage("*** {1}x{2} - CreateControl = {0}, ", cell, posX, posY);
                     GUIControl control = CreateControl(posX, posY, length, charHeight,
                         colSize.Alignement,
                         cell,
@@ -724,19 +690,23 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             if (overRight)
             {
+                // keep current line
                 m_currentColumn += maxX - startX;
                 ShowNextButton(true);
             }
             else
             {
+                // reset current column
                 m_currentColumn = 0;
 
                 if (overDown)
                 {
+                    m_currentLine = lineNumber - 1;
                     ShowNextButton(true);
                 }
                 else
                 {
+                    // no more pages
                     m_currentLine = 0;
                 }
             }
