@@ -125,7 +125,7 @@
     <control>
       <description>Current Results</description>
       <type>label</type>
-      <posX>350</posX>
+      <posX>300</posX>
       <posY>50</posY>
       <label>#ScoreCenter.Results</label>
       <font>font14</font>

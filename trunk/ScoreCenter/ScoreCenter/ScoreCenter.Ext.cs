@@ -194,6 +194,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Skip = newScore.Skip;
                 this.MaxLines = newScore.MaxLines;
                 this.Sizes = newScore.Sizes;
+                this.Element = newScore.Element;
+                this.Encoding = newScore.Encoding;
             }
 
             if ((type & ImportOptions.Rules) == ImportOptions.Rules)
