@@ -102,7 +102,7 @@
     <control>
       <description>Current Results</description>
       <type>label</type>
-      <posX>350</posX>
+      <posX>315</posX>
       <posY>50</posY>
       <label>#ScoreCenter.Results</label>
       <font>font14</font>
@@ -116,7 +116,7 @@
       <id>10</id>
       <posX>10</posX>
       <posY>100</posY>
-      <width>320</width>
+      <width>300</width>
       <height>550</height>
       <textXOff>10</textXOff>
       <textYOff>2</textYOff>
@@ -138,10 +138,10 @@
       <description>Results</description>
       <type>textboxscrollup</type>
       <id>20</id>
-      <posX>350</posX>
+      <posX>315</posX>
       <posY>100</posY>
       <visible>yes</visible>
-      <width>900</width>
+      <width>970</width>
       <height>600</height>
       <font>font11</font>
     </control>
@@ -150,7 +150,7 @@
       <description>Next Button</description>
       <type>button</type>
       <id>40</id>
-      <posX>230</posX>
+      <posX>210</posX>
       <posY>670</posY>
       <width>100</width>
       <label>Next</label>

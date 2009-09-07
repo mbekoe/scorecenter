@@ -709,6 +709,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Skip = source.Skip;
             copy.MaxLines = source.MaxLines;
             copy.Image = source.Image;
+            copy.Element = source.Element;
+            copy.Encoding = source.Encoding;
 
             // add the new item and refresh
             m_center.AddScore(copy);
