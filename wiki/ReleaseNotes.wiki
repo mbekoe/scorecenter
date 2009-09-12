@@ -1,0 +1,24 @@
+*version 0.10 (3 Sep 09):*
+    * Online synchronization
+    * New Rule: IsNull
+    * New Rule Formatting: MergeCells and ReplaceText
+    * Cell Alignment: use '+' to center text
+    * Paging for long score
+    * Possibility to order the results in the configuration
+    * Configuration: improve performance of the building of the tree and saving
+
+*version 0.9 (19 Aug 09):*
+    * Management of icons from the configuration
+    * Import/Export to exchange settings
+    * Set the name of the plugin in configuration
+    * Rename categories/leagues from the tree
+    * Enable checkbox in the tree to disable/enable a full category
+    * Context menu in the plugin to deactivate elements
+    * Context menu to enable the "Auto Size" mode (in case the website changes the table)
+    * Property to set the encoding of the web page, button to go visit the web page from the configuration
+    * Variable URL (with date elements like {M_yyyy} ==> 8_2009)
+    * XPath can include any type of elements (not just tables), non table element are displayed on a single line (for example a list of div elements)
+    * Additional field to retrieve a specific element in the XPath result
+    * Post processing rules to format results
+
+*version 0.5 (12 Jul 09) initial public release*
