@@ -52,8 +52,8 @@
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.lblSizes = new System.Windows.Forms.Label();
             this.lblHeaders = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblXpathElement = new System.Windows.Forms.Label();
+            this.lblEncoding = new System.Windows.Forms.Label();
             this.lblXPath = new System.Windows.Forms.Label();
             this.lblUrl = new System.Windows.Forms.Label();
             this.btnClearIcon = new System.Windows.Forms.Button();
@@ -89,6 +89,7 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
+            this.lblTotalSize = new System.Windows.Forms.Label();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
@@ -105,6 +106,7 @@
             // gbxScore
             // 
             resources.ApplyResources(this.gbxScore, "gbxScore");
+            this.gbxScore.Controls.Add(this.lblTotalSize);
             this.gbxScore.Controls.Add(this.tbxEncoding);
             this.gbxScore.Controls.Add(this.tbxElement);
             this.gbxScore.Controls.Add(this.btnOpenUrl);
@@ -126,8 +128,8 @@
             this.gbxScore.Controls.Add(this.tbxUrl);
             this.gbxScore.Controls.Add(this.lblSizes);
             this.gbxScore.Controls.Add(this.lblHeaders);
-            this.gbxScore.Controls.Add(this.label2);
-            this.gbxScore.Controls.Add(this.label1);
+            this.gbxScore.Controls.Add(this.lblXpathElement);
+            this.gbxScore.Controls.Add(this.lblEncoding);
             this.gbxScore.Controls.Add(this.lblXPath);
             this.gbxScore.Controls.Add(this.lblUrl);
             this.gbxScore.Name = "gbxScore";
@@ -233,6 +235,7 @@
             // 
             resources.ApplyResources(this.tbxSizes, "tbxSizes");
             this.tbxSizes.Name = "tbxSizes";
+            this.tbxSizes.TextChanged += new System.EventHandler(this.tbxSizes_TextChanged);
             // 
             // tbxHeaders
             // 
@@ -262,15 +265,15 @@
             resources.ApplyResources(this.lblHeaders, "lblHeaders");
             this.lblHeaders.Name = "lblHeaders";
             // 
-            // label2
+            // lblXpathElement
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.lblXpathElement, "lblXpathElement");
+            this.lblXpathElement.Name = "lblXpathElement";
             // 
-            // label1
+            // lblEncoding
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblEncoding, "lblEncoding");
+            this.lblEncoding.Name = "lblEncoding";
             // 
             // lblXPath
             // 
@@ -534,6 +537,11 @@
             // 
             resources.ApplyResources(this.ofdImport, "ofdImport");
             // 
+            // lblTotalSize
+            // 
+            resources.ApplyResources(this.lblTotalSize, "lblTotalSize");
+            this.lblTotalSize.Name = "lblTotalSize";
+            // 
             // tvwScores
             // 
             resources.ApplyResources(this.tvwScores, "tvwScores");
@@ -628,17 +636,18 @@
         private System.Windows.Forms.OpenFileDialog ofdImport;
         private System.Windows.Forms.ToolStripButton tsbOptions;
         private System.Windows.Forms.Button btnOpenUrl;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblEncoding;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn colOperator;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colAction;
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
         private System.Windows.Forms.TextBox tbxElement;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblXpathElement;
         private System.Windows.Forms.TextBox tbxEncoding;
         private System.Windows.Forms.ToolStripButton tsbMoveUp;
         private System.Windows.Forms.ToolStripButton tsbMoveDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Label lblTotalSize;
     }
 }

@@ -121,11 +121,38 @@
   <data name="gbxScore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="lblTotalSize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblTotalSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 175</value>
+  </data>
+  <data name="lblTotalSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblTotalSize.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="lblTotalSize.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;lblTotalSize.Name" xml:space="preserve">
+    <value>lblTotalSize</value>
+  </data>
+  <data name="&gt;&gt;lblTotalSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTotalSize.Parent" xml:space="preserve">
+    <value>gbxScore</value>
+  </data>
+  <data name="&gt;&gt;lblTotalSize.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="tbxEncoding.Location" type="System.Drawing.Point, System.Drawing">
     <value>59, 98</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tbxEncoding.MaxLength" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
@@ -145,11 +172,8 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxEncoding.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>252, 17</value>
-  </metadata>
   <data name="tbxElement.Location" type="System.Drawing.Point, System.Drawing">
     <value>420, 98</value>
   </data>
@@ -159,6 +183,9 @@
   <data name="tbxElement.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>252, 17</value>
+  </metadata>
   <data name="tbxElement.ToolTip" xml:space="preserve">
     <value>0 based indice of the element (all if empty)</value>
   </data>
@@ -172,7 +199,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxElement.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnOpenUrl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -202,7 +229,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnOpenUrl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnAuto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -232,7 +259,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnAuto.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tbxScore.Location" type="System.Drawing.Point, System.Drawing">
     <value>370, 19</value>
@@ -259,7 +286,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxScore.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="tbxLeague.Location" type="System.Drawing.Point, System.Drawing">
     <value>214, 19</value>
@@ -286,7 +313,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxLeague.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="tbxCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 19</value>
@@ -313,7 +340,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxCategory.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -343,7 +370,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="ckxReload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -379,7 +406,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;ckxReload.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -412,7 +439,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btnTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -445,7 +472,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;btnTest.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="lblMaxLines.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -475,7 +502,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblMaxLines.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="lblSkip.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -505,7 +532,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblSkip.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="tbxSkip.Location" type="System.Drawing.Point, System.Drawing">
     <value>615, 45</value>
@@ -532,7 +559,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxSkip.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="tbxMaxLines.Location" type="System.Drawing.Point, System.Drawing">
     <value>615, 71</value>
@@ -559,7 +586,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxMaxLines.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="tbxSizes.Location" type="System.Drawing.Point, System.Drawing">
     <value>59, 151</value>
@@ -583,7 +610,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxSizes.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="tbxHeaders.Location" type="System.Drawing.Point, System.Drawing">
     <value>59, 125</value>
@@ -610,7 +637,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxHeaders.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="tbxXpath.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 71</value>
@@ -637,7 +664,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxXpath.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="tbxUrl.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 45</value>
@@ -667,7 +694,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="lblSizes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -697,7 +724,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblSizes.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="lblHeaders.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -727,67 +754,67 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblHeaders.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 101</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>XPath Element</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>gbxScore</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lblXpathElement.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="lblXpathElement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 101</value>
+  <data name="lblXpathElement.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 101</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
+  <data name="lblXpathElement.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="lblXpathElement.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Encoding</value>
+  <data name="lblXpathElement.Text" xml:space="preserve">
+    <value>XPath Element</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;lblXpathElement.Name" xml:space="preserve">
+    <value>lblXpathElement</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+  <data name="&gt;&gt;lblXpathElement.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblXpathElement.Parent" xml:space="preserve">
     <value>gbxScore</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblXpathElement.ZOrder" xml:space="preserve">
     <value>22</value>
+  </data>
+  <data name="lblEncoding.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblEncoding.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblEncoding.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 101</value>
+  </data>
+  <data name="lblEncoding.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 13</value>
+  </data>
+  <data name="lblEncoding.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lblEncoding.Text" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="&gt;&gt;lblEncoding.Name" xml:space="preserve">
+    <value>lblEncoding</value>
+  </data>
+  <data name="&gt;&gt;lblEncoding.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblEncoding.Parent" xml:space="preserve">
+    <value>gbxScore</value>
+  </data>
+  <data name="&gt;&gt;lblEncoding.ZOrder" xml:space="preserve">
+    <value>23</value>
   </data>
   <data name="lblXPath.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -817,7 +844,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblXPath.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>24</value>
   </data>
   <data name="lblUrl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -847,7 +874,7 @@
     <value>gbxScore</value>
   </data>
   <data name="&gt;&gt;lblUrl.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>25</value>
   </data>
   <data name="gbxScore.Location" type="System.Drawing.Point, System.Drawing">
     <value>218, 28</value>
@@ -972,6 +999,87 @@
   <data name="tabScore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <metadata name="colColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="colColumn.HeaderText" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="colColumn.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <metadata name="colOperator.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="colOperator.HeaderText" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="colOperator.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <metadata name="colValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="colValue.HeaderText" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="colValue.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <metadata name="colAction.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="colAction.HeaderText" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="colAction.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <metadata name="colStyle.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="colStyle.HeaderText" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="grdRule.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grdRule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="grdRule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 331</value>
+  </data>
+  <data name="grdRule.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;grdRule.Name" xml:space="preserve">
+    <value>grdRule</value>
+  </data>
+  <data name="&gt;&gt;grdRule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grdRule.Parent" xml:space="preserve">
+    <value>tpgRules</value>
+  </data>
+  <data name="&gt;&gt;grdRule.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpgRules.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tpgRules.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tpgRules.Size" type="System.Drawing.Size, System.Drawing">
+    <value>659, 337</value>
+  </data>
+  <data name="tpgRules.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tpgRules.Text" xml:space="preserve">
+    <value>Rules</value>
+  </data>
   <data name="&gt;&gt;tpgRules.Name" xml:space="preserve">
     <value>tpgRules</value>
   </data>
@@ -983,6 +1091,45 @@
   </data>
   <data name="&gt;&gt;tpgRules.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="grdTest.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grdTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="grdTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 331</value>
+  </data>
+  <data name="grdTest.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;grdTest.Name" xml:space="preserve">
+    <value>grdTest</value>
+  </data>
+  <data name="&gt;&gt;grdTest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grdTest.Parent" xml:space="preserve">
+    <value>tpgTest</value>
+  </data>
+  <data name="&gt;&gt;grdTest.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpgTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tpgTest.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tpgTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>659, 337</value>
+  </data>
+  <data name="tpgTest.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tpgTest.Text" xml:space="preserve">
+    <value>Test</value>
   </data>
   <data name="&gt;&gt;tpgTest.Name" xml:space="preserve">
     <value>tpgTest</value>
@@ -1246,7 +1393,7 @@
     <value>tvwScores</value>
   </data>
   <data name="&gt;&gt;tvwScores.Type" xml:space="preserve">
-    <value>MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView, ScoreCenter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView, ScoreCenter, Version=0.10.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tvwScores.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1844,197 +1991,11 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="grdTest.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="grdTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="grdTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 331</value>
-  </data>
-  <data name="grdTest.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Name" xml:space="preserve">
-    <value>grdTest</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Parent" xml:space="preserve">
-    <value>tpgTest</value>
-  </data>
-  <data name="&gt;&gt;grdTest.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>252, 17</value>
-  </metadata>
   <metadata name="ofdSelectIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>349, 17</value>
   </metadata>
   <data name="ofdSelectIcon.Filter" xml:space="preserve">
     <value>Images (*.png)|*.png|All Files (*.*)|*.*</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Name" xml:space="preserve">
-    <value>grdRule</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Parent" xml:space="preserve">
-    <value>tpgRules</value>
-  </data>
-  <data name="&gt;&gt;grdRule.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tpgRules.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tpgRules.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tpgRules.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 337</value>
-  </data>
-  <data name="tpgRules.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tpgRules.Text" xml:space="preserve">
-    <value>Rules</value>
-  </data>
-  <data name="&gt;&gt;tpgRules.Name" xml:space="preserve">
-    <value>tpgRules</value>
-  </data>
-  <data name="&gt;&gt;tpgRules.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpgRules.Parent" xml:space="preserve">
-    <value>tabScore</value>
-  </data>
-  <data name="&gt;&gt;tpgRules.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="colColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colOperator.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colAction.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colStyle.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="grdRule.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="grdRule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="grdRule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 331</value>
-  </data>
-  <data name="grdRule.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Name" xml:space="preserve">
-    <value>grdRule</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grdRule.Parent" xml:space="preserve">
-    <value>tpgRules</value>
-  </data>
-  <data name="&gt;&gt;grdRule.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="colColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="colColumn.HeaderText" xml:space="preserve">
-    <value>Column</value>
-  </data>
-  <data name="colColumn.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <metadata name="colOperator.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="colOperator.HeaderText" xml:space="preserve">
-    <value>Operator</value>
-  </data>
-  <data name="colOperator.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <metadata name="colValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="colValue.HeaderText" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <data name="colValue.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <metadata name="colAction.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="colAction.HeaderText" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="colAction.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <metadata name="colStyle.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="colStyle.HeaderText" xml:space="preserve">
-    <value>Style</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Name" xml:space="preserve">
-    <value>grdTest</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grdTest.Parent" xml:space="preserve">
-    <value>tpgTest</value>
-  </data>
-  <data name="&gt;&gt;grdTest.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tpgTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tpgTest.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tpgTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 337</value>
-  </data>
-  <data name="tpgTest.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tpgTest.Text" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="&gt;&gt;tpgTest.Name" xml:space="preserve">
-    <value>tpgTest</value>
-  </data>
-  <data name="&gt;&gt;tpgTest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpgTest.Parent" xml:space="preserve">
-    <value>tabScore</value>
-  </data>
-  <data name="&gt;&gt;tpgTest.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <metadata name="ofdImport.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>475, 17</value>
