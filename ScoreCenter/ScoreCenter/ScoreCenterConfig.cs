@@ -416,7 +416,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     r.Value = (row.Cells[colValue.Name].Value == null ? String.Empty : row.Cells[colValue.Name].Value.ToString());
                     r.Operator = Tools.ParseEnum<Operation>(row.Cells[colOperator.Name].Value.ToString());
                     r.Action = Tools.ParseEnum<RuleAction>(row.Cells[colAction.Name].Value.ToString());
-                    r.Format = row.Cells[colStyle.Name].Value.ToString();
+                    r.Format = (row.Cells[colStyle.Name].Value == null ? String.Empty : row.Cells[colStyle.Name].Value.ToString());
 
                     score.Rules[i++] = r;
                 }
@@ -427,7 +427,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             bool result = CheckTextBox(tbxUrl, lblUrl, true);
             result &= CheckTextBox(tbxXpath, lblXPath, true);
-
             result &= CheckNumber(tbxSkip, lblSkip, false);
             result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
 
