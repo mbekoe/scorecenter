@@ -1,6 +1,7 @@
 #labels Featured
 *next version*
     * Rule: Format is not required to create a rule
+    * Display the total width of the headers to give an idea if it will fit on one page
 
 *version 0.10 (3 Sep 09):*
     * Online synchronization
