@@ -1001,5 +1001,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Order = i++;
             }
         }
+
+        private void tbxSizes_TextChanged(object sender, EventArgs e)
+        {
+            int res = 0;
+            Tools.ColumnDisplay[] sizes = Tools.GetSizes(tbxSizes.Text);
+
+            if (sizes != null)
+            {
+                res = sizes.Sum(col => Math.Abs(col.Size));
+            }
+
+            lblTotalSize.Text = String.Format("Total Size = {0}", res);
+        }
     }
 }
