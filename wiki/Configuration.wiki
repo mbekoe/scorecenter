@@ -28,17 +28,23 @@ Example: if date is May 25th 2009
 ||`{`dd_M_yy`}`||25_5_09||
 ||`{`yyyyMMdd`}`||20090625||
 
-== XPath ==
-If the XPath expression is followed by a semi column ';' and a number n then it means that only the nth element will be processed.
-This is useful because sometimes it is difficult to find an expression that returns only the desired element.
+== XPath Element ==
+Sometimes it is difficult to find an expression XPath that returns only the desired element. To make it easier, you can enter the number (0-based) of the element in the "Element field", only this element will be processed.
 
 == Skip, Max Lines and Headers ==
 
 The skip property indicates the number of lines to skip.
 Max Lines indicates the maximum number of lines to include in the results.
-_Note_ these properties apply to each tables.
+_Note_ these properties apply to each tables returned by the XPath expression.
 
 The header property allows you to enter your own header.
+_Note_ the header line will be displayed only once.
+
+The Sizes field allows you to specify the size of each columns.
+If the size is 0 the column will be skipped.
+By default the columns are align to the left.
+If the size is preceed with a minus sign '-', the column will be align to the right.
+If the size is preceed with a plus sign '+', the column will be centered.
 
 ----
 = Formatting the results =
