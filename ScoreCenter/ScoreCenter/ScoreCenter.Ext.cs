@@ -196,6 +196,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Sizes = newScore.Sizes;
                 this.Element = newScore.Element;
                 this.Encoding = newScore.Encoding;
+                this.UseTheader = newScore.UseTheader;
             }
 
             if ((type & ImportOptions.Rules) == ImportOptions.Rules)
