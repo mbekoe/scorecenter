@@ -1,7 +1,10 @@
 #labels Featured
 *next version*
     * Rule: Format is not required to create a rule
-    * Display the total width of the headers to give an idea if it will fit on one page
+    * Internationalzation of the plugin
+    * Config: New option to include (default) or not the <theader> tags when parsing a table
+    * Config: Display the total width of the headers to give an idea if it will fit on one page
+    * Fix: pb with encoding value in the downloaded HTML
 
 *version 0.10 (3 Sep 09):*
     * Online synchronization
