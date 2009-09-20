@@ -263,7 +263,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxSkip.Text = score.Skip.ToString();
                 tbxMaxLines.Text = score.MaxLines.ToString();
                 tbxElement.Text = score.Element;
-
+                ckxUseTheader.Checked = score.UseTheader;
                 SetIcon(score.Image);
 
                 grdRule.Enabled = true;
@@ -285,6 +285,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxSkip.Text = String.Empty;
                 tbxMaxLines.Text = String.Empty;
                 tbxElement.Text = String.Empty;
+                ckxUseTheader.Checked = false;
 
                 ClearIcon();
                 if (tvwScores.SelectedNode.Level == 0)
@@ -383,6 +384,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Sizes = tbxSizes.Text;
                 score.Encoding = tbxEncoding.Text;
                 score.Element = tbxElement.Text;
+                score.UseTheader = ckxUseTheader.Checked;
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);
@@ -526,6 +528,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.XPath = tbxXpath.Text;
                 score.Sizes = tbxSizes.Text;
                 score.Headers = tbxHeaders.Text;
+                score.UseTheader = ckxUseTheader.Checked;
 
                 score.Element = tbxElement.Text;
                 score.Skip = ReadInt(tbxSkip);
@@ -710,6 +713,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Image = source.Image;
             copy.Element = source.Element;
             copy.Encoding = source.Encoding;
+            copy.UseTheader = source.UseTheader;
 
             // add the new item and refresh
             m_center.AddScore(copy);

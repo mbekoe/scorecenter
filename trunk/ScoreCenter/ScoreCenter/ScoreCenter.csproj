@@ -82,6 +82,7 @@
     <Compile Include="ImportDialog.Designer.cs">
       <DependentUpon>ImportDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocalizationManager.cs" />
     <Compile Include="OptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Football.ico" />
+    <Content Include="language\strings_en.xml" />
+    <Content Include="language\strings_fr.xml" />
     <Content Include="MyScoreCenter.Settings.xml" />
     <None Include="Resources\openfolderHS.png" />
     <None Include="Resources\DownloadDocument.bmp" />

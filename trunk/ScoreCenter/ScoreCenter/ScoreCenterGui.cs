@@ -87,6 +87,14 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         #endregion
 
+        #region Label numbers
+        private const int C_CLEAR_CACHE = 1;
+        private const int C_USE_AUTO_MODE = 2;
+        private const int C_UNUSE_AUTO_MODE = 3;
+        private const int C_SYNCHRO_ONLINE = 4;
+        private const int C_DISABLE_ITEM = 5;
+        #endregion
+
         #endregion
 
         internal ScoreParser Parser
@@ -179,19 +187,19 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
             menu.Reset();
-            menu.SetHeading(String.Format("Disable {0}", item.Label));
-            menu.Add("Clear Cache");
+            menu.SetHeading(m_center.Setup.Name);
+            menu.Add(LocalizationManager.GetString(C_CLEAR_CACHE));
 
             if (m_autoSize)
-                menu.Add("Disable Auto Resize Columns Mode");
+                menu.Add(LocalizationManager.GetString(C_UNUSE_AUTO_MODE));
             else
-                menu.Add("Use Auto Resize Columns Mode");
+                menu.Add(LocalizationManager.GetString(C_USE_AUTO_MODE));
 
-            menu.Add("Synchronize Online");
+            menu.Add(LocalizationManager.GetString(C_SYNCHRO_ONLINE));
 
             if (item.Label != "..")
             {
-                menu.Add(String.Format("Hide '{0}'", item.Label));
+                menu.Add(String.Format("{1} '{0}'", item.Label, LocalizationManager.GetString(C_DISABLE_ITEM)));
             }
 
             menu.DoModal(GetID);
@@ -222,8 +230,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                     break;
                 case 4:
                     GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
-                    dlg.SetHeading("Disable");
-                    dlg.SetLine(1, String.Format("Hide '{0}'?", item.Label));
+                    string disable = LocalizationManager.GetString(C_DISABLE_ITEM);
+                    dlg.SetHeading(disable);
+                    dlg.SetLine(1, String.Format("{1} '{0}'?", item.Label, disable));
                     dlg.DoModal(GetID);
 
                     if (dlg.IsConfirmed)
@@ -533,7 +542,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string fontName = tbxDetails.FontName;
             Style defaultStyle = new Style();
             defaultStyle.ForeColor = tbxDetails.TextColor;
-            //Tools.LogMessage("StartX={0}, startY={1}", startX, posY);
+            //Tools.LogMessage("StartX={0}, MaxX={2}, startY={1}, MaxY={3}", startX, posY, maxX, maxY);
 
             GUIFont font = GUIFontManager.GetFont(fontName);
             int fontSize = font.FontSize;
@@ -584,6 +593,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             bool overDown = false;
 
             // for all the rows
+            List<GUIControl> controls = new List<GUIControl>();
             foreach (string[] row in labels)
             {
                 // ignore empty lines
@@ -594,7 +604,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 // ignore lines on previous page
                 if (lineNumber < startLine)
+                {
+                    //Tools.LogMessage("Skip lineNumber {0} < startLine {1}", lineNumber, startLine);
                     continue;
+                }
 
                 // calculate X position
                 posX = startX - startColumn;
@@ -603,6 +616,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 // ignore if outside and break to next row
                 if (posY > maxY)
                 {
+                    //Tools.LogMessage("OverDown LN={0} Start={1}", lineNumber, startLine);
                     overDown = true;
                     break;
                 }
@@ -627,6 +641,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     // ignore controls outside area
                     if (posX > maxX)
                     {
+                        //Tools.LogMessage("OverRight X={0} MaxX={1}", posX, maxX);
                         overRight = true;
                         continue;
                     }
@@ -636,6 +651,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     Tools.ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
                     if (colSize.Size == 0)
                     {
+                        //Tools.LogMessage("colSize.Size == 0");
                         continue;
                     }
 
@@ -644,6 +660,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     int length = charWidth * maxChar;
                     if (posX < startX)
                     {
+                        //Tools.LogMessage("PrevPage X={0} MaxX={1}", posX, startX);
                         posX += length;
                         continue;
                     }
@@ -674,7 +691,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     #endregion
 
                     // create the control
-                    //Tools.LogMessage("*** {1}x{2} - CreateControl = {0}, ", cell, posX, posY);
+                    //Tools.LogMessage("*** {1}x{2} - CreateControl = {0}", cell, posX, posY);
                     GUIControl control = CreateControl(posX, posY, length, charHeight,
                         colSize.Alignement,
                         cell,
@@ -682,12 +699,23 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     // set X pos to the end of the control
                     posX += length;
+
+                    controls.Add(control);
                 }
 
                 // set Y pos to the bottom of the control
                 posY += charHeight;
             }
 
+            // add controls to screen
+            for (int i = 0; i < controls.Count; i++)
+            {
+                GUIControl c = controls[i];
+                c.AllocResources();
+                Add(ref c);
+            }
+
+            #region Set for Next page
             if (overRight)
             {
                 // keep current line
@@ -710,6 +738,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_currentLine = 0;
                 }
             }
+            #endregion
         }
 
         private void GetCharFonSize(int fontSize, ref int width, ref int height)
@@ -752,9 +781,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 posX = posX + width;
             }
 
-            /*GUILabelControl labelControl = new GUILabelControl(GetID, m_currentIndex++,
-                x, y, w, h, font,
-                strLabel, color, alignement, true);*/
+            // create the control
             GUILabelControl labelControl = new GUILabelControl(GetID);
             labelControl.GetID = m_currentIndex++;
             labelControl._positionX = posX;
@@ -768,9 +795,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             GUIControl control = labelControl as GUIControl;
 
             m_indices.Add(control.GetID);
-
-            control.AllocResources();
-            Add(ref control);
 
             return control;
         }

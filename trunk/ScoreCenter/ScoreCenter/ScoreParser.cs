@@ -51,7 +51,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (score.Element.Length > 0)
             {
                 if (int.TryParse(score.Element, out index) == false)
+                {
                     index = -1;
+                }
             }
 
             int skip = score.Skip;
@@ -61,6 +63,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string html = m_cache.GetScore(url, score.Encoding, reload);
 
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
 
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(xpath);
@@ -76,7 +79,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (index >= 0 && nodes.Count > index)
                 {
-                    string[][] rr = ParseTable(nodes[index], skip, max);
+                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader);
                     if (rr != null)
                     {
                         ll.AddRange(rr);
@@ -86,7 +89,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     foreach (HtmlNode node in nodes)
                     {
-                        string[][] rr = ParseTable(node, skip, max);
+                        string[][] rr = ParseTable(node, skip, max, score.UseTheader);
                         if (rr != null)
                         {
                             ll.AddRange(rr);
@@ -132,9 +135,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         private static string[][] ParseTable(HtmlNode table,
-            int skip, int max)
+            int skip, int max, bool useTheader)
         {
-            HtmlNodeCollection lines = table.SelectNodes(".//tr | .//thead");
+            string xpathHeader = ".//tr";
+            if (useTheader) xpathHeader += " | .//thead";
+            HtmlNodeCollection lines = table.SelectNodes(xpathHeader);
             if (lines == null)
             {
                 string[][] aa = new string[1][];

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.lblTotalSize = new System.Windows.Forms.Label();
             this.tbxEncoding = new System.Windows.Forms.TextBox();
             this.tbxElement = new System.Windows.Forms.TextBox();
             this.btnOpenUrl = new System.Windows.Forms.Button();
@@ -89,8 +90,8 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
-            this.lblTotalSize = new System.Windows.Forms.Label();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
+            this.ckxUseTheader = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -105,7 +106,8 @@
             // 
             // gbxScore
             // 
-            resources.ApplyResources(this.gbxScore, "gbxScore");
+            this.gbxScore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.gbxScore.Controls.Add(this.lblTotalSize);
             this.gbxScore.Controls.Add(this.tbxEncoding);
             this.gbxScore.Controls.Add(this.tbxElement);
@@ -115,6 +117,7 @@
             this.gbxScore.Controls.Add(this.tbxLeague);
             this.gbxScore.Controls.Add(this.tbxCategory);
             this.gbxScore.Controls.Add(this.lblName);
+            this.gbxScore.Controls.Add(this.ckxUseTheader);
             this.gbxScore.Controls.Add(this.ckxReload);
             this.gbxScore.Controls.Add(this.btnSave);
             this.gbxScore.Controls.Add(this.btnTest);
@@ -132,180 +135,308 @@
             this.gbxScore.Controls.Add(this.lblEncoding);
             this.gbxScore.Controls.Add(this.lblXPath);
             this.gbxScore.Controls.Add(this.lblUrl);
+            this.gbxScore.Location = new System.Drawing.Point(218, 28);
             this.gbxScore.Name = "gbxScore";
+            this.gbxScore.Size = new System.Drawing.Size(667, 229);
+            this.gbxScore.TabIndex = 2;
             this.gbxScore.TabStop = false;
+            this.gbxScore.Text = "Details";
+            // 
+            // lblTotalSize
+            // 
+            this.lblTotalSize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblTotalSize.Location = new System.Drawing.Point(370, 175);
+            this.lblTotalSize.Name = "lblTotalSize";
+            this.lblTotalSize.Size = new System.Drawing.Size(151, 23);
+            this.lblTotalSize.TabIndex = 25;
+            this.lblTotalSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // tbxEncoding
             // 
-            resources.ApplyResources(this.tbxEncoding, "tbxEncoding");
+            this.tbxEncoding.Location = new System.Drawing.Point(59, 98);
+            this.tbxEncoding.MaxLength = 20;
             this.tbxEncoding.Name = "tbxEncoding";
+            this.tbxEncoding.Size = new System.Drawing.Size(119, 21);
+            this.tbxEncoding.TabIndex = 10;
             // 
             // tbxElement
             // 
-            resources.ApplyResources(this.tbxElement, "tbxElement");
+            this.tbxElement.Location = new System.Drawing.Point(420, 98);
             this.tbxElement.Name = "tbxElement";
-            this.toolTip1.SetToolTip(this.tbxElement, resources.GetString("tbxElement.ToolTip"));
+            this.tbxElement.Size = new System.Drawing.Size(100, 21);
+            this.tbxElement.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.tbxElement, "0 based indice of the element (all if empty)");
             // 
             // btnOpenUrl
             // 
             this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
-            resources.ApplyResources(this.btnOpenUrl, "btnOpenUrl");
+            this.btnOpenUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnOpenUrl.Location = new System.Drawing.Point(520, 43);
+            this.btnOpenUrl.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnOpenUrl.Name = "btnOpenUrl";
-            this.toolTip1.SetToolTip(this.btnOpenUrl, resources.GetString("btnOpenUrl.ToolTip"));
+            this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
+            this.btnOpenUrl.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnOpenUrl, "Open URL");
             this.btnOpenUrl.UseVisualStyleBackColor = true;
             this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
             // btnAuto
             // 
-            resources.ApplyResources(this.btnAuto, "btnAuto");
+            this.btnAuto.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnAuto.Location = new System.Drawing.Point(527, 149);
             this.btnAuto.Name = "btnAuto";
-            this.toolTip1.SetToolTip(this.btnAuto, resources.GetString("btnAuto.ToolTip"));
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 17;
+            this.btnAuto.Text = "Auto";
+            this.toolTip1.SetToolTip(this.btnAuto, "Calculate columns sizes with the test results");
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
             // tbxScore
             // 
-            resources.ApplyResources(this.tbxScore, "tbxScore");
+            this.tbxScore.Location = new System.Drawing.Point(370, 19);
+            this.tbxScore.MaxLength = 50;
             this.tbxScore.Name = "tbxScore";
-            this.toolTip1.SetToolTip(this.tbxScore, resources.GetString("tbxScore.ToolTip"));
+            this.tbxScore.Size = new System.Drawing.Size(150, 21);
+            this.tbxScore.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.tbxScore, "Name");
             // 
             // tbxLeague
             // 
-            resources.ApplyResources(this.tbxLeague, "tbxLeague");
+            this.tbxLeague.Location = new System.Drawing.Point(214, 19);
+            this.tbxLeague.MaxLength = 50;
             this.tbxLeague.Name = "tbxLeague";
-            this.toolTip1.SetToolTip(this.tbxLeague, resources.GetString("tbxLeague.ToolTip"));
+            this.tbxLeague.Size = new System.Drawing.Size(150, 21);
+            this.tbxLeague.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.tbxLeague, "League");
             // 
             // tbxCategory
             // 
-            resources.ApplyResources(this.tbxCategory, "tbxCategory");
+            this.tbxCategory.Location = new System.Drawing.Point(58, 19);
+            this.tbxCategory.MaxLength = 50;
             this.tbxCategory.Name = "tbxCategory";
-            this.toolTip1.SetToolTip(this.tbxCategory, resources.GetString("tbxCategory.ToolTip"));
+            this.tbxCategory.Size = new System.Drawing.Size(150, 21);
+            this.tbxCategory.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.tbxCategory, "Category");
             // 
             // lblName
             // 
-            resources.ApplyResources(this.lblName, "lblName");
+            this.lblName.AutoSize = true;
+            this.lblName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblName.Location = new System.Drawing.Point(17, 22);
             this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(34, 13);
+            this.lblName.TabIndex = 0;
+            this.lblName.Text = "Name";
             // 
             // ckxReload
             // 
-            resources.ApplyResources(this.ckxReload, "ckxReload");
+            this.ckxReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ckxReload.AutoSize = true;
+            this.ckxReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ckxReload.Location = new System.Drawing.Point(168, 202);
             this.ckxReload.Name = "ckxReload";
-            this.toolTip1.SetToolTip(this.ckxReload, resources.GetString("ckxReload.ToolTip"));
+            this.ckxReload.Size = new System.Drawing.Size(59, 17);
+            this.ckxReload.TabIndex = 24;
+            this.ckxReload.Text = "Reload";
+            this.toolTip1.SetToolTip(this.ckxReload, "Reload the page before testing");
             this.ckxReload.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
-            resources.ApplyResources(this.btnSave, "btnSave");
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnSave.Location = new System.Drawing.Point(6, 198);
             this.btnSave.Name = "btnSave";
-            this.toolTip1.SetToolTip(this.btnSave, resources.GetString("btnSave.ToolTip"));
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 22;
+            this.btnSave.Text = "Save";
+            this.toolTip1.SetToolTip(this.btnSave, "Save the current settings");
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnTest
             // 
-            resources.ApplyResources(this.btnTest, "btnTest");
+            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnTest.Location = new System.Drawing.Point(87, 198);
             this.btnTest.Name = "btnTest";
-            this.toolTip1.SetToolTip(this.btnTest, resources.GetString("btnTest.ToolTip"));
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 23;
+            this.btnTest.Text = "Test";
+            this.toolTip1.SetToolTip(this.btnTest, "Test your settings");
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // lblMaxLines
             // 
-            resources.ApplyResources(this.lblMaxLines, "lblMaxLines");
+            this.lblMaxLines.AutoSize = true;
+            this.lblMaxLines.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblMaxLines.Location = new System.Drawing.Point(554, 74);
             this.lblMaxLines.Name = "lblMaxLines";
+            this.lblMaxLines.Size = new System.Drawing.Size(54, 13);
+            this.lblMaxLines.TabIndex = 20;
+            this.lblMaxLines.Text = "Max Lines";
             // 
             // lblSkip
             // 
-            resources.ApplyResources(this.lblSkip, "lblSkip");
+            this.lblSkip.AutoSize = true;
+            this.lblSkip.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblSkip.Location = new System.Drawing.Point(574, 48);
             this.lblSkip.Name = "lblSkip";
+            this.lblSkip.Size = new System.Drawing.Size(26, 13);
+            this.lblSkip.TabIndex = 18;
+            this.lblSkip.Text = "Skip";
             // 
             // tbxSkip
             // 
-            resources.ApplyResources(this.tbxSkip, "tbxSkip");
+            this.tbxSkip.Location = new System.Drawing.Point(615, 45);
+            this.tbxSkip.MaxLength = 3;
             this.tbxSkip.Name = "tbxSkip";
-            this.toolTip1.SetToolTip(this.tbxSkip, resources.GetString("tbxSkip.ToolTip"));
+            this.tbxSkip.Size = new System.Drawing.Size(45, 21);
+            this.tbxSkip.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.tbxSkip, "Number of lines to skip in the table");
             // 
             // tbxMaxLines
             // 
-            resources.ApplyResources(this.tbxMaxLines, "tbxMaxLines");
+            this.tbxMaxLines.Location = new System.Drawing.Point(615, 71);
+            this.tbxMaxLines.MaxLength = 3;
             this.tbxMaxLines.Name = "tbxMaxLines";
-            this.toolTip1.SetToolTip(this.tbxMaxLines, resources.GetString("tbxMaxLines.ToolTip"));
+            this.tbxMaxLines.Size = new System.Drawing.Size(45, 21);
+            this.tbxMaxLines.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.tbxMaxLines, "Number of lines to display");
             // 
             // tbxSizes
             // 
-            resources.ApplyResources(this.tbxSizes, "tbxSizes");
+            this.tbxSizes.Location = new System.Drawing.Point(59, 151);
+            this.tbxSizes.MaxLength = 100;
             this.tbxSizes.Name = "tbxSizes";
+            this.tbxSizes.Size = new System.Drawing.Size(462, 21);
+            this.tbxSizes.TabIndex = 16;
             this.tbxSizes.TextChanged += new System.EventHandler(this.tbxSizes_TextChanged);
             // 
             // tbxHeaders
             // 
-            resources.ApplyResources(this.tbxHeaders, "tbxHeaders");
+            this.tbxHeaders.Location = new System.Drawing.Point(59, 125);
+            this.tbxHeaders.MaxLength = 200;
             this.tbxHeaders.Name = "tbxHeaders";
-            this.toolTip1.SetToolTip(this.tbxHeaders, resources.GetString("tbxHeaders.ToolTip"));
+            this.tbxHeaders.Size = new System.Drawing.Size(462, 21);
+            this.tbxHeaders.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.tbxHeaders, "Custom Headers");
             // 
             // tbxXpath
             // 
-            resources.ApplyResources(this.tbxXpath, "tbxXpath");
+            this.tbxXpath.Location = new System.Drawing.Point(58, 71);
+            this.tbxXpath.MaxLength = 200;
             this.tbxXpath.Name = "tbxXpath";
-            this.toolTip1.SetToolTip(this.tbxXpath, resources.GetString("tbxXpath.ToolTip"));
+            this.tbxXpath.Size = new System.Drawing.Size(462, 21);
+            this.tbxXpath.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.tbxXpath, "XPath expression to use to find the table(s)");
             // 
             // tbxUrl
             // 
-            resources.ApplyResources(this.tbxUrl, "tbxUrl");
+            this.tbxUrl.Location = new System.Drawing.Point(58, 45);
+            this.tbxUrl.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.tbxUrl.MaxLength = 200;
             this.tbxUrl.Name = "tbxUrl";
-            this.toolTip1.SetToolTip(this.tbxUrl, resources.GetString("tbxUrl.ToolTip"));
+            this.tbxUrl.Size = new System.Drawing.Size(462, 21);
+            this.tbxUrl.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.tbxUrl, "Score URL");
             // 
             // lblSizes
             // 
-            resources.ApplyResources(this.lblSizes, "lblSizes");
+            this.lblSizes.AutoSize = true;
+            this.lblSizes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblSizes.Location = new System.Drawing.Point(21, 154);
             this.lblSizes.Name = "lblSizes";
+            this.lblSizes.Size = new System.Drawing.Size(31, 13);
+            this.lblSizes.TabIndex = 15;
+            this.lblSizes.Text = "Sizes";
             // 
             // lblHeaders
             // 
-            resources.ApplyResources(this.lblHeaders, "lblHeaders");
+            this.lblHeaders.AutoSize = true;
+            this.lblHeaders.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblHeaders.Location = new System.Drawing.Point(6, 128);
             this.lblHeaders.Name = "lblHeaders";
+            this.lblHeaders.Size = new System.Drawing.Size(47, 13);
+            this.lblHeaders.TabIndex = 13;
+            this.lblHeaders.Text = "Headers";
             // 
             // lblXpathElement
             // 
-            resources.ApplyResources(this.lblXpathElement, "lblXpathElement");
+            this.lblXpathElement.AutoSize = true;
+            this.lblXpathElement.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblXpathElement.Location = new System.Drawing.Point(338, 101);
             this.lblXpathElement.Name = "lblXpathElement";
+            this.lblXpathElement.Size = new System.Drawing.Size(76, 13);
+            this.lblXpathElement.TabIndex = 11;
+            this.lblXpathElement.Text = "XPath Element";
             // 
             // lblEncoding
             // 
-            resources.ApplyResources(this.lblEncoding, "lblEncoding");
+            this.lblEncoding.AutoSize = true;
+            this.lblEncoding.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblEncoding.Location = new System.Drawing.Point(6, 101);
             this.lblEncoding.Name = "lblEncoding";
+            this.lblEncoding.Size = new System.Drawing.Size(50, 13);
+            this.lblEncoding.TabIndex = 9;
+            this.lblEncoding.Text = "Encoding";
             // 
             // lblXPath
             // 
-            resources.ApplyResources(this.lblXPath, "lblXPath");
+            this.lblXPath.AutoSize = true;
+            this.lblXPath.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblXPath.Location = new System.Drawing.Point(17, 74);
             this.lblXPath.Name = "lblXPath";
+            this.lblXPath.Size = new System.Drawing.Size(35, 13);
+            this.lblXPath.TabIndex = 7;
+            this.lblXPath.Text = "XPath";
             // 
             // lblUrl
             // 
-            resources.ApplyResources(this.lblUrl, "lblUrl");
+            this.lblUrl.AutoSize = true;
+            this.lblUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblUrl.Location = new System.Drawing.Point(24, 48);
             this.lblUrl.Name = "lblUrl";
+            this.lblUrl.Size = new System.Drawing.Size(26, 13);
+            this.lblUrl.TabIndex = 4;
+            this.lblUrl.Text = "URL";
             // 
             // btnClearIcon
             // 
             this.btnClearIcon.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.DeleteHS;
-            resources.ApplyResources(this.btnClearIcon, "btnClearIcon");
+            this.btnClearIcon.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnClearIcon.Location = new System.Drawing.Point(182, 26);
+            this.btnClearIcon.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.btnClearIcon.Name = "btnClearIcon";
+            this.btnClearIcon.Size = new System.Drawing.Size(27, 23);
+            this.btnClearIcon.TabIndex = 1;
             this.btnClearIcon.UseVisualStyleBackColor = true;
             this.btnClearIcon.Click += new System.EventHandler(this.btnClearIcon_Click);
             // 
             // btnSetIcon
             // 
             this.btnSetIcon.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.openfolderHS;
-            resources.ApplyResources(this.btnSetIcon, "btnSetIcon");
+            this.btnSetIcon.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnSetIcon.Location = new System.Drawing.Point(182, 3);
+            this.btnSetIcon.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.btnSetIcon.Name = "btnSetIcon";
+            this.btnSetIcon.Size = new System.Drawing.Size(27, 23);
+            this.btnSetIcon.TabIndex = 0;
             this.btnSetIcon.UseVisualStyleBackColor = true;
             this.btnSetIcon.Click += new System.EventHandler(this.btnSetIcon_Click);
             // 
             // pbxIcon
             // 
             this.pbxIcon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.pbxIcon, "pbxIcon");
+            this.pbxIcon.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.pbxIcon.Location = new System.Drawing.Point(0, 3);
+            this.pbxIcon.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.pbxIcon.Name = "pbxIcon";
+            this.pbxIcon.Size = new System.Drawing.Size(182, 75);
+            this.pbxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbxIcon.TabIndex = 21;
             this.pbxIcon.TabStop = false;
             // 
             // errorProvider1
@@ -314,17 +445,27 @@
             // 
             // btnCancel
             // 
-            resources.ApplyResources(this.btnCancel, "btnCancel");
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnCancel.Location = new System.Drawing.Point(810, 613);
             this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOk
             // 
-            resources.ApplyResources(this.btnOk, "btnOk");
+            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnOk.Location = new System.Drawing.Point(729, 613);
             this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 5;
+            this.btnOk.Text = "Save";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -344,16 +485,22 @@
             this.tsbExport,
             this.tsbImport,
             this.tsbOptions});
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(897, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // tsbNewLigue
             // 
             this.tsbNewLigue.AutoToolTip = false;
             this.tsbNewLigue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbNewLigue.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.NewDocumentHS;
-            resources.ApplyResources(this.tsbNewLigue, "tsbNewLigue");
+            this.tsbNewLigue.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNewLigue.Name = "tsbNewLigue";
+            this.tsbNewLigue.Size = new System.Drawing.Size(23, 22);
+            this.tsbNewLigue.Text = "Add";
+            this.tsbNewLigue.ToolTipText = "Add a new score";
             this.tsbNewLigue.Click += new System.EventHandler(this.tsbNewLigue_Click);
             // 
             // tsbAbout
@@ -361,8 +508,10 @@
             this.tsbAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbAbout.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Help;
-            resources.ApplyResources(this.tsbAbout, "tsbAbout");
+            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
+            this.tsbAbout.Size = new System.Drawing.Size(23, 22);
+            this.tsbAbout.Text = "About";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
             // tsbCopyScore
@@ -370,74 +519,91 @@
             this.tsbCopyScore.AutoToolTip = false;
             this.tsbCopyScore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbCopyScore.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.CopyHS;
-            resources.ApplyResources(this.tsbCopyScore, "tsbCopyScore");
+            this.tsbCopyScore.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCopyScore.Name = "tsbCopyScore";
+            this.tsbCopyScore.Size = new System.Drawing.Size(23, 22);
+            this.tsbCopyScore.Text = "Copy";
+            this.tsbCopyScore.ToolTipText = "Copy a score";
             this.tsbCopyScore.Click += new System.EventHandler(this.tsbCopyScore_Click);
             // 
             // tsbDelete
             // 
             this.tsbDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDelete.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.DeleteHS;
-            resources.ApplyResources(this.tsbDelete, "tsbDelete");
+            this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDelete.Name = "tsbDelete";
+            this.tsbDelete.Size = new System.Drawing.Size(23, 22);
+            this.tsbDelete.Text = "Delete";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbMoveUp
             // 
             this.tsbMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbMoveUp.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_moveup;
-            resources.ApplyResources(this.tsbMoveUp, "tsbMoveUp");
+            this.tsbMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMoveUp.Name = "tsbMoveUp";
+            this.tsbMoveUp.Size = new System.Drawing.Size(23, 22);
+            this.tsbMoveUp.Text = "Move Up";
             this.tsbMoveUp.Click += new System.EventHandler(this.tsbMoveUp_Click);
             // 
             // tsbMoveDown
             // 
             this.tsbMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbMoveDown.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_movedown;
-            resources.ApplyResources(this.tsbMoveDown, "tsbMoveDown");
+            this.tsbMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMoveDown.Name = "tsbMoveDown";
+            this.tsbMoveDown.Size = new System.Drawing.Size(23, 22);
+            this.tsbMoveDown.Text = "Move Down";
             this.tsbMoveDown.Click += new System.EventHandler(this.tsbMoveDown_Click);
             // 
             // tsbEditStyles
             // 
             this.tsbEditStyles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbEditStyles.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.ChooseColor;
-            resources.ApplyResources(this.tsbEditStyles, "tsbEditStyles");
+            this.tsbEditStyles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditStyles.Name = "tsbEditStyles";
+            this.tsbEditStyles.Size = new System.Drawing.Size(23, 22);
+            this.tsbEditStyles.Text = "Styles";
             this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbExport
             // 
             this.tsbExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbExport.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.DownloadDocument;
-            resources.ApplyResources(this.tsbExport, "tsbExport");
+            this.tsbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExport.Name = "tsbExport";
+            this.tsbExport.Size = new System.Drawing.Size(23, 22);
+            this.tsbExport.Text = "Export";
             this.tsbExport.Click += new System.EventHandler(this.tsbExport_Click);
             // 
             // tsbImport
             // 
             this.tsbImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbImport.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Webcontrol_Fileupload;
-            resources.ApplyResources(this.tsbImport, "tsbImport");
+            this.tsbImport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbImport.Name = "tsbImport";
+            this.tsbImport.Size = new System.Drawing.Size(23, 22);
+            this.tsbImport.Text = "Import";
             this.tsbImport.Click += new System.EventHandler(this.tsbImport_Click);
             // 
             // tsbOptions
             // 
             this.tsbOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbOptions.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.gear_32;
-            resources.ApplyResources(this.tsbOptions, "tsbOptions");
+            this.tsbOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOptions.Name = "tsbOptions";
+            this.tsbOptions.Size = new System.Drawing.Size(23, 22);
+            this.tsbOptions.Text = "Options";
             this.tsbOptions.Click += new System.EventHandler(this.tsbOptions_Click);
             // 
             // grdTest
@@ -448,37 +614,52 @@
             this.grdTest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grdTest.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.grdTest.ColumnHeadersVisible = false;
-            resources.ApplyResources(this.grdTest, "grdTest");
+            this.grdTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdTest.Location = new System.Drawing.Point(3, 3);
             this.grdTest.Name = "grdTest";
             this.grdTest.ReadOnly = true;
             this.grdTest.RowHeadersVisible = false;
             this.grdTest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.grdTest.Size = new System.Drawing.Size(653, 331);
+            this.grdTest.TabIndex = 6;
             // 
             // ofdSelectIcon
             // 
-            resources.ApplyResources(this.ofdSelectIcon, "ofdSelectIcon");
+            this.ofdSelectIcon.Filter = "Images (*.png)|*.png|All Files (*.*)|*.*";
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.Controls.Add(this.btnClearIcon);
             this.panel1.Controls.Add(this.pbxIcon);
             this.panel1.Controls.Add(this.btnSetIcon);
+            this.panel1.Location = new System.Drawing.Point(0, 567);
             this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(212, 81);
+            this.panel1.TabIndex = 4;
             // 
             // tabScore
             // 
-            resources.ApplyResources(this.tabScore, "tabScore");
+            this.tabScore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabScore.Controls.Add(this.tpgRules);
             this.tabScore.Controls.Add(this.tpgTest);
+            this.tabScore.Location = new System.Drawing.Point(218, 263);
             this.tabScore.Name = "tabScore";
             this.tabScore.SelectedIndex = 0;
+            this.tabScore.Size = new System.Drawing.Size(667, 344);
+            this.tabScore.TabIndex = 3;
             // 
             // tpgRules
             // 
             this.tpgRules.Controls.Add(this.grdRule);
-            resources.ApplyResources(this.tpgRules, "tpgRules");
+            this.tpgRules.Location = new System.Drawing.Point(4, 22);
             this.tpgRules.Name = "tpgRules";
+            this.tpgRules.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgRules.Size = new System.Drawing.Size(659, 318);
+            this.tpgRules.TabIndex = 1;
+            this.tpgRules.Text = "Rules";
             this.tpgRules.UseVisualStyleBackColor = true;
             // 
             // grdRule
@@ -490,75 +671,97 @@
             this.colValue,
             this.colAction,
             this.colStyle});
-            resources.ApplyResources(this.grdRule, "grdRule");
+            this.grdRule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdRule.Location = new System.Drawing.Point(3, 3);
             this.grdRule.Name = "grdRule";
+            this.grdRule.Size = new System.Drawing.Size(653, 312);
+            this.grdRule.TabIndex = 0;
             this.grdRule.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdRule_DataError);
             // 
             // colColumn
             // 
-            resources.ApplyResources(this.colColumn, "colColumn");
+            this.colColumn.HeaderText = "Column";
             this.colColumn.MaxInputLength = 5;
             this.colColumn.Name = "colColumn";
+            this.colColumn.Width = 120;
             // 
             // colOperator
             // 
             this.colOperator.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            resources.ApplyResources(this.colOperator, "colOperator");
+            this.colOperator.HeaderText = "Operator";
             this.colOperator.Name = "colOperator";
+            this.colOperator.Width = 120;
             // 
             // colValue
             // 
-            resources.ApplyResources(this.colValue, "colValue");
+            this.colValue.HeaderText = "Value";
             this.colValue.MaxInputLength = 100;
             this.colValue.Name = "colValue";
+            this.colValue.Width = 120;
             // 
             // colAction
             // 
             this.colAction.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            resources.ApplyResources(this.colAction, "colAction");
+            this.colAction.HeaderText = "Action";
             this.colAction.Name = "colAction";
+            this.colAction.Width = 120;
             // 
             // colStyle
             // 
             this.colStyle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colStyle.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            resources.ApplyResources(this.colStyle, "colStyle");
+            this.colStyle.HeaderText = "Style";
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // tpgTest
             // 
             this.tpgTest.Controls.Add(this.grdTest);
-            resources.ApplyResources(this.tpgTest, "tpgTest");
+            this.tpgTest.Location = new System.Drawing.Point(4, 22);
             this.tpgTest.Name = "tpgTest";
+            this.tpgTest.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgTest.Size = new System.Drawing.Size(659, 337);
+            this.tpgTest.TabIndex = 0;
+            this.tpgTest.Text = "Test";
             this.tpgTest.UseVisualStyleBackColor = true;
             // 
             // ofdImport
             // 
-            resources.ApplyResources(this.ofdImport, "ofdImport");
-            // 
-            // lblTotalSize
-            // 
-            resources.ApplyResources(this.lblTotalSize, "lblTotalSize");
-            this.lblTotalSize.Name = "lblTotalSize";
+            this.ofdImport.Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
             // 
             // tvwScores
             // 
-            resources.ApplyResources(this.tvwScores, "tvwScores");
+            this.tvwScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.tvwScores.CheckBoxes = true;
             this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.tvwScores.FullRowSelect = true;
             this.tvwScores.HideSelection = false;
             this.tvwScores.LabelEdit = true;
+            this.tvwScores.Location = new System.Drawing.Point(0, 28);
             this.tvwScores.Name = "tvwScores";
+            this.tvwScores.Size = new System.Drawing.Size(212, 533);
+            this.tvwScores.TabIndex = 1;
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
             // 
+            // ckxUseTheader
+            // 
+            this.ckxUseTheader.AutoSize = true;
+            this.ckxUseTheader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ckxUseTheader.Location = new System.Drawing.Point(59, 175);
+            this.ckxUseTheader.Name = "ckxUseTheader";
+            this.ckxUseTheader.Size = new System.Drawing.Size(134, 17);
+            this.ckxUseTheader.TabIndex = 18;
+            this.ckxUseTheader.Text = "Include THeader Rows";
+            this.ckxUseTheader.UseVisualStyleBackColor = true;
+            // 
             // ScoreCenterConfig
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(897, 648);
             this.Controls.Add(this.tabScore);
             this.Controls.Add(this.gbxScore);
             this.Controls.Add(this.panel1);
@@ -566,8 +769,12 @@
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tvwScores);
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ScoreCenterConfig";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "My Score Center Configuration";
             this.Load += new System.EventHandler(this.ScoreCenterConfig_Load);
             this.gbxScore.ResumeLayout(false);
             this.gbxScore.PerformLayout();
@@ -649,5 +856,6 @@
         private System.Windows.Forms.ToolStripButton tsbMoveDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Label lblTotalSize;
+        private System.Windows.Forms.CheckBox ckxUseTheader;
     }
 }
