@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language name="French" characters="255">
+  <Section name="unmapped">
+    <String id="1">Vider le cache</String>
+    <String id="2">Utiliser le mode Auto</String>
+    <String id="3">Désactiver le mode Auto</String>
+    <String id="4">Mettre à jour en ligne</String>
+    <String id="5">Désactiver</String>
+  </Section>
+</Language>
