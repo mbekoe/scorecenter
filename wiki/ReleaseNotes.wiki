@@ -5,7 +5,7 @@
 *version 0.11 (22 sep 09):*
     * Rule: Format is not required to create a rule
     * Internationalzation of the plugin
-    * Config: New option to include (default) or not the <theader> tags when parsing a table
+    * Config: New option to include (default) or not the {{{<theader>}}} tags when parsing a table
     * Config: Display the total width of the headers to give an idea if it will fit on one page
     * Fix: pb with encoding value in the downloaded HTML
 
