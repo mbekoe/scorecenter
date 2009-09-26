@@ -1,5 +1,8 @@
 #labels Featured
-*next version*
+*next version:*
+    * Fix: listcontrol page label
+
+*version 0.11 (22 sep 09):*
     * Rule: Format is not required to create a rule
     * Internationalzation of the plugin
     * Config: New option to include (default) or not the <theader> tags when parsing a table
