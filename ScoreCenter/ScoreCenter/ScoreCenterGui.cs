@@ -144,6 +144,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     UpdateSettings(false);
                     LoadCategories();
+
+                    GUIControl.FocusControl(GetID, lstDetails.GetID);
                 }
                 catch (Exception ex)
                 {
@@ -345,7 +347,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.IconImage = GetCategoryImage(category);
                     item.IsPlayed = m_center.IsCategoryUpdated(category);
 
-                    lstDetails.ListItems.Add(item);
+                    lstDetails.Add(item);
                 }
             }
 
@@ -376,7 +378,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 item.IconImage = GetLeagueImage(m_currentCategory, league);
                 item.IsPlayed = m_center.IsLeagueUpdated(m_currentCategory, league);
 
-                lstDetails.ListItems.Add(item);
+                lstDetails.Add(item);
             }
 
             lstDetails.Sort(new ListComparer(m_mode));
@@ -410,7 +412,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.TVTag = score;
                     item.IsPlayed = score.IsNew();
 
-                    lstDetails.ListItems.Add(item);
+                    lstDetails.Add(item);
                 }
             }
 
