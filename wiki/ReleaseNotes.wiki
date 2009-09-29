@@ -1,6 +1,7 @@
 #labels Featured
 *next version:*
     * Fix: listcontrol page label
+    * Add Russian language file (thanks to bounguine)
 
 *version 0.11 (22 sep 09):*
     * Rule: Format is not required to create a rule
