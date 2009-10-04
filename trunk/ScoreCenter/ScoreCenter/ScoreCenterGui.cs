@@ -141,6 +141,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     GUIPropertyManager.SetProperty("#ScoreCenter.Category", "_");
                     GUIPropertyManager.SetProperty("#ScoreCenter.League", " ");
                     GUIPropertyManager.SetProperty("#ScoreCenter.Results", " ");
+                    GUIPropertyManager.SetProperty("#ScoreCenter.Source", " ");
 
                     UpdateSettings(false);
                     LoadCategories();
@@ -500,14 +501,20 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             string name = " ";
             string image = "-";
+            string source = " ";
             if (score != null)
             {
                 name = score.Name;
                 image = score.Image;
+
+                source = score.Url.Replace("http://", String.Empty);
+                source = source.Substring(0, source.IndexOf('/'));
+                if (source.StartsWith("www.")) source = source.Substring(4);
             }
-            
+
             GUIPropertyManager.SetProperty("#ScoreCenter.Results", name);
             GUIPropertyManager.SetProperty("#ScoreCenter.ScoreIco", GetImage(image));
+            GUIPropertyManager.SetProperty("#ScoreCenter.Source", source);
         }
         #endregion
 
