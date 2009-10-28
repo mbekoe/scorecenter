@@ -32,6 +32,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Rows.Add(RuleAction.FormatLine.ToString(), "Format Line");
             dt.Rows.Add(RuleAction.MergeCells.ToString(), "Merge Cells");
             dt.Rows.Add(RuleAction.ReplaceText.ToString(), "Replace Text");
+            dt.Rows.Add(RuleAction.SkipLine.ToString(), "Skip Line");
 
             return dt;
         }

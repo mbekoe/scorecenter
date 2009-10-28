@@ -193,6 +193,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         ReplaceText,
+        
+        /// <remarks/>
+        SkipLine,
     }
     
     /// <remarks/>
