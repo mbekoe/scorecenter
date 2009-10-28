@@ -55,6 +55,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private int m_currentColumn = 0;
         private Score m_currentScore = null;
         private string[][] m_lines = null;
+        private Stack<int> m_prevIndex = new Stack<int>();
 
         /// <summary>
         /// Kind of view mode.
@@ -297,6 +298,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 GUIListItem item = lstDetails.SelectedListItem;
                 bool back = (item.Label == "..");
+                if (!back && m_mode != ViewMode.Results)
+                {
+                    m_prevIndex.Push(lstDetails.SelectedListItemIndex);
+                }
+
                 UpdateListView(item, back);
             }
 
@@ -327,6 +333,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (back) LoadLeagues();
                     else DisplayScore();
                     break;
+            }
+
+            if (back && m_prevIndex.Count > 0)
+            {
+                // always pop
+                int prev = m_prevIndex.Pop();
+
+                // if enough set
+                if (lstDetails.Count > prev)
+                {
+                    lstDetails.SelectedListItemIndex = prev;
+                }
             }
         }
 
@@ -639,6 +657,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     Rule rule = engine.CheckLine(row, lineNumber);
                     if (rule != null)
                     {
+                        // skip lines and continue
+                        if (rule.Action == RuleAction.SkipLine)
+                            continue;
+
                         merge = rule.Action == RuleAction.MergeCells;
                         lineStyle = m_center.FindStyle(rule.Format) ?? defaultStyle;
                     }

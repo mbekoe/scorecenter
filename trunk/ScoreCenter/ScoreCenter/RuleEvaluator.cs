@@ -45,6 +45,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 // only check rules applying to line
                 if (rule.Action != RuleAction.FormatLine
+                    && rule.Action != RuleAction.SkipLine
                     && rule.Action != RuleAction.MergeCells)
                     continue;
 
