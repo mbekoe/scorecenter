@@ -144,7 +144,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     GUIPropertyManager.SetProperty("#ScoreCenter.Results", " ");
                     GUIPropertyManager.SetProperty("#ScoreCenter.Source", " ");
 
-                    UpdateSettings(false);
+                    UpdateSettings(false, false);
                     LoadCategories();
 
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
@@ -220,7 +220,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         try
                         {
-                            UpdateSettings(true);
+                            UpdateSettings(true, true);
                         }
                         catch (Exception ex)
                         {
@@ -250,13 +250,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             base.OnShowContextMenu();
         }
 
-        private void UpdateSettings(bool force)
+        private void UpdateSettings(bool force, bool reload)
         {
             bool updated = ExchangeManager.OnlineUpdate(m_center, force);
             if (updated)
             {
                 SaveSettings();
-                LoadCategories();
+                if (reload) LoadCategories();
             }
         }
 

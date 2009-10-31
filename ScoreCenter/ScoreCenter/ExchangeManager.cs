@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using ICSharpCode.SharpZipLib.Zip;
+using MediaPortal.Configuration;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -143,24 +147,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
-        public static bool OnlineUpdate(ScoreCenter center, string url, ImportOptions options)
-        {
-            bool result = false;
-
-            if (String.IsNullOrEmpty(url) == false)
-            {
-                ScoreCenter online = Tools.ReadOnlineSettings(url, false);
-                if (online != null)
-                {
-                    int nb = ExchangeManager.Import(center, online, options);
-                    Tools.LogMessage("Imported: {0}", nb);
-                    result = (nb > 0);
-                }
-            }
-
-            return result;
-        }
-
         public static bool OnlineUpdate(ScoreCenter center, bool force)
         {
             bool result = false;
@@ -187,6 +173,110 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return result;
+        }
+
+        public static bool OnlineUpdate(ScoreCenter center, string url, ImportOptions options)
+        {
+            bool result = false;
+
+            if (String.IsNullOrEmpty(url) == false)
+            {
+                ScoreCenter online = Tools.ReadOnlineSettings(url, false);
+                if (online != null)
+                {
+                    int nb = ExchangeManager.Import(center, online, options);
+                    Tools.LogMessage("Imported: {0}", nb);
+                    result = (nb > 0);
+
+                    // if scores imported
+                    if (result)
+                    {
+                        // check icons
+                        UpdateIcons(center);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private static void UpdateIcons(ScoreCenter center)
+        {
+            // create list including all icons
+            List<string> icons = new List<string>();
+
+            icons.AddRange(center.Images.CategoryImg.Select(img => img.Path));
+            icons.AddRange(center.Images.LeagueImg.Select(img => img.Path));
+            icons.AddRange(center.Scores.Select(sc => sc.Image));
+
+            // create list of missing icons
+            List<string> missing = new List<string>();
+            foreach (string image in icons.Distinct())
+            {
+                string fileName = Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", image + ".png");
+                if (String.IsNullOrEmpty(image) == false && File.Exists(fileName) == false)
+                {
+                    missing.Add("ScoreCenter\\" + image + ".png");
+                }
+            }
+
+            if (missing.Count > 0)
+            {
+                // DL zip
+                string url = center.Setup.UpdateUrl;
+                url = url.Substring(0, url.LastIndexOf("/") + 1) + "ScoreCenter.zip";
+                string zipFileName = Config.GetFile(Config.Dir.Thumbs, "ScoreCenter.zip");
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.DownloadFile(url, zipFileName);
+                        ReadZip(zipFileName, missing);
+                    }
+                }
+                finally
+                {
+                    File.Delete(zipFileName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Extract all image in images from the zip file.
+        /// </summary>
+        /// <param name="zipFileName">The full path of the zip file.</param>
+        /// <param name="images">The list of images to extract.</param>
+        private static void ReadZip(string zipFileName, IList<string> images)
+        {
+            using (ZipFile zip = new ZipFile(zipFileName))
+            {
+                foreach (string name in images)
+                {
+                    ZipEntry entry = zip.GetEntry(name);
+                    if (entry == null)
+                        continue;
+                    
+                    string img = Config.GetFile(Config.Dir.Thumbs, name);
+                    if (File.Exists(img))
+                        continue;
+
+                    string dir = Path.GetDirectoryName(img);
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+
+                    Stream s = zip.GetInputStream(entry);
+                    FileStream outimg = new FileStream(img, FileMode.CreateNew, FileAccess.Write);
+                    int size;
+                    byte[] buffer = new byte[2048];
+                    do
+                    {
+                        size = s.Read(buffer, 0, buffer.Length);
+                        outimg.Write(buffer, 0, size);
+                    }
+                    while (size > 0);
+                    outimg.Close();
+                }
+            }
         }
     }
 }
