@@ -209,18 +209,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             icons.AddRange(center.Images.LeagueImg.Select(img => img.Path));
             icons.AddRange(center.Scores.Select(sc => sc.Image));
 
-            // create list of missing icons
-            List<string> missing = new List<string>();
+            // check if an icon is missing
+            bool missing = false;
             foreach (string image in icons.Distinct())
             {
                 string fileName = Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", image + ".png");
                 if (String.IsNullOrEmpty(image) == false && File.Exists(fileName) == false)
                 {
-                    missing.Add("ScoreCenter\\" + image + ".png");
+                    missing = true;
+                    break;
                 }
             }
 
-            if (missing.Count > 0)
+            if (missing)
             {
                 // DL zip
                 string url = center.Setup.UpdateUrl;
@@ -231,7 +232,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     using (WebClient client = new WebClient())
                     {
                         client.DownloadFile(url, zipFileName);
-                        ReadZip(zipFileName, missing);
+                        ReadZip(zipFileName);
                     }
                 }
                 finally
@@ -242,21 +243,16 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         /// <summary>
-        /// Extract all image in images from the zip file.
+        /// Extract all missing images from the zip file.
         /// </summary>
         /// <param name="zipFileName">The full path of the zip file.</param>
-        /// <param name="images">The list of images to extract.</param>
-        private static void ReadZip(string zipFileName, IList<string> images)
+        private static void ReadZip(string zipFileName)
         {
             using (ZipFile zip = new ZipFile(zipFileName))
             {
-                foreach (string name in images)
+                foreach (ZipEntry entry in zip)
                 {
-                    ZipEntry entry = zip.GetEntry(name);
-                    if (entry == null)
-                        continue;
-                    
-                    string img = Config.GetFile(Config.Dir.Thumbs, name);
+                    string img = Config.GetFile(Config.Dir.Thumbs, entry.Name);
                     if (File.Exists(img))
                         continue;
 
