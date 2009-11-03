@@ -102,12 +102,25 @@
     <control>
       <description>Current Results</description>
       <type>label</type>
-      <posX>230</posX>
+      <posX>210</posX>
       <posY>50</posY>
+      <width>500</width>
       <label>#ScoreCenter.Results</label>
       <font>font14</font>
       <align>left</align>
       <textcolor>ffffffff</textcolor>
+    </control>
+
+    <control>
+      <type>fadelabel</type>
+      <description>source</description>
+      <posX>210</posX>
+      <posY>75</posY>
+      <width>500</width>
+      <label>#ScoreCenter.Source</label>
+      <font>font10</font>
+      <textcolor>aaffffff</textcolor>
+      <align>left</align>
     </control>
     
     <control>
