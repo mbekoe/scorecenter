@@ -104,6 +104,7 @@
       <type>label</type>
       <posX>315</posX>
       <posY>50</posY>
+      <width>900</width>
       <label>#ScoreCenter.Results</label>
       <font>font14</font>
       <align>left</align>
@@ -111,13 +112,25 @@
     </control>
     
     <control>
+      <type>fadelabel</type>
+      <description>source</description>
+      <posX>315</posX>
+      <posY>75</posY>
+      <width>900</width>
+      <label>#ScoreCenter.Source</label>
+      <font>font10</font>
+      <textcolor>aaffffff</textcolor>
+      <align>left</align>
+    </control>
+
+    <control>
       <description>Scores</description>
       <type>listcontrol</type>
       <id>10</id>
       <posX>10</posX>
       <posY>100</posY>
       <width>300</width>
-      <height>550</height>
+      <height>600</height>
       <textXOff>10</textXOff>
       <textYOff>2</textYOff>
       <IconXOff>5</IconXOff>
@@ -128,7 +141,7 @@
       <textureHeight>35</textureHeight>
       <keepaspectratio>yes</keepaspectratio>
       <spinPosX>10</spinPosX>
-      <spinPosY>650</spinPosY>
+      <spinPosY>660</spinPosY>.
       <onright>40</onright>
     </control>
 
@@ -151,7 +164,7 @@
       <type>button</type>
       <id>40</id>
       <posX>210</posX>
-      <posY>670</posY>
+      <posY>660</posY>
       <width>100</width>
       <label>Next</label>
       <onup>10</onup>
