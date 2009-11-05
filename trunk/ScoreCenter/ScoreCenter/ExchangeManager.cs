@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using ICSharpCode.SharpZipLib.Zip;
+using Ionic.Zip;
 using MediaPortal.Configuration;
 
 namespace MediaPortal.Plugin.ScoreCenter
@@ -248,29 +248,12 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="zipFileName">The full path of the zip file.</param>
         private static void ReadZip(string zipFileName)
         {
-            using (ZipFile zip = new ZipFile(zipFileName))
+            string dest = Config.GetFolder(Config.Dir.Thumbs);
+            using (ZipFile zip = ZipFile.Read(zipFileName))
             {
                 foreach (ZipEntry entry in zip)
                 {
-                    string img = Config.GetFile(Config.Dir.Thumbs, entry.Name);
-                    if (File.Exists(img))
-                        continue;
-
-                    string dir = Path.GetDirectoryName(img);
-                    if (!Directory.Exists(dir))
-                        Directory.CreateDirectory(dir);
-
-                    Stream s = zip.GetInputStream(entry);
-                    FileStream outimg = new FileStream(img, FileMode.CreateNew, FileAccess.Write);
-                    int size;
-                    byte[] buffer = new byte[2048];
-                    do
-                    {
-                        size = s.Read(buffer, 0, buffer.Length);
-                        outimg.Write(buffer, 0, size);
-                    }
-                    while (size > 0);
-                    outimg.Close();
+                    entry.Extract(dest, false);
                 }
             }
         }
