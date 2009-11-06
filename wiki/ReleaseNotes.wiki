@@ -1,8 +1,10 @@
 #labels Featured
-*next version:*
-    * Fix: listcontrol page label
-    * Add Russian language file (thanks to bounguine)
-    * New Propery "#ScoreCenter.Source" to display the name of the source (web site)
+*version 1.0 (5 nov 09):*
+    * Fix: issue with listcontrol page label.
+    * Add Russian language file (thanks to bounguine).
+    * New Propery "#ScoreCenter.Source" to display the name of the source (web site).
+    * Download icons zip file and unzip it if icons are missing after update.
+    * Remember navigation (reselect previous item when going back).
 
 *version 0.11 (22 sep 09):*
     * Rule: Format is not required to create a rule
