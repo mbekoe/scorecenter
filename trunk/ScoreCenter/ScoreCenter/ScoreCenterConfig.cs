@@ -888,44 +888,57 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void tsbExport_Click(object sender, EventArgs e)
         {
-            ExportDialog dlg = new ExportDialog(m_center);
-            dlg.ShowDialog();
+            using (ExportDialog dlg = new ExportDialog(m_center))
+            {
+                dlg.ShowDialog();
+            }
         }
 
         private void tsbImport_Click(object sender, EventArgs e)
         {
             if (ofdImport.ShowDialog() == DialogResult.OK)
             {
-                ImportDialog dlg = new ImportDialog(ofdImport.FileName, m_center);
-                if (dlg.ShowDialog() == DialogResult.OK)
+                using (ImportDialog dlg = new ImportDialog(ofdImport.FileName, m_center))
                 {
-                    RefreshTree();
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        RefreshTree();
+                    }
                 }
             }
         }
 
         private void tsbOptions_Click(object sender, EventArgs e)
         {
-            OptionsDialog dlg = new OptionsDialog(m_center);
-            dlg.ShowDialog();
-            RefreshTree();
-            
-            dlg.Dispose();
+            using (OptionsDialog dlg = new OptionsDialog(m_center))
+            {
+                dlg.ShowDialog();
+
+                if (dlg.ReloadRequired)
+                {
+                    this.Refresh();
+                    RefreshTree();
+                }
+            }
         }
 
         private void tsbEditStyles_Click(object sender, EventArgs e)
         {
-            StyleDialog dlg = new StyleDialog(m_center);
-            if (dlg.ShowDialog() == DialogResult.OK)
+            using (StyleDialog dlg = new StyleDialog(m_center))
             {
-                UpdateStyleList();
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    UpdateStyleList();
+                }
             }
         }
 
         private void grdRule_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             if (e.ColumnIndex == colStyle.Index)
-                grdRule[e.ColumnIndex, e.RowIndex].Value = "";
+            {
+                grdRule[e.ColumnIndex, e.RowIndex].Value = String.Empty;
+            }
         }
 
         private void btnOpenUrl_Click(object sender, EventArgs e)
