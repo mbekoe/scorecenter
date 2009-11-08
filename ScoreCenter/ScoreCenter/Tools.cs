@@ -278,7 +278,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private static string[] HtmlCode = new string[] {
             "&nbsp;", " ", "\n", "",
             "&ccedil;", "ç", "&Ccedil;", "Ç",
-            "&auml;", "ä", "&acirc;", "â", "&agrave;", "à", "&aacute;", "á",
+            "&auml;", "ä", "&acirc;", "â", "&agrave;", "à", "&aacute;", "á", "&atilde;", "ã",
             "&Auml;", "Ä", "&Acirc;", "Â", "&Agrave;", "À", "&Aacute;", "Á",
             "&euml;", "ë", "&ecirc;", "ê", "&egrave;", "è", "&eacute;", "é",
             "&Euml;", "Ë", "&Ecirc;", "Ê", "&Egrave;", "È", "&Eacute;", "É",
@@ -289,7 +289,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             "&uuml;", "ü", "&ucirc;", "û",
             "&Uuml;", "Ü", "&Ucirc;", "Û",
             "&gt;", ">", "&lt;", "<", "&quot;", "\"",
-            "&#233;", "é",
+            "&#233;", "é", "&#39;", "'",
         };
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,11 +13,25 @@ namespace MediaPortal.Plugin.ScoreCenter
     public partial class OptionsDialog : Form
     {
         private ScoreCenter m_center;
+        private bool m_reload; // false
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="center">The score center to use.</param>
         public OptionsDialog(ScoreCenter center)
         {
             InitializeComponent();
 
             m_center = center;
+        }
+
+        /// <summary>
+        /// Gets a value indicating if a reload of the settings is required.
+        /// </summary>
+        public bool ReloadRequired
+        {
+            get { return m_reload; }
         }
 
         private void OptionsDialog_Load(object sender, EventArgs e)
@@ -62,6 +77,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
+        /// <summary>
+        /// Save options to score center.
+        /// </summary>
         private void SaveOptions()
         {
             if (m_center.Setup == null)
@@ -87,6 +105,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void btnSelectDir_Click(object sender, EventArgs e)
         {
+            // reselect current
+            if (Directory.Exists(tbxBackdrop.Text))
+            {
+                folderBrowserDialog1.SelectedPath = tbxBackdrop.Text;
+            }
+            
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbxBackdrop.Text = folderBrowserDialog1.SelectedPath;
@@ -102,6 +126,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Cursor = Cursors.WaitCursor;
                 SaveOptions();
 
+                m_reload = true;
                 m_center.Setup.UpdateOnlineMode = UpdateMode.Manually;
                 ExchangeManager.OnlineUpdate(m_center, true);
             }
