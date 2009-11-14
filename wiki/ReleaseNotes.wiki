@@ -3,6 +3,7 @@
     * Possibility to wrap text and to show new lines.
     * Config: Preview formatting in test tab.
     * Config: set alignment by right-clicking a column in the grid.
+    * Config: the 'Include THeader Rows' now includes (or excludes) the TFooter rows as well.
 
 *version 1.0 (5 nov 09):*
     * Fix: issue with listcontrol page label.
