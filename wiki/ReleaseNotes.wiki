@@ -1,4 +1,8 @@
 #labels Featured
+*next version:*
+    * Possibility to wrap text and to show new lines.
+    * Config: Preview formatting in test tab.
+
 *version 1.0 (5 nov 09):*
     * Fix: issue with listcontrol page label.
     * Add Russian language file (thanks to bounguine).
