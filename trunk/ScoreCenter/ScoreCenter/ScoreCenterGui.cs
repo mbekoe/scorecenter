@@ -86,6 +86,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected GUIImage imgBackdrop = null;
         [SkinControlAttribute(40)]
         protected GUIButtonControl btnNextPage = null;
+        [SkinControlAttribute(50)]
+        protected GUILabelControl lblVisible = null;
 
         #endregion
 
@@ -130,7 +132,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 try
                 {
                     ReadSettings();
-
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
                     GUIPropertyManager.SetProperty("#ScoreCenter.Category", "_");
                     GUIPropertyManager.SetProperty("#ScoreCenter.League", " ");
@@ -316,8 +317,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_currentScore = null;
             m_lines = null;
 
+            // clear grid and hide next button
             ShowNextButton(false);
             ClearGrid();
+
+            bool reselect = true;
             switch (m_mode)
             {
                 case ViewMode.Category:
@@ -330,12 +334,25 @@ namespace MediaPortal.Plugin.ScoreCenter
                     else LoadScores();
                     break;
                 case ViewMode.Results:
-                    if (back) LoadLeagues();
-                    else DisplayScore();
+                    if (back)
+                    {
+                        if (lstDetails.Visible) LoadLeagues();
+                        else
+                        {
+                            lstDetails.Visible = true;
+                            reselect = false; // no need to reselect
+                        }
+                    }
+                    else
+                    {
+                        DisplayScore();
+                        lstDetails.Visible = (lblVisible == null);
+                    }
+                    
                     break;
             }
 
-            if (back && m_prevIndex.Count > 0)
+            if (reselect && back && m_prevIndex.Count > 0)
             {
                 // always pop
                 int prev = m_prevIndex.Pop();
@@ -898,9 +915,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (btnNextPage != null)
             {
-                btnNextPage.Visibility = visible
-                    ? System.Windows.Visibility.Visible
-                    : System.Windows.Visibility.Hidden;
+                btnNextPage.Visible = visible;
             }
         }
 
