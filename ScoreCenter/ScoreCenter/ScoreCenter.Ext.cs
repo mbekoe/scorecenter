@@ -198,6 +198,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Element = newScore.Element;
                 this.Encoding = newScore.Encoding;
                 this.UseTheader = newScore.UseTheader;
+                this.NewLine = newScore.NewLine;
+                this.WordWrap = newScore.WordWrap;
             }
 
             if ((type & ImportOptions.Rules) == ImportOptions.Rules)

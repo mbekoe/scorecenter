@@ -74,7 +74,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         private ViewMode m_mode = ViewMode.Category;
         private string m_currentCategory;
         private string m_currentLeague;
-        private bool m_autoSize = false;
+        private bool m_autoSize; // false
+        private bool m_autoWrap; // false
 
         #region Skin Controls
         [SkinControlAttribute(10)]
@@ -86,14 +87,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         [SkinControlAttribute(40)]
         protected GUIButtonControl btnNextPage = null;
 
-        #endregion
-
-        #region Label numbers
-        private const int C_CLEAR_CACHE = 1;
-        private const int C_USE_AUTO_MODE = 2;
-        private const int C_UNUSE_AUTO_MODE = 3;
-        private const int C_SYNCHRO_ONLINE = 4;
-        private const int C_DISABLE_ITEM = 5;
         #endregion
 
         #endregion
@@ -125,7 +118,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         protected override void OnPageLoad()
         {
-            Tools.LogMessage("entering OnPageLoad()");
+            //Tools.LogMessage("entering OnPageLoad()");
             base.OnPageLoad();
 
             ShowNextButton(false);
@@ -189,24 +182,29 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             GUIListItem item = lstDetails.SelectedListItem;
 
+            // create menu
             GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
             menu.Reset();
             menu.SetHeading(m_center.Setup.Name);
-            menu.Add(LocalizationManager.GetString(C_CLEAR_CACHE));
+            menu.Add(LocalizationManager.GetString(Labels.ClearCache));
 
-            if (m_autoSize)
-                menu.Add(LocalizationManager.GetString(C_UNUSE_AUTO_MODE));
-            else
-                menu.Add(LocalizationManager.GetString(C_USE_AUTO_MODE));
+            if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
 
-            menu.Add(LocalizationManager.GetString(C_SYNCHRO_ONLINE));
+            if (m_autoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
+
+            menu.Add(LocalizationManager.GetString(Labels.SynchroOnline));
 
             if (item.Label != "..")
             {
-                menu.Add(String.Format("{1} '{0}'", item.Label, LocalizationManager.GetString(C_DISABLE_ITEM)));
+                menu.Add(String.Format("{1} '{0}'", item.Label, LocalizationManager.GetString(Labels.DisableItem)));
             }
 
+            // show the menu
             menu.DoModal(GetID);
+            
+            // process user action
             switch (menu.SelectedId)
             {
                 case 1:
@@ -216,6 +214,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_autoSize = !m_autoSize;
                     break;
                 case 3:
+                    m_autoWrap = !m_autoWrap;
+                    break;
+                case 4:
                     System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
                     {
                         try
@@ -224,7 +225,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         }
                         catch (Exception ex)
                         {
-                            Tools.LogError("Error occured while executing the Update Online: ", ex);
+                            Tools.LogError("Error occured while executing the Online Update: ", ex);
                         }
                         finally
                         {
@@ -232,9 +233,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                         }
                     });
                     break;
-                case 4:
+                case 5:
                     GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
-                    string disable = LocalizationManager.GetString(C_DISABLE_ITEM);
+                    string disable = LocalizationManager.GetString(Labels.DisableItem);
                     dlg.SetHeading(disable);
                     dlg.SetLine(1, String.Format("{1} '{0}'?", item.Label, disable));
                     dlg.DoModal(GetID);
@@ -245,7 +246,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                     break;
             }
-
 
             base.OnShowContextMenu();
         }
@@ -577,7 +577,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             GetCharFonSize(fontSize, ref charWidth, ref charHeight);
 
             #region Get Columns Sizes
-            Tools.ColumnDisplay[] cols = null;
+            ColumnDisplay[] cols = null;
             if (!m_autoSize)
             {
                 cols = Tools.GetSizes(score.Sizes);
@@ -605,10 +605,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                 }
 
-                cols = new Tools.ColumnDisplay[coldic.Count];
+                cols = new ColumnDisplay[coldic.Count];
                 foreach (int key in coldic.Keys)
                 {
-                    cols[key] = new Tools.ColumnDisplay(coldic[key].ToString());
+                    cols[key] = new ColumnDisplay(coldic[key].ToString());
                 }
             }
             #endregion
@@ -667,8 +667,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
                 #endregion
 
+                int nbLines = 1;
                 for (int colIndex = 0; colIndex < row.Length; colIndex++)
                 {
+                    // get cell
+                    string cell = row[colIndex];
+                    ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
+                    if (colSize.Size == 0)
+                    {
+                        //Tools.LogMessage("colSize.Size == 0");
+                        continue;
+                    }
+
                     // ignore controls outside area
                     if (posX > maxX)
                     {
@@ -677,18 +687,28 @@ namespace MediaPortal.Plugin.ScoreCenter
                         continue;
                     }
 
-                    // get cell
-                    string cell = row[colIndex];
-                    Tools.ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
-                    if (colSize.Size == 0)
-                    {
-                        //Tools.LogMessage("colSize.Size == 0");
-                        continue;
-                    }
-
                     // evaluate size of the control in pixel
                     int maxChar = Math.Abs(colSize.Size + 1);
+
+                    // wrap needed?
+                    if (score.WordWrap || m_autoWrap)
+                    {
+                        int i = maxChar + 1;
+                        while (i < cell.Length)
+                        {
+                            cell = cell.Insert(i, Environment.NewLine);
+                            i += maxChar + 1;
+                        }
+                    }
+
+                    // count new lines
+                    int nb = Tools.CountLines(cell);
+                    nbLines = Math.Max(nbLines, nb);
+
+                    //Tools.LogMessage("cell = {0}", cell);
+
                     int length = charWidth * maxChar;
+                    int height = charHeight * nbLines;
                     if (posX < startX)
                     {
                         //Tools.LogMessage("PrevPage X={0} MaxX={1}", posX, startX);
@@ -723,7 +743,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     // create the control
                     //Tools.LogMessage("*** {1}x{2} - CreateControl = {0}", cell, posX, posY);
-                    GUIControl control = CreateControl(posX, posY, length, charHeight,
+                    GUIControl control = CreateControl(posX, posY, length, height,
                         colSize.Alignement,
                         cell,
                         fontName, cellStyle, maxChar);
@@ -735,7 +755,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 // set Y pos to the bottom of the control
-                posY += charHeight;
+                posY += charHeight * nbLines;
             }
 
             // add controls to screen
@@ -783,12 +803,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             height = (int)h1;
         }
 
-        private static Tools.ColumnDisplay GetColumnSize(int colIndex, Tools.ColumnDisplay[] cols, string text, bool span)
+        private static ColumnDisplay GetColumnSize(int colIndex, ColumnDisplay[] cols, string text, bool span)
         {
             if (cols == null || span)
-                return new Tools.ColumnDisplay(text.Length, GUIControl.Alignment.Left);
+                return new ColumnDisplay(text.Length, GUIControl.Alignment.Left);
 
-            return colIndex < cols.Length ? cols[colIndex] : new Tools.ColumnDisplay("0");
+            return colIndex < cols.Length ? cols[colIndex] : new ColumnDisplay("0");
         }
 
         private GUIControl CreateControl(int posX, int posY, int width, int height,
@@ -799,7 +819,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // always start with a space
             strLabel = " " + label;
-            nbMax++;
 
             // shrink text for small labels
             if (nbMax <= 6 && strLabel.Length > nbMax)
@@ -813,19 +832,64 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             // create the control
-            GUILabelControl labelControl = new GUILabelControl(GetID);
-            labelControl.GetID = m_currentIndex++;
-            labelControl._positionX = posX;
-            labelControl._positionY = posY;
-            labelControl._width = width;
-            labelControl._height = height;
-            labelControl.FontName = font;
-            labelControl.Label = strLabel;
-            labelControl.TextColor = style.ForeColor;
-            labelControl.TextAlignment = alignement;
-            GUIControl control = labelControl as GUIControl;
+            int choice = 0;
+            GUIControl control = null;
+            if (choice == 0)
+            {
+                GUILabelControl labelControl = new GUILabelControl(GetID);
 
-            m_indices.Add(control.GetID);
+                labelControl.GetID = m_currentIndex++;
+                labelControl._positionX = posX;
+                labelControl._positionY = posY;
+                labelControl._width = width;
+                labelControl._height = height;
+                labelControl.FontName = font;
+                labelControl.Label = strLabel;
+                labelControl.TextColor = style.ForeColor;
+                labelControl.TextAlignment = alignement;
+
+                control = labelControl;
+            }
+            else if (choice == 1)
+            {
+                GUITextControl labelControl = new GUITextControl(GetID, m_currentIndex++,
+                    posX, posY, width, height,
+                    font, 0, 0, "", "", "", "", 0, 0, 0, style.ForeColor);
+                labelControl.Label = strLabel;
+
+                control = labelControl;
+            }
+            else if (choice == 2)
+            {
+                GUITextScrollUpControl labelControl = new GUITextScrollUpControl(GetID, m_currentIndex++,
+                    posX, posY, width, height,
+                    font, style.ForeColor);
+                labelControl.Label = strLabel;
+
+                control = labelControl;
+            }
+            else if (choice == 3)
+            {
+                GUIFadeLabel labelControl = new GUIFadeLabel(GetID);
+
+                labelControl.GetID = m_currentIndex++;
+                labelControl._positionX = posX;
+                labelControl._positionY = posY;
+                labelControl._width = width;
+                labelControl._height = height;
+                labelControl.FontName = font;
+                labelControl.TextColor = style.ForeColor;
+                labelControl.TextAlignment = alignement;
+                labelControl.AllowScrolling = false;
+                labelControl.Label = strLabel;
+
+                control = labelControl;
+            }
+
+            if (control != null)
+            {
+                m_indices.Add(control.GetID);
+            }
 
             return control;
         }

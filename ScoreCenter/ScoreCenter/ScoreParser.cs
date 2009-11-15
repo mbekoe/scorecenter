@@ -46,7 +46,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             // get score definition
             string url = ParseUrl(score.Url);
-            string xpath = score.XPath;
             int index = -1;
             if (score.Element.Length > 0)
             {
@@ -60,13 +59,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             int max = score.MaxLines;
             if (max > 0) max += skip;
 
+            // get the html
             string html = m_cache.GetScore(url, score.Encoding, reload);
-
+            html = html.Replace("<br>", score.NewLine ? Environment.NewLine : " ");
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
 
-            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(xpath);
+            // parse it
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
             List<string[]> ll = new List<string[]>();
             
             // add headers
@@ -79,7 +80,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (index >= 0 && nodes.Count > index)
                 {
-                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader);
+                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader, score.NewLine);
                     if (rr != null)
                     {
                         ll.AddRange(rr);
@@ -89,7 +90,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     foreach (HtmlNode node in nodes)
                     {
-                        string[][] rr = ParseTable(node, skip, max, score.UseTheader);
+                        string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.NewLine);
                         if (rr != null)
                         {
                             ll.AddRange(rr);
@@ -135,15 +136,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         private static string[][] ParseTable(HtmlNode table,
-            int skip, int max, bool useTheader)
+            int skip, int max, bool useTheader, bool allowNewLine)
         {
             string xpathHeader = ".//tr";
-            if (useTheader) xpathHeader += " | .//thead";
+            if (useTheader) xpathHeader += " | .//thead | .//tfoot" ;
             HtmlNodeCollection lines = table.SelectNodes(xpathHeader);
             if (lines == null)
             {
                 string[][] aa = new string[1][];
-                aa[0] = new string[] { Tools.TransformHtml(table.InnerText.Trim(' ', '\n')).Trim() };
+                aa[0] = new string[] { Tools.TransformHtml(table.InnerText.Trim(' ', '\n'), allowNewLine).Trim() };
                 return aa;
             }
 
@@ -168,7 +169,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 foreach (HtmlNode column in columns)
                 {
                     string value = column.InnerText.Normalize();
-                    string tt = Tools.TransformHtml(value.Trim(' ', '\n')).Trim();
+                    string tt = Tools.TransformHtml(value.Trim(' ', '\n'), allowNewLine).Trim();
                     nbChar += tt.Length;
                     strLine[i] = tt;
                     i++;

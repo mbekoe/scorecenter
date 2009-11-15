@@ -242,41 +242,27 @@ namespace MediaPortal.Plugin.ScoreCenter
             return sizes;
         }
 
-        /// <summary>
-        /// Describes how to display a column (size and alignement).
-        /// </summary>
-        public class ColumnDisplay
+        public static string SizesToText(ColumnDisplay[] sizes)
         {
-            public int Size { get; set; }
-            public GUIControl.Alignment Alignement { get; set; }
+            string txt = String.Empty;
 
-            public ColumnDisplay(int size, GUIControl.Alignment alignement)
+            if (sizes != null)
             {
-                Size = size;
-                Alignement = alignement;
-            }
-            
-            public ColumnDisplay(string strCol)
-            {
-                int c = 0;
-                if (false == int.TryParse(strCol.Trim(), out c))
+                foreach (ColumnDisplay col in sizes)
                 {
-                    // default size
-                    c = 5;
+                    if (txt.Length > 0) txt += ",";
+                    txt += col.ToString();
                 }
-
-                Size = c;
-                Alignement = GUIControl.Alignment.Right;
-                if (strCol.StartsWith("-")) Alignement = GUIControl.Alignment.Left;
-                else if (strCol.StartsWith("+")) Alignement = GUIControl.Alignment.Center;
             }
+
+            return txt;
         }
 
         /// <summary>
         /// Table used to transform HTML characters.
         /// </summary>
         private static string[] HtmlCode = new string[] {
-            "&nbsp;", " ", "\n", "",
+            "&nbsp;", " ",// "\n", "",
             "&ccedil;", "ç", "&Ccedil;", "Ç",
             "&auml;", "ä", "&acirc;", "â", "&agrave;", "à", "&aacute;", "á", "&atilde;", "ã",
             "&Auml;", "Ä", "&Acirc;", "Â", "&Agrave;", "À", "&Aacute;", "Á",
@@ -296,10 +282,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// Transform an HTML string.
         /// </summary>
         /// <param name="value">The HTML to transform.</param>
+        /// <param name="allowNewLine">If FALSE replace new lines with a white space.</param>
         /// <returns>The transformed HTML.</returns>
-        public static string TransformHtml(string value)
+        public static string TransformHtml(string value, bool allowNewLine)
         {
             string result = value;
+
+            if (!allowNewLine)
+                result = result.Replace("\n", " ");
 
             for (int i = 0; i < HtmlCode.Length; i = i + 2)
             {
@@ -380,7 +370,23 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return bld.Uri.ToString();
         }
-        
+
+        public static int CountLines(string cell)
+        {
+            int nb = 0;
+            LogMessage("Cell = {0}", cell);
+            int index = 0;
+            do
+            {
+                nb++;
+                index = cell.IndexOf(Environment.NewLine, index) + 1;
+                Tools.LogMessage("{0} {1}", nb, index);
+            }
+            while (index > 0 && index < cell.Length);
+
+            return nb;
+        }
+
         #region Log
         public static void LogMessage(string format, params object[] args)
         {
@@ -405,6 +411,53 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 action(element);
             }
+        }
+    }
+
+    /// <summary>
+    /// Describes how to display a column (size and alignement).
+    /// </summary>
+    public class ColumnDisplay
+    {
+        public int Size { get; set; }
+        public GUIControl.Alignment Alignement { get; set; }
+
+        public ColumnDisplay(int size, GUIControl.Alignment alignement)
+        {
+            Size = size;
+            Alignement = alignement;
+        }
+
+        public ColumnDisplay(string strCol)
+        {
+            int c = 0;
+            if (false == int.TryParse(strCol.Trim(), out c))
+            {
+                // default size
+                c = 5;
+            }
+
+            Size = Math.Abs(c);
+            Alignement = GUIControl.Alignment.Right;
+            if (strCol.StartsWith("-")) Alignement = GUIControl.Alignment.Left;
+            else if (strCol.StartsWith("+")) Alignement = GUIControl.Alignment.Center;
+        }
+
+        public override string ToString()
+        {
+            string txt = String.Empty;
+            switch (Alignement)
+            {
+                case GUIControl.Alignment.Center:
+                    txt += "+";
+                    break;
+                case GUIControl.Alignment.Left:
+                    txt += "-";
+                    break;
+            }
+
+            txt += Size.ToString();
+            return txt;
         }
     }
 }

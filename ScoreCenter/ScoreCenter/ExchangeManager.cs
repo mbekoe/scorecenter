@@ -53,8 +53,18 @@ namespace MediaPortal.Plugin.ScoreCenter
             foreach (Score score in imported.Scores)
             {
                 Score exist = center.FindScore(score.Id);
-                if (exist == null)
+                if (exist != null)
                 {
+                    // merge (or not)
+                    bool merged = exist.Merge(score, mergeOptions);
+                    if (merged)
+                    {
+                        result++;
+                    }
+                }
+                else
+                {
+                    // import new
                     if ((mergeOptions & ImportOptions.New) == ImportOptions.New)
                     {
                         toImport.Add(score);
@@ -81,14 +91,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                                 importedLeagues.Add(score.LeagueFullName, img);
                             }
                         }
-                    }
-                }
-                else
-                {
-                    bool merged = exist.Merge(score, mergeOptions);
-                    if (merged)
-                    {
-                        result++;
                     }
                 }
             }

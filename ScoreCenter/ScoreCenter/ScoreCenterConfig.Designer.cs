@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.ckxAllowWrapping = new System.Windows.Forms.CheckBox();
+            this.ckxNewLine = new System.Windows.Forms.CheckBox();
             this.lblTotalSize = new System.Windows.Forms.Label();
             this.tbxEncoding = new System.Windows.Forms.TextBox();
             this.tbxElement = new System.Windows.Forms.TextBox();
@@ -40,6 +43,7 @@
             this.tbxLeague = new System.Windows.Forms.TextBox();
             this.tbxCategory = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
+            this.ckxUseTheader = new System.Windows.Forms.CheckBox();
             this.ckxReload = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnTest = new System.Windows.Forms.Button();
@@ -77,6 +81,11 @@
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
             this.tsbOptions = new System.Windows.Forms.ToolStripButton();
             this.grdTest = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.alignementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ofdSelectIcon = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -91,12 +100,12 @@
             this.tpgTest = new System.Windows.Forms.TabPage();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
-            this.ckxUseTheader = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTest)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabScore.SuspendLayout();
             this.tpgRules.SuspendLayout();
@@ -108,6 +117,8 @@
             // 
             this.gbxScore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxScore.Controls.Add(this.ckxAllowWrapping);
+            this.gbxScore.Controls.Add(this.ckxNewLine);
             this.gbxScore.Controls.Add(this.lblTotalSize);
             this.gbxScore.Controls.Add(this.tbxEncoding);
             this.gbxScore.Controls.Add(this.tbxElement);
@@ -141,6 +152,26 @@
             this.gbxScore.TabIndex = 2;
             this.gbxScore.TabStop = false;
             this.gbxScore.Text = "Details";
+            // 
+            // ckxAllowWrapping
+            // 
+            this.ckxAllowWrapping.AutoSize = true;
+            this.ckxAllowWrapping.Location = new System.Drawing.Point(389, 175);
+            this.ckxAllowWrapping.Name = "ckxAllowWrapping";
+            this.ckxAllowWrapping.Size = new System.Drawing.Size(81, 17);
+            this.ckxAllowWrapping.TabIndex = 27;
+            this.ckxAllowWrapping.Text = "Word Wrap";
+            this.ckxAllowWrapping.UseVisualStyleBackColor = true;
+            // 
+            // ckxNewLine
+            // 
+            this.ckxNewLine.AutoSize = true;
+            this.ckxNewLine.Location = new System.Drawing.Point(267, 174);
+            this.ckxNewLine.Name = "ckxNewLine";
+            this.ckxNewLine.Size = new System.Drawing.Size(97, 17);
+            this.ckxNewLine.TabIndex = 26;
+            this.ckxNewLine.Text = "Allow New Line";
+            this.ckxNewLine.UseVisualStyleBackColor = true;
             // 
             // lblTotalSize
             // 
@@ -229,6 +260,18 @@
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
+            // ckxUseTheader
+            // 
+            this.ckxUseTheader.AutoSize = true;
+            this.ckxUseTheader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ckxUseTheader.Location = new System.Drawing.Point(59, 175);
+            this.ckxUseTheader.Name = "ckxUseTheader";
+            this.ckxUseTheader.Size = new System.Drawing.Size(164, 17);
+            this.ckxUseTheader.TabIndex = 18;
+            this.ckxUseTheader.Text = "Include Header/Footer Rows";
+            this.toolTip1.SetToolTip(this.ckxUseTheader, "Includes or Excludes THeader amd TFooter from the HML table");
+            this.ckxUseTheader.UseVisualStyleBackColor = true;
+            // 
             // ckxReload
             // 
             this.ckxReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -252,7 +295,6 @@
             this.btnSave.TabIndex = 22;
             this.btnSave.Text = "Save";
             this.toolTip1.SetToolTip(this.btnSave, "Save the current settings");
-            this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnTest
@@ -612,16 +654,66 @@
             this.grdTest.AllowUserToDeleteRows = false;
             this.grdTest.AllowUserToResizeRows = false;
             this.grdTest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.grdTest.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grdTest.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.grdTest.ColumnHeadersVisible = false;
+            this.grdTest.ContextMenuStrip = this.contextMenuStrip1;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdTest.DefaultCellStyle = dataGridViewCellStyle1;
             this.grdTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdTest.Location = new System.Drawing.Point(3, 3);
+            this.grdTest.MultiSelect = false;
             this.grdTest.Name = "grdTest";
             this.grdTest.ReadOnly = true;
             this.grdTest.RowHeadersVisible = false;
             this.grdTest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.grdTest.Size = new System.Drawing.Size(653, 331);
+            this.grdTest.Size = new System.Drawing.Size(653, 312);
             this.grdTest.TabIndex = 6;
+            this.grdTest.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdTest_CellMouseDown);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.alignementToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 26);
+            // 
+            // alignementToolStripMenuItem
+            // 
+            this.alignementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.leftToolStripMenuItem,
+            this.centerToolStripMenuItem,
+            this.rightToolStripMenuItem});
+            this.alignementToolStripMenuItem.Name = "alignementToolStripMenuItem";
+            this.alignementToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.alignementToolStripMenuItem.Text = "Alignement";
+            // 
+            // leftToolStripMenuItem
+            // 
+            this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.leftToolStripMenuItem.Text = "Left";
+            this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
+            // 
+            // centerToolStripMenuItem
+            // 
+            this.centerToolStripMenuItem.Name = "centerToolStripMenuItem";
+            this.centerToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.centerToolStripMenuItem.Text = "Center";
+            this.centerToolStripMenuItem.Click += new System.EventHandler(this.centerToolStripMenuItem_Click);
+            // 
+            // rightToolStripMenuItem
+            // 
+            this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.rightToolStripMenuItem.Text = "Right";
+            this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
             // 
             // ofdSelectIcon
             // 
@@ -720,7 +812,7 @@
             this.tpgTest.Location = new System.Drawing.Point(4, 22);
             this.tpgTest.Name = "tpgTest";
             this.tpgTest.Padding = new System.Windows.Forms.Padding(3);
-            this.tpgTest.Size = new System.Drawing.Size(659, 337);
+            this.tpgTest.Size = new System.Drawing.Size(659, 318);
             this.tpgTest.TabIndex = 0;
             this.tpgTest.Text = "Test";
             this.tpgTest.UseVisualStyleBackColor = true;
@@ -745,17 +837,6 @@
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
-            // 
-            // ckxUseTheader
-            // 
-            this.ckxUseTheader.AutoSize = true;
-            this.ckxUseTheader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxUseTheader.Location = new System.Drawing.Point(59, 175);
-            this.ckxUseTheader.Name = "ckxUseTheader";
-            this.ckxUseTheader.Size = new System.Drawing.Size(134, 17);
-            this.ckxUseTheader.TabIndex = 18;
-            this.ckxUseTheader.Text = "Include THeader Rows";
-            this.ckxUseTheader.UseVisualStyleBackColor = true;
             // 
             // ScoreCenterConfig
             // 
@@ -783,6 +864,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdTest)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tabScore.ResumeLayout(false);
             this.tpgRules.ResumeLayout(false);
@@ -857,5 +939,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Label lblTotalSize;
         private System.Windows.Forms.CheckBox ckxUseTheader;
+        private System.Windows.Forms.CheckBox ckxNewLine;
+        private System.Windows.Forms.CheckBox ckxAllowWrapping;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem alignementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem leftToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem centerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rightToolStripMenuItem;
     }
 }

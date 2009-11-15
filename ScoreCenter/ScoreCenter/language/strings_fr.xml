@@ -6,5 +6,7 @@
     <String id="3">Désactiver le mode Auto</String>
     <String id="4">Mettre à jour en ligne</String>
     <String id="5">Désactiver</String>
+    <String id="6">Utiliser le mode multi ligne</String>
+    <String id="7">Désactiver le mode multi ligne</String>
   </Section>
 </Language>
