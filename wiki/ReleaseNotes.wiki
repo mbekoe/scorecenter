@@ -2,9 +2,10 @@
 *next version:*
     * Possibility to wrap text and to show new lines.
     * Config: Preview formatting in test tab.
-    * Config: set alignment by right-clicking a column in the grid.
-    * Config: the 'Include THeader Rows' now includes (or excludes) the TFooter rows as well.
-    * Skin: add a 'dummy' label control with ID=50. If the control is present in the skin then the list will be invisible when a score is displayed. This is feature is designed for small screen resolution.
+    * Config: Set alignment by right-clicking a column in the grid.
+    * Config: The 'Include THeader Rows' now includes (or excludes) the TFooter rows as well.
+    * Config: Highlight the Save button when the score's setting has been changed.
+    * Skin: Add a 'dummy' label control with ID=50. If the control is present in the skin then the list will be invisible when a score is displayed. This is feature is designed for small screen resolution.
 
 *version 1.0 (5 nov 09):*
     * Fix: issue with listcontrol page label.
