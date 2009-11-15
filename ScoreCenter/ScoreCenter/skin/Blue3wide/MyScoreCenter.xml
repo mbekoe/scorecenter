@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- Note to skinner:
+ The two main controls are the listcontrol (ID = 10) and the textboxscrollup (ID = 20).
+ The score result itself is created dynamically with labels. the textboxscrollup is used to define
+ the area (posX, posY, width and height) where to create the control
+ and how to format them (font and color).
+-->
 <window>
   <id>42000</id>
   <defaultcontrol>10</defaultcontrol>
@@ -170,6 +176,21 @@
       <onup>10</onup>
       <ondown>10</ondown>
     </control>
+
+    <!-- Uncomment this control to make the list 
+    disapear when a score is displayed -->
+    <!--
+    <control>
+      <description>Dummy Label</description>
+      <type>label</type>
+      <id>50</id>
+      <posX>-100</posX>
+      <posY>10</posY>
+      <width>10</width>
+      <label>dummy</label>
+      <font>font12</font>
+    </control>
+    -->
 
   </controls>
 </window>
