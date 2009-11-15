@@ -67,6 +67,8 @@
         <xs:element name="MaxLines" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
         <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="UseTheader" type="xs:boolean" minOccurs="0" maxOccurs="1" default="true" />
+        <xs:element name="NewLine" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
+        <xs:element name="WordWrap" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
         <xs:element name="Rules" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
@@ -102,6 +104,7 @@
               <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
               <xs:element name="CacheExpiration" type="xs:int" minOccurs="0" maxOccurs="1" default="5" />
               <xs:element name="DefaultSkinColor" type="xs:int" minOccurs="0" maxOccurs="1" default="-16776961" />
+              <xs:element name="DefaultFontColor" type="xs:int" minOccurs="0" maxOccurs="1" default="-1" />
               <xs:element name="BackdropDir" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="UpdateOnlineMode" type="UpdateMode" minOccurs="0" maxOccurs="1" default="Never" />
               <xs:element name="UpdateUrl" type="xs:string" minOccurs="0" maxOccurs="1" default="" />

@@ -35,11 +35,14 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSkinColor = new System.Windows.Forms.Label();
             this.pnlSkinColor = new System.Windows.Forms.Panel();
             this.btnSetSkinColor = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.lblFontColor = new System.Windows.Forms.Label();
+            this.pnlFontColor = new System.Windows.Forms.Panel();
+            this.btnSetFontColor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOk
@@ -75,10 +78,10 @@
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
-            // label1
+            // lblSkinColor
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblSkinColor, "lblSkinColor");
+            this.lblSkinColor.Name = "lblSkinColor";
             // 
             // pnlSkinColor
             // 
@@ -95,15 +98,38 @@
             this.btnSetSkinColor.UseVisualStyleBackColor = true;
             this.btnSetSkinColor.Click += new System.EventHandler(this.btnSetSkinColor_Click);
             // 
+            // lblFontColor
+            // 
+            resources.ApplyResources(this.lblFontColor, "lblFontColor");
+            this.lblFontColor.Name = "lblFontColor";
+            // 
+            // pnlFontColor
+            // 
+            this.pnlFontColor.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pnlFontColor, "pnlFontColor");
+            this.pnlFontColor.Name = "pnlFontColor";
+            // 
+            // btnSetFontColor
+            // 
+            resources.ApplyResources(this.btnSetFontColor, "btnSetFontColor");
+            this.btnSetFontColor.Name = "btnSetFontColor";
+            this.toolTip1.SetToolTip(this.btnSetFontColor, resources.GetString("btnSetFontColor.ToolTip"));
+            this.btnSetFontColor.UseVisualStyleBackColor = true;
+            this.btnSetFontColor.Click += new System.EventHandler(this.btnSetSkinColor_Click);
+            // 
             // StyleDialog
             // 
             this.AcceptButton = this.btnOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.btnSetFontColor);
+            this.Controls.Add(this.pnlFontColor);
             this.Controls.Add(this.btnSetSkinColor);
+            this.Controls.Add(this.lblFontColor);
             this.Controls.Add(this.pnlSkinColor);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblSkinColor);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDelete);
@@ -127,10 +153,13 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSkinColor;
         private System.Windows.Forms.Panel pnlSkinColor;
         private System.Windows.Forms.Button btnSetSkinColor;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label lblFontColor;
+        private System.Windows.Forms.Panel pnlFontColor;
+        private System.Windows.Forms.Button btnSetFontColor;
     }
 }

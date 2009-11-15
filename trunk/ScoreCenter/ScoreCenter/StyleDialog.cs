@@ -21,6 +21,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (m_center.Setup != null)
             {
                 pnlSkinColor.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
+                pnlFontColor.BackColor = Color.FromArgb(m_center.Setup.DefaultFontColor);
             }
         }
 
@@ -67,7 +68,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                         foreach (Rule r in score.Rules)
                         {
                             if (rename.ContainsKey(r.Format.ToUpper()))
+                            {
                                 r.Format = rename[r.Format.ToUpper()];
+                            }
                         }
                     }
                 }
@@ -79,6 +82,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 m_center.Setup.DefaultSkinColor = pnlSkinColor.BackColor.ToArgb();
+                m_center.Setup.DefaultFontColor = pnlFontColor.BackColor.ToArgb();
             }
         }
 
@@ -109,13 +113,18 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                pnlSkinColor.BackColor = colorDialog1.Color;
-
-                foreach (StyleControl ctrl in flowLayoutPanel1.Controls)
+                if (sender == btnSetSkinColor)
                 {
-                    ctrl.SetBackColor(pnlSkinColor.BackColor);
+                    pnlSkinColor.BackColor = colorDialog1.Color;
+                    foreach (StyleControl ctrl in flowLayoutPanel1.Controls)
+                    {
+                        ctrl.SetBackColor(pnlSkinColor.BackColor);
+                    }
                 }
-
+                else if (sender == btnSetFontColor)
+                {
+                    pnlFontColor.BackColor = colorDialog1.Color;
+                }
             }
         }
     }

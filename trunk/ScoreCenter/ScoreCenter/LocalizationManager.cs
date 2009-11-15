@@ -77,4 +77,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }*/
     }
+
+    public class Labels
+    {
+        public const int ClearCache = 1;
+        public const int UseAutoMode = 2;
+        public const int UnuseAutoMode = 3;
+        public const int SynchroOnline = 4;
+        public const int DisableItem = 5;
+        public const int UseAutoWrap = 6;
+        public const int UnuseAutoWrap = 7;
+    }
 }

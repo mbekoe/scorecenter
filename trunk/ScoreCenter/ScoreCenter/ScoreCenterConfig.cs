@@ -58,6 +58,40 @@ namespace MediaPortal.Plugin.ScoreCenter
 #if DEBUG
             this.ShowInTaskbar = true;
 #endif
+
+            tbxCategory.TextChanged += new EventHandler(ScoreChanged);
+            tbxLeague.TextChanged += new EventHandler(ScoreChanged);
+            tbxScore.TextChanged += new EventHandler(ScoreChanged);
+            tbxUrl.TextChanged += new EventHandler(ScoreChanged);
+            tbxXpath.TextChanged += new EventHandler(ScoreChanged);
+            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
+            tbxElement.TextChanged += new EventHandler(ScoreChanged);
+            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
+            tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
+            tbxSizes.TextChanged += new EventHandler(ScoreChanged);
+            tbxSkip.TextChanged += new EventHandler(ScoreChanged);
+            tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
+
+            ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
+            ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
+            ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
+        }
+
+        private void ScoreChanged(object sender, EventArgs e)
+        {
+            SetScoreStatus(false);
+        }
+        private void SetScoreStatus(bool saved)
+        {
+            if (saved)
+            {
+                btnSave.BackColor = SystemColors.Control;
+                btnSave.UseVisualStyleBackColor = true;
+            }
+            else
+            {
+                btnSave.BackColor = Color.Salmon;
+            }
         }
 
         private void ScoreCenterConfig_Load(object sender, EventArgs e)
@@ -248,6 +282,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             errorProvider1.Clear();
             if (tvwScores.SelectedNode.Level == 2)
             {
+                // score
                 gbxScore.Enabled = true;
                 Score score = tvwScores.SelectedNode.Tag as Score;
 
@@ -264,6 +299,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxMaxLines.Text = score.MaxLines.ToString();
                 tbxElement.Text = score.Element;
                 ckxUseTheader.Checked = score.UseTheader;
+                ckxNewLine.Checked = score.NewLine;
+                ckxAllowWrapping.Checked = score.WordWrap;
                 SetIcon(score.Image);
 
                 grdRule.Enabled = true;
@@ -271,6 +308,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else
             {
+                // category or league
                 gbxScore.Enabled = false;
 
                 tbxCategory.Text = String.Empty;
@@ -286,6 +324,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxMaxLines.Text = String.Empty;
                 tbxElement.Text = String.Empty;
                 ckxUseTheader.Checked = false;
+                ckxNewLine.Checked = false;
+                ckxAllowWrapping.Checked = false;
 
                 ClearIcon();
                 if (tvwScores.SelectedNode.Level == 0)
@@ -303,9 +343,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 grdRule.Enabled = false;
             }
 
+            grdTest.Rows.Clear();
             tsbCopyScore.Enabled = (tvwScores.SelectedNode.Level == 2);
             tsbMoveUp.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.NextNode != null;
+
+            SetScoreStatus(true);
         }
 
         private void SetRules(Score score)
@@ -385,6 +428,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Encoding = tbxEncoding.Text;
                 score.Element = tbxElement.Text;
                 score.UseTheader = ckxUseTheader.Checked;
+                score.NewLine = ckxNewLine.Checked;
+                score.WordWrap = ckxAllowWrapping.Checked;
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);
@@ -398,6 +443,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     RefreshTree();
                 }
+
+                SetScoreStatus(true);
             }
         }
 
@@ -529,14 +576,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Sizes = tbxSizes.Text;
                 score.Headers = tbxHeaders.Text;
                 score.UseTheader = ckxUseTheader.Checked;
+                score.NewLine = ckxNewLine.Checked;
+                score.WordWrap = ckxAllowWrapping.Checked;
 
                 score.Element = tbxElement.Text;
                 score.Skip = ReadInt(tbxSkip);
                 score.MaxLines = ReadInt(tbxMaxLines);
-
+                SaveRules(score);
+                
                 // read and parse the score
                 string[][] lines = m_parser.Read(score, ckxReload.Checked);
 
+                #region Populate the grid
                 int nbColumns = 0;
                 grdTest.Columns.Clear();
                 if (lines != null)
@@ -549,21 +600,126 @@ namespace MediaPortal.Plugin.ScoreCenter
                         }
                     }
 
+                    //
+                    ColumnDisplay[] dd = Tools.GetSizes(tbxSizes.Text);
+
+                    grdTest.DefaultCellStyle.WrapMode = score.NewLine || score.WordWrap
+                        ? DataGridViewTriState.True
+                        : DataGridViewTriState.False;
+                    
+                    grdTest.DefaultCellStyle.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
+                    grdTest.DefaultCellStyle.ForeColor = Color.FromArgb(m_center.Setup.DefaultFontColor);
+                    grdTest.DefaultCellStyle.SelectionBackColor = grdTest.DefaultCellStyle.BackColor;
+                    grdTest.DefaultCellStyle.SelectionForeColor = grdTest.DefaultCellStyle.ForeColor;
+
+                    // create the columns
+                    int fontSize = (int)Math.Ceiling((double)grdTest.Font.Size);
                     for (int i = 0; i < Math.Min(20, nbColumns); i++)
                     {
-                        grdTest.Columns.Add(i.ToString(), i.ToString());
+                        DataGridViewColumn col = new DataGridViewTextBoxColumn();
+                        col.Name = i.ToString();
+                        col.HeaderText = col.Name;
+
+                        if (dd != null && dd.Length > i)
+                        {
+                            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                            col.Width = Math.Abs(dd[i].Size) * fontSize;
+
+                            if (dd[i].Alignement == MediaPortal.GUI.Library.GUIControl.Alignment.Center)
+                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            else if (dd[i].Alignement == MediaPortal.GUI.Library.GUIControl.Alignment.Right)
+                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                            else
+                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                        }
+                        
+                        grdTest.Columns.Add(col);
                     }
 
+                    // create the lines
+                    RuleEvaluator engine = new RuleEvaluator(score.Rules);
+                    int lineNumber = 0;
                     foreach (string[] ss in lines)
                     {
-                        if (ss != null)
+                        if (ss == null)
+                            continue;
+                        
+                        // if it is the header add it and continue
+                        if (!String.IsNullOrEmpty(score.Headers) && lineNumber == 0)
                         {
                             grdTest.Rows.Add(ss);
+                            lineNumber++;
+                            continue;
+                        }
+                        
+                        Rule rule = engine.CheckLine(ss, lineNumber);
+                        lineNumber++;
+                        if (rule != null && rule.Action == RuleAction.SkipLine)
+                            continue;
+
+                        int index = grdTest.Rows.Add(ss);
+
+                        if (rule != null)
+                        {
+                            if (String.IsNullOrEmpty(rule.Format) == false)
+                            {
+                                Style st = m_center.FindStyle(rule.Format);
+                                grdTest.Rows[index].DefaultCellStyle.ForeColor = Color.FromArgb((int)st.ForeColor);
+                                grdTest.Rows[index].DefaultCellStyle.SelectionForeColor = grdTest.Rows[index].DefaultCellStyle.ForeColor;
+                            }
+
+                            if (rule.Action == RuleAction.MergeCells)
+                            {
+                                grdTest.Rows[index].DefaultCellStyle.BackColor = Color.LightGray;
+                                grdTest.Rows[index].DefaultCellStyle.SelectionBackColor = grdTest.Rows[index].DefaultCellStyle.BackColor;
+                            }
+                        }
+                    }
+
+                    // format grid
+                    Color cellColor = grdTest.DefaultCellStyle.ForeColor;
+                    for (int rowIndex = 0; rowIndex < grdTest.Rows.Count; rowIndex++)
+                    {
+                        for (int colIndex = 0; colIndex < grdTest.Rows[rowIndex].Cells.Count; colIndex++)
+                        {
+                            if (rowIndex > 0 || String.IsNullOrEmpty(score.Headers))
+                            {
+                                DataGridViewCell cell = grdTest[colIndex, rowIndex];
+                                if (cell.Value == null)
+                                    continue;
+                                
+                                string cellText = grdTest[colIndex, rowIndex].Value.ToString();
+                                Rule cellRule = engine.CheckCell(cellText, colIndex);
+                                if (cellRule != null)
+                                {
+                                    Style cellStyle = m_center.FindStyle(cellRule.Format);
+                                    if (cellStyle != null)
+                                    {
+                                        cell.Style.ForeColor = Color.FromArgb((int)cellStyle.ForeColor);
+                                        cell.Style.SelectionForeColor = cell.Style.ForeColor;
+                                    }
+
+                                    if (cellRule.Action == RuleAction.ReplaceText)
+                                    {
+                                        string str1 = cellRule.Value;
+                                        string str2 = String.Empty;
+                                        if (cellRule.Value.Contains(","))
+                                        {
+                                            string[] elts = cellRule.Value.Split(',');
+                                            str1 = elts[0];
+                                            str2 = elts[1];
+                                        }
+
+                                        grdTest[colIndex, rowIndex].Value = cellText.Replace(str1, str2);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     tabScore.SelectedTab = tpgTest;
                 }
+                #endregion
             }
             catch (Exception exc)
             {
@@ -1022,7 +1178,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void tbxSizes_TextChanged(object sender, EventArgs e)
         {
             int res = 0;
-            Tools.ColumnDisplay[] sizes = Tools.GetSizes(tbxSizes.Text);
+            ColumnDisplay[] sizes = Tools.GetSizes(tbxSizes.Text);
 
             if (sizes != null)
             {
@@ -1030,6 +1186,55 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             lblTotalSize.Text = String.Format("Total Size = {0}", res);
+        }
+
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AlignColumn(DataGridViewContentAlignment.MiddleLeft);
+        }
+
+        private void centerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AlignColumn(DataGridViewContentAlignment.MiddleCenter);
+        }
+
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AlignColumn(DataGridViewContentAlignment.MiddleRight);
+        }
+
+        private void AlignColumn(DataGridViewContentAlignment alignement)
+        {
+            if (grdTest.CurrentCell == null)
+                return;
+
+            //
+            if (tbxSizes.Text.Length > 0)
+            {
+                ColumnDisplay[] dd = Tools.GetSizes(tbxSizes.Text);
+                dd[grdTest.CurrentCell.ColumnIndex].Alignement = ConvertAlignment(alignement);
+
+                tbxSizes.Text = Tools.SizesToText(dd);
+            }
+
+            // get the column id
+            grdTest.CurrentCell.OwningColumn.DefaultCellStyle.Alignment = alignement;
+        }
+
+        private void grdTest_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            grdTest.CurrentCell = grdTest[e.ColumnIndex, e.RowIndex];
+        }
+
+        private static MediaPortal.GUI.Library.GUIControl.Alignment ConvertAlignment(DataGridViewContentAlignment align)
+        {
+            if (align == DataGridViewContentAlignment.MiddleRight)
+                return MediaPortal.GUI.Library.GUIControl.Alignment.Right;
+
+            if (align == DataGridViewContentAlignment.MiddleCenter)
+                return MediaPortal.GUI.Library.GUIControl.Alignment.Center;
+
+            return MediaPortal.GUI.Library.GUIControl.Alignment.Left;
         }
     }
 }
