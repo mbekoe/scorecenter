@@ -346,7 +346,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     else
                     {
                         DisplayScore();
-                        lstDetails.Visible = (lblVisible == null);
+                        lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
                     }
                     
                     break;
@@ -626,6 +626,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 foreach (int key in coldic.Keys)
                 {
                     cols[key] = new ColumnDisplay(coldic[key].ToString());
+                    cols[key].Alignement = GUIControl.Alignment.Left;
                 }
             }
             #endregion
@@ -915,7 +916,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (btnNextPage != null)
             {
+                // set focus if button is currently not visible but will be
+                bool focus = !btnNextPage.Visible && visible;
                 btnNextPage.Visible = visible;
+
+                if (focus)
+                {
+                    GUIControl.FocusControl(GetID, btnNextPage.GetID);
+                }
             }
         }
 
