@@ -175,6 +175,7 @@
       <label>Next</label>
       <onup>10</onup>
       <ondown>10</ondown>
+      <onleft>10</onleft>
     </control>
 
     <!-- Uncomment this control to make the list 
