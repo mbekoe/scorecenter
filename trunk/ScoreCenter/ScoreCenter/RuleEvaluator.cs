@@ -86,7 +86,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string newText = text.Trim().ToUpper();
             string newValue = rule.Value;
             if (rule.Action == RuleAction.ReplaceText) newValue = rule.Value.Split(',')[0];
-            newValue = newValue.Trim().ToUpper();
+            newValue = newValue.ToUpper();
 
             switch (rule.Operator)
             {

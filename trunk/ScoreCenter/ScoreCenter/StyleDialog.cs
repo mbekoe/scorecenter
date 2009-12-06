@@ -111,6 +111,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void btnSetSkinColor_Click(object sender, EventArgs e)
         {
+            colorDialog1.Color = sender == btnSetSkinColor
+                ? pnlSkinColor.BackColor : pnlFontColor.BackColor;
+
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (sender == btnSetSkinColor)
