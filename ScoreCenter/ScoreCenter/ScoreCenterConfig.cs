@@ -46,18 +46,24 @@ namespace MediaPortal.Plugin.ScoreCenter
         private string m_settings;
 
         /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public ScoreCenterConfig() : this(false)
+        {
+        }
+        
+        /// <summary>
         /// Contructor.
         /// </summary>
-        public ScoreCenterConfig()
+        /// <param name="showInTaskbar">Ture to show the dialog in the taskbar.</param>
+        public ScoreCenterConfig(bool showInTaskbar)
         {
             InitializeComponent();
             
             m_parser = new ScoreParser(0);
             tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
-#if DEBUG
-            this.ShowInTaskbar = true;
-#endif
+            this.ShowInTaskbar = showInTaskbar;
 
             tbxCategory.TextChanged += new EventHandler(ScoreChanged);
             tbxLeague.TextChanged += new EventHandler(ScoreChanged);
@@ -81,6 +87,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             SetScoreStatus(false);
         }
+        
         private void SetScoreStatus(bool saved)
         {
             if (saved)
@@ -133,48 +140,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             }
         }
-        public static void BuildScoreList2(ThreeStateTreeView tree, ScoreCenter center, bool show)
-        {
-            tree.Nodes.Clear();
-            if (center == null || center.Scores == null)
-                return;
-
-            foreach (Score score in center.Scores)
-            {
-                // create category node if necessary
-                if (tree.Nodes.ContainsKey(score.Category) == false)
-                {
-                    ThreeStateTreeNode cnode = new ThreeStateTreeNode(score.Category);
-                    cnode.Name = score.Category;
-                    tree.Nodes.Add(cnode);
-                }
-
-                TreeNode cat = tree.Nodes[score.Category];
-
-                // create league node if necessary
-                if (cat.Nodes.ContainsKey(score.Ligue) == false)
-                {
-                    ThreeStateTreeNode lnode = new ThreeStateTreeNode(score.Ligue);
-                    lnode.Name = score.Ligue;
-                    cat.Nodes.Add(lnode);
-                }
-
-                TreeNode league = cat.Nodes[score.Ligue];
-
-                // create the score node
-                ThreeStateTreeNode snode = new ThreeStateTreeNode(score.Name);
-                league.Nodes.Add(snode);
-                snode.Tag = score;
-                if (score.enable && show)
-                {
-                    snode.State = CheckBoxState.Checked;
-                    snode.UpdateStateOfRelatedNodes();
-                }
-            }
-
-            tree.TreeViewNodeSorter = new ScoreNodeComparer();
-            tree.Sort();
-        }
 
         public static void BuildScoreList(ThreeStateTreeView tree, ScoreCenter center, bool show)
         {
@@ -220,17 +185,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void RefreshTree()
         {
-            RefreshTree(String.Empty);
-        }
-        private void RefreshTree(string path)
-        {
             if (tvwScores.Nodes.Count == 0)
                 return;
 
             // keep selected node and expanded nodes
             IList<string> keys = new List<string>();
-            string selectedPath = path;
-            if (String.IsNullOrEmpty(path) && tvwScores.SelectedNode != null)
+            string selectedPath = String.Empty;
+            if (tvwScores.SelectedNode != null)
                 selectedPath = tvwScores.SelectedNode.FullPath;
 
             TreeNode node = tvwScores.Nodes[0];
@@ -343,12 +304,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 grdRule.Enabled = false;
             }
 
-            grdTest.Rows.Clear();
+            ClearTestGrid();
             tsbCopyScore.Enabled = (tvwScores.SelectedNode.Level == 2);
             tsbMoveUp.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.NextNode != null;
 
             SetScoreStatus(true);
+        }
+
+        private void ClearTestGrid()
+        {
+            pnlTest.Controls.Clear();
+            pnlTest.Tag = null;
         }
 
         private void SetRules(Score score)
@@ -364,7 +331,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     rule.Operator.ToString(),
                     rule.Value,
                     rule.Action.ToString(),
-                    st == null ? "" : rule.Format);
+                    st == null ? String.Empty : rule.Format);
             }
         }
 
@@ -563,6 +530,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void btnTest_Click(object sender, EventArgs e)
         {
+            pnlTest.Controls.Clear();
+            pnlTest.Refresh();
+
             try
             {
                 this.Cursor = Cursors.WaitCursor;
@@ -587,139 +557,38 @@ namespace MediaPortal.Plugin.ScoreCenter
                 // read and parse the score
                 string[][] lines = m_parser.Read(score, ckxReload.Checked);
 
-                #region Populate the grid
-                int nbColumns = 0;
-                grdTest.Columns.Clear();
-                if (lines != null)
-                {
-                    foreach (string[] ss in lines)
-                    {
-                        if (ss != null)
-                        {
-                            nbColumns = Math.Max(nbColumns, ss.Length);
-                        }
-                    }
+                ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
+                bld.Center = m_center;
+                bld.Score = score;
+                bld.LimitToPage = false;
+                bld.AutoSize = false;
+                bld.AutoWrap = false;
+                
+                int fh = pnlTest.Font.Height;
+                int fw = (int)pnlTest.Font.SizeInPoints;
+                bld.SetFont("", m_center.Setup.DefaultFontColor, 14, fw, fh);
+                
+                bool overRight = false;
+                bool overDown = false;
+                int lineNumber, colNumber;
 
-                    //
-                    ColumnDisplay[] dd = Tools.GetSizes(tbxSizes.Text);
+                pnlTest.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
+                //pnlTest.Width = 970;
+                //pnlTest.Height = 600;
+                //pnlTest.Font = new Font(pnlTest.Font.FontFamily, 14.0f);
 
-                    grdTest.DefaultCellStyle.WrapMode = score.NewLine || score.WordWrap
-                        ? DataGridViewTriState.True
-                        : DataGridViewTriState.False;
-                    
-                    grdTest.DefaultCellStyle.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
-                    grdTest.DefaultCellStyle.ForeColor = Color.FromArgb(m_center.Setup.DefaultFontColor);
-                    grdTest.DefaultCellStyle.SelectionBackColor = grdTest.DefaultCellStyle.BackColor;
-                    grdTest.DefaultCellStyle.SelectionForeColor = grdTest.DefaultCellStyle.ForeColor;
+                IList<Control> controls = bld.Build(lines,
+                    0, 0,
+                    0, 0, pnlTest.Width, pnlTest.Height,
+                    this.CreateControl,
+                    out overRight, out overDown, out lineNumber, out colNumber);
 
-                    // create the columns
-                    int fontSize = (int)Math.Ceiling((double)grdTest.Font.Size);
-                    for (int i = 0; i < Math.Min(20, nbColumns); i++)
-                    {
-                        DataGridViewColumn col = new DataGridViewTextBoxColumn();
-                        col.Name = i.ToString();
-                        col.HeaderText = col.Name;
+                tabScore.SelectedTab = tpgTest;
 
-                        if (dd != null && dd.Length > i)
-                        {
-                            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                            col.Width = Math.Abs(dd[i].Size) * fontSize;
+                pnlTest.Tag = lines;
 
-                            if (dd[i].Alignement == MediaPortal.GUI.Library.GUIControl.Alignment.Center)
-                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            else if (dd[i].Alignement == MediaPortal.GUI.Library.GUIControl.Alignment.Right)
-                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                            else
-                                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                        }
-                        
-                        grdTest.Columns.Add(col);
-                    }
-
-                    // create the lines
-                    RuleEvaluator engine = new RuleEvaluator(score.Rules);
-                    int lineNumber = 0;
-                    foreach (string[] ss in lines)
-                    {
-                        if (ss == null)
-                            continue;
-                        
-                        // if it is the header add it and continue
-                        if (!String.IsNullOrEmpty(score.Headers) && lineNumber == 0)
-                        {
-                            grdTest.Rows.Add(ss);
-                            lineNumber++;
-                            continue;
-                        }
-                        
-                        Rule rule = engine.CheckLine(ss, lineNumber);
-                        lineNumber++;
-                        if (rule != null && rule.Action == RuleAction.SkipLine)
-                            continue;
-
-                        int index = grdTest.Rows.Add(ss);
-
-                        if (rule != null)
-                        {
-                            if (String.IsNullOrEmpty(rule.Format) == false)
-                            {
-                                Style st = m_center.FindStyle(rule.Format);
-                                grdTest.Rows[index].DefaultCellStyle.ForeColor = Color.FromArgb((int)st.ForeColor);
-                                grdTest.Rows[index].DefaultCellStyle.SelectionForeColor = grdTest.Rows[index].DefaultCellStyle.ForeColor;
-                            }
-
-                            if (rule.Action == RuleAction.MergeCells)
-                            {
-                                grdTest.Rows[index].DefaultCellStyle.BackColor = Color.LightGray;
-                                grdTest.Rows[index].DefaultCellStyle.SelectionBackColor = grdTest.Rows[index].DefaultCellStyle.BackColor;
-                            }
-                        }
-                    }
-
-                    // format grid
-                    Color cellColor = grdTest.DefaultCellStyle.ForeColor;
-                    for (int rowIndex = 0; rowIndex < grdTest.Rows.Count; rowIndex++)
-                    {
-                        for (int colIndex = 0; colIndex < grdTest.Rows[rowIndex].Cells.Count; colIndex++)
-                        {
-                            if (rowIndex > 0 || String.IsNullOrEmpty(score.Headers))
-                            {
-                                DataGridViewCell cell = grdTest[colIndex, rowIndex];
-                                if (cell.Value == null)
-                                    continue;
-                                
-                                string cellText = grdTest[colIndex, rowIndex].Value.ToString();
-                                Rule cellRule = engine.CheckCell(cellText, colIndex);
-                                if (cellRule != null)
-                                {
-                                    Style cellStyle = m_center.FindStyle(cellRule.Format);
-                                    if (cellStyle != null)
-                                    {
-                                        cell.Style.ForeColor = Color.FromArgb((int)cellStyle.ForeColor);
-                                        cell.Style.SelectionForeColor = cell.Style.ForeColor;
-                                    }
-
-                                    if (cellRule.Action == RuleAction.ReplaceText)
-                                    {
-                                        string str1 = cellRule.Value;
-                                        string str2 = String.Empty;
-                                        if (cellRule.Value.Contains(","))
-                                        {
-                                            string[] elts = cellRule.Value.Split(',');
-                                            str1 = elts[0];
-                                            str2 = elts[1];
-                                        }
-
-                                        grdTest[colIndex, rowIndex].Value = cellText.Replace(str1, str2);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    tabScore.SelectedTab = tpgTest;
-                }
-                #endregion
+                pnlTest.SuspendLayout();
+                pnlTest.Controls.AddRange(controls.ToArray());
             }
             catch (Exception exc)
             {
@@ -727,8 +596,46 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             finally
             {
+                pnlTest.ResumeLayout();
                 this.Cursor = Cursors.Default;
             }
+        }
+
+        public Control CreateControl(int posX, int posY, int width, int height,
+            ColumnDisplay.Alignment alignement,
+            string label, string font, int fontSize, Style style, int nbMax, int columnIndex)
+        {
+            string strLabel = label;
+
+            // always start with a space
+            strLabel = " " + label;
+
+            // shrink text for small labels
+            if (nbMax <= 6 && strLabel.Length > nbMax)
+            {
+                strLabel = strLabel.Substring(0, nbMax);
+            }
+
+            // create the control
+            Label control = new Label()
+            {
+                Left = posX,
+                Top = posY,
+                AutoSize = false,
+                //AutoEllipsis = true,
+                Width = width,
+                Height = height,
+                Text = strLabel,
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.FromArgb((int)style.ForeColor),
+                TextAlign = alignement == ColumnDisplay.Alignment.Center ? ContentAlignment.MiddleCenter
+                    : (alignement == ColumnDisplay.Alignment.Left ? ContentAlignment.MiddleLeft : ContentAlignment.MiddleRight)
+            };
+
+            control.Tag = columnIndex;
+            control.ContextMenuStrip = contextMenuStrip1;
+
+            return control;
         }
 
         private static int ReadInt(TextBox control)
@@ -746,7 +653,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             string newName = Properties.Resources.NewItem;
 
-            TreeNode node = null;
+            TreeNode parentNode = null;
             if (tvwScores.SelectedNode == null)
             {
                 if (tvwScores.Nodes.Count == 0)
@@ -754,60 +661,96 @@ namespace MediaPortal.Plugin.ScoreCenter
                     tvwScores.Nodes.Add(newName);
                 }
 
-                node = tvwScores.Nodes[0];
+                parentNode = tvwScores.Nodes[0];
             }
             else
             {
-                node = tvwScores.SelectedNode;
+                parentNode = tvwScores.SelectedNode;
             }
 
-            string category = newName;
-            string league = newName;
+            TreeNode categoryNode = null;
+            TreeNode leagueNode = null;
             string name = newName;
 
-            switch (node.Level)
+            switch (parentNode.Level)
             {
                 case 1:
-                    category = node.Parent.Text;
+                    categoryNode = parentNode.Parent;
                     break;
                 case 2:
-                    category = node.Parent.Parent.Text;
-                    league = node.Parent.Text;
+                    categoryNode = parentNode.Parent.Parent;
+                    leagueNode = parentNode.Parent;
                     break;
+            }
+
+            if (categoryNode == null)
+            {
+                categoryNode = new TreeNode();
+                categoryNode.Text = newName;
+                tvwScores.Nodes.Add(categoryNode);
+            }
+
+            if (leagueNode == null)
+            {
+                leagueNode = new TreeNode();
+                leagueNode.Text = newName;
+                categoryNode.Nodes.Add(leagueNode);
             }
 
             // create new item
             Score score = new Score();
             score.Id = Tools.GenerateId();
-            score.Category = category;
-            score.Ligue = league;
+            score.Category = categoryNode.Text;
+            score.Ligue = leagueNode.Text;
             score.Name = name;
 
             // add the new item and refresh
             m_center.AddScore(score);
-            RefreshTree(score.ScorePath);
+
+            // create the tree node
+            ThreeStateTreeNode newNode = new ThreeStateTreeNode(score.Name);
+            newNode.Tag = score;
+
+            leagueNode.Nodes.Add(newNode);
         }
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
             string result = String.Empty;
-            for (int i = 0; i < grdTest.Columns.Count; i++)
+
+            string[][] lines = pnlTest.Tag as string[][];
+            if (lines != null)
             {
-                int max = 0;
-                foreach (DataGridViewRow row in grdTest.Rows)
+                int nbCols = 0;
+                for (int j = 0; j < lines.Length; j++)
                 {
-                    if (row.Cells.Count > i)
+                    if (lines[j] != null)
                     {
-                        int v = (row.Cells[i].Value == null ? 0 : row.Cells[i].Value.ToString().Length);
-                        max = Math.Max(max, v);
+                        nbCols = Math.Max(nbCols, lines[j].Length);
                     }
                 }
 
-                if (result.Length > 0) result += ",";
-                result += max.ToString();
+                for (int i = 0; i < nbCols; i++)
+                {
+                    int max = 0;
+                    for (int j = 0; j < lines.Length; j++)
+                    {
+                        if (lines[j] == null || i >= lines[j].Length)
+                            continue;
+                        
+                        int v = String.IsNullOrEmpty(lines[j][i]) ? 0 : lines[j][i].Length;
+                        max = - Math.Max(max, v);
+                    }
+
+                    if (result.Length > 0) result += ",";
+                    result += max.ToString();
+                }
             }
 
-            tbxSizes.Text = result;
+            if (String.IsNullOrEmpty(result) == false)
+            {
+                tbxSizes.Text = result;
+            }
         }
 
         private void tsbDelete_Click(object sender, EventArgs e)
@@ -829,8 +772,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     tvwScores.SelectedNode.Parent.Nodes.Remove(tvwScores.SelectedNode);
                 }
-
-                RefreshTree();
             }
         }
 
@@ -873,7 +814,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // add the new item and refresh
             m_center.AddScore(copy);
-            RefreshTree(copy.ScorePath);
+
+            // create node
+            ThreeStateTreeNode node = new ThreeStateTreeNode(copy.Name);
+            node.Tag = copy;
+            tvwScores.SelectedNode.Parent.Nodes.Add(node);
         }
 
         private void tvwScores_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -1178,11 +1123,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void tbxSizes_TextChanged(object sender, EventArgs e)
         {
             int res = 0;
-            ColumnDisplay[] sizes = Tools.GetSizes(tbxSizes.Text);
+            ColumnDisplay[] sizes = ColumnDisplay.GetSizes(tbxSizes.Text);
 
             if (sizes != null)
             {
-                res = sizes.Sum(col => Math.Abs(col.Size));
+                res = sizes.Sum(col => col.Size);
             }
 
             lblTotalSize.Text = String.Format("Total Size = {0}", res);
@@ -1190,51 +1135,58 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(DataGridViewContentAlignment.MiddleLeft);
+            AlignColumn(ContentAlignment.MiddleLeft);
         }
 
         private void centerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(DataGridViewContentAlignment.MiddleCenter);
+            AlignColumn(ContentAlignment.MiddleCenter);
         }
 
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(DataGridViewContentAlignment.MiddleRight);
+            AlignColumn(ContentAlignment.MiddleRight);
         }
 
-        private void AlignColumn(DataGridViewContentAlignment alignement)
+        private void AlignColumn(ContentAlignment alignement)
         {
-            if (grdTest.CurrentCell == null)
+            Point pt = contextMenuStrip1.Location;
+            pt = pnlTest.PointToClient(pt);
+            Control ctr = pnlTest.GetChildAtPoint(pt);
+            Label lbl = ctr as Label;
+
+            if (lbl == null || lbl.Tag == null)
                 return;
 
-            //
+            int columnIndex = Convert.ToInt32(lbl.Tag);
             if (tbxSizes.Text.Length > 0)
             {
-                ColumnDisplay[] dd = Tools.GetSizes(tbxSizes.Text);
-                dd[grdTest.CurrentCell.ColumnIndex].Alignement = ConvertAlignment(alignement);
+                ColumnDisplay[] dd = ColumnDisplay.GetSizes(tbxSizes.Text);
+                dd[columnIndex].Alignement = ConvertAlignment(alignement);
 
                 tbxSizes.Text = Tools.SizesToText(dd);
             }
 
-            // get the column id
-            grdTest.CurrentCell.OwningColumn.DefaultCellStyle.Alignment = alignement;
+            //lbl.TextAlign = alignement;
+
+            foreach (Label c in pnlTest.Controls)
+            {
+                if (c == null || c.Tag == null) continue;
+                int col = Convert.ToInt32(c.Tag);
+                if (col == columnIndex)
+                    c.TextAlign = alignement;
+            }
         }
 
-        private void grdTest_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        private static ColumnDisplay.Alignment ConvertAlignment(ContentAlignment align)
         {
-            grdTest.CurrentCell = grdTest[e.ColumnIndex, e.RowIndex];
-        }
+            if (align == ContentAlignment.MiddleRight)
+                return ColumnDisplay.Alignment.Right;
 
-        private static MediaPortal.GUI.Library.GUIControl.Alignment ConvertAlignment(DataGridViewContentAlignment align)
-        {
-            if (align == DataGridViewContentAlignment.MiddleRight)
-                return MediaPortal.GUI.Library.GUIControl.Alignment.Right;
+            if (align == ContentAlignment.MiddleCenter)
+                return ColumnDisplay.Alignment.Center;
 
-            if (align == DataGridViewContentAlignment.MiddleCenter)
-                return MediaPortal.GUI.Library.GUIControl.Alignment.Center;
-
-            return MediaPortal.GUI.Library.GUIControl.Alignment.Left;
+            return ColumnDisplay.Alignment.Left;
         }
     }
 }

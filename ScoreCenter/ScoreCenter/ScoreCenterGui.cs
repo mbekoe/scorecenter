@@ -51,11 +51,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         /// <summary>List of indices of dymacally build controls.</summary>
         private List<int> m_indices = new List<int>();
-        private int m_currentLine = 0;
-        private int m_currentColumn = 0;
-        private Score m_currentScore = null;
-        private string[][] m_lines = null;
+        private int m_currentLine; // 0
+        private int m_currentColumn; // 0
+        private Score m_currentScore;
+        private string[][] m_lines;
         private Stack<int> m_prevIndex = new Stack<int>();
+
+        private ScoreBuilder<GUIControl> m_builder;
 
         /// <summary>
         /// Kind of view mode.
@@ -74,8 +76,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         private ViewMode m_mode = ViewMode.Category;
         private string m_currentCategory;
         private string m_currentLeague;
-        private bool m_autoSize; // false
-        private bool m_autoWrap; // false
 
         #region Skin Controls
         [SkinControlAttribute(10)]
@@ -141,6 +141,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                     UpdateSettings(false, false);
                     LoadCategories();
 
+                    m_builder = new ScoreBuilder<GUIControl>();
+                    m_builder.Center = m_center;
+
+                    GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
+                    int fontSize = font.FontSize;
+                    int charHeight = 0, charWidth = 0;
+                    GetCharFonSize(fontSize, ref charWidth, ref charHeight);
+                    m_builder.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
                 }
                 catch (Exception ex)
@@ -189,10 +198,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             menu.SetHeading(m_center.Setup.Name);
             menu.Add(LocalizationManager.GetString(Labels.ClearCache));
 
-            if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            if (m_builder.AutoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
 
-            if (m_autoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            if (m_builder.AutoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
 
             menu.Add(LocalizationManager.GetString(Labels.SynchroOnline));
@@ -212,10 +221,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     Parser.ClearCache();
                     break;
                 case 2:
-                    m_autoSize = !m_autoSize;
+                    m_builder.AutoSize = !m_builder.AutoSize;
+                    ClearGrid();
+                    CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
                 case 3:
-                    m_autoWrap = !m_autoWrap;
+                    m_builder.AutoWrap = !m_builder.AutoWrap;
+                    ClearGrid();
+                    CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
                 case 4:
                     System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
@@ -577,204 +590,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="startLine">The first line to display.</param>
         private void CreateGrid(string[][] labels, Score score, int startLine, int startColumn)
         {
-            //Tools.LogMessage("CreateGrid: L={0}, C={1}", startLine, startColumn);
-            int startX = tbxDetails.XPosition;
-            int maxX = startX + tbxDetails.Width;
-            int maxY = tbxDetails.YPosition + tbxDetails.Height;
-            int posX = startX;
-            int posY = tbxDetails.YPosition;
-            string fontName = tbxDetails.FontName;
-            Style defaultStyle = new Style();
-            defaultStyle.ForeColor = tbxDetails.TextColor;
-            //Tools.LogMessage("StartX={0}, MaxX={2}, startY={1}, MaxY={3}", startX, posY, maxX, maxY);
+            m_builder.Score = score;
 
-            GUIFont font = GUIFontManager.GetFont(fontName);
-            int fontSize = font.FontSize;
-            int charHeight = 0, charWidth = 0;
-            GetCharFonSize(fontSize, ref charWidth, ref charHeight);
-
-            #region Get Columns Sizes
-            ColumnDisplay[] cols = null;
-            if (!m_autoSize)
-            {
-                cols = Tools.GetSizes(score.Sizes);
-            }
-            else
-            {
-                Dictionary<int, int> coldic = new Dictionary<int,int>();
-                foreach (string[] row in labels)
-                {
-                    if (row == null)
-                        continue;
-
-                    for (int i = 0; i < row.Length; i++)
-                    {
-                        string cell = row[i];
-                        int length = String.IsNullOrEmpty(cell) ? 0 : cell.Length;
-                        if (coldic.ContainsKey(i))
-                        {
-                            coldic[i] = Math.Max(coldic[i], length);
-                        }
-                        else
-                        {
-                            coldic[i] = length;
-                        }
-                    }
-                }
-
-                cols = new ColumnDisplay[coldic.Count];
-                foreach (int key in coldic.Keys)
-                {
-                    cols[key] = new ColumnDisplay(coldic[key].ToString());
-                    cols[key].Alignement = GUIControl.Alignment.Left;
-                }
-            }
-            #endregion
-
-            RuleEvaluator engine = new RuleEvaluator(score.Rules);
-
-            int lineNumber = - 1;
-            bool overRight = false;
-            bool overDown = false;
-
-            // for all the rows
-            List<GUIControl> controls = new List<GUIControl>();
-            foreach (string[] row in labels)
-            {
-                // ignore empty lines
-                if (row == null)
-                    continue;
-
-                lineNumber++;
-
-                // ignore lines on previous page
-                if (lineNumber < startLine)
-                {
-                    //Tools.LogMessage("Skip lineNumber {0} < startLine {1}", lineNumber, startLine);
-                    continue;
-                }
-
-                // calculate X position
-                posX = startX - startColumn;
-                //Tools.LogMessage("L={0}, C={1}, V={2}", lineNumber, m_currentColumn, row[0]);
-
-                // ignore if outside and break to next row
-                if (posY > maxY)
-                {
-                    //Tools.LogMessage("OverDown LN={0} Start={1}", lineNumber, startLine);
-                    overDown = true;
-                    break;
-                }
-
-                #region Evaluate rule for full line
-                bool isHeader = !String.IsNullOrEmpty(score.Headers) && lineNumber == 0;
-                Style lineStyle = defaultStyle;
-                bool merge = false;
-                if (!isHeader)
-                {
-                    Rule rule = engine.CheckLine(row, lineNumber);
-                    if (rule != null)
-                    {
-                        // skip lines and continue
-                        if (rule.Action == RuleAction.SkipLine)
-                            continue;
-
-                        merge = rule.Action == RuleAction.MergeCells;
-                        lineStyle = m_center.FindStyle(rule.Format) ?? defaultStyle;
-                    }
-                }
-                #endregion
-
-                int nbLines = 1;
-                for (int colIndex = 0; colIndex < row.Length; colIndex++)
-                {
-                    // get cell
-                    string cell = row[colIndex];
-                    ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
-                    if (colSize.Size == 0)
-                    {
-                        //Tools.LogMessage("colSize.Size == 0");
-                        continue;
-                    }
-
-                    // ignore controls outside area
-                    if (posX > maxX)
-                    {
-                        //Tools.LogMessage("OverRight X={0} MaxX={1}", posX, maxX);
-                        overRight = true;
-                        continue;
-                    }
-
-                    // evaluate size of the control in pixel
-                    int maxChar = Math.Abs(colSize.Size + 1);
-
-                    // wrap needed?
-                    if (score.WordWrap || m_autoWrap)
-                    {
-                        int i = maxChar + 1;
-                        while (i < cell.Length)
-                        {
-                            cell = cell.Insert(i, Environment.NewLine);
-                            i += maxChar + 1;
-                        }
-                    }
-
-                    // count new lines
-                    int nb = Tools.CountLines(cell);
-                    nbLines = Math.Max(nbLines, nb);
-
-                    //Tools.LogMessage("cell = {0}", cell);
-
-                    int length = charWidth * maxChar;
-                    int height = charHeight * nbLines;
-                    if (posX < startX)
-                    {
-                        //Tools.LogMessage("PrevPage X={0} MaxX={1}", posX, startX);
-                        posX += length;
-                        continue;
-                    }
-
-                    #region Evaluate rule for the cell
-                    Style cellStyle = lineStyle;
-                    if (!isHeader)
-                    {
-                        Rule cellRule = engine.CheckCell(cell, colIndex);
-                        if (cellRule != null)
-                        {
-                            cellStyle = m_center.FindStyle(cellRule.Format) ?? lineStyle;
-                            if (cellRule.Action == RuleAction.ReplaceText)
-                            {
-                                string str1 = cellRule.Value;
-                                string str2 = String.Empty;
-                                if (cellRule.Value.Contains(","))
-                                {
-                                    string[] elts = cellRule.Value.Split(',');
-                                    str1 = elts[0];
-                                    str2 = elts[1];
-                                }
-
-                                cell = cell.Replace(str1, str2);
-                            }
-                        }
-                    }
-                    #endregion
-
-                    // create the control
-                    //Tools.LogMessage("*** {1}x{2} - CreateControl = {0}", cell, posX, posY);
-                    GUIControl control = CreateControl(posX, posY, length, height,
-                        colSize.Alignement,
-                        cell,
-                        fontName, cellStyle, maxChar);
-
-                    // set X pos to the end of the control
-                    posX += length;
-
-                    controls.Add(control);
-                }
-
-                // set Y pos to the bottom of the control
-                posY += charHeight * nbLines;
-            }
+            bool overRight, overDown;
+            int lineNumber, colNumber;
+            IList<GUIControl> controls = m_builder.Build(labels,
+                startLine, startColumn,
+                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
+                this.CreateControl,
+                out overRight, out overDown, out lineNumber, out colNumber);
 
             // add controls to screen
             for (int i = 0; i < controls.Count; i++)
@@ -788,7 +612,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (overRight)
             {
                 // keep current line
-                m_currentColumn += maxX - startX;
+                m_currentColumn += tbxDetails.Width;
                 ShowNextButton(true);
             }
             else
@@ -821,22 +645,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             height = (int)h1;
         }
 
-        private static ColumnDisplay GetColumnSize(int colIndex, ColumnDisplay[] cols, string text, bool span)
-        {
-            if (cols == null || span)
-                return new ColumnDisplay(text.Length, GUIControl.Alignment.Left);
-
-            return colIndex < cols.Length ? cols[colIndex] : new ColumnDisplay("0");
-        }
-
         private GUIControl CreateControl(int posX, int posY, int width, int height,
-            GUIControl.Alignment alignement,
-            string label, string font, Style style, int nbMax)
+            ColumnDisplay.Alignment alignment,
+            string label, string font, int fontSize, Style style, int nbMax, int columnIndex)
         {
-            string strLabel = label;
-
             // always start with a space
-            strLabel = " " + label;
+            string strLabel = " " + label;
 
             // shrink text for small labels
             if (nbMax <= 6 && strLabel.Length > nbMax)
@@ -844,9 +658,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 strLabel = strLabel.Substring(0, nbMax);
             }
 
-            if (alignement == GUIControl.Alignment.Right)
+            int px = posX;
+            if (alignment == ColumnDisplay.Alignment.Right)
             {
-                posX = posX + width;
+                px = posX + width;
             }
 
             // create the control
@@ -857,21 +672,21 @@ namespace MediaPortal.Plugin.ScoreCenter
                 GUILabelControl labelControl = new GUILabelControl(GetID);
 
                 labelControl.GetID = m_currentIndex++;
-                labelControl._positionX = posX;
+                labelControl._positionX = px;
                 labelControl._positionY = posY;
                 labelControl._width = width;
                 labelControl._height = height;
                 labelControl.FontName = font;
                 labelControl.Label = strLabel;
                 labelControl.TextColor = style.ForeColor;
-                labelControl.TextAlignment = alignement;
-
+                labelControl.TextAlignment = ConvertAlignment(alignment);
+                
                 control = labelControl;
             }
             else if (choice == 1)
             {
                 GUITextControl labelControl = new GUITextControl(GetID, m_currentIndex++,
-                    posX, posY, width, height,
+                    px, posY, width, height,
                     font, 0, 0, "", "", "", "", 0, 0, 0, style.ForeColor);
                 labelControl.Label = strLabel;
 
@@ -880,7 +695,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             else if (choice == 2)
             {
                 GUITextScrollUpControl labelControl = new GUITextScrollUpControl(GetID, m_currentIndex++,
-                    posX, posY, width, height,
+                    px, posY, width, height,
                     font, style.ForeColor);
                 labelControl.Label = strLabel;
 
@@ -891,15 +706,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                 GUIFadeLabel labelControl = new GUIFadeLabel(GetID);
 
                 labelControl.GetID = m_currentIndex++;
-                labelControl._positionX = posX;
-                labelControl._positionY = posY;
+                labelControl.XPosition = px;
+                labelControl.YPosition = posY;
                 labelControl._width = width;
                 labelControl._height = height;
                 labelControl.FontName = font;
                 labelControl.TextColor = style.ForeColor;
-                labelControl.TextAlignment = alignement;
+                labelControl.TextAlignment = ConvertAlignment(alignment);
                 labelControl.AllowScrolling = false;
                 labelControl.Label = strLabel;
+                labelControl.Visible = true;
 
                 control = labelControl;
             }
@@ -910,6 +726,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return control;
+        }
+
+        private static GUIControl.Alignment ConvertAlignment(ColumnDisplay.Alignment alignment)
+        {
+            if (alignment == ColumnDisplay.Alignment.Center)
+                return GUIControl.Alignment.Center;
+            
+            if (alignment == ColumnDisplay.Alignment.Left)
+                return GUIControl.Alignment.Left;
+
+            return GUIControl.Alignment.Right;
         }
 
         private void ShowNextButton(bool visible)

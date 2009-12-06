@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
             this.ckxAllowWrapping = new System.Windows.Forms.CheckBox();
@@ -80,7 +79,6 @@
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
             this.tsbOptions = new System.Windows.Forms.ToolStripButton();
-            this.grdTest = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.alignementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,13 +96,13 @@
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tpgTest = new System.Windows.Forms.TabPage();
+            this.pnlTest = new System.Windows.Forms.Panel();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdTest)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabScore.SuspendLayout();
@@ -156,7 +154,7 @@
             // ckxAllowWrapping
             // 
             this.ckxAllowWrapping.AutoSize = true;
-            this.ckxAllowWrapping.Location = new System.Drawing.Point(389, 175);
+            this.ckxAllowWrapping.Location = new System.Drawing.Point(359, 174);
             this.ckxAllowWrapping.Name = "ckxAllowWrapping";
             this.ckxAllowWrapping.Size = new System.Drawing.Size(81, 17);
             this.ckxAllowWrapping.TabIndex = 27;
@@ -166,7 +164,7 @@
             // ckxNewLine
             // 
             this.ckxNewLine.AutoSize = true;
-            this.ckxNewLine.Location = new System.Drawing.Point(267, 174);
+            this.ckxNewLine.Location = new System.Drawing.Point(245, 174);
             this.ckxNewLine.Name = "ckxNewLine";
             this.ckxNewLine.Size = new System.Drawing.Size(97, 17);
             this.ckxNewLine.TabIndex = 26;
@@ -180,6 +178,7 @@
             this.lblTotalSize.Name = "lblTotalSize";
             this.lblTotalSize.Size = new System.Drawing.Size(151, 23);
             this.lblTotalSize.TabIndex = 25;
+            this.lblTotalSize.Text = "Total";
             this.lblTotalSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // tbxEncoding
@@ -648,35 +647,6 @@
             this.tsbOptions.Text = "Options";
             this.tsbOptions.Click += new System.EventHandler(this.tsbOptions_Click);
             // 
-            // grdTest
-            // 
-            this.grdTest.AllowUserToAddRows = false;
-            this.grdTest.AllowUserToDeleteRows = false;
-            this.grdTest.AllowUserToResizeRows = false;
-            this.grdTest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.grdTest.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.grdTest.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.grdTest.ColumnHeadersVisible = false;
-            this.grdTest.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdTest.DefaultCellStyle = dataGridViewCellStyle1;
-            this.grdTest.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdTest.Location = new System.Drawing.Point(3, 3);
-            this.grdTest.MultiSelect = false;
-            this.grdTest.Name = "grdTest";
-            this.grdTest.ReadOnly = true;
-            this.grdTest.RowHeadersVisible = false;
-            this.grdTest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.grdTest.Size = new System.Drawing.Size(653, 312);
-            this.grdTest.TabIndex = 6;
-            this.grdTest.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdTest_CellMouseDown);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -808,14 +778,24 @@
             // 
             // tpgTest
             // 
-            this.tpgTest.Controls.Add(this.grdTest);
+            this.tpgTest.Controls.Add(this.pnlTest);
             this.tpgTest.Location = new System.Drawing.Point(4, 22);
             this.tpgTest.Name = "tpgTest";
-            this.tpgTest.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgTest.Padding = new System.Windows.Forms.Padding(10);
             this.tpgTest.Size = new System.Drawing.Size(659, 318);
             this.tpgTest.TabIndex = 0;
             this.tpgTest.Text = "Test";
-            this.tpgTest.UseVisualStyleBackColor = true;
+            // 
+            // pnlTest
+            // 
+            this.pnlTest.AutoScroll = true;
+            this.pnlTest.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnlTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlTest.Location = new System.Drawing.Point(10, 10);
+            this.pnlTest.Name = "pnlTest";
+            this.pnlTest.Size = new System.Drawing.Size(639, 298);
+            this.pnlTest.TabIndex = 7;
             // 
             // ofdImport
             // 
@@ -853,7 +833,6 @@
             this.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ScoreCenterConfig";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "My Score Center Configuration";
             this.Load += new System.EventHandler(this.ScoreCenterConfig_Load);
@@ -863,7 +842,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdTest)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tabScore.ResumeLayout(false);
@@ -905,7 +883,6 @@
         private System.Windows.Forms.TextBox tbxLeague;
         private System.Windows.Forms.TextBox tbxCategory;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.DataGridView grdTest;
         private System.Windows.Forms.Button btnAuto;
         private System.Windows.Forms.ToolStripButton tsbCopyScore;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -946,5 +923,6 @@
         private System.Windows.Forms.ToolStripMenuItem leftToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem centerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rightToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlTest;
     }
 }

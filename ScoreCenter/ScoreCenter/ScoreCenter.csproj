@@ -99,6 +99,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RuleEvaluator.cs" />
+    <Compile Include="ScoreBuilder.cs" />
     <Compile Include="ScoreCache.cs" />
     <Compile Include="ScoreCenter.cs">
       <DependentUpon>ScoreCenter.xsd</DependentUpon>

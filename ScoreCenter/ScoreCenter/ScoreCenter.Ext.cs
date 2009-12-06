@@ -148,6 +148,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     partial class Score
     {
+        /// <summary>
+        /// Flag to identify new downloaded score.
+        /// </summary>
         [NonSerialized]
         private bool m_new = false;
         
@@ -160,10 +163,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_new = true;
         }
 
-        public bool Merge(Score newScore, ImportOptions type)
+        /// <summary>
+        /// Merge this score with newScore using given options.
+        /// </summary>
+        /// <param name="newScore">The score to merge with.</param>
+        /// <param name="type">Merge options.</param>
+        /// <returns>True oif the score changed.</returns>
+        public bool Merge(Score newScore, ImportOptions option)
         {
             bool result = false;
-            if ((type & ImportOptions.Names) == ImportOptions.Names)
+            if ((option & ImportOptions.Names) == ImportOptions.Names)
             {
                 result |= (String.Compare(this.Name, newScore.Name, true) != 0)
                     || (String.Compare(this.Category, newScore.Category, true) != 0)
@@ -181,7 +190,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             }
 
-            if ((type & ImportOptions.Parsing) == ImportOptions.Parsing)
+            if ((option & ImportOptions.Parsing) == ImportOptions.Parsing)
             {
                 result |= (String.Compare(this.Url, newScore.Url, true) != 0)
                     || (String.Compare(this.XPath, newScore.XPath, true) != 0)
@@ -202,7 +211,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.WordWrap = newScore.WordWrap;
             }
 
-            if ((type & ImportOptions.Rules) == ImportOptions.Rules)
+            if ((option & ImportOptions.Rules) == ImportOptions.Rules)
             {
                 if (newScore.Rules != null && newScore.Rules.Length > 0)
                 {

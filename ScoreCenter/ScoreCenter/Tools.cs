@@ -221,27 +221,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             return null;
         }
 
-        /// <summary>
-        /// Parse a string "1,2,3,4" to a ColumnDisplay array.
-        /// </summary>
-        /// <param name="size">The string to parse.</param>
-        /// <returns>The integer array.</returns>
-        public static ColumnDisplay[] GetSizes(string size)
-        {
-            ColumnDisplay[] sizes = null;
-            if (String.IsNullOrEmpty(size) == false)
-            {
-                string[] elts = size.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                sizes = new ColumnDisplay[elts.Length];
-                for (int i = 0; i < elts.Length; i++)
-                {
-                    sizes[i] = new ColumnDisplay(elts[i]);
-                }
-            }
-
-            return sizes;
-        }
-
         public static string SizesToText(ColumnDisplay[] sizes)
         {
             string txt = String.Empty;
@@ -374,13 +353,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         public static int CountLines(string cell)
         {
             int nb = 0;
-            LogMessage("Cell = {0}", cell);
             int index = 0;
             do
             {
                 nb++;
                 index = cell.IndexOf(Environment.NewLine, index) + 1;
-                Tools.LogMessage("{0} {1}", nb, index);
             }
             while (index > 0 && index < cell.Length);
 
@@ -419,13 +396,20 @@ namespace MediaPortal.Plugin.ScoreCenter
     /// </summary>
     public class ColumnDisplay
     {
-        public int Size { get; set; }
-        public GUIControl.Alignment Alignement { get; set; }
-
-        public ColumnDisplay(int size, GUIControl.Alignment alignement)
+        public enum Alignment
         {
-            Size = size;
-            Alignement = alignement;
+            Center,
+            Left,
+            Right
+        }
+
+        public int Size { get; set; }
+        public ColumnDisplay.Alignment Alignement { get; set; }
+
+        public ColumnDisplay(int size, ColumnDisplay.Alignment alignment)
+        {
+            Size = Math.Abs(size);
+            Alignement = alignment;
         }
 
         public ColumnDisplay(string strCol)
@@ -438,9 +422,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             Size = Math.Abs(c);
-            Alignement = GUIControl.Alignment.Right;
-            if (strCol.StartsWith("-")) Alignement = GUIControl.Alignment.Left;
-            else if (strCol.StartsWith("+")) Alignement = GUIControl.Alignment.Center;
+            Alignement = ColumnDisplay.Alignment.Right;
+            if (strCol.StartsWith("-")) Alignement = ColumnDisplay.Alignment.Left;
+            else if (strCol.StartsWith("+")) Alignement = ColumnDisplay.Alignment.Center;
         }
 
         public override string ToString()
@@ -448,16 +432,37 @@ namespace MediaPortal.Plugin.ScoreCenter
             string txt = String.Empty;
             switch (Alignement)
             {
-                case GUIControl.Alignment.Center:
+                case ColumnDisplay.Alignment.Center:
                     txt += "+";
                     break;
-                case GUIControl.Alignment.Left:
+                case ColumnDisplay.Alignment.Left:
                     txt += "-";
                     break;
             }
 
             txt += Size.ToString();
             return txt;
+        }
+
+        /// <summary>
+        /// Parse a string "1,2,3,4" to a ColumnDisplay array.
+        /// </summary>
+        /// <param name="size">The string to parse.</param>
+        /// <returns>The integer array.</returns>
+        public static ColumnDisplay[] GetSizes(string size)
+        {
+            ColumnDisplay[] sizes = null;
+            if (String.IsNullOrEmpty(size) == false)
+            {
+                string[] elts = size.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                sizes = new ColumnDisplay[elts.Length];
+                for (int i = 0; i < elts.Length; i++)
+                {
+                    sizes[i] = new ColumnDisplay(elts[i]);
+                }
+            }
+
+            return sizes;
         }
     }
 }
