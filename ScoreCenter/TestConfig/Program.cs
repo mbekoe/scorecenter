@@ -16,7 +16,7 @@ namespace TestConfig
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ScoreCenterConfig());
+            Application.Run(new ScoreCenterConfig(true));
         }
     }
 }
