@@ -6,5 +6,7 @@
     <String id="3">Отключить автоматическое форматирование ширины колонок</String>
     <String id="4">Синхронизировать</String>
     <String id="5">Отключить</String>
+    <String id="6">Use Auto wrap mode</String>
+    <String id="7">Disable Auto wrap mode</String>
   </Section>
 </Language>
