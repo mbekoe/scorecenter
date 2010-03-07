@@ -67,6 +67,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             ckxNames.Checked = ((option & ImportOptions.Names) == ImportOptions.Names);
             ckxRules.Checked = ((option & ImportOptions.Rules) == ImportOptions.Rules);
             ckxUrl.Checked = ((option & ImportOptions.Parsing) == ImportOptions.Parsing);
+            ckxOverwriteIcons.Checked = ((option & ImportOptions.OverwriteIcons) == ImportOptions.OverwriteIcons);
+
+            ckxMergeExisting.Checked = ckxNames.Checked || ckxRules.Checked || ckxUrl.Checked || ckxOverwriteIcons.Checked;
         }
 
         private void OptionsDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -91,6 +94,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_center.Setup.UpdateOnlineMode = Tools.ParseEnum<UpdateMode>(comboBox1.SelectedValue.ToString());
             m_center.Setup.UpdateUrl = tbxUrl.Text;
 
+            ImportOptions options = ReadImportOptions();
+            m_center.Setup.UpdateRule = options.ToString();
+        }
+
+        private ImportOptions ReadImportOptions()
+        {
             ImportOptions options = ImportOptions.None;
             if (ckxNew.Checked) options |= ImportOptions.New;
             if (ckxMergeExisting.Checked)
@@ -98,9 +107,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (ckxNames.Checked) options |= ImportOptions.Names;
                 if (ckxRules.Checked) options |= ImportOptions.Rules;
                 if (ckxUrl.Checked) options |= ImportOptions.Parsing;
+                if (ckxOverwriteIcons.Checked) options |= ImportOptions.OverwriteIcons;
             }
-
-            m_center.Setup.UpdateRule = options.ToString();
+            return options;
         }
 
         private void btnSelectDir_Click(object sender, EventArgs e)
@@ -120,19 +129,22 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void btnUpdateNow_Click(object sender, EventArgs e)
         {
             UpdateMode mode = m_center.Setup.UpdateOnlineMode;
+            string strOptions = m_center.Setup.UpdateRule;
 
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                SaveOptions();
+                ImportOptions options = ReadImportOptions();
 
                 m_reload = true;
                 m_center.Setup.UpdateOnlineMode = UpdateMode.Manually;
+                m_center.Setup.UpdateRule = options.ToString();
                 ExchangeManager.OnlineUpdate(m_center, true);
             }
             finally
             {
                 m_center.Setup.UpdateOnlineMode = mode;
+                m_center.Setup.UpdateRule = strOptions;
                 this.Cursor = Cursors.Default;
             }
         }

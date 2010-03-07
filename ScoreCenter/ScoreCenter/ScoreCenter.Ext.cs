@@ -17,7 +17,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         Names = 2,
         Parsing = 4,
         Rules = 8,
-        All = New | Names | Parsing | Rules
+        OverwriteIcons = 16,
+        All = New | Names | Parsing | Rules | OverwriteIcons
     }
 
     public static class EnumManager
@@ -143,6 +144,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return null;
 
             return this.Images.LeagueImg.FirstOrDefault(img => img.Category == category && img.Name == league);
+        }
+
+        public bool OverrideIcons()
+        {
+            if (this.Setup.UpdateRule.Length == 0)
+                return false;
+
+            ImportOptions option = (ImportOptions)Enum.Parse(typeof(ImportOptions), this.Setup.UpdateRule, true);
+            return ((option & ImportOptions.OverwriteIcons) == ImportOptions.OverwriteIcons);
         }
     }
 
