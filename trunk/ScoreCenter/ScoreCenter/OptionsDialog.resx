@@ -409,7 +409,7 @@
     <value>75, 23</value>
   </data>
   <data name="btnUpdateNow.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnUpdateNow.Text" xml:space="preserve">
     <value>Update Now</value>
@@ -483,6 +483,36 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="ckxOverwriteIcons.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ckxOverwriteIcons.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ckxOverwriteIcons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 191</value>
+  </data>
+  <data name="ckxOverwriteIcons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 17</value>
+  </data>
+  <data name="ckxOverwriteIcons.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="ckxOverwriteIcons.Text" xml:space="preserve">
+    <value>Overwrite Icons</value>
+  </data>
+  <data name="&gt;&gt;ckxOverwriteIcons.Name" xml:space="preserve">
+    <value>ckxOverwriteIcons</value>
+  </data>
+  <data name="&gt;&gt;ckxOverwriteIcons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ckxOverwriteIcons.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;ckxOverwriteIcons.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="ckxRules.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -511,7 +541,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxRules.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="ckxUrl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -541,7 +571,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxUrl.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ckxNew.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -571,7 +601,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxNew.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="ckxNames.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -601,7 +631,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxNames.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="ckxMergeExisting.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -628,7 +658,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;ckxMergeExisting.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="tbxUrl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -655,7 +685,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 132</value>

@@ -41,7 +41,9 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnUpdateNow = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ckxRules = new System.Windows.Forms.CheckBox();
             this.ckxUrl = new System.Windows.Forms.CheckBox();
@@ -49,8 +51,7 @@
             this.ckxNames = new System.Windows.Forms.CheckBox();
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ckxOverwriteIcons = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -128,6 +129,7 @@
             this.groupBox2.Controls.Add(this.btnUpdateNow);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.ckxOverwriteIcons);
             this.groupBox2.Controls.Add(this.ckxRules);
             this.groupBox2.Controls.Add(this.ckxUrl);
             this.groupBox2.Controls.Add(this.ckxNew);
@@ -137,12 +139,24 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
+            this.comboBox1.Name = "comboBox1";
+            // 
             // btnUpdateNow
             // 
             resources.ApplyResources(this.btnUpdateNow, "btnUpdateNow");
             this.btnUpdateNow.Name = "btnUpdateNow";
             this.btnUpdateNow.UseVisualStyleBackColor = true;
             this.btnUpdateNow.Click += new System.EventHandler(this.btnUpdateNow_Click);
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
             // 
             // label3
             // 
@@ -184,17 +198,11 @@
             resources.ApplyResources(this.tbxUrl, "tbxUrl");
             this.tbxUrl.Name = "tbxUrl";
             // 
-            // label4
+            // ckxOverwriteIcons
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.Name = "comboBox1";
+            resources.ApplyResources(this.ckxOverwriteIcons, "ckxOverwriteIcons");
+            this.ckxOverwriteIcons.Name = "ckxOverwriteIcons";
+            this.ckxOverwriteIcons.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -247,5 +255,6 @@
         private System.Windows.Forms.Button btnUpdateNow;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox ckxOverwriteIcons;
     }
 }

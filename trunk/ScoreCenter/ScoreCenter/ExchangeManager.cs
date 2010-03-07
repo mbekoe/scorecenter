@@ -234,7 +234,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     using (WebClient client = new WebClient())
                     {
                         client.DownloadFile(url, zipFileName);
-                        ReadZip(zipFileName);
+                        ReadZip(zipFileName, center.OverrideIcons());
                     }
                 }
                 finally
@@ -248,14 +248,29 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// Extract all missing images from the zip file.
         /// </summary>
         /// <param name="zipFileName">The full path of the zip file.</param>
-        private static void ReadZip(string zipFileName)
+        private static void ReadZip(string zipFileName, bool overwrite)
         {
             string dest = Config.GetFolder(Config.Dir.Thumbs);
             using (ZipFile zip = ZipFile.Read(zipFileName))
             {
                 foreach (ZipEntry entry in zip)
                 {
-                    entry.Extract(dest, false);
+                    try
+                    {
+                        string path = Path.Combine(dest, entry.FileName);
+                        bool extract = true;
+                        if (File.Exists(path))
+                        {
+                            if (overwrite) File.Delete(path);
+                            else extract = false;
+                        }
+
+                        if (extract)
+                            entry.Extract(dest);
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
         }
