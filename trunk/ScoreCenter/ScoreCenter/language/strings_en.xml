@@ -8,5 +8,7 @@
     <String id="5">Disable</String>
     <String id="6">Use Auto wrap mode</String>
     <String id="7">Disable Auto wrap mode</String>
+    <String id="8">Set as home score</String>
+    <String id="9">Clear home score</String>
   </Section>
 </Language>

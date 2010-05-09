@@ -109,6 +109,7 @@
               <xs:element name="UpdateOnlineMode" type="UpdateMode" minOccurs="0" maxOccurs="1" default="Never" />
               <xs:element name="UpdateUrl" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="UpdateRule" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+              <xs:element name="Home" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

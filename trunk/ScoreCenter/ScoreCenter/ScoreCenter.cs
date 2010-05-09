@@ -656,6 +656,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string updateRuleField;
         
+        private string homeField;
+        
         public ScoreCenterSetup() {
             this.cacheExpirationField = 5;
             this.defaultSkinColorField = -16776961;
@@ -664,6 +666,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.updateOnlineModeField = UpdateMode.Never;
             this.updateUrlField = "";
             this.updateRuleField = "";
+            this.homeField = "";
         }
         
         /// <remarks/>
@@ -758,6 +761,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.updateRuleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Home {
+            get {
+                return this.homeField;
+            }
+            set {
+                this.homeField = value;
             }
         }
     }
