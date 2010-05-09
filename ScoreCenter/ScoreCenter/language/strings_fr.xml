@@ -8,5 +8,7 @@
     <String id="5">Désactiver</String>
     <String id="6">Utiliser le mode multi ligne</String>
     <String id="7">Désactiver le mode multi ligne</String>
+    <String id="8">Choisir comme page de démarrage</String>
+    <String id="9">Supprimer la page de démarrage</String>
   </Section>
 </Language>

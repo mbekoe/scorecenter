@@ -87,5 +87,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const int DisableItem = 5;
         public const int UseAutoWrap = 6;
         public const int UnuseAutoWrap = 7;
+        public const int SetAsHome = 8;
+        public const int ClearHome = 9;
     }
 }
