@@ -99,6 +99,7 @@
             this.pnlTest = new System.Windows.Forms.Panel();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
+            this.ckxReverseOrder = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -115,6 +116,7 @@
             // 
             this.gbxScore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxScore.Controls.Add(this.ckxReverseOrder);
             this.gbxScore.Controls.Add(this.ckxAllowWrapping);
             this.gbxScore.Controls.Add(this.ckxNewLine);
             this.gbxScore.Controls.Add(this.lblTotalSize);
@@ -157,7 +159,7 @@
             this.ckxAllowWrapping.Location = new System.Drawing.Point(359, 174);
             this.ckxAllowWrapping.Name = "ckxAllowWrapping";
             this.ckxAllowWrapping.Size = new System.Drawing.Size(81, 17);
-            this.ckxAllowWrapping.TabIndex = 27;
+            this.ckxAllowWrapping.TabIndex = 20;
             this.ckxAllowWrapping.Text = "Word Wrap";
             this.ckxAllowWrapping.UseVisualStyleBackColor = true;
             // 
@@ -167,7 +169,7 @@
             this.ckxNewLine.Location = new System.Drawing.Point(245, 174);
             this.ckxNewLine.Name = "ckxNewLine";
             this.ckxNewLine.Size = new System.Drawing.Size(97, 17);
-            this.ckxNewLine.TabIndex = 26;
+            this.ckxNewLine.TabIndex = 19;
             this.ckxNewLine.Text = "Allow New Line";
             this.ckxNewLine.UseVisualStyleBackColor = true;
             // 
@@ -177,7 +179,7 @@
             this.lblTotalSize.Location = new System.Drawing.Point(370, 175);
             this.lblTotalSize.Name = "lblTotalSize";
             this.lblTotalSize.Size = new System.Drawing.Size(151, 23);
-            this.lblTotalSize.TabIndex = 25;
+            this.lblTotalSize.TabIndex = 21;
             this.lblTotalSize.Text = "Total";
             this.lblTotalSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -279,7 +281,7 @@
             this.ckxReload.Location = new System.Drawing.Point(168, 202);
             this.ckxReload.Name = "ckxReload";
             this.ckxReload.Size = new System.Drawing.Size(59, 17);
-            this.ckxReload.TabIndex = 24;
+            this.ckxReload.TabIndex = 29;
             this.ckxReload.Text = "Reload";
             this.toolTip1.SetToolTip(this.ckxReload, "Reload the page before testing");
             this.ckxReload.UseVisualStyleBackColor = true;
@@ -291,7 +293,7 @@
             this.btnSave.Location = new System.Drawing.Point(6, 198);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 22;
+            this.btnSave.TabIndex = 27;
             this.btnSave.Text = "Save";
             this.toolTip1.SetToolTip(this.btnSave, "Save the current settings");
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -303,7 +305,7 @@
             this.btnTest.Location = new System.Drawing.Point(87, 198);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
-            this.btnTest.TabIndex = 23;
+            this.btnTest.TabIndex = 28;
             this.btnTest.Text = "Test";
             this.toolTip1.SetToolTip(this.btnTest, "Test your settings");
             this.btnTest.UseVisualStyleBackColor = true;
@@ -316,7 +318,7 @@
             this.lblMaxLines.Location = new System.Drawing.Point(554, 74);
             this.lblMaxLines.Name = "lblMaxLines";
             this.lblMaxLines.Size = new System.Drawing.Size(54, 13);
-            this.lblMaxLines.TabIndex = 20;
+            this.lblMaxLines.TabIndex = 25;
             this.lblMaxLines.Text = "Max Lines";
             // 
             // lblSkip
@@ -326,7 +328,7 @@
             this.lblSkip.Location = new System.Drawing.Point(574, 48);
             this.lblSkip.Name = "lblSkip";
             this.lblSkip.Size = new System.Drawing.Size(26, 13);
-            this.lblSkip.TabIndex = 18;
+            this.lblSkip.TabIndex = 23;
             this.lblSkip.Text = "Skip";
             // 
             // tbxSkip
@@ -335,7 +337,7 @@
             this.tbxSkip.MaxLength = 3;
             this.tbxSkip.Name = "tbxSkip";
             this.tbxSkip.Size = new System.Drawing.Size(45, 21);
-            this.tbxSkip.TabIndex = 19;
+            this.tbxSkip.TabIndex = 24;
             this.toolTip1.SetToolTip(this.tbxSkip, "Number of lines to skip in the table");
             // 
             // tbxMaxLines
@@ -344,7 +346,7 @@
             this.tbxMaxLines.MaxLength = 3;
             this.tbxMaxLines.Name = "tbxMaxLines";
             this.tbxMaxLines.Size = new System.Drawing.Size(45, 21);
-            this.tbxMaxLines.TabIndex = 21;
+            this.tbxMaxLines.TabIndex = 26;
             this.toolTip1.SetToolTip(this.tbxMaxLines, "Number of lines to display");
             // 
             // tbxSizes
@@ -818,6 +820,17 @@
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
             // 
+            // ckxReverseOrder
+            // 
+            this.ckxReverseOrder.AutoSize = true;
+            this.ckxReverseOrder.Location = new System.Drawing.Point(359, 197);
+            this.ckxReverseOrder.Name = "ckxReverseOrder";
+            this.ckxReverseOrder.Size = new System.Drawing.Size(140, 17);
+            this.ckxReverseOrder.TabIndex = 22;
+            this.ckxReverseOrder.Text = "Reverse Columns Order";
+            this.toolTip1.SetToolTip(this.ckxReverseOrder, "Reverse the columns order (for RTL languages)");
+            this.ckxReverseOrder.UseVisualStyleBackColor = true;
+            // 
             // ScoreCenterConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -924,5 +937,6 @@
         private System.Windows.Forms.ToolStripMenuItem centerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rightToolStripMenuItem;
         private System.Windows.Forms.Panel pnlTest;
+        private System.Windows.Forms.CheckBox ckxReverseOrder;
     }
 }

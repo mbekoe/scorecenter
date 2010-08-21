@@ -237,6 +237,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private bool wordWrapField;
         
+        private bool reverseOrderField;
+        
         private Rule[] rulesField;
         
         private bool enableField;
@@ -256,6 +258,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.useTheaderField = true;
             this.newLineField = false;
             this.wordWrapField = false;
+            this.reverseOrderField = false;
             this.enableField = false;
             this.orderField = 99;
         }
@@ -432,6 +435,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.wordWrapField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ReverseOrder {
+            get {
+                return this.reverseOrderField;
+            }
+            set {
+                this.reverseOrderField = value;
             }
         }
         

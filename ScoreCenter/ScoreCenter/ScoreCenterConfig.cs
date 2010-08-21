@@ -262,6 +262,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 ckxUseTheader.Checked = score.UseTheader;
                 ckxNewLine.Checked = score.NewLine;
                 ckxAllowWrapping.Checked = score.WordWrap;
+                ckxReverseOrder.Checked = score.ReverseOrder;
                 SetIcon(score.Image);
 
                 grdRule.Enabled = true;
@@ -397,6 +398,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.UseTheader = ckxUseTheader.Checked;
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
+                score.ReverseOrder = ckxReverseOrder.Checked;
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);
@@ -548,6 +550,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.UseTheader = ckxUseTheader.Checked;
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
+                score.ReverseOrder = ckxReverseOrder.Checked;
 
                 score.Element = tbxElement.Text;
                 score.Skip = ReadInt(tbxSkip);
@@ -579,7 +582,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 IList<Control> controls = bld.Build(lines,
                     0, 0,
-                    0, 0, pnlTest.Width, pnlTest.Height,
+                    0, 0, pnlTest.Width, pnlTest.Height, score.ReverseOrder,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
 

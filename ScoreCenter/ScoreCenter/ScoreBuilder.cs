@@ -27,6 +27,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private int m_fontSize = 12;
         private int m_charWidth = 8;
         private int m_charHeight = 12;
+        
         public void SetFont(string fontName, long textColor, int fontSize,
             int charWidth, int charHeight)
         {
@@ -38,7 +39,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         public IList<TC> Build(string[][] labels, int startLine, int startColumn,
-            int startX, int startY, int pnlWidth, int pnlHeight,
+            int startX, int startY, int pnlWidth, int pnlHeight, bool reverseOrder,
             CreateControlDelegate createControl,
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
@@ -112,8 +113,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 #endregion
 
                 int nbLines = 1;
-                for (int colIndex = startColumn; colIndex < row.Length; colIndex++)
+                for (int index = startColumn; index < row.Length; index++)
                 {
+                    int colIndex = reverseOrder ? row.Length - index - 1 : index;
+
                     // get cell
                     string cell = row[colIndex];
                     ColumnDisplay colSize = GetColumnSize(colIndex, cols, cell, merge);
