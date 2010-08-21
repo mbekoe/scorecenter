@@ -668,7 +668,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             int lineNumber, colNumber;
             IList<GUIControl> controls = m_builder.Build(labels,
                 startLine, startColumn,
-                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
+                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height, score.ReverseOrder,
                 this.CreateControl,
                 out overRight, out overDown, out lineNumber, out colNumber);
 
