@@ -1,5 +1,5 @@
 #labels Featured
-*version 1.2.0.1 (22 aug 10):*
+*version 1.2.0.0 (22 aug 10):*
     * Fix update issues with icons.
     * Possibility to select a score as the start page.
     * Add an option for scores using an RTL language (Right to Left) to reverse the column order.
