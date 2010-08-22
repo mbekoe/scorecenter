@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>2.0</Version>
+  <Groups>
+    <Items>
+      <GroupItem Name="Default">
+        <ParentGroup />
+        <DisplayName>Default</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Default</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{dcfb1dd4-527d-4a20-9954-9f1b600bdbc9}-ScoreCenter.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\ScoreCenter.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{685d7aed-65d9-4ed8-b5bd-031cf7b8d351}-ScoreCenter.XmlSerializers.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\HtmlAgilityPack.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{58eb807b-bcd6-4c06-8a80-f4f93e1a26eb}-HtmlAgilityPack.dll</ZipFileName>
+              <DestinationFilename>%Base%\HtmlAgilityPack.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
+              <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Skin">
+        <ParentGroup>Default</ParentGroup>
+        <DisplayName>Skin File</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Skin</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\MyScoreCenter.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{1b568edf-da62-487d-881e-ea05806274eb}-MyScoreCenter.xml</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\MyScoreCenter.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\hover_score center.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{4a46fe02-bc8c-4e4c-923e-2e6395e99f2c}-hover_score center.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_score center.png</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="Languages">
+        <ParentGroup />
+        <DisplayName>Languages</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Languages</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{0f91bfef-8751-40c5-b197-c6c64eed2a9b}-strings_en.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f865ef45-84f4-42ff-a158-c481bf0eb479}-strings_fr.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4c3a87fb-5d9a-4d02-b9a6-8845c6e56a1c}-strings_ru.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+    </Items>
+  </Groups>
+  <Sections>
+    <Items>
+      <SectionItem Guid="1496e520-2d8c-48c5-858f-9e2f99316a85" Name="Welcome Screen" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>Welcome to the Extension Installer for [Name]</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Description">
+              <Value>This will install [Name] version [Version] on your computer.
+It is recommended that you close all other applications before continuing. 
+Click Next to continue or Cancel to exit Setup.</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value>wizard.png</Value>
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Welcome Screen</PanelName>
+        <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="99ba8291-2e9c-4694-800d-005ee93870e8" Name="Install Section" ConditionGroup="Skin">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Installing MyScoreCenter 1.2.0</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value>scorecenter.png</Value>
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items>
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+          </Items>
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Install Section</PanelName>
+        <WizardButtonsEnum>Next</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="8274cf0c-26ec-48de-b030-7ae13d4a4764" Name="Setup Complete" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>The Extension Installer Wizard has successfully installed [Name].</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value>wizard.png</Value>
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Show radio buttons">
+              <Value>NO</Value>
+              <ValueType>Bool</ValueType>
+              <Description>Use radiobutton in place of combobox</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Setup Complete</PanelName>
+        <WizardButtonsEnum>Finish</WizardButtonsEnum>
+      </SectionItem>
+    </Items>
+  </Sections>
+  <Dependencies>
+    <Items />
+  </Dependencies>
+  <GeneralInfo>
+    <Name>MyScoreCenter</Name>
+    <Id>68c15c1a-49b3-4318-a22f-4b93e512bdf2</Id>
+    <Author>FredP42</Author>
+    <HomePage>http://code.google.com/p/scorecenter/</HomePage>
+    <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-score-center-67687/</ForumPage>
+    <UpdateUrl />
+    <Version>
+      <Major>1</Major>
+      <Minor>2</Minor>
+      <Build>0</Build>
+      <Revision>0</Revision>
+    </Version>
+    <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
+
+The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
+    <VersionDescription>* Fix update issues
+* Add option for RTL languages
+* Possibility to select start page</VersionDescription>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation />
+    <ReleaseDate>2010-08-21T18:55:45.5461692+02:00</ReleaseDate>
+    <Tags>sport, online</Tags>
+    <Location>F:\svnroot\scorecenter\release\ScoreCenter_v1.2.mpe1</Location>
+    <Params>
+      <Items>
+        <SectionParam Name="Icon">
+          <Value>scorecenter.png</Value>
+          <ValueType>File</ValueType>
+          <Description>The icon file of the package (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Online Icon">
+          <Value />
+          <ValueType>String</ValueType>
+          <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Configuration file">
+          <Value>%Plugins%\Windows\ScoreCenter.dll</Value>
+          <ValueType>Template</ValueType>
+          <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+        <SectionParam Name="Online Screenshots">
+          <Value>http://scorecenter.googlecode.com/svn/wiki/images/th_Main_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/th_CatFoot_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/th_ResFoot_bd.jpg</Value>
+          <ValueType>String</ValueType>
+          <Description>Online stored screenshot urls separated by ; </Description>
+        </SectionParam>
+        <SectionParam Name="Force to uninstall on update">
+          <Value>YES</Value>
+          <ValueType>Bool</ValueType>
+          <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
+        </SectionParam>
+      </Items>
+    </Params>
+  </GeneralInfo>
+  <UniqueFileList>
+    <Items>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{dcfb1dd4-527d-4a20-9954-9f1b600bdbc9}-ScoreCenter.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\ScoreCenter.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{685d7aed-65d9-4ed8-b5bd-031cf7b8d351}-ScoreCenter.XmlSerializers.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\HtmlAgilityPack.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{58eb807b-bcd6-4c06-8a80-f4f93e1a26eb}-HtmlAgilityPack.dll</ZipFileName>
+        <DestinationFilename>%Base%\HtmlAgilityPack.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
+        <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\MyScoreCenter.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{1b568edf-da62-487d-881e-ea05806274eb}-MyScoreCenter.xml</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\MyScoreCenter.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\hover_score center.png</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{4a46fe02-bc8c-4e4c-923e-2e6395e99f2c}-hover_score center.png</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_score center.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{0f91bfef-8751-40c5-b197-c6c64eed2a9b}-strings_en.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f865ef45-84f4-42ff-a158-c481bf0eb479}-strings_fr.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4c3a87fb-5d9a-4d02-b9a6-8845c6e56a1c}-strings_ru.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>wizard.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a97a2a89-b476-4e5f-9e9e-a8c557bdfd61}-wizard.png</ZipFileName>
+        <DestinationFilename />
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>scorecenter.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{bb439f2f-485a-4a11-8be0-99000d5e543c}-scorecenter.png</ZipFileName>
+        <DestinationFilename />
+      </FileItem>
+    </Items>
+  </UniqueFileList>
+  <ProjectSettings>
+    <FolderGroups />
+    <ProjectFilename>F:\svnroot\scorecenter\trunk\Installer\scorecenter.xmp2</ProjectFilename>
+    <UpdatePath1>F:\svnroot\scorecenter\trunk\Installer\scorecenter.xml</UpdatePath1>
+    <UpdatePath2 />
+    <UpdatePath3 />
+  </ProjectSettings>
+</PackageClass>
