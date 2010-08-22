@@ -38,7 +38,7 @@ namespace MediaPortal.Plugin.ScoreCenter
     /// <summary>
     /// Plugin GUI.
     /// </summary>
-    public class ScoreCenterGui : GUIWindow
+    public partial class ScoreCenterPlugin : GUIWindow
     {
         #region Members
         public const string SkinFileName = "MyScoreCenter.xml";

@@ -105,7 +105,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             try
             {
-                m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterGui.SettingsFileName);
+                m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterPlugin.SettingsFileName);
                 m_center = Tools.ReadSettings(m_settings, true);
 
                 // rule action

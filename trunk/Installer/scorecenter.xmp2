@@ -20,13 +20,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{685d7aed-65d9-4ed8-b5bd-031cf7b8d351}-ScoreCenter.XmlSerializers.dll</ZipFileName>
-              <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\HtmlAgilityPack.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{58eb807b-bcd6-4c06-8a80-f4f93e1a26eb}-HtmlAgilityPack.dll</ZipFileName>
               <DestinationFilename>%Base%\HtmlAgilityPack.dll</DestinationFilename>
@@ -37,6 +30,13 @@
               <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
               <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{443cc41d-8a62-4be1-baba-254a6da8d8d5}-ScoreCenter.XmlSerializers.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -211,24 +211,26 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Author>FredP42</Author>
     <HomePage>http://code.google.com/p/scorecenter/</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-score-center-67687/</ForumPage>
-    <UpdateUrl />
+    <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
       <Minor>2</Minor>
       <Build>0</Build>
-      <Revision>0</Revision>
+      <Revision>1</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
     <VersionDescription>* Fix update issues
+
 * Add option for RTL languages
+
 * Possibility to select start page</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation />
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.2.0.1.mpe</OnlineLocation>
     <ReleaseDate>2010-08-21T18:55:45.5461692+02:00</ReleaseDate>
     <Tags>sport, online</Tags>
-    <Location>F:\svnroot\scorecenter\release\ScoreCenter_v1.2.mpe1</Location>
+    <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -249,7 +251,7 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
  If have .dll extension used like MP plugin configuration</Description>
         </SectionParam>
         <SectionParam Name="Online Screenshots">
-          <Value>http://scorecenter.googlecode.com/svn/wiki/images/th_Main_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/th_CatFoot_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/th_ResFoot_bd.jpg</Value>
+          <Value>http://scorecenter.googlecode.com/svn/wiki/images/Main_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/CatFoot_bd.jpg;http://scorecenter.googlecode.com/svn/wiki/images/ResFoot_bd.jpg</Value>
           <ValueType>String</ValueType>
           <Description>Online stored screenshot urls separated by ; </Description>
         </SectionParam>
@@ -273,13 +275,6 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{685d7aed-65d9-4ed8-b5bd-031cf7b8d351}-ScoreCenter.XmlSerializers.dll</ZipFileName>
-        <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\HtmlAgilityPack.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{58eb807b-bcd6-4c06-8a80-f4f93e1a26eb}-HtmlAgilityPack.dll</ZipFileName>
         <DestinationFilename>%Base%\HtmlAgilityPack.dll</DestinationFilename>
@@ -290,6 +285,13 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
         <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\bin\Release\ScoreCenter.XmlSerializers.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{443cc41d-8a62-4be1-baba-254a6da8d8d5}-ScoreCenter.XmlSerializers.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
         <Param1 />
@@ -330,14 +332,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a97a2a89-b476-4e5f-9e9e-a8c557bdfd61}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{bf400101-3153-4c76-83a3-d59c5fe3c297}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{bb439f2f-485a-4a11-8be0-99000d5e543c}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{fc026ad1-259b-4b59-8f16-c85e05c9bd19}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

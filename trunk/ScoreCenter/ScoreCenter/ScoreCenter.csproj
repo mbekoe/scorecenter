@@ -207,9 +207,8 @@
     <PostBuildEvent>sgen.exe /a:"$(TargetPath)" /force
 copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
-rem copy $(ProjectDir)skin\Blue3wide\MyScoreCenter.xml "C:\Team MediaPortal\MediaPortal\skin\Blue3wide" /Y
-rem copy $(ProjectDir)skin\Blue3\MyScoreCenter.xml "C:\Team MediaPortal\MediaPortal\skin\Blue3" /Y
-rem copy $(ProjectDir)skin\Titanium\MyScoreCenter.xml "C:\Team MediaPortal\MediaPortal\skin\Titanium v0.5" /Y
+rem copy $(ProjectDir)skin\Blue3wide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Blue3wide" /Y
+rem copy $(ProjectDir)skin\Blue3\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Blue3" /Y
 rem copy $(ProjectDir)MyScoreCenter.settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
