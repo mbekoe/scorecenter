@@ -34,7 +34,7 @@ namespace MediaPortal.Plugin.ScoreCenter
     /// </summary>
     [PluginIcons(@"MediaPortal.Plugin.ScoreCenter.Resources.ScoreCenter.png",
         @"MediaPortal.Plugin.ScoreCenter.Resources.ScoreCenterDisabled.png")]
-    public class ScoreCenterPlugin : ISetupForm, IShowPlugin
+    public partial class ScoreCenterPlugin : ISetupForm, IShowPlugin
     {
         internal const string DefaultPluginName = "My Score Center";
         internal const int PluginId = 42000;
@@ -65,7 +65,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             string name = DefaultPluginName;
 
-            string filename = Config.GetFile(Config.Dir.Config, ScoreCenterGui.SettingsFileName);
+            string filename = Config.GetFile(Config.Dir.Config, ScoreCenterPlugin.SettingsFileName);
             ScoreCenter center = Tools.ReadSettings(filename, false);
             if (center.Setup != null)
             {
