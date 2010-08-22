@@ -216,7 +216,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>2</Minor>
       <Build>0</Build>
-      <Revision>1</Revision>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
@@ -332,14 +332,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{bf400101-3153-4c76-83a3-d59c5fe3c297}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{3d1181b3-834e-4422-96dc-423f8a467501}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{fc026ad1-259b-4b59-8f16-c85e05c9bd19}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{0238be5b-d7f9-4c56-97f6-f513815c4dd9}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
