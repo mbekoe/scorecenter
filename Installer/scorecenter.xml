@@ -48,7 +48,7 @@
           <Major>1</Major>
           <Minor>2</Minor>
           <Build>0</Build>
-          <Revision>0</Revision>
+          <Revision>1</Revision>
         </Version>
         <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
@@ -59,10 +59,10 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
 
 * Possibility to select start page</VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.2.0.0.mpe</OnlineLocation>
+        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.2.0.1.mpe</OnlineLocation>
         <ReleaseDate>2010-08-21T18:55:45.5461692+02:00</ReleaseDate>
         <Tags>sport, online</Tags>
-        <Location>F:\svnroot\scorecenter\release\ScoreCenter_v1.2.0.0.mpe1</Location>
+        <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
         <Params>
           <Items>
             <SectionParam Name="Icon">
@@ -149,7 +149,7 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
           <Major>1</Major>
           <Minor>2</Minor>
           <Build>0</Build>
-          <Revision>1</Revision>
+          <Revision>0</Revision>
         </Version>
         <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
