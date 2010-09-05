@@ -135,8 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Football.ico" />
+    <Content Include="language\strings_de.xml" />
     <Content Include="language\strings_en.xml" />
     <Content Include="language\strings_fr.xml" />
+    <Content Include="language\strings_ru.xml" />
     <Content Include="MyScoreCenter.Settings.xml" />
     <None Include="Resources\openfolderHS.png" />
     <None Include="Resources\DownloadDocument.bmp" />
