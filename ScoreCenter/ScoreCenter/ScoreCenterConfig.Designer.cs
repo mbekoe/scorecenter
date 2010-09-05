@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.ckxReverseOrder = new System.Windows.Forms.CheckBox();
             this.ckxAllowWrapping = new System.Windows.Forms.CheckBox();
             this.ckxNewLine = new System.Windows.Forms.CheckBox();
             this.lblTotalSize = new System.Windows.Forms.Label();
@@ -99,7 +100,6 @@
             this.pnlTest = new System.Windows.Forms.Panel();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
-            this.ckxReverseOrder = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -152,6 +152,17 @@
             this.gbxScore.TabIndex = 2;
             this.gbxScore.TabStop = false;
             this.gbxScore.Text = "Details";
+            // 
+            // ckxReverseOrder
+            // 
+            this.ckxReverseOrder.AutoSize = true;
+            this.ckxReverseOrder.Location = new System.Drawing.Point(359, 197);
+            this.ckxReverseOrder.Name = "ckxReverseOrder";
+            this.ckxReverseOrder.Size = new System.Drawing.Size(140, 17);
+            this.ckxReverseOrder.TabIndex = 22;
+            this.ckxReverseOrder.Text = "Reverse Columns Order";
+            this.toolTip1.SetToolTip(this.ckxReverseOrder, "Reverse the columns order (for RTL languages)");
+            this.ckxReverseOrder.UseVisualStyleBackColor = true;
             // 
             // ckxAllowWrapping
             // 
@@ -294,7 +305,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 27;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "&Save";
             this.toolTip1.SetToolTip(this.btnSave, "Save the current settings");
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -306,7 +317,7 @@
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 28;
-            this.btnTest.Text = "Test";
+            this.btnTest.Text = "&Test";
             this.toolTip1.SetToolTip(this.btnTest, "Test your settings");
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
@@ -508,7 +519,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
-            this.btnOk.Text = "Save";
+            this.btnOk.Text = "Sa&ve";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -808,7 +819,7 @@
             this.tvwScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.tvwScores.CheckBoxes = true;
-            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
+            this.tvwScores.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwScores.FullRowSelect = true;
             this.tvwScores.HideSelection = false;
             this.tvwScores.LabelEdit = true;
@@ -819,17 +830,6 @@
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
-            // 
-            // ckxReverseOrder
-            // 
-            this.ckxReverseOrder.AutoSize = true;
-            this.ckxReverseOrder.Location = new System.Drawing.Point(359, 197);
-            this.ckxReverseOrder.Name = "ckxReverseOrder";
-            this.ckxReverseOrder.Size = new System.Drawing.Size(140, 17);
-            this.ckxReverseOrder.TabIndex = 22;
-            this.ckxReverseOrder.Text = "Reverse Columns Order";
-            this.toolTip1.SetToolTip(this.ckxReverseOrder, "Reverse the columns order (for RTL languages)");
-            this.ckxReverseOrder.UseVisualStyleBackColor = true;
             // 
             // ScoreCenterConfig
             // 
