@@ -157,13 +157,21 @@ namespace MediaPortal.Plugin.ScoreCenter
                     else
                     {
                         string firstId = m_center.Setup.Home;
-                        Score score = m_center.Scores.First(s => s.Id == firstId);
-                        Tools.LogMessage("/////////// Score = ", score.Name);
-                        m_currentCategory = score.Category;
-                        SetCategory(score.Category);
-                        LoadScores(score.Ligue);
-                        DisplayScore(score);
-                        m_mode = ViewMode.Results;
+                        Score score = m_center.Scores.FirstOrDefault(s => s.Id == firstId);
+                        if (score == null)
+                        {
+                            LoadCategories();
+                            m_center.Setup.Home = "";
+                        }
+                        else
+                        {
+                            Tools.LogMessage("/////////// Score = ", score.Name);
+                            m_currentCategory = score.Category;
+                            SetCategory(score.Category);
+                            LoadScores(score.Ligue);
+                            DisplayScore(score);
+                            m_mode = ViewMode.Results;
+                        }
                     }
 
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
