@@ -81,6 +81,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
             ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
             ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
+            ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
         }
 
         private void ScoreChanged(object sender, EventArgs e)
@@ -260,6 +261,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxMaxLines.Text = score.MaxLines.ToString();
                 tbxElement.Text = score.Element;
                 ckxUseTheader.Checked = score.UseTheader;
+                ckxUseCaption.Checked = score.UseCaption;
                 ckxNewLine.Checked = score.NewLine;
                 ckxAllowWrapping.Checked = score.WordWrap;
                 ckxReverseOrder.Checked = score.ReverseOrder;
@@ -286,6 +288,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxMaxLines.Text = String.Empty;
                 tbxElement.Text = String.Empty;
                 ckxUseTheader.Checked = false;
+                ckxUseCaption.Checked = false;
                 ckxNewLine.Checked = false;
                 ckxAllowWrapping.Checked = false;
 
@@ -396,6 +399,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Encoding = tbxEncoding.Text;
                 score.Element = tbxElement.Text;
                 score.UseTheader = ckxUseTheader.Checked;
+                score.UseCaption = ckxUseCaption.Checked;
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
                 score.ReverseOrder = ckxReverseOrder.Checked;
@@ -548,6 +552,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Sizes = tbxSizes.Text;
                 score.Headers = tbxHeaders.Text;
                 score.UseTheader = ckxUseTheader.Checked;
+                score.UseCaption = ckxUseCaption.Checked;
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
                 score.ReverseOrder = ckxReverseOrder.Checked;

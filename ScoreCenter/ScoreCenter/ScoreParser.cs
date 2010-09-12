@@ -80,7 +80,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (index >= 0 && nodes.Count > index)
                 {
-                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader, score.NewLine);
+                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader, score.UseCaption, score.NewLine);
                     if (rr != null)
                     {
                         ll.AddRange(rr);
@@ -90,7 +90,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     foreach (HtmlNode node in nodes)
                     {
-                        string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.NewLine);
+                        string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.UseCaption, score.NewLine);
                         if (rr != null)
                         {
                             ll.AddRange(rr);
@@ -115,6 +115,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             string result = url;
 
+            // parse date format
             DateTime now = DateTime.Now;
             int start, end;
             while ((start = result.IndexOf('{') + 1) > 0)
@@ -123,6 +124,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 string format = result.Substring(start, end - start);
                 if (format.Length == 1)
                 {
+                    // if format contains only one char add a space in the format and then remove it
                     format = " " + format;
                     result = result.Substring(0, start - 1) + now.ToString(format).Substring(1) + result.Substring(end + 1);
                 }
@@ -136,10 +138,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         private static string[][] ParseTable(HtmlNode table,
-            int skip, int max, bool useTheader, bool allowNewLine)
+            int skip, int max, bool useTheader, bool useCaption, bool allowNewLine)
         {
             string xpathHeader = ".//tr";
-            if (useTheader) xpathHeader += " | .//thead | .//tfoot" ;
+            if (useTheader) xpathHeader += " | .//thead | .//tfoot";
+            if (useCaption) xpathHeader += " | .//caption";
             HtmlNodeCollection lines = table.SelectNodes(xpathHeader);
             if (lines == null)
             {
@@ -157,6 +160,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if ((skip > 0 && lineIndex <= skip)
                     || (max > 0 && lineIndex > max))
                     continue;
+
+                if (line.Name == "caption")
+                {
+                    result[nbLines++] = new string[] { Tools.TransformHtml(line.InnerText.Trim(' ', '\n'), allowNewLine).Trim() };
+                    continue;
+                }
 
                 HtmlNodeCollection columns = line.SelectNodes(".//td | .//th");
 

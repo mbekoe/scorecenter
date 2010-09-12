@@ -217,6 +217,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Element = newScore.Element;
                 this.Encoding = newScore.Encoding;
                 this.UseTheader = newScore.UseTheader;
+                this.UseCaption = newScore.UseCaption;
                 this.NewLine = newScore.NewLine;
                 this.WordWrap = newScore.WordWrap;
             }
