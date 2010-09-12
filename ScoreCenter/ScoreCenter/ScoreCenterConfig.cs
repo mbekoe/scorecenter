@@ -28,6 +28,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -729,6 +730,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string[][] lines = pnlTest.Tag as string[][];
             if (lines != null)
             {
+                // get number of columns
                 int nbCols = 0;
                 for (int j = 0; j < lines.Length; j++)
                 {
@@ -738,17 +740,26 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                 }
 
+                // for all columns
+                double dummy;
                 for (int i = 0; i < nbCols; i++)
                 {
                     int max = 0;
+                    bool digitOnly = true;
+                    // for all lines
                     for (int j = 0; j < lines.Length; j++)
                     {
                         if (lines[j] == null || i >= lines[j].Length)
                             continue;
-                        
-                        int v = String.IsNullOrEmpty(lines[j][i]) ? 0 : lines[j][i].Length;
-                        max = - Math.Max(max, v);
+
+                        string cell = lines[j][i];
+                        int cellSize = String.IsNullOrEmpty(cell) ? 0 : lines[j][i].Length;
+                        if (j > 0) digitOnly &= (cellSize == 0 || double.TryParse(cell.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out dummy));
+                        max = Math.Max(max, cellSize);
                     }
+
+                    if (digitOnly) max++;
+                    else max = -max;
 
                     if (result.Length > 0) result += ",";
                     result += max.ToString();
