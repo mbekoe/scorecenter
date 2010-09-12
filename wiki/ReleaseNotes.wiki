@@ -1,4 +1,8 @@
 #labels Featured
+*next version*
+    * Add German language file (thanks to catavolt).
+    * Add option to include or exclude (default) table's caption.
+
 *version 1.2.0.0 (22 aug 10):*
     * Fix update issues with icons.
     * Possibility to select a score as the start page.
