@@ -67,6 +67,7 @@
         <xs:element name="MaxLines" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
         <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="UseTheader" type="xs:boolean" minOccurs="0" maxOccurs="1" default="true" />
+        <xs:element name="UseCaption" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
         <xs:element name="NewLine" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
         <xs:element name="WordWrap" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
         <xs:element name="ReverseOrder" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
