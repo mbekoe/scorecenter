@@ -1,5 +1,5 @@
 #summary How To add a score
-#labels Phase-Support
+#labels Phase-Support,Featured
 
 = How to create a score =
 
