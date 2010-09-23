@@ -2,6 +2,8 @@
 *next version*
     * Add German language file (thanks to catavolt).
     * Add option to include or exclude (default) table's caption.
+    * 'XPath Element' fields now allows more than one indice. Use ';' to separate the indices.
+    * Possibility to select behavior between two xpath elements: _Noting_ (current behavior), _Empty line_ or _Repeat Header_.
 
 *version 1.2.0.0 (22 aug 10):*
     * Fix update issues with icons.
