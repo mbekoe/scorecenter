@@ -23,6 +23,19 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     public static class EnumManager
     {
+        public static DataTable ReadBetweenElements()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(BetweenElements.EmptyLine.ToString(), "Empty Line");
+            dt.Rows.Add(BetweenElements.None.ToString(), "Nothing");
+            dt.Rows.Add(BetweenElements.RepeatHeader.ToString(), "Repeat Header");
+
+            return dt;
+        }
+
         public static DataTable ReadRuleAction()
         {
             DataTable dt = new DataTable();
@@ -178,7 +191,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// </summary>
         /// <param name="newScore">The score to merge with.</param>
         /// <param name="type">Merge options.</param>
-        /// <returns>True oif the score changed.</returns>
+        /// <returns>True if the score changed.</returns>
         public bool Merge(Score newScore, ImportOptions option)
         {
             bool result = false;
@@ -215,11 +228,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.MaxLines = newScore.MaxLines;
                 this.Sizes = newScore.Sizes;
                 this.Element = newScore.Element;
+                this.BetweenElts = newScore.BetweenElts;
                 this.Encoding = newScore.Encoding;
                 this.UseTheader = newScore.UseTheader;
                 this.UseCaption = newScore.UseCaption;
                 this.NewLine = newScore.NewLine;
                 this.WordWrap = newScore.WordWrap;
+                this.ReverseOrder = newScore.ReverseOrder;
             }
 
             if ((option & ImportOptions.Rules) == ImportOptions.Rules)

@@ -78,6 +78,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             tbxSizes.TextChanged += new EventHandler(ScoreChanged);
             tbxSkip.TextChanged += new EventHandler(ScoreChanged);
             tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
+            cbxBetweenElements.SelectedValueChanged +=new EventHandler(ScoreChanged);
 
             ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
             ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
@@ -118,6 +119,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 colOperator.DataSource = EnumManager.ReadOperation();
                 colOperator.ValueMember = "ID";
                 colOperator.DisplayMember = "NAME";
+
+                cbxBetweenElements.DataSource = EnumManager.ReadBetweenElements();
+                cbxBetweenElements.ValueMember = "ID";
+                cbxBetweenElements.DisplayMember = "NAME";
 
                 UpdateStyleList();
 
@@ -266,6 +271,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 ckxNewLine.Checked = score.NewLine;
                 ckxAllowWrapping.Checked = score.WordWrap;
                 ckxReverseOrder.Checked = score.ReverseOrder;
+                cbxBetweenElements.SelectedValue = score.BetweenElts;
                 SetIcon(score.Image);
 
                 grdRule.Enabled = true;
@@ -404,6 +410,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
                 score.ReverseOrder = ckxReverseOrder.Checked;
+                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
                 else score.Skip = int.Parse(tbxSkip.Text);
@@ -557,6 +564,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.NewLine = ckxNewLine.Checked;
                 score.WordWrap = ckxAllowWrapping.Checked;
                 score.ReverseOrder = ckxReverseOrder.Checked;
+                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
 
                 score.Element = tbxElement.Text;
                 score.Skip = ReadInt(tbxSkip);

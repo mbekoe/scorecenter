@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.gbxScore = new System.Windows.Forms.GroupBox();
+            this.cbxBetweenElements = new System.Windows.Forms.ComboBox();
             this.ckxReverseOrder = new System.Windows.Forms.CheckBox();
             this.ckxAllowWrapping = new System.Windows.Forms.CheckBox();
             this.ckxNewLine = new System.Windows.Forms.CheckBox();
@@ -43,6 +44,7 @@
             this.tbxLeague = new System.Windows.Forms.TextBox();
             this.tbxCategory = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
+            this.ckxUseCaption = new System.Windows.Forms.CheckBox();
             this.ckxUseTheader = new System.Windows.Forms.CheckBox();
             this.ckxReload = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -100,7 +102,6 @@
             this.pnlTest = new System.Windows.Forms.Panel();
             this.ofdImport = new System.Windows.Forms.OpenFileDialog();
             this.tvwScores = new MediaPortal.Plugin.ScoreCenter.ThreeStateTreeView();
-            this.ckxUseCaption = new System.Windows.Forms.CheckBox();
             this.gbxScore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -117,6 +118,7 @@
             // 
             this.gbxScore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxScore.Controls.Add(this.cbxBetweenElements);
             this.gbxScore.Controls.Add(this.ckxReverseOrder);
             this.gbxScore.Controls.Add(this.ckxAllowWrapping);
             this.gbxScore.Controls.Add(this.ckxNewLine);
@@ -154,6 +156,15 @@
             this.gbxScore.TabIndex = 2;
             this.gbxScore.TabStop = false;
             this.gbxScore.Text = "Details";
+            // 
+            // cbxBetweenElements
+            // 
+            this.cbxBetweenElements.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxBetweenElements.FormattingEnabled = true;
+            this.cbxBetweenElements.Location = new System.Drawing.Point(378, 98);
+            this.cbxBetweenElements.Name = "cbxBetweenElements";
+            this.cbxBetweenElements.Size = new System.Drawing.Size(142, 21);
+            this.cbxBetweenElements.TabIndex = 31;
             // 
             // ckxReverseOrder
             // 
@@ -206,11 +217,11 @@
             // 
             // tbxElement
             // 
-            this.tbxElement.Location = new System.Drawing.Point(420, 98);
+            this.tbxElement.Location = new System.Drawing.Point(271, 98);
             this.tbxElement.Name = "tbxElement";
             this.tbxElement.Size = new System.Drawing.Size(100, 21);
             this.tbxElement.TabIndex = 12;
-            this.toolTip1.SetToolTip(this.tbxElement, "0 based indice of the element (all if empty)");
+            this.toolTip1.SetToolTip(this.tbxElement, "0 based indices of the elements separeted with \';\' (all if empty)");
             // 
             // btnOpenUrl
             // 
@@ -273,6 +284,17 @@
             this.lblName.Size = new System.Drawing.Size(34, 13);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
+            // 
+            // ckxUseCaption
+            // 
+            this.ckxUseCaption.AutoSize = true;
+            this.ckxUseCaption.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ckxUseCaption.Location = new System.Drawing.Point(59, 197);
+            this.ckxUseCaption.Name = "ckxUseCaption";
+            this.ckxUseCaption.Size = new System.Drawing.Size(101, 17);
+            this.ckxUseCaption.TabIndex = 19;
+            this.ckxUseCaption.Text = "Include Caption";
+            this.ckxUseCaption.UseVisualStyleBackColor = true;
             // 
             // ckxUseTheader
             // 
@@ -423,11 +445,11 @@
             // 
             this.lblXpathElement.AutoSize = true;
             this.lblXpathElement.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblXpathElement.Location = new System.Drawing.Point(338, 101);
+            this.lblXpathElement.Location = new System.Drawing.Point(184, 101);
             this.lblXpathElement.Name = "lblXpathElement";
-            this.lblXpathElement.Size = new System.Drawing.Size(76, 13);
+            this.lblXpathElement.Size = new System.Drawing.Size(81, 13);
             this.lblXpathElement.TabIndex = 11;
-            this.lblXpathElement.Text = "XPath Element";
+            this.lblXpathElement.Text = "XPath Elements";
             // 
             // lblEncoding
             // 
@@ -797,7 +819,7 @@
             this.tpgTest.Location = new System.Drawing.Point(4, 22);
             this.tpgTest.Name = "tpgTest";
             this.tpgTest.Padding = new System.Windows.Forms.Padding(10);
-            this.tpgTest.Size = new System.Drawing.Size(659, 318);
+            this.tpgTest.Size = new System.Drawing.Size(659, 285);
             this.tpgTest.TabIndex = 0;
             this.tpgTest.Text = "Test";
             // 
@@ -809,7 +831,7 @@
             this.pnlTest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlTest.Location = new System.Drawing.Point(10, 10);
             this.pnlTest.Name = "pnlTest";
-            this.pnlTest.Size = new System.Drawing.Size(639, 298);
+            this.pnlTest.Size = new System.Drawing.Size(639, 265);
             this.pnlTest.TabIndex = 7;
             // 
             // ofdImport
@@ -832,17 +854,6 @@
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
-            // 
-            // ckxUseCaption
-            // 
-            this.ckxUseCaption.AutoSize = true;
-            this.ckxUseCaption.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxUseCaption.Location = new System.Drawing.Point(59, 197);
-            this.ckxUseCaption.Name = "ckxUseCaption";
-            this.ckxUseCaption.Size = new System.Drawing.Size(101, 17);
-            this.ckxUseCaption.TabIndex = 19;
-            this.ckxUseCaption.Text = "Include Caption";
-            this.ckxUseCaption.UseVisualStyleBackColor = true;
             // 
             // ScoreCenterConfig
             // 
@@ -952,5 +963,6 @@
         private System.Windows.Forms.Panel pnlTest;
         private System.Windows.Forms.CheckBox ckxReverseOrder;
         private System.Windows.Forms.CheckBox ckxUseCaption;
+        private System.Windows.Forms.ComboBox cbxBetweenElements;
     }
 }
