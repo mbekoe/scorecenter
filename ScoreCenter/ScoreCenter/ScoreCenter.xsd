@@ -19,6 +19,13 @@
       <xs:enumeration value="IsNull" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="BetweenElements">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="EmptyLine" />
+      <xs:enumeration value="RepeatHeader" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="RuleAction">
     <xs:restriction base="xs:string">
       <xs:enumeration value="FormatCell" />
@@ -61,6 +68,7 @@
         <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="XPath" type="xs:string" minOccurs="1" maxOccurs="1" />
         <xs:element name="Element" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+        <xs:element name="BetweenElts" type="BetweenElements" minOccurs="0" maxOccurs="1" default="None" />
         <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="Sizes" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
         <xs:element name="Skip" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />

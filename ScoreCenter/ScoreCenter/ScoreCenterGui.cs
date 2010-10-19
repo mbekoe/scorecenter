@@ -43,6 +43,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         #region Members
         public const string SkinFileName = "MyScoreCenter.xml";
         public const string SettingsFileName = "MyScoreCenter.Settings.xml";
+        public const string C_HEADER = "*HEADER*";
         
         /// <summary>Start index for GUI controls.</summary>
         private const int StartIndex = 42100;

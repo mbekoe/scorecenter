@@ -42,16 +42,28 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_cache = new ScoreCache(lifeTime);
         }
 
+        /// <summary>
+        /// Reads a Score.
+        /// </summary>
+        /// <param name="score">The score to read.</param>
+        /// <param name="reload">True to reload the page, False to reuse the one in the cache.</param>
+        /// <returns>A string matrix representing the score to be displayed.</returns>
         public string[][] Read(Score score, bool reload)
         {
             // get score definition
             string url = ParseUrl(score.Url);
-            int index = -1;
+            List<int> indexes = null;
             if (score.Element.Length > 0)
             {
-                if (int.TryParse(score.Element, out index) == false)
+                string[] elts = score.Element.Split(';');
+                indexes = new List<int>(elts.Length);
+                for (int i = 0; i < elts.Length; i++)
                 {
-                    index = -1;
+                    int index;
+                    if (int.TryParse(elts[i], out index))
+                    {
+                        indexes.Add(index);
+                    }
                 }
             }
 
@@ -71,29 +83,32 @@ namespace MediaPortal.Plugin.ScoreCenter
             List<string[]> ll = new List<string[]>();
             
             // add headers
-            if (score.Headers != null && score.Headers.Length > 0)
-            {
-                ll.Add(score.Headers.Split(','));
-            }
+            AddHeaders(score, ll);
 
             if (nodes != null && nodes.Count > 0)
             {
-                if (index >= 0 && nodes.Count > index)
+                int inode = 0;
+                foreach (HtmlNode node in nodes)
                 {
-                    string[][] rr = ParseTable(nodes[index], skip, max, score.UseTheader, score.UseCaption, score.NewLine);
+                    if (indexes != null && !indexes.Contains(inode))
+                        continue;
+
+                    inode++;
+                    string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.UseCaption, score.NewLine);
                     if (rr != null)
                     {
                         ll.AddRange(rr);
-                    }
-                }
-                else
-                {
-                    foreach (HtmlNode node in nodes)
-                    {
-                        string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.UseCaption, score.NewLine);
-                        if (rr != null)
+                        if (inode != nodes.Count) // not the last table
                         {
-                            ll.AddRange(rr);
+                            switch (score.BetweenElts)
+                            {
+                                case BetweenElements.EmptyLine:
+                                    ll.Add(new string[] { ScoreCenterPlugin.C_HEADER });
+                                    break;
+                                case BetweenElements.RepeatHeader:
+                                    AddHeaders(score, ll);
+                                    break;
+                            }
                         }
                     }
                 }
@@ -104,6 +119,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             string[][] aa = new string[nbLines][];
             ll.CopyTo(0, aa, 0, nbLines);
             return aa;
+        }
+
+        /// <summary>
+        /// Adds a header line in the score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="ll"></param>
+        private static void AddHeaders(Score score, List<string[]> ll)
+        {
+            if (score.Headers != null && score.Headers.Length > 0)
+            {
+                ll.Add((ScoreCenterPlugin.C_HEADER + "," + score.Headers).Split(','));
+            }
         }
 
         /// <summary>
@@ -137,6 +165,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
+        /// <summary>
+        /// Parse a HTML table.
+        /// </summary>
+        /// <param name="table">The HtmlNode representing the table to parse.</param>
+        /// <param name="skip">The number of line to parse.</param>
+        /// <param name="max">The maximum number of line to parse.</param>
+        /// <param name="useTheader">True to parse the thead and tfoot tags.</param>
+        /// <param name="useCaption">True to parse the caption tags.</param>
+        /// <param name="allowNewLine">True to allow new lines in a cell, False will remove new lines.</param>
+        /// <returns></returns>
         private static string[][] ParseTable(HtmlNode table,
             int skip, int max, bool useTheader, bool useCaption, bool allowNewLine)
         {
@@ -261,6 +299,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         #endregion
 
+        /// <summary>
+        /// Clears the cache.
+        /// </summary>
         public void ClearCache()
         {
             m_cache.Clear(); ;

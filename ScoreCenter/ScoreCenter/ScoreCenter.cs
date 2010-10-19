@@ -221,6 +221,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string elementField;
         
+        private BetweenElements betweenEltsField;
+        
         private string headersField;
         
         private string sizesField;
@@ -252,6 +254,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         public Score() {
             this.encodingField = "";
             this.elementField = "";
+            this.betweenEltsField = BetweenElements.None;
             this.headersField = "";
             this.sizesField = "";
             this.skipField = 0;
@@ -342,6 +345,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.elementField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(BetweenElements.None)]
+        public BetweenElements BetweenElts {
+            get {
+                return this.betweenEltsField;
+            }
+            set {
+                this.betweenEltsField = value;
             }
         }
         
@@ -511,6 +526,21 @@ namespace MediaPortal.Plugin.ScoreCenter {
                 this.orderField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    public enum BetweenElements {
+        
+        /// <remarks/>
+        None,
+        
+        /// <remarks/>
+        EmptyLine,
+        
+        /// <remarks/>
+        RepeatHeader,
     }
     
     /// <remarks/>
