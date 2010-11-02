@@ -87,13 +87,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             if (nodes != null && nodes.Count > 0)
             {
-                int inode = 0;
+                int inode = -1;
                 foreach (HtmlNode node in nodes)
                 {
+                    inode++;
                     if (indexes != null && !indexes.Contains(inode))
                         continue;
 
-                    inode++;
                     string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.UseCaption, score.NewLine);
                     if (rr != null)
                     {
