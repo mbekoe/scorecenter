@@ -222,18 +222,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>1</Major>
       <Minor>3</Minor>
-      <Build>0</Build>
+      <Build>1</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*Fix issue when deleting home score manually
-*Fix issue when importing settings
-*Add German language file (thanks to catavolt)</VersionDescription>
+    <VersionDescription>*Fix issue with "XPath Element" field</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.3.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2010-08-21T18:55:45.5461692+02:00</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.3.1.0.mpe1</OnlineLocation>
+    <ReleaseDate>2010-11-02T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -344,14 +342,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5ef77598-4838-4c40-a551-4a15a7c0223b}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{13dbfd76-db29-401f-8e8e-42afb7c28798}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a1c35d0a-ec12-49c7-876e-6f6aec29b154}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{3301d16e-9ebb-4487-97ee-22acb5fb38f4}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
