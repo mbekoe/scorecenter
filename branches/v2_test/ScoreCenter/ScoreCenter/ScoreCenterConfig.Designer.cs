@@ -41,8 +41,6 @@
             this.btnOpenUrl = new System.Windows.Forms.Button();
             this.btnAuto = new System.Windows.Forms.Button();
             this.tbxScore = new System.Windows.Forms.TextBox();
-            this.tbxLeague = new System.Windows.Forms.TextBox();
-            this.tbxCategory = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.ckxUseCaption = new System.Windows.Forms.CheckBox();
             this.ckxUseTheader = new System.Windows.Forms.CheckBox();
@@ -128,8 +126,6 @@
             this.gbxScore.Controls.Add(this.btnOpenUrl);
             this.gbxScore.Controls.Add(this.btnAuto);
             this.gbxScore.Controls.Add(this.tbxScore);
-            this.gbxScore.Controls.Add(this.tbxLeague);
-            this.gbxScore.Controls.Add(this.tbxCategory);
             this.gbxScore.Controls.Add(this.lblName);
             this.gbxScore.Controls.Add(this.ckxUseCaption);
             this.gbxScore.Controls.Add(this.ckxUseTheader);
@@ -250,30 +246,12 @@
             // 
             // tbxScore
             // 
-            this.tbxScore.Location = new System.Drawing.Point(370, 19);
+            this.tbxScore.Location = new System.Drawing.Point(59, 19);
             this.tbxScore.MaxLength = 50;
             this.tbxScore.Name = "tbxScore";
-            this.tbxScore.Size = new System.Drawing.Size(150, 21);
+            this.tbxScore.Size = new System.Drawing.Size(461, 21);
             this.tbxScore.TabIndex = 3;
             this.toolTip1.SetToolTip(this.tbxScore, "Name");
-            // 
-            // tbxLeague
-            // 
-            this.tbxLeague.Location = new System.Drawing.Point(214, 19);
-            this.tbxLeague.MaxLength = 50;
-            this.tbxLeague.Name = "tbxLeague";
-            this.tbxLeague.Size = new System.Drawing.Size(150, 21);
-            this.tbxLeague.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.tbxLeague, "League");
-            // 
-            // tbxCategory
-            // 
-            this.tbxCategory.Location = new System.Drawing.Point(58, 19);
-            this.tbxCategory.MaxLength = 50;
-            this.tbxCategory.Name = "tbxCategory";
-            this.tbxCategory.Size = new System.Drawing.Size(150, 21);
-            this.tbxCategory.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.tbxCategory, "Category");
             // 
             // lblName
             // 
@@ -579,7 +557,7 @@
             this.tsbNewLigue.Size = new System.Drawing.Size(23, 22);
             this.tsbNewLigue.Text = "Add";
             this.tsbNewLigue.ToolTipText = "Add a new score";
-            this.tsbNewLigue.Click += new System.EventHandler(this.tsbNewLigue_Click);
+            this.tsbNewLigue.Click += new System.EventHandler(this.tsbNewItem_Click);
             // 
             // tsbAbout
             // 
@@ -917,8 +895,6 @@
         private System.Windows.Forms.ToolStripButton tsbAbout;
         private System.Windows.Forms.CheckBox ckxReload;
         private System.Windows.Forms.TextBox tbxScore;
-        private System.Windows.Forms.TextBox tbxLeague;
-        private System.Windows.Forms.TextBox tbxCategory;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnAuto;
         private System.Windows.Forms.ToolStripButton tsbCopyScore;

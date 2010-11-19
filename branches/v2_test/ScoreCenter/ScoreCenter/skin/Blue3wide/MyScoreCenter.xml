@@ -56,7 +56,7 @@
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-      <texture>#ScoreCenter.CatIco</texture>
+      <texture>#ScoreCenter.Ico0</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
@@ -67,7 +67,7 @@
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-      <texture>#ScoreCenter.LIco</texture>
+      <texture>#ScoreCenter.Ico1</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
@@ -78,7 +78,7 @@
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-      <texture>#ScoreCenter.ScoreIco</texture>
+      <texture>#ScoreCenter.Ico2</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
@@ -89,7 +89,7 @@
       <type>label</type>
       <posX>10</posX>
       <posY>70</posY>
-      <label>#ScoreCenter.Category</label>
+      <label>#ScoreCenter.Label0</label>
       <font>font14</font>
       <align>left</align>
       <textcolor>ffffffff</textcolor>
@@ -99,7 +99,7 @@
       <type>label</type>
       <posX>10</posX>
       <posY>100</posY>
-      <label>#ScoreCenter.League</label>
+      <label>#ScoreCenter.Label1</label>
       <font>font14</font>
       <align>left</align>
       <textcolor>ffffffff</textcolor>
@@ -111,7 +111,7 @@
       <posX>315</posX>
       <posY>50</posY>
       <width>900</width>
-      <label>#ScoreCenter.Results</label>
+      <label>#ScoreCenter.Label2</label>
       <font>font14</font>
       <align>left</align>
       <textcolor>ffffffff</textcolor>

@@ -207,10 +207,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class Score {
         
-        private string categoryField;
-        
-        private string ligueField;
-        
         private string nameField;
         
         private string urlField;
@@ -233,23 +229,21 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string imageField;
         
-        private bool useTheaderField;
+        private string parseOptionsField;
         
-        private bool useCaptionField;
-        
-        private bool newLineField;
-        
-        private bool wordWrapField;
-        
-        private bool reverseOrderField;
+        private int variableField;
         
         private Rule[] rulesField;
         
-        private bool enableField;
-        
         private string idField;
         
+        private Node typeField;
+        
+        private string parentField;
+        
         private int orderField;
+        
+        private bool enableField;
         
         public Score() {
             this.encodingField = "";
@@ -260,35 +254,12 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.skipField = 0;
             this.maxLinesField = 0;
             this.imageField = "";
-            this.useTheaderField = true;
-            this.useCaptionField = false;
-            this.newLineField = false;
-            this.wordWrapField = false;
-            this.reverseOrderField = false;
-            this.enableField = false;
+            this.parseOptionsField = "None";
+            this.variableField = 0;
+            this.typeField = Node.Score;
+            this.parentField = "";
             this.orderField = 99;
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Category {
-            get {
-                return this.categoryField;
-            }
-            set {
-                this.categoryField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Ligue {
-            get {
-                return this.ligueField;
-            }
-            set {
-                this.ligueField = value;
-            }
+            this.enableField = true;
         }
         
         /// <remarks/>
@@ -422,61 +393,25 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(true)]
-        public bool UseTheader {
+        [System.ComponentModel.DefaultValueAttribute("None")]
+        public string ParseOptions {
             get {
-                return this.useTheaderField;
+                return this.parseOptionsField;
             }
             set {
-                this.useTheaderField = value;
+                this.parseOptionsField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool UseCaption {
+        [System.ComponentModel.DefaultValueAttribute(0)]
+        public int variable {
             get {
-                return this.useCaptionField;
+                return this.variableField;
             }
             set {
-                this.useCaptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool NewLine {
-            get {
-                return this.newLineField;
-            }
-            set {
-                this.newLineField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool WordWrap {
-            get {
-                return this.wordWrapField;
-            }
-            set {
-                this.wordWrapField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool ReverseOrder {
-            get {
-                return this.reverseOrderField;
-            }
-            set {
-                this.reverseOrderField = value;
+                this.variableField = value;
             }
         }
         
@@ -494,24 +429,36 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool enable {
-            get {
-                return this.enableField;
-            }
-            set {
-                this.enableField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string Id {
             get {
                 return this.idField;
             }
             set {
                 this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(Node.Score)]
+        public Node Type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Parent {
+            get {
+                return this.parentField;
+            }
+            set {
+                this.parentField = value;
             }
         }
         
@@ -524,6 +471,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.orderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool enable {
+            get {
+                return this.enableField;
+            }
+            set {
+                this.enableField = value;
             }
         }
     }
@@ -546,86 +505,16 @@ namespace MediaPortal.Plugin.ScoreCenter {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
-    public partial class CategoryImg {
-        
-        private string nameField;
-        
-        private string pathField;
+    public enum Node {
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
+        Score,
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
-    public partial class LeagueImg {
-        
-        private string categoryField;
-        
-        private string nameField;
-        
-        private string pathField;
+        Folder,
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Category {
-            get {
-                return this.categoryField;
-            }
-            set {
-                this.categoryField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
+        RSS,
     }
     
     /// <remarks/>
@@ -639,8 +528,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private ScoreCenterSetup setupField;
         
-        private ScoreCenterImages imagesField;
-        
         private Style[] stylesField;
         
         private Score[] scoresField;
@@ -653,17 +540,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.setupField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public ScoreCenterImages Images {
-            get {
-                return this.imagesField;
-            }
-            set {
-                this.imagesField = value;
             }
         }
         
@@ -718,6 +594,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string homeField;
         
+        private int versionField;
+        
         public ScoreCenterSetup() {
             this.cacheExpirationField = 5;
             this.defaultSkinColorField = -16776961;
@@ -727,6 +605,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.updateUrlField = "";
             this.updateRuleField = "";
             this.homeField = "";
+            this.versionField = 1;
         }
         
         /// <remarks/>
@@ -835,6 +714,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
                 this.homeField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(1)]
+        public int version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -853,40 +744,5 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         Manually,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ScoreCenterImages {
-        
-        private CategoryImg[] categoryImgField;
-        
-        private LeagueImg[] leagueImgField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CategoryImg")]
-        public CategoryImg[] CategoryImg {
-            get {
-                return this.categoryImgField;
-            }
-            set {
-                this.categoryImgField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("LeagueImg")]
-        public LeagueImg[] LeagueImg {
-            get {
-                return this.leagueImgField;
-            }
-            set {
-                this.leagueImgField = value;
-            }
-        }
     }
 }

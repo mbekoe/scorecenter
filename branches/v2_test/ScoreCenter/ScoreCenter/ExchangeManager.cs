@@ -48,8 +48,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return result;
 
             List<Score> toImport = new List<Score>();
-            Dictionary<string, CategoryImg> importedCategories = new Dictionary<string, CategoryImg>();
-            Dictionary<string, LeagueImg> importedLeagues = new Dictionary<string, LeagueImg>();
             foreach (Score score in imported.Scores)
             {
                 Score exist = center.FindScore(score.Id);
@@ -71,26 +69,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                         result++;
                         score.SetNew();
                         score.enable = true;
-
-                        if (!importedCategories.ContainsKey(score.Category)
-                            && center.FindCategoryImage(score.Category) == null)
-                        {
-                            CategoryImg img = imported.FindCategoryImage(score.Category);
-                            if (img != null)
-                            {
-                                importedCategories.Add(score.Category, img);
-                            }
-                        }
-
-                        if (!importedLeagues.ContainsKey(score.LeagueFullName)
-                            && center.FindLeagueImage(score.Category, score.Ligue) == null)
-                        {
-                            LeagueImg img = imported.FindLeagueImage(score.Category, score.Ligue);
-                            if (img != null)
-                            {
-                                importedLeagues.Add(score.LeagueFullName, img);
-                            }
-                        }
                     }
                 }
             }
@@ -103,46 +81,17 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
                 else
                 {
-                    Score[] list = new Score[center.Scores.Length + toImport.Count];
-                    if (center.Scores != null)
-                    {
-                        center.Scores.CopyTo(list, 0);
-                    }
+                    //Score[] list = new Score[center.Scores.Length + toImport.Count];
+                    //center.Scores.CopyTo(list, 0);
 
-                    int i = center.Scores.Length;
-                    foreach (Score sc in toImport)
-                    {
-                        list[i++] = sc;
-                    }
+                    //int i = center.Scores.Length;
+                    //foreach (Score sc in toImport)
+                    //{
+                    //    list[i++] = sc;
+                    //}
 
-                    center.Scores = list;
-                }
-            }
-
-            if (center.Images == null)
-                center.Images = new ScoreCenterImages();
-
-            if (importedCategories.Count > 0)
-            {
-                if (center.Images.CategoryImg == null)
-                {
-                    center.Images.CategoryImg = importedCategories.Values.ToArray();
-                }
-                else
-                {
-                    center.Images.CategoryImg = center.Images.CategoryImg.Concat(importedCategories.Values).ToArray();
-                }
-            }
-
-            if (importedLeagues.Count > 0)
-            {
-                if (center.Images.LeagueImg == null)
-                {
-                    center.Images.LeagueImg = importedLeagues.Values.ToArray();
-                }
-                else
-                {
-                    center.Images.LeagueImg = center.Images.LeagueImg.Concat(importedLeagues.Values).ToArray();
+                    //center.Scores = list;
+                    center.Scores = center.Scores.Concat(toImport).ToArray();
                 }
             }
 
@@ -207,8 +156,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             // create list including all icons
             List<string> icons = new List<string>();
 
-            icons.AddRange(center.Images.CategoryImg.Select(img => img.Path));
-            icons.AddRange(center.Images.LeagueImg.Select(img => img.Path));
             icons.AddRange(center.Scores.Select(sc => sc.Image));
 
             // check if an icon is missing

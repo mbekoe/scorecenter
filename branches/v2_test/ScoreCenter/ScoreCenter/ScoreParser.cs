@@ -24,9 +24,12 @@
 #endregion
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using HtmlAgilityPack;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -50,8 +53,53 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>A string matrix representing the score to be displayed.</returns>
         public string[][] Read(Score score, bool reload)
         {
+            if (score.Type == Node.Score)
+                return ReadScore(score, reload);
+            if (score.Type == Node.RSS)
+                return ReadRss(score, reload);
+
+            throw new System.NotSupportedException(String.Format("Score Type {0} is not supported", score.Type));
+        }
+
+        private string[][] ReadRss(Score score, bool reload)
+        {
+            XDocument feedXML = XDocument.Load("http://www.lequipe.fr/Xml/Football/Titres/actu_rss.xml");
+
+            var title = feedXML.Descendants("title");
+            if (title != null && title.Count() > 0)
+                System.Console.WriteLine(title.First().Value);
+
+            IList<string[]> feeds = new List<string[]>();
+            foreach (var f in feedXML.Descendants("item"))
+            {
+                feeds.Add(new string[] { new FeedItem(f).ToString() });
+            }
+
+            return feeds.ToArray();
+        }
+
+        private string[][] ReadScore(Score score, bool reload)
+        {
             // get score definition
-            string url = ParseUrl(score.Url);
+            string url = ParseUrl(score.Url, score.variable);
+            
+            ParsingOptions poptions = score.GetParseOption();
+            bool newLine = Score.HasPO(poptions, ParsingOptions.NewLine);
+
+            // get the html
+            string html = m_cache.GetScore(url, score.Encoding, reload);
+            html = html.Replace("<br>", newLine ? Environment.NewLine : " ");
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.OptionReadEncoding = false;
+            doc.LoadHtml(html);
+
+            // parse it
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
+            List<string[]> ll = new List<string[]>();
+            
+            // add headers
+            AddHeaders(score, ll);
+
             List<int> indexes = null;
             if (score.Element.Length > 0)
             {
@@ -71,20 +119,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             int max = score.MaxLines;
             if (max > 0) max += skip;
 
-            // get the html
-            string html = m_cache.GetScore(url, score.Encoding, reload);
-            html = html.Replace("<br>", score.NewLine ? Environment.NewLine : " ");
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.OptionReadEncoding = false;
-            doc.LoadHtml(html);
-
-            // parse it
-            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
-            List<string[]> ll = new List<string[]>();
-            
-            // add headers
-            AddHeaders(score, ll);
-
             if (nodes != null && nodes.Count > 0)
             {
                 int inode = -1;
@@ -94,7 +128,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (indexes != null && !indexes.Contains(inode))
                         continue;
 
-                    string[][] rr = ParseTable(node, skip, max, score.UseTheader, score.UseCaption, score.NewLine);
+                    string[][] rr = ParseTable(node, skip, max, poptions);
                     if (rr != null)
                     {
                         ll.AddRange(rr);
@@ -141,10 +175,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The parsed URL.</returns>
         public static string ParseUrl(string url)
         {
+            return ParseUrl(url, 0);
+        }
+        public static string ParseUrl(string url, int delta)
+        {
             string result = url;
 
             // parse date format
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now.AddDays(delta);
             int start, end;
             while ((start = result.IndexOf('{') + 1) > 0)
             {
@@ -171,13 +209,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="table">The HtmlNode representing the table to parse.</param>
         /// <param name="skip">The number of line to parse.</param>
         /// <param name="max">The maximum number of line to parse.</param>
-        /// <param name="useTheader">True to parse the thead and tfoot tags.</param>
-        /// <param name="useCaption">True to parse the caption tags.</param>
-        /// <param name="allowNewLine">True to allow new lines in a cell, False will remove new lines.</param>
+        /// <param name="options">Parsing options.</param>
         /// <returns></returns>
         private static string[][] ParseTable(HtmlNode table,
-            int skip, int max, bool useTheader, bool useCaption, bool allowNewLine)
+            int skip, int max, ParsingOptions options)
         {
+            bool allowNewLine = Score.HasPO(options, ParsingOptions.NewLine);
+            bool useTheader = Score.HasPO(options, ParsingOptions.UseTheader);
+            bool useCaption = Score.HasPO(options, ParsingOptions.Caption);
+
             string xpathHeader = ".//tr";
             if (useTheader) xpathHeader += " | .//thead | .//tfoot";
             if (useCaption) xpathHeader += " | .//caption";
@@ -247,8 +287,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     Score item = new Score();
                     item.Name = node.NextSibling.InnerHtml;
                     item.Url = Tools.GetDomain(source.Url, source.Headers + "/" + url);
-                    item.Category = source.Category;
-                    item.Ligue = source.Ligue;
                     item.Encoding = source.Encoding;
                     item.XPath = source.Name;
 
@@ -305,6 +343,37 @@ namespace MediaPortal.Plugin.ScoreCenter
         public void ClearCache()
         {
             m_cache.Clear(); ;
+        }
+
+        public class FeedItem
+        {
+            public string Title { get; set; }
+            public string Link { get; set; }
+            public string Description { get; set; }
+            public DateTime Date { get; set; }
+
+            public FeedItem(XElement elt)
+            {
+                XElement xe = elt.Element("title");
+                if (xe != null) this.Title = xe.Value.Normalize();
+
+                xe = elt.Element("link");
+                if (xe != null) this.Link = xe.Value;
+
+                xe = elt.Element("description");
+                if (xe != null) this.Description = xe.Value;
+
+                xe = elt.Element("pubDate");
+                if (xe != null) this.Date = DateTime.Parse(xe.Value);
+            }
+
+            public override string ToString()
+            {
+                //return String.Format("{0:g}: {1}", this.Date, this.Title.Substring(0, Math.Min(Title.Length, 10)));
+                //if (this.Title.Length <= 49)
+                return String.Format("{0}: {1}", this.Date.ToString("dd/MM HH:mm"), this.Title);
+                //return "---";
+            }
         }
     }
 }
