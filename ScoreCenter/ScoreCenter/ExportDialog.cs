@@ -51,25 +51,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             List<string> styles = new List<string>();
 
             // navigate through the nodes and export only the checked nodes
-            foreach (ThreeStateTreeNode catNode in treeView1.Nodes)
+            foreach (ThreeStateTreeNode scoreNode in treeView1.GetCheckedNodes())
             {
-                foreach (ThreeStateTreeNode leagueNode in catNode.Nodes)
+                if (scoreNode.Checked)
                 {
-                    foreach (ThreeStateTreeNode scoreNode in leagueNode.Nodes)
-                    {
-                        if (scoreNode.Checked)
-                        {
-                            Score score = scoreNode.Tag as Score;
-                            scores.Add(score);
+                    Score score = scoreNode.Tag as Score;
+                    scores.Add(score);
 
-                            if (score.Rules != null)
-                            {
-                                foreach (Rule r in score.Rules)
-                                {
-                                    if (styles.Contains(r.Format) == false)
-                                        styles.Add(r.Format);
-                                }
-                            }
+                    if (score.Rules != null)
+                    {
+                        foreach (Rule r in score.Rules)
+                        {
+                            if (styles.Contains(r.Format) == false)
+                                styles.Add(r.Format);
                         }
                     }
                 }

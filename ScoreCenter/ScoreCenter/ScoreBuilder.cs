@@ -64,7 +64,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         public IList<TC> Build(string[][] labels, int startLine, int startColumn,
-            int startX, int startY, int pnlWidth, int pnlHeight, bool reverseOrder,
+            int startX, int startY, int pnlWidth, int pnlHeight,
             CreateControlDelegate createControl,
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
@@ -91,6 +91,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             ColumnDisplay[] cols = GetSizes(labels);
 
             RuleEvaluator engine = new RuleEvaluator(Score.Rules);
+
+            ParsingOptions opt = Score.GetParseOption();
+            bool reverseOrder = Score.HasPO(opt, ParsingOptions.Reverse);
+            bool wordWrap = Score.HasPO(opt, ParsingOptions.WordWrap);
 
             // for all the rows
             List<TC> controls = new List<TC>();
@@ -164,7 +168,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     int maxChar = Math.Min(colSize.Size + 1, maxColumnSize);
 
                     // wrap needed?
-                    if (Score.WordWrap || AutoWrap)
+                    if (wordWrap || AutoWrap)
                     {
                         int i = maxChar + 1;
                         while (i < cell.Length)
@@ -223,7 +227,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                             aa[i],
                             m_fontName, m_fontSize, cellStyle, maxChar, colIndex);
 
-                        controls.Add(control);
+                        if (control != null)
+                        {
+                            controls.Add(control);
+                        }
                     }
 
                     // set X pos to the end of the control
@@ -234,6 +241,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 posY += m_charHeight * nbLines;
             }
 
+            Tools.LogMessage("{0} controls created", controls.Count);
             return controls;
         }
 

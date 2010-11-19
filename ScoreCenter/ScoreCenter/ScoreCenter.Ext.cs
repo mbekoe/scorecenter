@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -19,6 +20,16 @@ namespace MediaPortal.Plugin.ScoreCenter
         Rules = 8,
         OverwriteIcons = 16,
         All = New | Names | Parsing | Rules | OverwriteIcons
+    }
+    [Flags]
+    public enum ParsingOptions
+    {
+        None = 0,
+        UseTheader = 1,
+        Caption = 2,
+        NewLine = 4,
+        WordWrap = 8,
+        Reverse = 16
     }
 
     public static class EnumManager
@@ -103,21 +114,39 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.Scores = Tools.RemoveElement<Score>(this.Scores, score);
         }
 
-        public IEnumerable<string> ReadCategories()
+        public IEnumerable<Score> ReadChildren(string id)
         {
-            return this.Scores.Where(score => score.enable)
-                .Select(score => score.Category).Distinct();
+            return this.Scores.Where(score => score.enable && score.Parent == id);
         }
 
-        public IEnumerable<string> ReadLeagues(string category)
+        public void DisableScore(Score score)
         {
-            return this.Scores.Where(score => score.enable && score.Category == category)
-                .Select(score => score.Ligue).Distinct();
+            if (score == null)
+                return;
+
+            score.enable = false;
+            foreach (Score sc in this.ReadChildren(score.Id))
+            {
+                DisableScore(sc);
+            }
+        }
+        public string GetFullName(Score score)
+        {
+            if (score == null)
+                return "";
+
+            string full = score.Name;
+            if (!String.IsNullOrEmpty(score.Parent))
+            {
+                full = GetFullName(this.FindScore(score.Parent)) + "." + full;
+            }
+
+            return full;
         }
 
         public Score FindScore(string id)
         {
-            if (this.Scores == null)
+            if (this.Scores == null || String.IsNullOrEmpty(id))
                 return null;
 
             return this.Scores.FirstOrDefault(score => score.Id == id);
@@ -129,34 +158,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return null;
 
             return this.Styles.FirstOrDefault(style => style.Name == name);
-        }
-
-        public bool IsCategoryUpdated(string category)
-        {
-            bool res = this.Scores.Count(score => score.IsNew() && score.Category == category) > 0;
-            //Tools.LogMessage("IsCategoryUpdated {0} {1}", category, res);
-            return res;
-        }
-
-        public bool IsLeagueUpdated(string category, string league)
-        {
-            return this.Scores.Count(score => score.IsNew() && score.Category == category && score.Ligue == league) > 0;
-        }
-
-        public CategoryImg FindCategoryImage(string category)
-        {
-            if (category == " " || this.Images == null || this.Images.CategoryImg == null)
-                return null;
-
-            return this.Images.CategoryImg.FirstOrDefault(img => img.Name == category);
-        }
-
-        public LeagueImg FindLeagueImage(string category, string league)
-        {
-            if (league == " " || this.Images == null || this.Images.LeagueImg == null)
-                return null;
-
-            return this.Images.LeagueImg.FirstOrDefault(img => img.Category == category && img.Name == league);
         }
 
         public bool OverrideIcons()
@@ -186,6 +187,36 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_new = true;
         }
 
+        public static bool HasPO(ParsingOptions opt, ParsingOptions o)
+        {
+            return (opt & o) == o;
+        }
+
+        public ParsingOptions GetParseOption()
+        {
+            ParsingOptions opt = ParsingOptions.None;
+            if (!String.IsNullOrEmpty(this.ParseOptions))
+            {
+                if (!String.IsNullOrEmpty(this.ParseOptions))
+                    opt = (ParsingOptions)Enum.Parse(typeof(ParsingOptions), this.ParseOptions);
+            }
+
+            return opt;
+        }
+
+        public void SetParseOption(bool caption, bool theader, bool newLine, bool wordWrap, bool reverse)
+        {
+            ParsingOptions opt = ParsingOptions.None;
+
+            if (caption) opt |= ParsingOptions.Caption;
+            if (theader) opt |= ParsingOptions.UseTheader;
+            if (newLine) opt |= ParsingOptions.NewLine;
+            if (wordWrap) opt |= ParsingOptions.WordWrap;
+            if (reverse) opt |= ParsingOptions.Reverse;
+
+            this.ParseOptions = opt.ToString();
+        }
+
         /// <summary>
         /// Merge this score with newScore using given options.
         /// </summary>
@@ -197,13 +228,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             bool result = false;
             if ((option & ImportOptions.Names) == ImportOptions.Names)
             {
-                result |= (String.Compare(this.Name, newScore.Name, true) != 0)
-                    || (String.Compare(this.Category, newScore.Category, true) != 0)
-                    || (String.Compare(this.Ligue, newScore.Ligue, true) != 0);
+                result |= (String.Compare(this.Name, newScore.Name, true) != 0);
 
                 this.Name = newScore.Name;
-                this.Category = newScore.Category;
-                this.Ligue = newScore.Ligue;
+                this.Parent = newScore.Parent;
                 this.Image = newScore.Image;
 
                 if (newScore.Headers.Length > 0 || this.Headers.Length == 0)
@@ -230,11 +258,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Element = newScore.Element;
                 this.BetweenElts = newScore.BetweenElts;
                 this.Encoding = newScore.Encoding;
-                this.UseTheader = newScore.UseTheader;
-                this.UseCaption = newScore.UseCaption;
-                this.NewLine = newScore.NewLine;
-                this.WordWrap = newScore.WordWrap;
-                this.ReverseOrder = newScore.ReverseOrder;
+                this.ParseOptions = newScore.ParseOptions;
             }
 
             if ((option & ImportOptions.Rules) == ImportOptions.Rules)
@@ -249,27 +273,38 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
-        public string LeagueFullName
-        {
-            get
-            {
-                return String.Format("{0}#{1}", Category, Ligue);
-            }
-        }
-
-        public string ScorePath
-        {
-            get
-            {
-                return String.Format(@"{0}\{1}\{2}", Category, Ligue, Name);
-            }
-        }
-
         public int CompareTo(Score other)
         {
             int diff = this.Order - other.Order;
             if (diff == 0) diff = String.Compare(this.Name, other.Name);
             return diff;
+        }
+
+        internal Score Clone(string id)
+        {
+            Score copy = new Score();
+            copy.Id = id;
+            if (String.IsNullOrEmpty(id)) copy.Id = Tools.GenerateId();
+
+            copy.Type = this.Type;
+            copy.Name = this.Name;
+            copy.Url = this.Url;
+            copy.XPath = this.XPath;
+            copy.Headers = this.Headers;
+            copy.Sizes = this.Sizes;
+            copy.Skip = this.Skip;
+            copy.MaxLines = this.MaxLines;
+            copy.Image = this.Image;
+            copy.Element = this.Element;
+            copy.Encoding = this.Encoding;
+            copy.ParseOptions = this.ParseOptions;
+
+            return copy;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} [{1}]", this.Name, this.Id);
         }
     }
 

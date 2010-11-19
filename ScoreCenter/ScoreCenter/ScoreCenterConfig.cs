@@ -66,8 +66,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             this.ShowInTaskbar = showInTaskbar;
 
-            tbxCategory.TextChanged += new EventHandler(ScoreChanged);
-            tbxLeague.TextChanged += new EventHandler(ScoreChanged);
             tbxScore.TextChanged += new EventHandler(ScoreChanged);
             tbxUrl.TextChanged += new EventHandler(ScoreChanged);
             tbxXpath.TextChanged += new EventHandler(ScoreChanged);
@@ -134,6 +132,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
+        private void EnableControls(params Control[] controls)
+        {
+            foreach (Control ctr in gbxScore.Controls)
+            {
+                ctr.Enabled = (controls.Length == 0 || controls.Contains(ctr));
+            }
+        }
+
         private void UpdateStyleList()
         {
             colStyle.Items.Clear();
@@ -154,40 +160,50 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (center == null || center.Scores == null)
                 return;
 
-            IEnumerable<string> categories = center.Scores.Select(sc => sc.Category).Distinct();
-
-            foreach (string cat in categories)
+            tree.BeginUpdate();
+            Dictionary<string, ThreeStateTreeNode> nodes = new Dictionary<string, ThreeStateTreeNode>(center.Scores.Count());
+            foreach (var sc in center.Scores)
             {
-                ThreeStateTreeNode cnode = new ThreeStateTreeNode(cat);
-                cnode.Name = cat;
-                tree.Nodes.Add(cnode);
-
-                IEnumerable<Score> scores = center.Scores.Where(sc => sc.Category == cat);
-                IEnumerable<string> leagues = scores.Select(sc => sc.Ligue).Distinct();
-                foreach (string league in leagues)
+                ThreeStateTreeNode node = new ThreeStateTreeNode(sc.Name);
+                node.Tag = sc;
+                nodes.Add(sc.Id, node);
+                if (sc.Type != Node.Folder && sc.enable && show)
                 {
-                    ThreeStateTreeNode lnode = new ThreeStateTreeNode(league);
-                    lnode.Name = league;
-                    cnode.Nodes.Add(lnode);
-
-                    IEnumerable<Score> leagueScores = scores.Where(sc => sc.Ligue == league);
-                    foreach (Score score in leagueScores)
-                    {
-                        ThreeStateTreeNode snode = new ThreeStateTreeNode(score.Name);
-                        lnode.Nodes.Add(snode);
-                        snode.Tag = score;
-                        if (score.enable && show)
-                        {
-                            snode.State = CheckBoxState.Checked;
-                        }
-                    }
-
-                    ThreeStateTreeNode leaf = lnode.FirstNode as ThreeStateTreeNode;
-                    leaf.UpdateStateOfRelatedNodes();
+                    node.Checked = true;
+                    node.State = CheckBoxState.Checked;
                 }
             }
 
+            foreach (KeyValuePair<string, ThreeStateTreeNode> pair in nodes)
+            {
+                ThreeStateTreeNode node = pair.Value;
+                Score sc = node.Tag as Score;
+                if (String.IsNullOrEmpty(sc.Parent))
+                {
+                    tree.Nodes.Add(node);
+                }
+                else
+                {
+                    if (nodes.ContainsKey(sc.Parent))
+                    {
+                        nodes[sc.Parent].Nodes.Add(node);
+                    }
+                }
+            }
+
+            RefreshTreeState(tree.Nodes);
+            tree.EndUpdate();
             tree.Sort();
+        }
+
+        private static void RefreshTreeState(TreeNodeCollection nodes)
+        {
+            foreach (ThreeStateTreeNode node in nodes)
+            {
+                if (node.Nodes.Count == 0)
+                    node.UpdateStateOfRelatedNodes();
+                RefreshTreeState(node.Nodes);
+            }
         }
 
         private void RefreshTree()
@@ -248,14 +264,49 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
 
             errorProvider1.Clear();
-            if (tvwScores.SelectedNode.Level == 2)
+
+            // always clear
+            tbxScore.Text = String.Empty;
+            tbxUrl.Text = String.Empty;
+            tbxXpath.Text = String.Empty;
+            tbxEncoding.Text = String.Empty;
+            tbxHeaders.Text = String.Empty;
+            tbxSizes.Text = String.Empty;
+            tbxSkip.Text = String.Empty;
+            tbxMaxLines.Text = String.Empty;
+            tbxElement.Text = String.Empty;
+            ckxUseTheader.Checked = false;
+            ckxUseCaption.Checked = false;
+            ckxNewLine.Checked = false;
+            ckxAllowWrapping.Checked = false;
+            ClearIcon();
+
+            grdRule.Rows.Clear();
+            grdRule.Enabled = false;
+
+            Score score = tvwScores.SelectedNode.Tag as Score;
+            ParsingOptions options = score.GetParseOption();
+
+            if (score.Type == Node.Folder)
+            {
+                EnableControls(tbxScore, btnSave);
+
+                tbxScore.Text = score.Name;
+                SetIcon(score.Image);
+            }
+            else if (score.Type == Node.RSS)
+            {
+                EnableControls(tbxScore, tbxUrl, btnSave, btnTest, btnOpenUrl);
+
+                tbxScore.Text = score.Name;
+                tbxUrl.Text = score.Url;
+                SetIcon(score.Image);
+            }
+            else if (score.Type == Node.Score)
             {
                 // score
-                gbxScore.Enabled = true;
-                Score score = tvwScores.SelectedNode.Tag as Score;
+                EnableControls();
 
-                tbxCategory.Text = score.Category;
-                tbxLeague.Text = score.Ligue;
                 tbxScore.Text = score.Name;
 
                 tbxUrl.Text = score.Url;
@@ -266,59 +317,23 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxSkip.Text = score.Skip.ToString();
                 tbxMaxLines.Text = score.MaxLines.ToString();
                 tbxElement.Text = score.Element;
-                ckxUseTheader.Checked = score.UseTheader;
-                ckxUseCaption.Checked = score.UseCaption;
-                ckxNewLine.Checked = score.NewLine;
-                ckxAllowWrapping.Checked = score.WordWrap;
-                ckxReverseOrder.Checked = score.ReverseOrder;
+                
+                ckxUseTheader.Checked = Score.HasPO(options, ParsingOptions.UseTheader);
+                ckxUseCaption.Checked = Score.HasPO(options, ParsingOptions.Caption);
+                ckxNewLine.Checked = Score.HasPO(options, ParsingOptions.NewLine);
+                ckxAllowWrapping.Checked = Score.HasPO(options, ParsingOptions.WordWrap);
+                ckxReverseOrder.Checked = Score.HasPO(options, ParsingOptions.Reverse);
                 cbxBetweenElements.SelectedValue = score.BetweenElts;
                 SetIcon(score.Image);
 
                 grdRule.Enabled = true;
                 SetRules(score);
             }
-            else
-            {
-                // category or league
-                gbxScore.Enabled = false;
-
-                tbxCategory.Text = String.Empty;
-                tbxLeague.Text = String.Empty;
-                tbxScore.Text = String.Empty;
-
-                tbxUrl.Text = String.Empty;
-                tbxXpath.Text = String.Empty;
-                tbxEncoding.Text = String.Empty;
-                tbxHeaders.Text = String.Empty;
-                tbxSizes.Text = String.Empty;
-                tbxSkip.Text = String.Empty;
-                tbxMaxLines.Text = String.Empty;
-                tbxElement.Text = String.Empty;
-                ckxUseTheader.Checked = false;
-                ckxUseCaption.Checked = false;
-                ckxNewLine.Checked = false;
-                ckxAllowWrapping.Checked = false;
-
-                ClearIcon();
-                if (tvwScores.SelectedNode.Level == 0)
-                {
-                    CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
-                    if (img != null) SetIcon(img.Path);
-                }
-                else
-                {
-                    LeagueImg img = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
-                    if (img != null) SetIcon(img.Path);
-                }
-
-                grdRule.Rows.Clear();
-                grdRule.Enabled = false;
-            }
 
             ClearTestGrid();
-            tsbCopyScore.Enabled = (tvwScores.SelectedNode.Level == 2);
-            tsbMoveUp.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.PrevNode != null;
-            tsbMoveDown.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.NextNode != null;
+            tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
+            tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
+            tsbNewLigue.Enabled = score.Type == Node.Folder;
 
             SetScoreStatus(true);
         }
@@ -383,20 +398,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                 Score score = tvwScores.SelectedNode.Tag as Score;
 
                 // check if hierarchie changed
-                bool refresh = true;
-                if (score.Category == tbxCategory.Text
-                    && score.Ligue == tbxLeague.Text)
-                {
-                    refresh = false;
-                }
+                bool refresh = false;
 
                 if (score.Name != tbxScore.Text)
                 {
                     tvwScores.SelectedNode.Text = tbxScore.Text;
                 }
 
-                score.Category = tbxCategory.Text;
-                score.Ligue = tbxLeague.Text;
                 score.Name = tbxScore.Text;
                 
                 score.Url = tbxUrl.Text;
@@ -405,11 +413,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 score.Sizes = tbxSizes.Text;
                 score.Encoding = tbxEncoding.Text;
                 score.Element = tbxElement.Text;
-                score.UseTheader = ckxUseTheader.Checked;
-                score.UseCaption = ckxUseCaption.Checked;
-                score.NewLine = ckxNewLine.Checked;
-                score.WordWrap = ckxAllowWrapping.Checked;
-                score.ReverseOrder = ckxReverseOrder.Checked;
+
+                score.SetParseOption(ckxUseCaption.Checked,  ckxUseTheader.Checked,
+                    ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked);
                 score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
 
                 if (tbxSkip.Text.Length == 0) score.Skip = 0;
@@ -517,27 +523,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void SaveConfig()
         {
             #region Order
-            if (m_center.Images != null && m_center.Images.CategoryImg != null)
-            {
-                m_center.Images.CategoryImg = m_center.Images.CategoryImg.OrderBy(img => img.Name).ToArray();
-            }
-
-            if (m_center.Images !=null && m_center.Images.LeagueImg != null)
-            {
-                m_center.Images.LeagueImg = m_center.Images.LeagueImg.OrderBy(img => img.Category)
-                    .ThenBy(img => img.Name)
-                    .ToArray();
-            }
-
             if (m_center.Scores != null)
             {
-                m_center.Scores = m_center.Scores.OrderBy(sc => sc.Category)
-                    .ThenBy(sc => sc.Ligue)
-                    .ThenBy(sc => sc.Order)
-                    .ThenBy(sc => sc.Name)
+                m_center.Scores = m_center.Scores.OrderBy(sc => sc.Parent)
+                    .ThenBy(sc => sc.Id)
                     .ToArray();
             }
             #endregion
+
+            //m_center.Scores.Where(x => x.Type == Node.Folder).ForEach(x => x.ParseOptions = "UseTheader");
 
             Tools.SaveSettings(m_settings, m_center, true);
         }
@@ -550,20 +544,22 @@ namespace MediaPortal.Plugin.ScoreCenter
             try
             {
                 this.Cursor = Cursors.WaitCursor;
+                Score currScore = tvwScores.SelectedNode.Tag as Score;
+                if (currScore == null)
+                    return;
 
                 // note create a fake ScoreCenterScore to use current values
                 // instead of saved values
                 Score score = new Score();
+                score.Type = currScore.Type;
+
                 score.Url = tbxUrl.Text;
                 score.Encoding = tbxEncoding.Text;
                 score.XPath = tbxXpath.Text;
                 score.Sizes = tbxSizes.Text;
                 score.Headers = tbxHeaders.Text;
-                score.UseTheader = ckxUseTheader.Checked;
-                score.UseCaption = ckxUseCaption.Checked;
-                score.NewLine = ckxNewLine.Checked;
-                score.WordWrap = ckxAllowWrapping.Checked;
-                score.ReverseOrder = ckxReverseOrder.Checked;
+                score.SetParseOption(ckxUseCaption.Checked, ckxUseTheader.Checked,
+                    ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked);
                 score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
 
                 score.Element = tbxElement.Text;
@@ -596,7 +592,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 IList<Control> controls = bld.Build(lines,
                     0, 0,
-                    0, 0, pnlTest.Width, pnlTest.Height, score.ReverseOrder,
+                    0, 0, pnlTest.Width, pnlTest.Height,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
 
@@ -666,69 +662,39 @@ namespace MediaPortal.Plugin.ScoreCenter
             return -1;
         }
 
-        private void tsbNewLigue_Click(object sender, EventArgs e)
+        private void tsbNewItem_Click(object sender, EventArgs e)
         {
-            string newName = Properties.Resources.NewItem;
-
             TreeNode parentNode = null;
-            if (tvwScores.SelectedNode == null)
-            {
-                if (tvwScores.Nodes.Count == 0)
-                {
-                    tvwScores.Nodes.Add(newName);
-                }
-
-                parentNode = tvwScores.Nodes[0];
-            }
-            else
+            Score parent = null;
+            if (tvwScores.SelectedNode != null)
             {
                 parentNode = tvwScores.SelectedNode;
+                parent = parentNode.Tag as Score;
             }
 
-            TreeNode categoryNode = null;
-            TreeNode leagueNode = null;
-            string name = newName;
-
-            switch (parentNode.Level)
+            using (var dlg = new CreateScoreDlg(parent))
             {
-                case 1:
-                    categoryNode = parentNode.Parent;
-                    break;
-                case 2:
-                    categoryNode = parentNode.Parent.Parent;
-                    leagueNode = parentNode.Parent;
-                    break;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Score score = dlg.NewScore;
+                    m_center.AddScore(score);
+                    
+                    // create the tree node
+                    ThreeStateTreeNode newNode = new ThreeStateTreeNode(score.Name);
+                    newNode.Checked = true;
+                    newNode.State = CheckBoxState.Checked;
+                    newNode.Tag = score;
+
+                    if (String.IsNullOrEmpty(score.Parent))
+                    {
+                        tvwScores.Nodes.Add(newNode);
+                    }
+                    else
+                    {
+                        parentNode.Nodes.Add(newNode);
+                    }
+                }
             }
-
-            if (categoryNode == null)
-            {
-                categoryNode = new TreeNode();
-                categoryNode.Text = newName;
-                tvwScores.Nodes.Add(categoryNode);
-            }
-
-            if (leagueNode == null)
-            {
-                leagueNode = new TreeNode();
-                leagueNode.Text = newName;
-                categoryNode.Nodes.Add(leagueNode);
-            }
-
-            // create new item
-            Score score = new Score();
-            score.Id = Tools.GenerateId();
-            score.Category = categoryNode.Text;
-            score.Ligue = leagueNode.Text;
-            score.Name = name;
-
-            // add the new item and refresh
-            m_center.AddScore(score);
-
-            // create the tree node
-            ThreeStateTreeNode newNode = new ThreeStateTreeNode(score.Name);
-            newNode.Tag = score;
-
-            leagueNode.Nodes.Add(newNode);
         }
 
         private void btnAuto_Click(object sender, EventArgs e)
@@ -818,26 +784,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void tsbCopyScore_Click(object sender, EventArgs e)
         {
-            if (tvwScores.SelectedNode == null
-                || tvwScores.SelectedNode.Level != 2)
+            if (tvwScores.SelectedNode == null)
                 return;
 
             Score source = tvwScores.SelectedNode.Tag as Score;
-            Score copy = new Score();
-            copy.Id = Tools.GenerateId();
-            copy.Category = source.Category;
-            copy.Ligue = source.Ligue;
-            copy.Name = source.Name;
-            copy.Url = source.Url;
-            copy.XPath = source.XPath;
-            copy.Headers = source.Headers;
-            copy.Sizes = source.Sizes;
-            copy.Skip = source.Skip;
-            copy.MaxLines = source.MaxLines;
-            copy.Image = source.Image;
-            copy.Element = source.Element;
-            copy.Encoding = source.Encoding;
-            copy.UseTheader = source.UseTheader;
+            Score copy = source.Clone(Tools.GenerateId());
 
             // add the new item and refresh
             m_center.AddScore(copy);
@@ -856,74 +807,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
             }
             
-            switch (e.Node.Level)
-            {
-                case 0:
-                    // category
-                    UpdateScore(e.Node.Nodes, e.Label, String.Empty);
-                    tbxCategory.Text = e.Label;
-                    UpdateCategoryImage(e.Node.Text, e.Label);
-                    break;
-                case 1:
-                    // league
-                    UpdateScore(e.Node.Nodes, String.Empty, e.Label);
-                    UpdateLeagueImage(e.Node.Text, e.Node.Parent.Text, e.Label);
-                    tbxLeague.Text = e.Label;
-                    break;
-                case 2:
-                    // score
-                    Score score = e.Node.Tag as Score;
-                    score.Name = e.Label;
-                    tbxScore.Text = e.Label;
-                    break;
-            }
-        }
-
-        private void UpdateScore(TreeNodeCollection nodes, string category, string league)
-        {
-            foreach (TreeNode node in nodes)
-            {
-                if (node.Tag != null)
-                {
-                    Score score = node.Tag as Score;
-                    if (!String.IsNullOrEmpty(category)) score.Category = category;
-                    if (!String.IsNullOrEmpty(league)) score.Ligue = league;
-                }
-                else
-                {
-                    UpdateScore(node.Nodes, category, league);
-                }
-            }
-        }
-
-        private void UpdateCategoryImage(string prev, string category)
-        {
-            if (m_center.Images == null)
-                return;
-
-            if (m_center.Images.CategoryImg != null)
-            {
-                foreach (CategoryImg img in m_center.Images.CategoryImg)
-                {
-                    if (img.Name == prev)
-                        img.Name = category;
-                }
-            }
-        }
-
-        private void UpdateLeagueImage(string prev, string category, string league)
-        {
-            if (m_center.Images == null)
-                return;
-
-            if (m_center.Images.LeagueImg != null)
-            {
-                foreach (LeagueImg img in m_center.Images.LeagueImg)
-                {
-                    if (img.Name == prev && img.Category == category)
-                        img.Name = league;
-                }
-            }
+            Score score = e.Node.Tag as Score;
+            score.Name = e.Label;
+            tbxScore.Text = e.Label;
         }
 
         private void tvwScores_AfterCheck(object sender, TreeViewEventArgs e)
@@ -938,6 +824,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void btnSetIcon_Click(object sender, EventArgs e)
         {
             if (tvwScores.SelectedNode == null)
+                return;
+
+            Score score = tvwScores.SelectedNode.Tag as Score;
+            if (score == null)
                 return;
 
             if (ofdSelectIcon.ShowDialog() == DialogResult.OK)
@@ -958,36 +848,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 string iconName = newFI.FullName.Substring(root.Length + 1, newFI.FullName.Length - newFI.Extension.Length - root.Length - 1);
                 SetIcon(iconName);
 
-                switch (tvwScores.SelectedNode.Level)
-                {
-                    case 0:
-                        CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
-                        if (img == null)
-                        {
-                            img = new CategoryImg();
-                            img.Name = tvwScores.SelectedNode.Text;
-                            m_center.Images.CategoryImg = Tools.AddElement<CategoryImg>(m_center.Images.CategoryImg, img);
-                        }
-
-                        img.Path = iconName;
-                        break;
-                    case 1:
-                        LeagueImg limg = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
-                        if (limg == null)
-                        {
-                            limg = new LeagueImg();
-                            limg.Name = tvwScores.SelectedNode.Text;
-                            limg.Category = tvwScores.SelectedNode.Parent.Text;
-                            m_center.Images.LeagueImg = Tools.AddElement<LeagueImg>(m_center.Images.LeagueImg, limg);
-                        }
-
-                        limg.Path = iconName;
-                        break;
-                    case 2:
-                        Score score = tvwScores.SelectedNode.Tag as Score;
-                        score.Image = iconName;
-                        break;
-                }
+                score.Image = iconName;
             }
         }
 
@@ -996,19 +857,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (tvwScores.SelectedNode == null)
                 return;
 
-            switch (tvwScores.SelectedNode.Level)
+            Score score = tvwScores.SelectedNode.Tag as Score;
+            if (score != null)
             {
-                case 0:
-                    m_center.Images.CategoryImg = m_center.Images.CategoryImg.Where(limg => limg.Name != tvwScores.SelectedNode.Text).ToArray();
-                    break;
-                case 1:
-                    m_center.Images.LeagueImg = m_center.Images.LeagueImg.Where(limg => limg.Category != tvwScores.SelectedNode.Parent.Text
-                        || limg.Name != tvwScores.SelectedNode.Text).ToArray();
-                    break;
-                case 2:
-                    Score score = tvwScores.SelectedNode.Tag as Score;
-                    score.Image = String.Empty;
-                    break;
+                score.Image = String.Empty;
             }
 
             ClearIcon();
@@ -1086,8 +938,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 TreeNode tx = x as TreeNode;
                 TreeNode ty = y as TreeNode;
-                if (tx.Nodes.Count > 0)
-                    return String.Compare(tx.Text, ty.Text);
 
                 Score scx = tx.Tag as Score;
                 Score scy = ty.Tag as Score;
