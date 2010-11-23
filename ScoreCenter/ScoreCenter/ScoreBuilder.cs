@@ -93,8 +93,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             RuleEvaluator engine = new RuleEvaluator(Score.Rules);
 
             ParsingOptions opt = Score.GetParseOption();
-            bool reverseOrder = Score.HasPO(opt, ParsingOptions.Reverse);
-            bool wordWrap = Score.HasPO(opt, ParsingOptions.WordWrap);
+            bool reverseOrder = Score.CheckParsingOption(opt, ParsingOptions.Reverse);
+            bool wordWrap = Score.CheckParsingOption(opt, ParsingOptions.WordWrap);
 
             // for all the rows
             List<TC> controls = new List<TC>();

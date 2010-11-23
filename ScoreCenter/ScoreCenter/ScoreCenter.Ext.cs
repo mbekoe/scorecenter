@@ -34,6 +34,19 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     public static class EnumManager
     {
+        public static DataTable ReadNodeTypes()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(Node.Folder.ToString(), "Folder1");
+            dt.Rows.Add(Node.RSS.ToString(), "RSS");
+            dt.Rows.Add(Node.Score.ToString(), "Score");
+
+            return dt;
+        }
+
         public static DataTable ReadBetweenElements()
         {
             DataTable dt = new DataTable();
@@ -175,19 +188,19 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <summary>
         /// Flag to identify new downloaded score.
         /// </summary>
-        [NonSerialized]
-        private bool m_new = false;
-        
-        public bool IsNew()
+        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
+        public bool IsNew { get; set; }
+
+        [System.Xml.Serialization.XmlIgnore()]
+        public string LocName
         {
-            return m_new;
-        }
-        public void SetNew()
-        {
-            m_new = true;
+            get
+            {
+                return LocalizationManager.GetScoreString(this.Id, this.Name);
+            }
         }
 
-        public static bool HasPO(ParsingOptions opt, ParsingOptions o)
+        public static bool CheckParsingOption(ParsingOptions opt, ParsingOptions o)
         {
             return (opt & o) == o;
         }
@@ -276,7 +289,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         public int CompareTo(Score other)
         {
             int diff = this.Order - other.Order;
-            if (diff == 0) diff = String.Compare(this.Name, other.Name);
+            if (diff == 0) diff = String.Compare(this.LocName, other.LocName);
             return diff;
         }
 

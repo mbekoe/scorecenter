@@ -123,6 +123,9 @@
     <Compile Include="ScoreCenterGui.cs" />
     <Compile Include="ScoreCenterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreLocalisation.cs">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ScoreParser.cs" />
     <Compile Include="StyleControl.cs">
       <SubType>UserControl</SubType>
@@ -144,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Football.ico" />
+    <Content Include="language\score_fr.xml" />
     <Content Include="language\strings_de.xml" />
     <Content Include="language\strings_en.xml" />
     <Content Include="language\strings_fr.xml" />
@@ -177,6 +181,16 @@
     </None>
     <None Include="ScoreCenter.xss">
       <DependentUpon>ScoreCenter.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreLocalisation.xsc">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreLocalisation.xsd">
+      <LastGenOutput>ScoreLocalisation.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ScoreLocalisation.xss">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
