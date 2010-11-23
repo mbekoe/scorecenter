@@ -445,10 +445,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 foreach (Score sc in m_center.ReadChildren(id))
                 {
                     GUIListItem item = new GUIListItem();
-                    item.Label = sc.Name;
+                    item.Label = sc.LocName;
                     item.IsFolder = (sc.Type == Node.Folder);
                     item.IconImage = GetImage(sc.Image);
-                    item.IsPlayed = sc.IsNew();
+                    item.IsPlayed = sc.IsNew;
                     item.TVTag = sc;
 
                     lstDetails.Add(item);
@@ -587,7 +587,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else
             {
-                name = score.Name;
+                name = score.LocName;
                 image = score.Image;
 
                 if (String.IsNullOrEmpty(score.Url) == false)

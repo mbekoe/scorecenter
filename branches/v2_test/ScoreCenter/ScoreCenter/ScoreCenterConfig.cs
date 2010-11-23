@@ -318,11 +318,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                 tbxMaxLines.Text = score.MaxLines.ToString();
                 tbxElement.Text = score.Element;
                 
-                ckxUseTheader.Checked = Score.HasPO(options, ParsingOptions.UseTheader);
-                ckxUseCaption.Checked = Score.HasPO(options, ParsingOptions.Caption);
-                ckxNewLine.Checked = Score.HasPO(options, ParsingOptions.NewLine);
-                ckxAllowWrapping.Checked = Score.HasPO(options, ParsingOptions.WordWrap);
-                ckxReverseOrder.Checked = Score.HasPO(options, ParsingOptions.Reverse);
+                ckxUseTheader.Checked = Score.CheckParsingOption(options, ParsingOptions.UseTheader);
+                ckxUseCaption.Checked = Score.CheckParsingOption(options, ParsingOptions.Caption);
+                ckxNewLine.Checked = Score.CheckParsingOption(options, ParsingOptions.NewLine);
+                ckxAllowWrapping.Checked = Score.CheckParsingOption(options, ParsingOptions.WordWrap);
+                ckxReverseOrder.Checked = Score.CheckParsingOption(options, ParsingOptions.Reverse);
                 cbxBetweenElements.SelectedValue = score.BetweenElts;
                 SetIcon(score.Image);
 
@@ -505,7 +505,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            AboutDialog dlg = new AboutDialog();
+            AboutDialog dlg = new AboutDialog(m_center);
             dlg.ShowDialog();
         }
 
@@ -990,7 +990,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         private static void ReorderNodes(TreeNode node)
         {
             int i = 1;
-            foreach (TreeNode n in node.Parent.Nodes)
+            var coll = (node.Parent == null ? node.TreeView.Nodes : node.Parent.Nodes);
+            foreach (TreeNode n in coll)
             {
                 Score score = n.Tag as Score;
                 score.Order = i++;

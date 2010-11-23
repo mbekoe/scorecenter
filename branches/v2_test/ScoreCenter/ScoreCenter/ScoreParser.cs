@@ -84,7 +84,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string url = ParseUrl(score.Url, score.variable);
             
             ParsingOptions poptions = score.GetParseOption();
-            bool newLine = Score.HasPO(poptions, ParsingOptions.NewLine);
+            bool newLine = Score.CheckParsingOption(poptions, ParsingOptions.NewLine);
 
             // get the html
             string html = m_cache.GetScore(url, score.Encoding, reload);
@@ -214,9 +214,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         private static string[][] ParseTable(HtmlNode table,
             int skip, int max, ParsingOptions options)
         {
-            bool allowNewLine = Score.HasPO(options, ParsingOptions.NewLine);
-            bool useTheader = Score.HasPO(options, ParsingOptions.UseTheader);
-            bool useCaption = Score.HasPO(options, ParsingOptions.Caption);
+            bool allowNewLine = Score.CheckParsingOption(options, ParsingOptions.NewLine);
+            bool useTheader = Score.CheckParsingOption(options, ParsingOptions.UseTheader);
+            bool useCaption = Score.CheckParsingOption(options, ParsingOptions.Caption);
 
             string xpathHeader = ".//tr";
             if (useTheader) xpathHeader += " | .//thead | .//tfoot";

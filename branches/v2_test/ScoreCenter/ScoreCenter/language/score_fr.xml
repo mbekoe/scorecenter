@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  <Strings>
+    <LocString id="Cycling">Cyclisme</LocString>
+    <LocString id="Ice_Hockey">Hockey sur glace</LocString>
+    <LocString id="Skiing">Ski</LocString>
+    <LocString id="Motors">Auto/Moto</LocString>
+  </Strings>
+  <Globals>
+    <LocString id="Results">Résultats</LocString>
+    <LocString id="Standings">Classement</LocString>
+    <LocString id="Rankings">Classement</LocString>
+    <LocString id="Top Scorers">Buteurs</LocString>
+    <LocString id="History">Archives</LocString>
+    <LocString id="Men">Hommes</LocString>
+    <LocString id="Women">Femmes</LocString>
+  </Globals>
+</ScoreLocalisation>

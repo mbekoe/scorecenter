@@ -67,7 +67,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         toImport.Add(score);
                         result++;
-                        score.SetNew();
+                        score.IsNew = true;
                         score.enable = true;
                     }
                 }
