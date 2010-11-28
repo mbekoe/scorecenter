@@ -62,9 +62,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private int columnField;
         
-        private string valueField;
-        
         private Operation operatorField;
+        
+        private string valueField;
         
         private RuleAction actionField;
         
@@ -83,23 +83,23 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
         public Operation Operator {
             get {
                 return this.operatorField;
             }
             set {
                 this.operatorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
         

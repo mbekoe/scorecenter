@@ -69,8 +69,8 @@
   <xs:element name="Rule">
     <xs:complexType>
       <xs:attribute name="Column" type="xs:int" use="required" />
-      <xs:attribute name="Value" type="xs:string" use="required" />
       <xs:attribute name="Operator" type="Operation" use="required" />
+      <xs:attribute name="Value" type="xs:string" use="required" />
       <xs:attribute name="Action" type="RuleAction" use="required" />
       <xs:attribute name="Format" type="xs:string" use="required" />
     </xs:complexType>

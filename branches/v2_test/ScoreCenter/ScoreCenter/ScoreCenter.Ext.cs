@@ -40,7 +40,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Columns.Add("ID");
             dt.Columns.Add("NAME");
 
-            dt.Rows.Add(Node.Folder.ToString(), "Folder1");
+            dt.Rows.Add(Node.Folder.ToString(), "Folder");
             dt.Rows.Add(Node.RSS.ToString(), "RSS");
             dt.Rows.Add(Node.Score.ToString(), "Score");
 
@@ -143,15 +143,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                 DisableScore(sc);
             }
         }
-        public string GetFullName(Score score)
+        public string GetFullName(Score score, string sep)
         {
             if (score == null)
                 return "";
 
-            string full = score.Name;
+            string full = score.LocName;
             if (!String.IsNullOrEmpty(score.Parent))
             {
-                full = GetFullName(this.FindScore(score.Parent)) + "." + full;
+                full = GetFullName(this.FindScore(score.Parent), sep) + sep + full;
             }
 
             return full;
@@ -311,6 +311,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Element = this.Element;
             copy.Encoding = this.Encoding;
             copy.ParseOptions = this.ParseOptions;
+            copy.Parent = this.Parent;
 
             return copy;
         }

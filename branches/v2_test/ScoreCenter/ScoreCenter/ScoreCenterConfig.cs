@@ -393,10 +393,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
 
             errorProvider1.Clear();
-            if (CheckData())
+            Score score = tvwScores.SelectedNode.Tag as Score;
+            if (CheckData(score))
             {
-                Score score = tvwScores.SelectedNode.Tag as Score;
-
                 // check if hierarchie changed
                 bool refresh = false;
 
@@ -459,12 +458,22 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        private bool CheckData()
+        private bool CheckData(Score score)
         {
-            bool result = CheckTextBox(tbxUrl, lblUrl, true);
-            result &= CheckTextBox(tbxXpath, lblXPath, true);
-            result &= CheckNumber(tbxSkip, lblSkip, false);
-            result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
+            bool result = CheckTextBox(tbxScore, lblName, true);
+
+            if (score.Type == Node.RSS)
+            {
+                result &= CheckTextBox(tbxUrl, lblUrl, true);
+                result &= CheckTextBox(tbxXpath, lblXPath, true);
+            }
+            else if (score.Type == Node.Score)
+            {
+                result &= CheckTextBox(tbxUrl, lblUrl, true);
+                result &= CheckTextBox(tbxXpath, lblXPath, true);
+                result &= CheckNumber(tbxSkip, lblSkip, false);
+                result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
+            }
 
             return result;
         }
