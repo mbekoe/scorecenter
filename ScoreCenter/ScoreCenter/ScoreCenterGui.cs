@@ -139,7 +139,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     UpdateSettings(false, false);
 
                     #region Set HOME
-                    //LoadScores(null);
                     if (String.IsNullOrEmpty(m_center.Setup.Home))
                     {
                         LoadScores("");
@@ -155,12 +154,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                         }
                         else
                         {
-                            Tools.LogMessage("/////////// Score = ", score.Name);
-                            //m_currentCategory = score.Category;
-                            //SetCategory(score.Category);
-                            //LoadScores(score.Ligue);
-                            //DisplayScore(score);
-                            //m_mode = ViewMode.Results;
                             LoadScores(score.Parent);
                             if (score.Type == Node.Score)
                             {
@@ -504,11 +497,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_currentColumn = 0;
             m_lines = results;
             ShowNextButton(false);
-
-            if (score.Url.Contains("{"))
-            {
-                ShowNextPrevScoreButtons(true);
-            }
+            ShowNextPrevScoreButtons(score.Url.Contains("{"));
 
             CreateGrid(results, score, 0, 0);
             return url;
@@ -527,7 +516,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (m_center.Setup != null && !String.IsNullOrEmpty(m_center.Setup.BackdropDir))
                 {
-                    string name = Path.Combine(m_center.Setup.BackdropDir, m_center.GetFullName(score)); // score.Name;
+                    string name = Path.Combine(m_center.Setup.BackdropDir, m_center.GetFullName(score, ".")); // score.Name;
                     var bds = Directory.GetFiles(m_center.Setup.BackdropDir, "*.jpg").Where(x => x.StartsWith(name));
                     if (bds != null && bds.Count() > 0)
                     {
@@ -602,22 +591,45 @@ namespace MediaPortal.Plugin.ScoreCenter
             GUIPropertyManager.SetProperty("#ScoreCenter.Source", source);
 
             //Tools.LogMessage("LEVEL = {0}, {1}", m_level, name);
-            SetProperties(m_level, name, GetImage(image));
+            GUIPropertyManager.SetProperty("#ScoreCenter.Results", m_center.GetFullName(score, " > "));
+            //SetProperties(m_level, name, GetImage(image));
+            SetIcons(score, m_level);
             SetBackdrop(score);
         }
 
         private void ClearProperties(int start)
         {
+            GUIPropertyManager.SetProperty("#ScoreCenter.Category", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.League", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.Results", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", "-");
+            GUIPropertyManager.SetProperty("#ScoreCenter.LIco", "-");
             for (int i = start; i < 10; i++)
             {
-                SetProperties(i, "", "-");
+                GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), "-");
+            }
+        }
+
+        private void SetIcons(Score score, int level)
+        {
+            Score curr = score;
+            for (int i = level; i >= 0; i--)
+            {
+                if (curr == null)
+                    continue;
+                string image = GetImage(curr.Image);
+                GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), image);
+
+                if (i == 0) GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
+                else if (i == 1) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);
+                
+                curr = m_center.FindScore(curr.Parent);
             }
         }
 
         private void SetProperties(int level, string name, string image)
         {
             //Tools.LogMessage("Set Prop = {0}", String.Format("#ScoreCenter.Label{0}", level));
-            GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Results", level), name);
             //GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Label{0}", level), name);
             GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", level), image);
 
@@ -876,7 +888,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private static string GetImage(string name)
         {
-            if (name == " ")
+            if (String.IsNullOrEmpty(name) || name == " ")
                 return "-";
 
             return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ".png");

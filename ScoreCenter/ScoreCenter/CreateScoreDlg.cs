@@ -50,6 +50,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             get
             {
                 Score score = new Score();
+                score.Id = Tools.GenerateId();
                 score.Name = tbxName.Text;
                 score.Type = (Node)cbxType.SelectedValue;
                 if (rbnParent.Checked && m_parentScore != null)
