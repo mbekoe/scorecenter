@@ -520,13 +520,17 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult res = MessageBox.Show(@"Warning unsaved changes will be lost.
+Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (res == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             SaveConfig();
-            this.Close();
         }
 
         private void SaveConfig()
@@ -539,8 +543,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     .ToArray();
             }
             #endregion
-
-            //m_center.Scores.Where(x => x.Type == Node.Folder).ForEach(x => x.ParseOptions = "UseTheader");
 
             Tools.SaveSettings(m_settings, m_center, true);
         }
@@ -577,7 +579,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 SaveRules(score);
                 
                 // read and parse the score
-                string[][] lines = m_parser.Read(score, ckxReload.Checked);
+                string[][] lines = m_parser.Read(score, ckxReload.Checked, m_center.Parameters);
 
                 ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
                 bld.Center = m_center;
@@ -934,7 +936,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (tbxUrl.Text.Length > 0)
             {
-                string url = ScoreParser.ParseUrl(tbxUrl.Text);
+                string url = ScoreParser.ParseUrl(tbxUrl.Text, m_center.Parameters);
                 Process.Start(url);
             }
         }
@@ -954,7 +956,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     return 0;
                 if (scx == null) return -1;
                 if (scy == null) return 1;
-                return scx.CompareTo(scy);
+                return scx.CompareToNoLoc(scy);
             }
 
             #endregion

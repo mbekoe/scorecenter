@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Localisation.LanguageStrings;
@@ -74,13 +75,24 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // first check fo id
             LocString loc = m_instance.m_scoreLocaliser.Strings.Where(x => x.id == id).FirstOrDefault();
-            if (loc == null)
+            if (loc != null)
+                return loc.Value;
+
+            // then check for global
+            loc = m_instance.m_scoreLocaliser.Globals.Where(x => !x.isRegEx && x.id == defaultValue).FirstOrDefault();
+            if (loc != null)
+                return loc.Value;
+
+            // regex
+            foreach (var rg in m_instance.m_scoreLocaliser.Globals.Where(x => x.isRegEx))
             {
-                // then check for global
-                loc = m_instance.m_scoreLocaliser.Globals.Where(x => x.id == defaultValue).FirstOrDefault();
+                Regex r = new Regex(rg.id);
+                string res = r.Replace(defaultValue, rg.Value);
+                if (res != defaultValue)
+                    return res;
             }
 
-            return (loc == null ? defaultValue : loc.Value);
+            return defaultValue;
         }
     }
 

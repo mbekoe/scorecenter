@@ -292,6 +292,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (diff == 0) diff = String.Compare(this.LocName, other.LocName);
             return diff;
         }
+        public int CompareToNoLoc(Score other)
+        {
+            int diff = this.Order - other.Order;
+            if (diff == 0) diff = String.Compare(this.Name, other.Name);
+            return diff;
+        }
 
         internal Score Clone(string id)
         {
