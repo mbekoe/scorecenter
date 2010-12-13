@@ -51,10 +51,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="score">The score to read.</param>
         /// <param name="reload">True to reload the page, False to reuse the one in the cache.</param>
         /// <returns>A string matrix representing the score to be displayed.</returns>
-        public string[][] Read(Score score, bool reload)
+        public string[][] Read(Score score, bool reload, ScoreParameter[] parameters)
         {
             if (score.Type == Node.Score)
-                return ReadScore(score, reload);
+                return ReadScore(score, reload, parameters);
             if (score.Type == Node.RSS)
                 return ReadRss(score, reload);
 
@@ -63,7 +63,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private string[][] ReadRss(Score score, bool reload)
         {
-            XDocument feedXML = XDocument.Load("http://www.lequipe.fr/Xml/Football/Titres/actu_rss.xml");
+            XDocument feedXML = XDocument.Load(score.Url);
 
             var title = feedXML.Descendants("title");
             if (title != null && title.Count() > 0)
@@ -78,10 +78,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             return feeds.ToArray();
         }
 
-        private string[][] ReadScore(Score score, bool reload)
+        private string[][] ReadScore(Score score, bool reload, ScoreParameter[] parameters)
         {
             // get score definition
-            string url = ParseUrl(score.Url, score.variable);
+            string url = ParseUrl(score.Url, score.variable, parameters);
             
             ParsingOptions poptions = score.GetParseOption();
             bool newLine = Score.CheckParsingOption(poptions, ParsingOptions.NewLine);
@@ -89,6 +89,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             // get the html
             string html = m_cache.GetScore(url, score.Encoding, reload);
             html = html.Replace("<br>", newLine ? Environment.NewLine : " ");
+            html = html.Replace("<br/>", newLine ? Environment.NewLine : " ");
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
@@ -173,13 +174,25 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// </summary>
         /// <param name="url">The URL to parse.</param>
         /// <returns>The parsed URL.</returns>
-        public static string ParseUrl(string url)
+        public static string ParseUrl(string url, ScoreParameter[] parameters)
         {
-            return ParseUrl(url, 0);
+            return ParseUrl(url, 0, parameters);
         }
-        public static string ParseUrl(string url, int delta)
+        public static string ParseUrl(string url, int delta, ScoreParameter[] parameters)
         {
+            if (url.IndexOf("{") < 0)
+                return url;
+
             string result = url;
+
+            // subst parameters
+            if (parameters != null)
+            {
+                foreach (ScoreParameter param in parameters)
+                {
+                    result = result.Replace("{" + param.name + "}", param.Value);
+                }
+            }
 
             // parse date format
             DateTime now = DateTime.Now.AddDays(delta);

@@ -60,13 +60,22 @@
       <xs:enumeration value="Manually" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:element name="Style">
+  <xs:element name="Style" nillable="false">
     <xs:complexType>
       <xs:attribute name="Name" type="xs:string" use="required" />
       <xs:attribute name="ForeColor" type="xs:long" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Rule">
+  <xs:element name="ScoreParameter" nillable="false">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="name" type="xs:string" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Rule" nillable="false">
     <xs:complexType>
       <xs:attribute name="Column" type="xs:int" use="required" />
       <xs:attribute name="Operator" type="Operation" use="required" />
@@ -75,7 +84,7 @@
       <xs:attribute name="Format" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Score">
+  <xs:element name="Score" nillable="false">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
@@ -123,6 +132,13 @@
               <xs:element name="Home" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
             </xs:sequence>
             <xs:attribute name="version" type="xs:int" default="1" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Parameters" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="ScoreParameter" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="Styles" minOccurs="0" maxOccurs="1">

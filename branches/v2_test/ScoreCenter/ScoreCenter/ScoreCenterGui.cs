@@ -492,7 +492,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("DisplayScore: Url={0}", score.Url);
             Tools.LogMessage("DisplayScore: XPath={0}", score.XPath);
 
-            string[][] results = Parser.Read(score, false);
+            string[][] results = Parser.Read(score, false, m_center.Parameters);
             m_currentLine = 0;
             m_currentColumn = 0;
             m_lines = results;

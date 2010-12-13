@@ -42,7 +42,7 @@ namespace ScoreTester
                 score.MaxLines = ReadInt(tbxMaxLines);
 
                 // read and parse the score
-                string[][] lines = m_parser.Read(score, ckxReload.Checked);
+                string[][] lines = m_parser.Read(score, ckxReload.Checked, null);
 
                 int nbColumns = 0;
                 grdTest.Columns.Clear();
@@ -177,7 +177,7 @@ namespace ScoreTester
         {
             if (tbxUrl.Text.Length > 0)
             {
-                string url = ScoreParser.ParseUrl(tbxUrl.Text);
+                string url = ScoreParser.ParseUrl(tbxUrl.Text, null);
                 Process.Start(url);
             }
         }
