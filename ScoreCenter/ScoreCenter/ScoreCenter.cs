@@ -175,6 +175,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         IsNull,
+        
+        /// <remarks/>
+        IsLast,
     }
     
     /// <remarks/>
