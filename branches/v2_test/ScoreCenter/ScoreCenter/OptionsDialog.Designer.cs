@@ -39,22 +39,30 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnSelectDir = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnUpdateNow = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.ckxOverwriteIcons = new System.Windows.Forms.CheckBox();
             this.ckxRules = new System.Windows.Forms.CheckBox();
             this.ckxUrl = new System.Windows.Forms.CheckBox();
             this.ckxNew = new System.Windows.Forms.CheckBox();
             this.ckxNames = new System.Windows.Forms.CheckBox();
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
-            this.ckxOverwriteIcons = new System.Windows.Forms.CheckBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
@@ -109,36 +117,6 @@
             this.btnSelectDir.UseVisualStyleBackColor = true;
             this.btnSelectDir.Click += new System.EventHandler(this.btnSelectDir_Click);
             // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.tbxName);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.btnSelectDir);
-            this.groupBox1.Controls.Add(this.lblName);
-            this.groupBox1.Controls.Add(this.tbxBackdrop);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // groupBox2
-            // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.btnUpdateNow);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.ckxOverwriteIcons);
-            this.groupBox2.Controls.Add(this.ckxRules);
-            this.groupBox2.Controls.Add(this.ckxUrl);
-            this.groupBox2.Controls.Add(this.ckxNew);
-            this.groupBox2.Controls.Add(this.ckxNames);
-            this.groupBox2.Controls.Add(this.ckxMergeExisting);
-            this.groupBox2.Controls.Add(this.tbxUrl);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -162,6 +140,12 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
+            // 
+            // ckxOverwriteIcons
+            // 
+            resources.ApplyResources(this.ckxOverwriteIcons, "ckxOverwriteIcons");
+            this.ckxOverwriteIcons.Name = "ckxOverwriteIcons";
+            this.ckxOverwriteIcons.UseVisualStyleBackColor = true;
             // 
             // ckxRules
             // 
@@ -198,11 +182,73 @@
             resources.ApplyResources(this.tbxUrl, "tbxUrl");
             this.tbxUrl.Name = "tbxUrl";
             // 
-            // ckxOverwriteIcons
+            // dataGridView1
             // 
-            resources.ApplyResources(this.ckxOverwriteIcons, "ckxOverwriteIcons");
-            this.ckxOverwriteIcons.Name = "ckxOverwriteIcons";
-            this.ckxOverwriteIcons.UseVisualStyleBackColor = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnPName,
+            this.ColumnPValue});
+            resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.Name = "dataGridView1";
+            // 
+            // ColumnPName
+            // 
+            this.ColumnPName.DataPropertyName = "Name";
+            resources.ApplyResources(this.ColumnPName, "ColumnPName");
+            this.ColumnPName.Name = "ColumnPName";
+            // 
+            // ColumnPValue
+            // 
+            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnPValue.DataPropertyName = "Value";
+            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
+            this.ColumnPValue.Name = "ColumnPValue";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tbxName);
+            this.tabPage1.Controls.Add(this.numericUpDown1);
+            this.tabPage1.Controls.Add(this.lblName);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.btnSelectDir);
+            this.tabPage1.Controls.Add(this.tbxBackdrop);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.comboBox1);
+            this.tabPage2.Controls.Add(this.btnUpdateNow);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.tbxUrl);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.ckxMergeExisting);
+            this.tabPage2.Controls.Add(this.ckxOverwriteIcons);
+            this.tabPage2.Controls.Add(this.ckxNames);
+            this.tabPage2.Controls.Add(this.ckxRules);
+            this.tabPage2.Controls.Add(this.ckxNew);
+            this.tabPage2.Controls.Add(this.ckxUrl);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -210,8 +256,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -223,10 +268,13 @@
             this.Load += new System.EventHandler(this.OptionsDialog_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -243,8 +291,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSelectDir;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox ckxRules;
         private System.Windows.Forms.CheckBox ckxUrl;
@@ -256,5 +302,12 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox ckxOverwriteIcons;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
