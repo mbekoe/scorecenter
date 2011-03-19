@@ -581,7 +581,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 if (String.IsNullOrEmpty(score.Url) == false)
                 {
-                    source = score.Url.Replace("http://", String.Empty);
+                    source = ScoreParser.ParseUrl(score.Url, m_center.Parameters);
+                    source = source.Replace("http://", String.Empty);
                     source = source.Substring(0, source.IndexOf('/'));
                     if (source.StartsWith("www.")) source = source.Substring(4);
                 }
