@@ -190,7 +190,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 foreach (ScoreParameter param in parameters)
                 {
-                    result = result.Replace("{" + param.name + "}", param.Value);
+                    result = result.Replace("{@" + param.name + "}", param.Value);
                 }
             }
 
@@ -204,8 +204,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (format.Length == 1)
                 {
                     // if format contains only one char add a space in the format and then remove it
-                    format = " " + format;
-                    result = result.Substring(0, start - 1) + now.ToString(format).Substring(1) + result.Substring(end + 1);
+                    result = result.Substring(0, start - 1) + now.ToString(" " + format).Substring(1) + result.Substring(end + 1);
                 }
                 else
                 {

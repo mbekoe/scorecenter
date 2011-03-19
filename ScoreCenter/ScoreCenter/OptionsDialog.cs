@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace MediaPortal.Plugin.ScoreCenter
@@ -24,6 +25,35 @@ namespace MediaPortal.Plugin.ScoreCenter
             InitializeComponent();
 
             m_center = center;
+
+            List<string> plist = new List<string>();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Value");
+            foreach (var p in center.Parameters)
+            {
+                dt.Rows.Add(p.name, p.Value);
+                plist.Add(p.name);
+            }
+
+            Regex rule = new Regex(@"{@(?<a>[^}]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            foreach (Score sc in center.Scores.Where(x => x.Type == Node.Score && x.enable && x.Url.Contains("{")))
+            {
+                MatchCollection mc = rule.Matches(sc.Url);
+                if (mc == null)
+                    continue;
+                foreach (Match m in mc)
+                {
+                    string v = m.Value.Substring(2); // remove '{@'
+                    if (plist.Contains(v) == false)
+                    {
+                        dt.Rows.Add(v, "");
+                        plist.Add(v);
+                    }
+                }
+            }
+
+            dataGridView1.DataSource = dt;
         }
 
         /// <summary>
@@ -96,6 +126,21 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             ImportOptions options = ReadImportOptions();
             m_center.Setup.UpdateRule = options.ToString();
+
+            List<ScoreParameter> plist = new List<ScoreParameter>();
+            DataTable dt = dataGridView1.DataSource as DataTable;
+            foreach (DataRow r in dt.Rows)
+            {
+                ScoreParameter p = new ScoreParameter();
+                p.name = r["Name"] as string;
+                p.Value = r["Value"] as string;
+                if (!String.IsNullOrEmpty(p.name) && !String.IsNullOrEmpty(p.Value))
+                {
+                    plist.Add(p);
+                }
+            }
+
+            m_center.Parameters = plist.ToArray();
         }
 
         private ImportOptions ReadImportOptions()
