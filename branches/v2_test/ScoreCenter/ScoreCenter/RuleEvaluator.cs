@@ -36,7 +36,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             return null;
         }
 
-        public Rule CheckLine(string[] text, int line)
+        public Rule CheckLine(string[] text, int line, int nbLines)
         {
             if (m_rules == null || m_rules.Length == 0)
                 return null;
@@ -61,7 +61,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 else if (rule.Column == -1)
                 {
                     // rule applies to the line number
-                    if (Evaluate(rule, line.ToString()))
+                    if (Evaluate(rule, line.ToString(), line, nbLines))
                         return rule;
                 }
                 else if (text.Length >= rule.Column)
@@ -79,7 +79,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             return null;
         }
 
-        private bool Evaluate(Rule rule, string text)
+        private bool Evaluate(Rule rule, string text, params int[] args)
         {
             bool result = false;
 
@@ -147,6 +147,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                 case Operation.IsNull:
                     result = String.IsNullOrEmpty(newText);
                     break;
+                case Operation.IsLast:
+                    if (args != null && args.Length > 1)
+                    {
+                        if (newValue.Length == 0)
+                            result = (args[0] == args[1]);
+                        else
+                            result = CompareStr((args[1] - args[0]).ToString(), newValue) < 0;
+                    }
+                    break;
             }
 
             return result;
@@ -170,17 +179,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             if (y1.Length > x1.Length)
-            {
                 return 1;
-            }
-            else if (x1.Length > y1.Length)
-            {
+            
+            if (x1.Length > y1.Length)
                 return -1;
-            }
-            else
-            {
-                return 0;
-            }
+
+            return 0;
         }
 
         private static int PartCompare(string left, string right)

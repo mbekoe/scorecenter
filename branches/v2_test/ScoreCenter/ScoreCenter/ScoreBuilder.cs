@@ -98,6 +98,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // for all the rows
             List<TC> controls = new List<TC>();
+            int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
             foreach (string[] row_ in labels)
             {
                 // ignore empty lines
@@ -131,7 +132,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 bool merge = false;
                 if (!isHeader)
                 {
-                    Rule rule = engine.CheckLine(row, lineNumber);
+                    Rule rule = engine.CheckLine(row, lineNumber, totalLines);
                     if (rule != null)
                     {
                         // skip lines and continue
