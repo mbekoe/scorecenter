@@ -41,7 +41,6 @@ namespace MediaPortal.Plugin.ScoreCenter
     /// </summary>
     public partial class ScoreCenterConfig : Form
     {
-        //private IList<Score> m_scores;
         private ScoreCenter m_center;
         private ScoreParser m_parser;
         private string m_settings;
@@ -334,6 +333,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
             tsbNewLigue.Enabled = score.Type == Node.Folder;
+            tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
+            tsbMoveRight.Enabled = tsbMoveUp.Enabled;
 
             SetScoreStatus(true);
         }
@@ -949,9 +950,9 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             {
                 TreeNode tx = x as TreeNode;
                 TreeNode ty = y as TreeNode;
-
                 Score scx = tx.Tag as Score;
                 Score scy = ty.Tag as Score;
+                
                 if (scx == null && scy == null)
                     return 0;
                 if (scx == null) return -1;
@@ -962,6 +963,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             #endregion
         }
 
+        #region Move Nodes
         private void tsbMoveUp_Click(object sender, EventArgs e)
         {
             TreeNode node = tvwScores.SelectedNode;
@@ -998,8 +1000,64 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             tvwScores.SelectedNode = node;
         }
 
+        private void tsbMoveBack_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.Parent == null)
+                return;
+
+            Score parentScore = node.Parent.Tag as Score;
+            Score currScore = node.Tag as Score;
+
+            currScore.Parent = parentScore.Parent;
+
+            var gpNode = node.Parent.Parent;
+            node.Parent.Nodes.Remove(node);
+            if (gpNode == null)
+            {
+                tvwScores.Nodes.Add(node);
+                currScore.Order = tvwScores.Nodes.Count + 1;
+            }
+            else
+            {
+                gpNode.Nodes.Add(node);
+                currScore.Order = gpNode.Nodes.Count + 1;
+            }
+
+            ReorderNodes(node.PrevNode);
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
+        private void tsbMoveRight_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.PrevNode == null)
+                return;
+
+            TreeNode prevNode = node.PrevNode;
+            Score prevScore = prevNode.Tag as Score;
+            Score currScore = node.Tag as Score;
+
+            ReorderNodes(node.PrevNode.FirstNode);
+            currScore.Parent = prevScore.Id;
+            currScore.Order = prevNode.Nodes.Count + 1;
+
+            if (node.Parent == null)
+                tvwScores.Nodes.Remove(node);
+            else
+                node.Parent.Nodes.Remove(node);
+            
+            prevNode.Nodes.Add(node);
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
         private static void ReorderNodes(TreeNode node)
         {
+            if (node == null)
+                return;
+
             int i = 1;
             var coll = (node.Parent == null ? node.TreeView.Nodes : node.Parent.Nodes);
             foreach (TreeNode n in coll)
@@ -1008,6 +1066,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                 score.Order = i++;
             }
         }
+        #endregion
 
         private void tbxSizes_TextChanged(object sender, EventArgs e)
         {

@@ -75,6 +75,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbMoveUp = new System.Windows.Forms.ToolStripButton();
             this.tsbMoveDown = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveBack = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveRight = new System.Windows.Forms.ToolStripButton();
             this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
@@ -536,6 +538,8 @@
             this.toolStripSeparator2,
             this.tsbMoveUp,
             this.tsbMoveDown,
+            this.tsbMoveBack,
+            this.tsbMoveRight,
             this.tsbEditStyles,
             this.toolStripSeparator1,
             this.tsbExport,
@@ -616,6 +620,27 @@
             this.tsbMoveDown.Size = new System.Drawing.Size(23, 22);
             this.tsbMoveDown.Text = "Move Down";
             this.tsbMoveDown.Click += new System.EventHandler(this.tsbMoveDown_Click);
+            // 
+            // tsbMoveBack
+            // 
+            this.tsbMoveBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbMoveBack.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_moveback;
+            this.tsbMoveBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMoveBack.Name = "tsbMoveBack";
+            this.tsbMoveBack.Size = new System.Drawing.Size(23, 22);
+            this.tsbMoveBack.Text = "Move Back";
+            this.tsbMoveBack.Click += new System.EventHandler(this.tsbMoveBack_Click);
+            // 
+            // tsbMoveRight
+            // 
+            this.tsbMoveRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbMoveRight.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.BuilderDialog_moveright;
+            this.tsbMoveRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMoveRight.Name = "tsbMoveRight";
+            this.tsbMoveRight.Size = new System.Drawing.Size(23, 22);
+            this.tsbMoveRight.Text = "Move Right";
+            this.tsbMoveRight.ToolTipText = "Move Right";
+            this.tsbMoveRight.Click += new System.EventHandler(this.tsbMoveRight_Click);
             // 
             // tsbEditStyles
             // 
@@ -940,5 +965,7 @@
         private System.Windows.Forms.CheckBox ckxReverseOrder;
         private System.Windows.Forms.CheckBox ckxUseCaption;
         private System.Windows.Forms.ComboBox cbxBetweenElements;
+        private System.Windows.Forms.ToolStripButton tsbMoveBack;
+        private System.Windows.Forms.ToolStripButton tsbMoveRight;
     }
 }
