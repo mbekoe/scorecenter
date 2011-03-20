@@ -162,6 +162,8 @@
     <None Include="Resources\Web.png" />
     <None Include="Resources\BuilderDialog_moveup.bmp" />
     <None Include="Resources\BuilderDialog_movedown.bmp" />
+    <None Include="Resources\BuilderDialog_moveback.bmp" />
+    <None Include="Resources\BuilderDialog_moveright.bmp" />
     <Content Include="skin\Blue3wide\MyScoreCenter.xml" />
     <Content Include="skin\Blue3\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
