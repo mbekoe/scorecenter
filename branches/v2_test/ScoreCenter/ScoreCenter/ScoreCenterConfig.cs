@@ -33,6 +33,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
+using MediaPortal.Plugin.ScoreCenter.Editor;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -42,7 +43,6 @@ namespace MediaPortal.Plugin.ScoreCenter
     public partial class ScoreCenterConfig : Form
     {
         private ScoreCenter m_center;
-        private ScoreParser m_parser;
         private string m_settings;
 
         /// <summary>
@@ -60,34 +60,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
             
-            m_parser = new ScoreParser(0);
+            //m_parser = new ScoreParser(0);
             tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
             this.ShowInTaskbar = showInTaskbar;
 
-            tbxScore.TextChanged += new EventHandler(ScoreChanged);
-            tbxUrl.TextChanged += new EventHandler(ScoreChanged);
-            tbxXpath.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxElement.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
-            tbxSizes.TextChanged += new EventHandler(ScoreChanged);
-            tbxSkip.TextChanged += new EventHandler(ScoreChanged);
-            tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
-            cbxBetweenElements.SelectedValueChanged +=new EventHandler(ScoreChanged);
-
-            ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
         }
 
-        private void ScoreChanged(object sender, EventArgs e)
-        {
-            SetScoreStatus(false);
-        }
-        
         private void SetScoreStatus(bool saved)
         {
             if (saved)
@@ -108,48 +87,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterPlugin.SettingsFileName);
                 m_center = Tools.ReadSettings(m_settings, true);
 
-                // rule action
-                colAction.DataSource = EnumManager.ReadRuleAction();
-                colAction.ValueMember = "ID";
-                colAction.DisplayMember = "NAME";
-
-                colOperator.DataSource = EnumManager.ReadOperation();
-                colOperator.ValueMember = "ID";
-                colOperator.DisplayMember = "NAME";
-
-                cbxBetweenElements.DataSource = EnumManager.ReadBetweenElements();
-                cbxBetweenElements.ValueMember = "ID";
-                cbxBetweenElements.DisplayMember = "NAME";
-
-                UpdateStyleList();
 
                 BuildScoreList(tvwScores, m_center, true);
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, Properties.Resources.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void EnableControls(params Control[] controls)
-        {
-            foreach (Control ctr in gbxScore.Controls)
-            {
-                ctr.Enabled = (controls.Length == 0 || controls.Contains(ctr));
-            }
-        }
-
-        private void UpdateStyleList()
-        {
-            colStyle.Items.Clear();
-            colStyle.Items.Add("");
-
-            if (m_center.Styles != null)
-            {
-                foreach (Style st in m_center.Styles)
-                {
-                    colStyle.Items.AddRange(st.Name);
-                }
             }
         }
 
@@ -160,13 +103,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
 
             tree.BeginUpdate();
-            Dictionary<string, ThreeStateTreeNode> nodes = new Dictionary<string, ThreeStateTreeNode>(center.Scores.Count());
-            foreach (var sc in center.Scores)
+            Dictionary<string, ThreeStateTreeNode> nodes = new Dictionary<string, ThreeStateTreeNode>(center.Scores.Items.Count());
+            foreach (BaseScore sc in center.Scores.Items)
             {
                 ThreeStateTreeNode node = new ThreeStateTreeNode(sc.Name);
                 node.Tag = sc;
                 nodes.Add(sc.Id, node);
-                if (sc.Type != Node.Folder && sc.enable && show)
+                if (!sc.IsFolder() && sc.enable && show)
                 {
                     node.Checked = true;
                     node.State = CheckBoxState.Checked;
@@ -176,7 +119,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             foreach (KeyValuePair<string, ThreeStateTreeNode> pair in nodes)
             {
                 ThreeStateTreeNode node = pair.Value;
-                Score sc = node.Tag as Score;
+                BaseScore sc = node.Tag as BaseScore;
                 if (String.IsNullOrEmpty(sc.Parent))
                 {
                     tree.Nodes.Add(node);
@@ -262,104 +205,61 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (tvwScores.SelectedNode == null)
                 return;
 
-            errorProvider1.Clear();
-
             // always clear
-            tbxScore.Text = String.Empty;
-            tbxUrl.Text = String.Empty;
-            tbxXpath.Text = String.Empty;
-            tbxEncoding.Text = String.Empty;
-            tbxHeaders.Text = String.Empty;
-            tbxSizes.Text = String.Empty;
-            tbxSkip.Text = String.Empty;
-            tbxMaxLines.Text = String.Empty;
-            tbxElement.Text = String.Empty;
-            ckxUseTheader.Checked = false;
-            ckxUseCaption.Checked = false;
-            ckxNewLine.Checked = false;
-            ckxAllowWrapping.Checked = false;
             ClearIcon();
 
-            grdRule.Rows.Clear();
-            grdRule.Enabled = false;
+            BaseScore bscore = tvwScores.SelectedNode.Tag as BaseScore;
 
-            Score score = tvwScores.SelectedNode.Tag as Score;
-            ParsingOptions options = score.GetParseOption();
-
-            if (score.Type == Node.Folder)
+            BaseScoreEditor prevEditor = GetEditor();
+            BaseScoreEditor editor = null;
+            string editorType = ScoreFactory.Instance.GetEditorType(bscore);
+            if (prevEditor != null)
             {
-                EnableControls(tbxScore, btnSave);
-
-                tbxScore.Text = score.Name;
-                SetIcon(score.Image);
+                if (editorType != prevEditor.GetType().Name)
+                {
+                    pnlEditor.Controls.Clear();
+                    (prevEditor as Control).Dispose();
+                }
+                else
+                {
+                    prevEditor.Clear();
+                    editor = prevEditor;
+                }
             }
-            else if (score.Type == Node.RSS)
+
+            if (editor == null)
             {
-                EnableControls(tbxScore, tbxUrl, btnSave, btnTest, btnOpenUrl);
-
-                tbxScore.Text = score.Name;
-                tbxUrl.Text = score.Url;
-                SetIcon(score.Image);
+                Control zeditor = ScoreFactory.Instance.CreateEditor(editorType);
+                pnlEditor.Controls.Add(zeditor);
+                zeditor.Dock = DockStyle.Fill;
+                editor = zeditor as BaseScoreEditor;
             }
-            else if (score.Type == Node.Score)
-            {
-                // score
-                EnableControls();
 
-                tbxScore.Text = score.Name;
-
-                tbxUrl.Text = score.Url;
-                tbxXpath.Text = score.XPath;
-                tbxEncoding.Text = score.Encoding;
-                tbxHeaders.Text = score.Headers;
-                tbxSizes.Text = score.Sizes;
-                tbxSkip.Text = score.Skip.ToString();
-                tbxMaxLines.Text = score.MaxLines.ToString();
-                tbxElement.Text = score.Element;
-                
-                ckxUseTheader.Checked = Score.CheckParsingOption(options, ParsingOptions.UseTheader);
-                ckxUseCaption.Checked = Score.CheckParsingOption(options, ParsingOptions.Caption);
-                ckxNewLine.Checked = Score.CheckParsingOption(options, ParsingOptions.NewLine);
-                ckxAllowWrapping.Checked = Score.CheckParsingOption(options, ParsingOptions.WordWrap);
-                ckxReverseOrder.Checked = Score.CheckParsingOption(options, ParsingOptions.Reverse);
-                cbxBetweenElements.SelectedValue = score.BetweenElts;
-                SetIcon(score.Image);
-
-                grdRule.Enabled = true;
-                SetRules(score);
-            }
+            editor.LoadScore(bscore, m_center);
+            SetIcon(bscore.Image);
 
             ClearTestGrid();
             tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
-            tsbNewLigue.Enabled = score.Type == Node.Folder;
+            tsbNewLigue.Enabled = bscore.IsFolder();
             tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
             tsbMoveRight.Enabled = tsbMoveUp.Enabled;
+            btnTest.Enabled = editor.HasTest;
 
             SetScoreStatus(true);
+        }
+
+        private BaseScoreEditor GetEditor()
+        {
+            if (pnlEditor.Controls.Count == 1)
+                return pnlEditor.Controls[0] as BaseScoreEditor;
+            return null;
         }
 
         private void ClearTestGrid()
         {
             pnlTest.Controls.Clear();
             pnlTest.Tag = null;
-        }
-
-        private void SetRules(Score score)
-        {
-            grdRule.Rows.Clear();
-            if (score.Rules == null)
-                return;
-
-            foreach (Rule rule in score.Rules)
-            {
-                Style st = m_center.FindStyle(rule.Format);
-                grdRule.Rows.Add(rule.Column.ToString(),
-                    rule.Operator.ToString(),
-                    rule.Value,
-                    rule.Action.ToString(),
-                    st == null ? String.Empty : rule.Format);
-            }
         }
 
         #region Icon Management
@@ -393,124 +293,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 || tvwScores.SelectedNode.Tag == null)
                 return;
 
-            errorProvider1.Clear();
-            Score score = tvwScores.SelectedNode.Tag as Score;
-            if (CheckData(score))
+            BaseScoreEditor editor = GetEditor();
+            if (editor != null)
             {
-                // check if hierarchie changed
-                bool refresh = false;
-
-                if (score.Name != tbxScore.Text)
+                BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+                if (editor.SaveScore(ref score))
                 {
-                    tvwScores.SelectedNode.Text = tbxScore.Text;
-                }
-
-                score.Name = tbxScore.Text;
-                
-                score.Url = tbxUrl.Text;
-                score.XPath = tbxXpath.Text;
-                score.Headers = tbxHeaders.Text;
-                score.Sizes = tbxSizes.Text;
-                score.Encoding = tbxEncoding.Text;
-                score.Element = tbxElement.Text;
-
-                score.SetParseOption(ckxUseCaption.Checked,  ckxUseTheader.Checked,
-                    ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked);
-                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
-
-                if (tbxSkip.Text.Length == 0) score.Skip = 0;
-                else score.Skip = int.Parse(tbxSkip.Text);
-
-                if (tbxMaxLines.Text.Length == 0) score.MaxLines = 0;
-                else score.MaxLines = int.Parse(tbxMaxLines.Text);
-
-                SaveRules(score);
-
-                if (refresh)
-                {
-                    RefreshTree();
-                }
-
-                SetScoreStatus(true);
-            }
-        }
-
-        private void SaveRules(Score score)
-        {
-            score.Rules = null;
-            if (grdRule.Rows.Count > 1)
-            {
-                score.Rules = new Rule[grdRule.Rows.Count - 1];
-                int i = 0;
-                foreach (DataGridViewRow row in grdRule.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    Rule r = new Rule();
-                    r.Column = int.Parse(row.Cells[colColumn.Name].Value.ToString());
-                    r.Value = (row.Cells[colValue.Name].Value == null ? String.Empty : row.Cells[colValue.Name].Value.ToString());
-                    r.Operator = Tools.ParseEnum<Operation>(row.Cells[colOperator.Name].Value.ToString());
-                    r.Action = Tools.ParseEnum<RuleAction>(row.Cells[colAction.Name].Value.ToString());
-                    r.Format = (row.Cells[colStyle.Name].Value == null ? String.Empty : row.Cells[colStyle.Name].Value.ToString());
-
-                    score.Rules[i++] = r;
+                    if (tvwScores.SelectedNode.Text != score.Name)
+                    {
+                        tvwScores.SelectedNode.Text = score.Name;
+                    }
                 }
             }
-        }
-
-        private bool CheckData(Score score)
-        {
-            bool result = CheckTextBox(tbxScore, lblName, true);
-
-            if (score.Type == Node.RSS)
-            {
-                result &= CheckTextBox(tbxUrl, lblUrl, true);
-                result &= CheckTextBox(tbxXpath, lblXPath, true);
-            }
-            else if (score.Type == Node.Score)
-            {
-                result &= CheckTextBox(tbxUrl, lblUrl, true);
-                result &= CheckTextBox(tbxXpath, lblXPath, true);
-                result &= CheckNumber(tbxSkip, lblSkip, false);
-                result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
-            }
-
-            return result;
-        }
-
-        private bool CheckTextBox(TextBox control, Label label, bool require)
-        {
-            if (control.Text.Length == 0 && require)
-            {
-                string message = String.Format(Properties.Resources.RequiredField, label.Text);
-                errorProvider1.SetError(control, message);
-            }
-
-            return errorProvider1.GetError(control).Length == 0;
-        }
-        
-        private bool CheckNumber(TextBox control, Label label, bool require)
-        {
-            if (control.Text.Length == 0)
-            {
-                if (require)
-                {
-                    string message = String.Format(Properties.Resources.RequiredField, label.Text);
-                    errorProvider1.SetError(control, message);
-                }
-            }
-            else
-            {
-                int test;
-                if (false == int.TryParse(control.Text, out test))
-                {
-                    string message = String.Format(Properties.Resources.BadNumberFormat, label.Text);
-                    errorProvider1.SetError(control, message);
-                }
-            }
-
-            return errorProvider1.GetError(control).Length == 0;
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
@@ -539,7 +333,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             #region Order
             if (m_center.Scores != null)
             {
-                m_center.Scores = m_center.Scores.OrderBy(sc => sc.Parent)
+                m_center.Scores.Items = m_center.Scores.Items.OrderBy(sc => sc.Parent)
                     .ThenBy(sc => sc.Id)
                     .ToArray();
             }
@@ -556,39 +350,29 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                Score currScore = tvwScores.SelectedNode.Tag as Score;
-                if (currScore == null)
+
+                BaseScoreEditor editor = GetEditor();
+                if (editor == null)
                     return;
 
-                // note create a fake ScoreCenterScore to use current values
-                // instead of saved values
-                Score score = new Score();
-                score.Type = currScore.Type;
+                Type scoreType = editor.GetScoreType();
+                BaseScore score = ScoreFactory.Instance.CreateScore(scoreType);
+                if (!editor.SaveScore(ref score))
+                    return;
 
-                score.Url = tbxUrl.Text;
-                score.Encoding = tbxEncoding.Text;
-                score.XPath = tbxXpath.Text;
-                score.Sizes = tbxSizes.Text;
-                score.Headers = tbxHeaders.Text;
-                score.SetParseOption(ckxUseCaption.Checked, ckxUseTheader.Checked,
-                    ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked);
-                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
-
-                score.Element = tbxElement.Text;
-                score.Skip = ReadInt(tbxSkip);
-                score.MaxLines = ReadInt(tbxMaxLines);
-                SaveRules(score);
-                
                 // read and parse the score
-                string[][] lines = m_parser.Read(score, ckxReload.Checked, m_center.Parameters);
+                string[][] lines = ScoreFactory.Parse(score, ckxReload.Checked, m_center.Parameters);
 
-                ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
-                bld.Center = m_center;
-                bld.Score = score;
-                bld.LimitToPage = false;
-                bld.AutoSize = false;
-                bld.AutoWrap = false;
-                
+                //ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
+                //bld.Styles = m_center.Styles.ToList().AsReadOnly();
+                //bld.Score = score;
+                //bld.LimitToPage = false;
+                //bld.AutoSize = false;
+                //bld.AutoWrap = false;
+
+                IScoreBuilder<Control> bld = ScoreFactory.Instance.GetBuilder<Control>(score);
+                bld.Styles = m_center.Styles.ToList().AsReadOnly();
+
                 int fh = pnlTest.Font.Height;
                 int fw = (int)pnlTest.Font.SizeInPoints;
                 bld.SetFont("", m_center.Setup.DefaultFontColor, 14, fw, fh);
@@ -598,22 +382,22 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                 int lineNumber, colNumber;
 
                 pnlTest.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
-                //pnlTest.Width = 970;
-                //pnlTest.Height = 600;
-                //pnlTest.Font = new Font(pnlTest.Font.FontFamily, 14.0f);
 
-                IList<Control> controls = bld.Build(lines,
+                //IList<Control> controls = bld.Build(lines,
+                //    0, 0,
+                //    0, 0, pnlTest.Width, pnlTest.Height,
+                //    this.CreateControl,
+                //    out overRight, out overDown, out lineNumber, out colNumber);
+                IList<Control> controls = bld.Build(score, lines,
                     0, 0,
                     0, 0, pnlTest.Width, pnlTest.Height,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
 
-                tabScore.SelectedTab = tpgTest;
-
                 pnlTest.Tag = lines;
 
                 pnlTest.SuspendLayout();
-                pnlTest.Controls.AddRange(controls.ToArray());
+                pnlTest.Controls.AddRange(controls.Cast<Control>().ToArray());
             }
             catch (Exception exc)
             {
@@ -677,18 +461,18 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
         private void tsbNewItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = null;
-            Score parent = null;
+            BaseScore parent = null;
             if (tvwScores.SelectedNode != null)
             {
                 parentNode = tvwScores.SelectedNode;
-                parent = parentNode.Tag as Score;
+                parent = parentNode.Tag as BaseScore;
             }
 
             using (var dlg = new CreateScoreDlg(parent))
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    Score score = dlg.NewScore;
+                    BaseScore score = dlg.NewScore;
                     m_center.AddScore(score);
                     
                     // create the tree node
@@ -706,55 +490,6 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                         parentNode.Nodes.Add(newNode);
                     }
                 }
-            }
-        }
-
-        private void btnAuto_Click(object sender, EventArgs e)
-        {
-            string result = String.Empty;
-
-            string[][] lines = pnlTest.Tag as string[][];
-            if (lines != null)
-            {
-                // get number of columns
-                int nbCols = 0;
-                for (int j = 0; j < lines.Length; j++)
-                {
-                    if (lines[j] != null)
-                    {
-                        nbCols = Math.Max(nbCols, lines[j].Length);
-                    }
-                }
-
-                // for all columns
-                double dummy;
-                for (int i = 0; i < nbCols; i++)
-                {
-                    int max = 0;
-                    bool digitOnly = true;
-                    // for all lines
-                    for (int j = 0; j < lines.Length; j++)
-                    {
-                        if (lines[j] == null || i >= lines[j].Length)
-                            continue;
-
-                        string cell = lines[j][i];
-                        int cellSize = String.IsNullOrEmpty(cell) ? 0 : lines[j][i].Length;
-                        if (j > 0) digitOnly &= (cellSize == 0 || double.TryParse(cell.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out dummy));
-                        max = Math.Max(max, cellSize);
-                    }
-
-                    if (digitOnly) max++;
-                    else max = -max;
-
-                    if (result.Length > 0) result += ",";
-                    result += max.ToString();
-                }
-            }
-
-            if (String.IsNullOrEmpty(result) == false)
-            {
-                tbxSizes.Text = result;
             }
         }
 
@@ -782,7 +517,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
         private void DeleteScore(TreeNode node)
         {
-            Score score = node.Tag as Score;
+            BaseScore score = node.Tag as BaseScore;
             if (score != null)
             {
                 m_center.RemoveScore(score);
@@ -799,8 +534,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             if (tvwScores.SelectedNode == null)
                 return;
 
-            Score source = tvwScores.SelectedNode.Tag as Score;
-            Score copy = source.Clone(Tools.GenerateId());
+            BaseScore source = tvwScores.SelectedNode.Tag as BaseScore;
+            BaseScore copy = source.Clone(Tools.GenerateId());
 
             // add the new item and refresh
             m_center.AddScore(copy);
@@ -819,16 +554,16 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                 return;
             }
             
-            Score score = e.Node.Tag as Score;
+            BaseScore score = e.Node.Tag as BaseScore;
             score.Name = e.Label;
-            tbxScore.Text = e.Label;
+            //TODO tbxScore.Text = e.Label;
         }
 
         private void tvwScores_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag != null)
             {
-                Score score = e.Node.Tag as Score;
+                BaseScore score = e.Node.Tag as BaseScore;
                 score.enable = e.Node.Checked;
             }
         }
@@ -838,7 +573,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             if (tvwScores.SelectedNode == null)
                 return;
 
-            Score score = tvwScores.SelectedNode.Tag as Score;
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
             if (score == null)
                 return;
 
@@ -869,7 +604,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             if (tvwScores.SelectedNode == null)
                 return;
 
-            Score score = tvwScores.SelectedNode.Tag as Score;
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
             if (score != null)
             {
                 score.Image = String.Empty;
@@ -920,27 +655,12 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    UpdateStyleList();
+                    //UpdateStyleList();
                 }
             }
         }
 
-        private void grdRule_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            if (e.ColumnIndex == colStyle.Index)
-            {
-                grdRule[e.ColumnIndex, e.RowIndex].Value = String.Empty;
-            }
-        }
 
-        private void btnOpenUrl_Click(object sender, EventArgs e)
-        {
-            if (tbxUrl.Text.Length > 0)
-            {
-                string url = ScoreParser.ParseUrl(tbxUrl.Text, m_center.Parameters);
-                Process.Start(url);
-            }
-        }
 
         private class ScoreNodeComparer : IComparer
         {
@@ -950,8 +670,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             {
                 TreeNode tx = x as TreeNode;
                 TreeNode ty = y as TreeNode;
-                Score scx = tx.Tag as Score;
-                Score scy = ty.Tag as Score;
+                BaseScore scx = tx.Tag as BaseScore;
+                BaseScore scy = ty.Tag as BaseScore;
                 
                 if (scx == null && scy == null)
                     return 0;
@@ -972,8 +692,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
             ReorderNodes(node);
 
-            Score prevScore = node.PrevNode.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore prevScore = node.PrevNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
             int tmp = currScore.Order;
             currScore.Order = prevScore.Order;
             prevScore.Order = tmp;
@@ -990,8 +710,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
             ReorderNodes(node);
 
-            Score nextScore = node.NextNode.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore nextScore = node.NextNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
             int tmp = currScore.Order;
             currScore.Order = nextScore.Order;
             nextScore.Order = tmp;
@@ -1006,8 +726,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             if (node == null || node.Parent == null)
                 return;
 
-            Score parentScore = node.Parent.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore parentScore = node.Parent.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
 
             currScore.Parent = parentScore.Parent;
 
@@ -1036,8 +756,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                 return;
 
             TreeNode prevNode = node.PrevNode;
-            Score prevScore = prevNode.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore prevScore = prevNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
 
             ReorderNodes(node.PrevNode.FirstNode);
             currScore.Parent = prevScore.Id;
@@ -1062,68 +782,26 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             var coll = (node.Parent == null ? node.TreeView.Nodes : node.Parent.Nodes);
             foreach (TreeNode n in coll)
             {
-                Score score = n.Tag as Score;
+                BaseScore score = n.Tag as BaseScore;
                 score.Order = i++;
             }
         }
         #endregion
 
-        private void tbxSizes_TextChanged(object sender, EventArgs e)
-        {
-            int res = 0;
-            ColumnDisplay[] sizes = ColumnDisplay.GetSizes(tbxSizes.Text);
-
-            if (sizes != null)
-            {
-                res = sizes.Sum(col => col.Size);
-            }
-
-            lblTotalSize.Text = String.Format("Total Size = {0}", res);
-        }
 
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleLeft);
+            //AlignColumn(ContentAlignment.MiddleLeft);
         }
 
         private void centerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleCenter);
+            //AlignColumn(ContentAlignment.MiddleCenter);
         }
 
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleRight);
-        }
-
-        private void AlignColumn(ContentAlignment alignement)
-        {
-            Point pt = contextMenuStrip1.Location;
-            pt = pnlTest.PointToClient(pt);
-            Control ctr = pnlTest.GetChildAtPoint(pt);
-            Label lbl = ctr as Label;
-
-            if (lbl == null || lbl.Tag == null)
-                return;
-
-            int columnIndex = Convert.ToInt32(lbl.Tag);
-            if (tbxSizes.Text.Length > 0)
-            {
-                ColumnDisplay[] dd = ColumnDisplay.GetSizes(tbxSizes.Text);
-                dd[columnIndex].Alignement = ConvertAlignment(alignement);
-
-                tbxSizes.Text = Tools.SizesToText(dd);
-            }
-
-            //lbl.TextAlign = alignement;
-
-            foreach (Label c in pnlTest.Controls)
-            {
-                if (c == null || c.Tag == null) continue;
-                int col = Convert.ToInt32(c.Tag);
-                if (col == columnIndex)
-                    c.TextAlign = alignement;
-            }
+            //AlignColumn(ContentAlignment.MiddleRight);
         }
 
         private static ColumnDisplay.Alignment ConvertAlignment(ContentAlignment align)

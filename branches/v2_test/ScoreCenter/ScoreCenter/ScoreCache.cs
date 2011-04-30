@@ -6,7 +6,7 @@ using System.Net;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
-    internal class ScoreCache
+    public class ScoreCache
     {
         /// <summary>
         /// Cache.

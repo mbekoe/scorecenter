@@ -47,15 +47,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             lblVersion.Text = v.ToString(4);
 
-            DataTable d = EnumManager.ReadNodeTypes();
-
-            foreach (Node t in Enum.GetValues(typeof(Node)))
+            foreach (string tt in ScoreFactory.Instance.GetScoreTypes())
             {
-                int nb = center.Scores.Count(x => x.Type == t);
-                string tl = d.Select(String.Format("ID = '{0}'", t.ToString()))[0]["NAME"].ToString();
-                ListViewItem item = new ListViewItem(new string[] { tl, nb.ToString() });
-                lvwSummary.Items.Add(item);
+                AddCategory(tt, center.Scores.Items.Where(sc => sc.GetType().Name == tt + "Score").Count());
             }
+            lvwSummary.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+
+        private void AddCategory(string label, int nb)
+        {
+            ListViewItem item = new ListViewItem(new string[] { label, nb.ToString() });
+            lvwSummary.Items.Add(item);
         }
 
         private void btnOk_Click(object sender, EventArgs e)

@@ -25,31 +25,23 @@ namespace MediaPortal.Plugin.ScoreCenter
             InitializeComponent();
 
             m_center = center;
-
-            List<string> plist = new List<string>();
             DataTable dt = new DataTable();
             dt.Columns.Add("Name");
             dt.Columns.Add("Value");
+
+            List<string> allready = new List<string>();
             foreach (var p in center.Parameters)
             {
                 dt.Rows.Add(p.name, p.Value);
-                plist.Add(p.name);
+                allready.Add(p.name);
             }
 
-            Regex rule = new Regex(@"{@(?<a>[^}]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            foreach (Score sc in center.Scores.Where(x => x.Type == Node.Score && x.enable && x.Url.Contains("{")))
+            List<string> plist = m_center.GetParameters();
+            foreach (string pp in plist)
             {
-                MatchCollection mc = rule.Matches(sc.Url);
-                if (mc == null)
-                    continue;
-                foreach (Match m in mc)
+                if (!allready.Contains(pp))
                 {
-                    string v = m.Value.Substring(2); // remove '{@'
-                    if (plist.Contains(v) == false)
-                    {
-                        dt.Rows.Add(v, "");
-                        plist.Add(v);
-                    }
+                    dt.Rows.Add(pp, "");
                 }
             }
 
