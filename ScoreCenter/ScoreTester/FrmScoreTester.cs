@@ -13,13 +13,9 @@ namespace ScoreTester
 {
     public partial class FrmScoreTester : Form
     {
-        private ScoreParser m_parser;
-
         public FrmScoreTester()
         {
             InitializeComponent();
-
-            m_parser = new ScoreParser(5);
         }
 
         private void NormalTest()
@@ -30,7 +26,7 @@ namespace ScoreTester
 
                 // note create a fake ScoreCenterScore to use current values
                 // instead of saved values
-                Score score = new Score();
+                GenericScore score = new GenericScore();
                 score.Url = tbxUrl.Text;
                 score.Encoding = tbxEncoding.Text;
                 score.XPath = tbxXpath.Text;
@@ -42,7 +38,7 @@ namespace ScoreTester
                 score.MaxLines = ReadInt(tbxMaxLines);
 
                 // read and parse the score
-                string[][] lines = m_parser.Read(score, ckxReload.Checked, null);
+                string[][] lines = ScoreFactory.Instance.GetParser(score).Read(score, ckxReload.Checked, null);
 
                 int nbColumns = 0;
                 grdTest.Columns.Clear();
@@ -83,56 +79,7 @@ namespace ScoreTester
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-                DynamicTest();
-            else
-                NormalTest();
-        }
-        private void DynamicTest()
-        {
-            try
-            {
-                this.Cursor = Cursors.WaitCursor;
-
-                // note create a fake ScoreCenterScore to use current values
-                // instead of saved values
-                Score score = new Score();
-                score.Url = tbxUrl.Text;
-                score.Encoding = tbxEncoding.Text;
-                score.XPath = tbxXpath.Text;
-                score.Sizes = tbxSizes.Text;
-                score.Headers = tbxHeaders.Text;
-
-                score.Element = tbxElement.Text;
-                score.Skip = ReadInt(tbxSkip);
-                score.MaxLines = ReadInt(tbxMaxLines);
-
-                // read and parse the score
-                List<Score> scores = m_parser.ParseDynamicList(score, ckxReload.Checked);
-
-                grdTest.Columns.Clear();
-                if (scores.Count > 0)
-                {
-                    grdTest.Columns.Add("Name", "Name");
-                    grdTest.Columns.Add("Url", "Url");
-                    grdTest.Columns.Add("Xpath", "Xpath");
-
-                    foreach (Score sc in scores)
-                    {
-                        grdTest.Rows.Add(sc.Name, sc.Url, sc.XPath);
-                    }
-
-                    grdTest.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                this.Cursor = Cursors.Default;
-            }
+            NormalTest();
         }
         private static int ReadInt(TextBox control)
         {
@@ -177,7 +124,7 @@ namespace ScoreTester
         {
             if (tbxUrl.Text.Length > 0)
             {
-                string url = ScoreParser.ParseUrl(tbxUrl.Text, null);
+                string url = Tools.ParseUrl(tbxUrl.Text, null);
                 Process.Start(url);
             }
         }

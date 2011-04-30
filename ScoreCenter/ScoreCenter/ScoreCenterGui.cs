@@ -32,6 +32,7 @@ using System.Net;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
+using System.Collections;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -55,14 +56,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         private List<int> m_indices = new List<int>();
         private int m_currentLine; // 0
         private int m_currentColumn; // 0
-        private Score m_currentScore;
+        private BaseScore m_currentScore;
         private string[][] m_lines;
         private Stack<int> m_prevIndex = new Stack<int>();
 
-        private ScoreBuilder<GUIControl> m_builder;
+        //private ScoreBuilder<GUIControl> m_builder;
 
         private ScoreCenter m_center;
-        private ScoreParser m_parser;
+        //private ScoreParser m_parser;
 
         #region Skin Controls
         [SkinControlAttribute(10)]
@@ -83,19 +84,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         #endregion
 
         #endregion
-
-        internal ScoreParser Parser
-        {
-            get
-            {
-                if (m_parser == null)
-                {
-                    m_parser = new ScoreParser(m_center.Setup.CacheExpiration);
-                }
-
-                return m_parser;
-            }
-        }
 
         #region GUI overrides
         public override int GetID
@@ -127,14 +115,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
                     SetScoreProperties(null);
 
-                    m_builder = new ScoreBuilder<GUIControl>();
-                    m_builder.Center = m_center;
+                    //m_builder = new ScoreBuilder<GUIControl>();
+                    //m_builder.Styles = m_center.Styles.ToList().AsReadOnly();
 
                     GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
                     int fontSize = font.FontSize;
                     int charHeight = 0, charWidth = 0;
                     GetCharFonSize(fontSize, ref charWidth, ref charHeight);
-                    m_builder.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+                    //m_builder.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
 
                     UpdateSettings(false, false);
 
@@ -146,7 +134,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     else
                     {
                         string firstId = m_center.Setup.Home;
-                        Score score = m_center.FindScore(firstId);
+                        BaseScore score = m_center.FindScore(firstId);
                         if (score == null)
                         {
                             LoadScores("");
@@ -155,10 +143,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         else
                         {
                             LoadScores(score.Parent);
-                            if (score.Type == Node.Score)
-                            {
-                                DisplayScore(score);
-                            }
+                            DisplayScore(score);
                         }
                     }
                     #endregion
@@ -179,7 +164,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected override void OnPageDestroy(int new_windowId)
         {
             ClearProperties(0);
-            m_parser = null;
+            //m_parser = null;
             m_center = null;
             ClearGrid();
             base.OnPageDestroy(new_windowId);
@@ -204,7 +189,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected override void OnShowContextMenu()
         {
             GUIListItem item = lstDetails.SelectedListItem;
-            Score sc = item.TVTag as Score;
+            BaseScore sc = item.TVTag as BaseScore;
 
             #region create menu
             GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -215,11 +200,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             menu.Add(LocalizationManager.GetString(Labels.ClearCache));
 
             // 2: auto mode
-            if (m_builder.AutoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            //if (m_builder.AutoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            if (true) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
 
             // 3: auto wrap
-            if (m_builder.AutoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            //if (m_builder.AutoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            if (true) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
 
             // 4: synchro
@@ -245,15 +232,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             switch (menu.SelectedId)
             {
                 case 1:
-                    Parser.ClearCache();
+                    ScoreFactory.Instance.ClearCache();
                     break;
                 case 2:
-                    m_builder.AutoSize = !m_builder.AutoSize;
+                    //m_builder.AutoSize = !m_builder.AutoSize;
                     ClearGrid();
                     CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
                 case 3:
-                    m_builder.AutoWrap = !m_builder.AutoWrap;
+                    //m_builder.AutoWrap = !m_builder.AutoWrap;
                     ClearGrid();
                     CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
@@ -327,7 +314,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (m_currentScore != null)
                 {
                     int delta = control == btnPreviousScore ? -1 : 1;
-                    m_currentScore.variable += delta;
+                    //m_currentScore.variable += delta;
                     DisplayScore();
                 }
             }
@@ -358,8 +345,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             ShowNextPrevScoreButtons(false);
             ClearGrid();
 
-            Score sc = item.TVTag as Score;
-            bool currIsFolder = (m_currentScore == null || m_currentScore.Type == Node.Folder);
+            BaseScore sc = item.TVTag as BaseScore;
+            bool currIsFolder = (m_currentScore == null || m_currentScore.IsFolder());
             m_currentScore = sc;
 
             bool reselect = true;
@@ -389,16 +376,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             else
             {
                 if (currIsFolder) m_level++;
-                switch (sc.Type)
+                if (sc.IsFolder())
                 {
-                    case Node.Folder:
-                        LoadScores(sc);
-                        break;
-                    case Node.RSS:
-                    case Node.Score:
-                        DisplayScore();
-                        lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
-                        break;
+                    LoadScores(sc);
+                }
+                else
+                {
+                    DisplayScore();
+                    lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
                 }
             }
 
@@ -410,10 +395,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         #region Load Selection
         private void LoadScores(string id)
         {
-            Score sc = m_center.FindScore(id);
+            BaseScore sc = m_center.FindScore(id);
             LoadScores(sc);
         }
-        private void LoadScores(Score root)
+        private void LoadScores(BaseScore root)
         {
             //Tools.LogMessage("========= load score {0} level = {1}", root == null ? "NULL" : root.ToString(), m_level);
             lstDetails.Clear();
@@ -435,11 +420,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                     lstDetails.Add(item1);
                 }
 
-                foreach (Score sc in m_center.ReadChildren(id))
+                foreach (BaseScore sc in m_center.ReadChildren(id))
                 {
                     GUIListItem item = new GUIListItem();
                     item.Label = sc.LocName;
-                    item.IsFolder = (sc.Type == Node.Folder);
+                    item.IsFolder = sc.IsFolder();
                     item.IconImage = GetImage(sc.Image);
                     item.IsPlayed = sc.IsNew;
                     item.TVTag = sc;
@@ -457,19 +442,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             GUIWaitCursor.Show();
             System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
             {
-                string url = String.Empty;
                 try
                 {
                     if (m_currentScore == null)
                         return;
 
-                    url = DisplayScore(m_currentScore);
+                    DisplayScore(m_currentScore);
                 }
                 catch (WebException exc)
                 {
                     Tools.LogError("Error in LoadScore", exc);
-                    string txt = "Address not found:" + Environment.NewLine;
-                    txt += url;
+                    string txt = "Address not found:" + Environment.NewLine + m_currentScore.GetSource();
                     GUIControl.SetControlLabel(GetID, 20, txt);
                 }
                 catch (Exception exc)
@@ -486,21 +469,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             });
         }
 
-        private string DisplayScore(Score score)
+        private void DisplayScore(BaseScore score)
         {
-            string url = score.Url;
-            Tools.LogMessage("DisplayScore: Url={0}", score.Url);
-            Tools.LogMessage("DisplayScore: XPath={0}", score.XPath);
+            if (score.IsFolder())
+                return;
 
-            string[][] results = Parser.Read(score, false, m_center.Parameters);
+            string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
             m_currentLine = 0;
             m_currentColumn = 0;
             m_lines = results;
             ShowNextButton(false);
-            ShowNextPrevScoreButtons(score.Url.Contains("{"));
+            //ShowNextPrevScoreButtons(score.Url.Contains("{"));
 
             CreateGrid(results, score, 0, 0);
-            return url;
         }
 
         #endregion
@@ -508,7 +489,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         #region Properties
 
         private Random m_randomizer = new Random(DateTime.Now.Millisecond);
-        private string FindBackdrop(Score score)
+        private string FindBackdrop(BaseScore score)
         {
             Tools.LogMessage("SetBackdrop for '{0}'", score == null ? "NULL" : score.Name);
             string bd = "";
@@ -532,7 +513,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             return bd;
         }
 
-        private void SetBackdrop(Score score)
+        private void SetBackdrop(BaseScore score)
         {
             string bd = FindBackdrop(score);
             if (bd.Length == 0)
@@ -564,7 +545,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         private int m_level = 0;
-        private void SetScoreProperties(Score score)
+        private void SetScoreProperties(BaseScore score)
         {
             string name = " ";
             string image = "-";
@@ -579,9 +560,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 name = score.LocName;
                 image = score.Image;
 
-                if (String.IsNullOrEmpty(score.Url) == false)
+                source = score.GetSource();
+                if (String.IsNullOrEmpty(source) == false)
                 {
-                    source = ScoreParser.ParseUrl(score.Url, m_center.Parameters);
+                    source = Tools.ParseUrl(source, m_center.Parameters);
                     source = source.Replace("http://", String.Empty);
                     source = source.Substring(0, source.IndexOf('/'));
                     if (source.StartsWith("www.")) source = source.Substring(4);
@@ -611,9 +593,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        private void SetIcons(Score score, int level)
+        private void SetIcons(BaseScore score, int level)
         {
-            Score curr = score;
+            BaseScore curr = score;
             for (int i = level; i >= 0; i--)
             {
                 if (curr == null)
@@ -675,13 +657,21 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="labels">The labels to fill the grid with.</param>
         /// <param name="score">The Score to display.</param>
         /// <param name="startLine">The first line to display.</param>
-        private void CreateGrid(string[][] labels, Score score, int startLine, int startColumn)
+        private void CreateGrid(string[][] labels, BaseScore score, int startLine, int startColumn)
         {
-            m_builder.Score = score;
-
             bool overRight, overDown;
             int lineNumber, colNumber;
-            IList<GUIControl> controls = m_builder.Build(labels,
+
+            IScoreBuilder<GUIControl> bld = ScoreFactory.Instance.GetBuilder<GUIControl>(score);
+            bld.Styles = m_center.Styles.ToList().AsReadOnly();
+
+            GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
+            int fontSize = font.FontSize;
+            int charHeight = 0, charWidth = 0;
+            GetCharFonSize(fontSize, ref charWidth, ref charHeight);
+            bld.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+
+            IList<GUIControl> controls = bld.Build(score, labels,
                 startLine, startColumn,
                 tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
                 this.CreateControl,
@@ -690,7 +680,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             // add controls to screen
             for (int i = 0; i < controls.Count; i++)
             {
-                GUIControl c = controls[i];
+                GUIControl c = controls[i] as GUIControl;
                 c.AllocResources();
                 Add(ref c);
             }
@@ -916,8 +906,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     res = 1;
                 else
                 {
-                    Score scx = x.TVTag as Score;
-                    Score scy = y.TVTag as Score;
+                    BaseScore scx = x.TVTag as BaseScore;
+                    BaseScore scy = y.TVTag as BaseScore;
                     if (scx == null || scy == null)
                         res = String.Compare(x.Label, y.Label);
                     else

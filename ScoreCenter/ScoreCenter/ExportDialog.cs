@@ -47,29 +47,19 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void ExportScores(string fileName)
         {
-            List<Score> scores = new List<Score>();
-            List<string> styles = new List<string>();
+            List<BaseScore> scores = new List<BaseScore>();
 
             // navigate through the nodes and export only the checked nodes
             foreach (ThreeStateTreeNode scoreNode in treeView1.GetCheckedNodes())
             {
                 if (scoreNode.Checked)
                 {
-                    Score score = scoreNode.Tag as Score;
+                    BaseScore score = scoreNode.Tag as BaseScore;
                     scores.Add(score);
-
-                    if (score.Rules != null)
-                    {
-                        foreach (Rule r in score.Rules)
-                        {
-                            if (styles.Contains(r.Format) == false)
-                                styles.Add(r.Format);
-                        }
-                    }
                 }
             }
 
-            ExchangeManager.Export(m_center, fileName, scores, styles);
+            ExchangeManager.Export(m_center, fileName, scores);
         }
 
         private void ExportDialog_FormClosed(object sender, FormClosedEventArgs e)

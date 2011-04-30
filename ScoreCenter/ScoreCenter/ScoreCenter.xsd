@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="ScoreCenter" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-  <xs:simpleType name="Node">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Score" />
-      <xs:enumeration value="Folder" />
-      <xs:enumeration value="RSS" />
-    </xs:restriction>
-  </xs:simpleType>
   <xs:simpleType name="Parsing">
     <xs:restriction base="xs:string">
       <xs:enumeration value="None" />
@@ -85,37 +78,60 @@
       <xs:attribute name="Format" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Score" nillable="false">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
-        <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
-        <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-        <xs:element name="XPath" type="xs:string" minOccurs="0" maxOccurs="1" />
-        <xs:element name="Element" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-        <xs:element name="BetweenElts" type="BetweenElements" minOccurs="0" maxOccurs="1" default="None" />
-        <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-        <xs:element name="Sizes" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-        <xs:element name="Skip" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
-        <xs:element name="MaxLines" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
-        <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-        <xs:element name="ParseOptions" type="xs:string" minOccurs="0" maxOccurs="1" default="None" />
-        <xs:element name="variable" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
-        <xs:element name="Rules" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Rule" minOccurs="0" maxOccurs="unbounded" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="Id" type="xs:string" use="required" />
-      <xs:attribute name="Type" type="Node" default="Score" />
-      <xs:attribute name="Parent" type="xs:string" default="" />
-      <xs:attribute name="Order" type="xs:int" default="99" />
-      <xs:attribute name="enable" type="xs:boolean" default="true" />
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="BaseScore">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+    <xs:attribute name="Parent" type="xs:string" default="" />
+    <xs:attribute name="Order" type="xs:int" default="99" />
+    <xs:attribute name="enable" type="xs:boolean" default="true" />
+  </xs:complexType>
+  <xs:complexType name="FolderScore">
+    <xs:complexContent>
+      <xs:extension base="BaseScore"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RssScore">
+    <xs:complexContent>
+      <xs:extension base="BaseScore">
+	    <xs:sequence>
+          <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
+          <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+		</xs:sequence>
+	  </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="GenericScore">
+    <xs:complexContent>
+      <xs:extension base="BaseScore">
+	    <xs:sequence>
+          <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
+          <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="XPath" type="xs:string" minOccurs="0" maxOccurs="1" />
+          <xs:element name="Element" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="BetweenElts" type="BetweenElements" minOccurs="0" maxOccurs="1" default="None" />
+          <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="Sizes" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="Skip" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
+          <xs:element name="MaxLines" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
+          <xs:element name="ParseOptions" type="xs:string" minOccurs="0" maxOccurs="1" default="None" />
+          <xs:element name="variable" type="xs:int" minOccurs="0" maxOccurs="1" default="0" />
+          <xs:element name="Rules" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="Rule" minOccurs="0" maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+		</xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Folder" type="FolderScore" nillable="false"/>
+  <xs:element name="Score" type="GenericScore" nillable="false"/>
+  <xs:element name="Rss" type="RssScore" nillable="false"/>
   <xs:element name="ScoreCenter" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
     <xs:complexType>
       <xs:sequence>
@@ -151,9 +167,11 @@
         </xs:element>
         <xs:element name="Scores" minOccurs="0" maxOccurs="1">
           <xs:complexType>
-            <xs:sequence>
+            <xs:choice>
+              <xs:element ref="Folder" minOccurs="0" maxOccurs="unbounded" />
               <xs:element ref="Score" minOccurs="0" maxOccurs="unbounded" />
-            </xs:sequence>
+              <xs:element ref="Rss" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
           </xs:complexType>
         </xs:element>
       </xs:sequence>

@@ -34,11 +34,15 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core, Version=1.0.0.29788, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Common.Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\Common.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Dialogs, Version=1.0.0.29798, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Dialogs, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
@@ -64,7 +68,7 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Utils, Version=2.2.7.40018, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
     </Reference>
@@ -81,6 +85,30 @@
     </Compile>
     <Compile Include="CreateScoreDlg.Designer.cs">
       <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.Designer.cs">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.Designer.cs">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.Designer.cs">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.Designer.cs">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ExchangeManager.cs" />
     <Compile Include="ExportDialog.cs">
@@ -102,6 +130,9 @@
     <Compile Include="OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parser\FolderScoreParser.cs" />
+    <Compile Include="Parser\GenericScoreParser.cs" />
+    <Compile Include="Parser\RssScoreParser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -123,10 +154,11 @@
     <Compile Include="ScoreCenterGui.cs" />
     <Compile Include="ScoreCenterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreFactory.cs" />
     <Compile Include="ScoreLocalisation.cs">
       <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ScoreParser.cs" />
+    <Compile Include="Parser\ScoreParser.cs" />
     <Compile Include="StyleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -164,6 +196,7 @@
     <None Include="Resources\BuilderDialog_movedown.bmp" />
     <None Include="Resources\BuilderDialog_moveback.bmp" />
     <None Include="Resources\BuilderDialog_moveright.bmp" />
+    <Content Include="MyScoreCenter.Settings2.xml" />
     <Content Include="skin\Blue3wide\MyScoreCenter.xml" />
     <Content Include="skin\Blue3\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
@@ -202,6 +235,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateScoreDlg.resx">
       <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\BaseScoreEditor.resx">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\FolderScoreEditor.resx">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\GenericScoreEditor.resx">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\RssScoreEditor.resx">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportDialog.resx">
       <DependentUpon>ExportDialog.cs</DependentUpon>

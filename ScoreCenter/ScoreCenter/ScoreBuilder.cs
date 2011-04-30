@@ -27,17 +27,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
-    public class ScoreBuilder<TC>
-    {
-        public delegate TC CreateControlDelegate(int posX, int posY, int width, int height,
-            ColumnDisplay.Alignment alignement,
-            string label, string font, int fontSize, Style style, int nbMax, int columnIndex);
+    public delegate T CreateControlDelegate<T>(int posX, int posY, int width, int height,
+        ColumnDisplay.Alignment alignement,
+        string label, string font, int fontSize, Style style, int nbMax, int columnIndex);
 
-        public ScoreCenter Center { get; set; }
-        public Score Score { get; set; }
+    public interface IScoreBuilder
+    {
+    }
+    public interface IScoreBuilder<T> : IScoreBuilder
+    {
+        //void Configure(Style[] styles, bool limitToPage, bool autoSize, bool autoWrap);
+        void SetFont(string fontName, long textColor, int fontSize, int charWidth, int charHeight);
+        IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
+            int startX, int startY, int pnlWidth, int pnlHeight,
+            CreateControlDelegate<T> createControl,
+            out bool overRight, out bool overDown, out int lineNumber, out int colNumber);
+        bool LimitToPage { get; set; }
+        bool AutoSize { get; set; }
+        bool AutoWrap { get; set; }
+        ReadOnlyCollection<Style> Styles { get; set; }
+    }
+
+    public abstract class ScoreBuilder<T> : IScoreBuilder<T>
+    {
+        public ReadOnlyCollection<Style> Styles { get; set; }
+        public BaseScore Score { get; set; }
         public bool LimitToPage { get; set; }
         public bool AutoSize { get; set; }
         public bool AutoWrap { get; set; }
@@ -47,11 +66,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             LimitToPage = true;
         }
 
-        private string m_fontName;
-        private long m_textColor;
-        private int m_fontSize = 12;
-        private int m_charWidth = 8;
-        private int m_charHeight = 12;
+        public abstract IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
+            int startX, int startY, int pnlWidth, int pnlHeight,
+            CreateControlDelegate<T> createControl,
+            out bool overRight, out bool overDown, out int lineNumber, out int colNumber);
+
+        protected string m_fontName;
+        protected long m_textColor;
+        protected int m_fontSize = 12;
+        protected int m_charWidth = 8;
+        protected int m_charHeight = 12;
         
         public void SetFont(string fontName, long textColor, int fontSize,
             int charWidth, int charHeight)
@@ -63,9 +87,92 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_charHeight = charHeight;
         }
 
+        /*
         public IList<TC> Build(string[][] labels, int startLine, int startColumn,
             int startX, int startY, int pnlWidth, int pnlHeight,
-            CreateControlDelegate createControl,
+            CreateControlDelegate<TC> createControl,
+            out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
+        {
+            if (this.Score is GenericScore)
+                return BuildGenericScore(labels, startLine, startColumn, startX, startY, pnlWidth, pnlHeight,
+                    createControl, out overRight, out overDown, out lineNumber, out colNumber);
+
+            if (this.Score is RssScore)
+                return BuildRssScore(labels, startLine, startColumn, startX, startY, pnlWidth, pnlHeight,
+                    createControl, out overRight, out overDown, out lineNumber, out colNumber);
+
+            lineNumber = -1;
+            colNumber = -1;
+            overRight = false;
+            overDown = false;
+            return null;
+        }*/
+
+
+        protected Style FindStyle(string name)
+        {
+            if (this.Styles == null || String.IsNullOrEmpty(name))
+                return null;
+
+            return this.Styles.FirstOrDefault(style => style.Name == name);
+        }
+
+        protected ColumnDisplay[] GetSizes(GenericScore genScore, string[][] labels)
+        {
+            ColumnDisplay[] cols = null;
+            if (!this.AutoSize)
+            {
+                cols = ColumnDisplay.GetSizes(genScore.Sizes);
+            }
+            else
+            {
+                // evaluate max size foreach column
+                // warning: all columns do not have the same number of columns
+                Dictionary<int, int> coldic = new Dictionary<int, int>();
+                foreach (string[] row in labels)
+                {
+                    if (row == null)
+                        continue;
+
+                    for (int i = 0; i < row.Length; i++)
+                    {
+                        string cell = row[i];
+                        int length = String.IsNullOrEmpty(cell) ? 0 : cell.Length;
+                        if (coldic.ContainsKey(i))
+                        {
+                            coldic[i] = Math.Max(coldic[i], length);
+                        }
+                        else
+                        {
+                            coldic[i] = length;
+                        }
+                    }
+                }
+
+                cols = new ColumnDisplay[coldic.Count];
+                foreach (int key in coldic.Keys)
+                {
+                    cols[key] = new ColumnDisplay(coldic[key], ColumnDisplay.Alignment.Left);
+                }
+            }
+
+            return cols;
+        }
+
+        protected static ColumnDisplay GetColumnSize(int colIndex, ColumnDisplay[] cols, string text, bool span)
+        {
+            if (cols == null || span)
+                return new ColumnDisplay(text.Length, ColumnDisplay.Alignment.Left);
+
+            return colIndex < cols.Length ? cols[colIndex] : new ColumnDisplay(0, ColumnDisplay.Alignment.Left);
+        }
+    }
+
+    public class GenericScoreBuilder<T> : ScoreBuilder<T>
+    {
+        public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
+            int startX, int startY, int pnlWidth, int pnlHeight,
+            CreateControlDelegate<T> createControl,
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
             lineNumber = -1;
@@ -75,7 +182,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             //Tools.LogMessage("X = {0}, Y = {1}, W = {2}, H = {3}", startX, startY, pnlWidth, pnlHeight);
 
-            if (Score == null || Center == null)
+            GenericScore genScore = score as GenericScore;
+            if (genScore == null)
                 return null;
 
             int maxX = startX + pnlWidth;
@@ -88,16 +196,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             defaultStyle.ForeColor = m_textColor;
 
             // Get Columns Sizes
-            ColumnDisplay[] cols = GetSizes(labels);
+            ColumnDisplay[] cols = GetSizes(genScore, labels);
 
-            RuleEvaluator engine = new RuleEvaluator(Score.Rules);
+            RuleEvaluator engine = new RuleEvaluator(genScore.Rules);
 
-            ParsingOptions opt = Score.GetParseOption();
-            bool reverseOrder = Score.CheckParsingOption(opt, ParsingOptions.Reverse);
-            bool wordWrap = Score.CheckParsingOption(opt, ParsingOptions.WordWrap);
+            ParsingOptions opt = genScore.GetParseOption();
+            bool reverseOrder = GenericScore.CheckParsingOption(opt, ParsingOptions.Reverse);
+            bool wordWrap = GenericScore.CheckParsingOption(opt, ParsingOptions.WordWrap);
 
             // for all the rows
-            List<TC> controls = new List<TC>();
+            IList<T> controls = new List<T>();
             int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
             foreach (string[] row_ in labels)
             {
@@ -125,9 +233,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 bool isHeader = (row_[0] == ScoreCenterPlugin.C_HEADER);
                 string[] row = isHeader ? row_.Where(c => c != ScoreCenterPlugin.C_HEADER).ToArray() : row_;
-                
+
                 #region Evaluate rule for full line
-                //bool isHeader = !String.IsNullOrEmpty(Score.Headers) && lineNumber == 0;
+                //bool isHeader = !String.IsNullOrEmpty(this.Score.Headers) && lineNumber == 0;
                 Style lineStyle = defaultStyle;
                 bool merge = false;
                 if (!isHeader)
@@ -140,7 +248,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                             continue;
 
                         merge = rule.Action == RuleAction.MergeCells;
-                        lineStyle = Center.FindStyle(rule.Format) ?? defaultStyle;
+                        lineStyle = FindStyle(rule.Format) ?? defaultStyle;
                     }
                 }
                 #endregion
@@ -200,7 +308,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         Rule cellRule = engine.CheckCell(cell, colIndex);
                         if (cellRule != null)
                         {
-                            cellStyle = Center.FindStyle(cellRule.Format) ?? lineStyle;
+                            cellStyle = FindStyle(cellRule.Format) ?? lineStyle;
                             if (cellRule.Action == RuleAction.ReplaceText)
                             {
                                 string str1 = cellRule.Value;
@@ -223,7 +331,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     for (int i = 0; i < aa.Length; i++)
                     {
-                        TC control = createControl(posX, posY + (i * m_charHeight), length, m_charHeight,
+                        T control = createControl(posX, posY + (i * m_charHeight), length, m_charHeight,
                             colSize.Alignement,
                             aa[i],
                             m_fontName, m_fontSize, cellStyle, maxChar, colIndex);
@@ -245,55 +353,108 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("{0} controls created", controls.Count);
             return controls;
         }
-
-        private ColumnDisplay[] GetSizes(string[][] labels)
+    }
+    public class RssScoreBuilder<T> : ScoreBuilder<T>
+    {
+        public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
+            int startX, int startY, int pnlWidth, int pnlHeight,
+            CreateControlDelegate<T> createControl,
+            out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
-            ColumnDisplay[] cols = null;
-            if (!this.AutoSize)
-            {
-                cols = ColumnDisplay.GetSizes(Score.Sizes);
-            }
-            else
-            {
-                // evaluate max size foreach column
-                // warning: all columns do not have the same number of columns
-                Dictionary<int, int> coldic = new Dictionary<int, int>();
-                foreach (string[] row in labels)
-                {
-                    if (row == null)
-                        continue;
+            lineNumber = -1;
+            colNumber = -1;
+            overRight = false;
+            overDown = false;
 
-                    for (int i = 0; i < row.Length; i++)
+            RssScore genScore = score as RssScore;
+            if (genScore == null)
+                return null;
+
+            int maxX = startX + pnlWidth;
+            int maxY = startY + pnlHeight;
+            int posX = startX;
+            int posY = startY;
+            int maxColumnSize = pnlWidth / m_charWidth;
+
+            Style defaultStyle = new Style();
+            defaultStyle.ForeColor = m_textColor;
+
+            // for all the rows
+            IList<T> controls = new List<T>();
+            int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
+            foreach (string[] row_ in labels)
+            {
+                // ignore empty lines
+                if (row_ == null || row_.Length == 0)
+                    continue;
+
+                lineNumber++;
+
+                // ignore lines on previous page
+                if (lineNumber < startLine)
+                {
+                    continue;
+                }
+
+                // ignore if outside and break to next row
+                if (LimitToPage && posY > maxY)
+                {
+                    overDown = true;
+                    break;
+                }
+
+                bool isHeader = (row_[0] == ScoreCenterPlugin.C_HEADER);
+                string[] row = isHeader ? row_.Where(c => c != ScoreCenterPlugin.C_HEADER).ToArray() : row_;
+
+                int nbLines = 1;
+                for (int index = startColumn; index < row.Length; index++)
+                {
+                    string cell = row[0];
+
+                    // evaluate size of the control in pixel
+                    int maxChar = maxColumnSize;
+
+                    // count new lines
+                    int nb = Tools.CountLines(cell);
+                    nbLines = Math.Max(nbLines, nb);
+
+                    int length = m_charWidth * maxChar;
+                    int height = m_charHeight * nbLines;
+
+                    // create the control
+                    string[] aa = cell.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                    T control = createControl(posX, posY, length, m_charHeight,
+                        ColumnDisplay.Alignment.Left,
+                        aa[0],
+                        m_fontName, m_fontSize, defaultStyle, maxChar, 0);
+
+                    if (control != null)
                     {
-                        string cell = row[i];
-                        int length = String.IsNullOrEmpty(cell) ? 0 : cell.Length;
-                        if (coldic.ContainsKey(i))
-                        {
-                            coldic[i] = Math.Max(coldic[i], length);
-                        }
-                        else
-                        {
-                            coldic[i] = length;
-                        }
+                        controls.Add(control);
                     }
                 }
 
-                cols = new ColumnDisplay[coldic.Count];
-                foreach (int key in coldic.Keys)
-                {
-                    cols[key] = new ColumnDisplay(coldic[key], ColumnDisplay.Alignment.Left);
-                }
+                // set Y pos to the bottom of the control
+                posY += m_charHeight * nbLines;
             }
 
-            return cols;
+            Tools.LogMessage("{0} controls created", controls.Count);
+            return controls;
         }
-
-        private static ColumnDisplay GetColumnSize(int colIndex, ColumnDisplay[] cols, string text, bool span)
+    }
+    public class FolderScoreBuilder<T> : ScoreBuilder<T>
+    {
+        public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
+            int startX, int startY, int pnlWidth, int pnlHeight,
+            CreateControlDelegate<T> createControl,
+            out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
-            if (cols == null || span)
-                return new ColumnDisplay(text.Length, ColumnDisplay.Alignment.Left);
-
-            return colIndex < cols.Length ? cols[colIndex] : new ColumnDisplay(0, ColumnDisplay.Alignment.Left);
+            overRight = false;
+            overDown = false;
+            lineNumber = -1;
+            colNumber = -1;
+            return null;
         }
     }
 }

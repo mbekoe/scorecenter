@@ -10,17 +10,25 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public class ExchangeManager
     {
-        public static void Export(ScoreCenter source, string fileName, List<Score> scores, List<string> styles)
+        public static void Export(ScoreCenter source, string fileName, List<BaseScore> scores)
         {
             // create a new object and add the exported scores
             ScoreCenter center = new ScoreCenter();
-            center.Scores = new Score[scores.Count];
-            scores.CopyTo(center.Scores);
+            center.Scores = new ScoreCenterScores();
+            center.Scores.Items = new BaseScore[scores.Count];
+            scores.CopyTo(center.Scores.Items);
 
             // add the styles
-            center.Styles = new Style[styles.Count];
+            List<string> styles = new List<string>();
+            foreach (BaseScore score in scores)
+            {
+                styles.AddRange(score.GetStyles());
+            }
+
+            var dstyles = styles.Distinct();
+            center.Styles = new Style[dstyles.Count()];
             int i = 0;
-            foreach (string str in styles)
+            foreach (string str in dstyles)
             {
                 center.Styles[i++] = source.FindStyle(str);
             }
@@ -47,10 +55,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (imported.Scores == null)
                 return result;
 
-            List<Score> toImport = new List<Score>();
-            foreach (Score score in imported.Scores)
+            List<BaseScore> toImport = new List<BaseScore>();
+            foreach (BaseScore score in imported.Scores.Items)
             {
-                Score exist = center.FindScore(score.Id);
+                BaseScore exist = center.FindScore(score.Id);
                 if (exist != null)
                 {
                     // merge (or not)
@@ -77,21 +85,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (center.Scores == null)
                 {
-                    center.Scores = toImport.ToArray();
+                    center.Scores.Items = toImport.ToArray();
                 }
                 else
                 {
-                    //Score[] list = new Score[center.Scores.Length + toImport.Count];
-                    //center.Scores.CopyTo(list, 0);
-
-                    //int i = center.Scores.Length;
-                    //foreach (Score sc in toImport)
-                    //{
-                    //    list[i++] = sc;
-                    //}
-
-                    //center.Scores = list;
-                    center.Scores = center.Scores.Concat(toImport).ToArray();
+                    center.Scores.Items = center.Scores.Items.Concat(toImport).ToArray();
                 }
             }
 
@@ -111,7 +109,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("        Options: {0}", center.Setup.UpdateRule);
             Tools.LogMessage("        Force: {0}", force);
 
-            if (center.Setup.DoUpdate(force, center.Scores == null ? 0 : center.Scores.Length)
+            if (center.Setup.DoUpdate(force, center.Scores == null ? 0 : center.Scores.Items.Length)
                 && String.IsNullOrEmpty(center.Setup.UpdateUrl) == false)
             {
                 ImportOptions options = (ImportOptions)Enum.Parse(typeof(ImportOptions), center.Setup.UpdateRule, true);
@@ -156,7 +154,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             // create list including all icons
             List<string> icons = new List<string>();
 
-            icons.AddRange(center.Scores.Select(sc => sc.Image));
+            icons.AddRange(center.Scores.Items.Select(sc => sc.Image));
 
             // check if an icon is missing
             bool missing = false;

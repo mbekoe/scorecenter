@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -34,19 +35,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     public static class EnumManager
     {
-        public static DataTable ReadNodeTypes()
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("NAME");
-
-            dt.Rows.Add(Node.Folder.ToString(), "Folder");
-            dt.Rows.Add(Node.RSS.ToString(), "RSS");
-            dt.Rows.Add(Node.Score.ToString(), "Score");
-
-            return dt;
-        }
-
         public static DataTable ReadBetweenElements()
         {
             DataTable dt = new DataTable();
@@ -116,35 +104,35 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
     }
 
-    partial class ScoreCenter
+    public partial class ScoreCenter
     {
-        public void AddScore(Score score)
+        public void AddScore(BaseScore score)
         {
-            this.Scores = Tools.AddElement<Score>(this.Scores, score);
+            this.Scores.Items = Tools.AddElement<BaseScore>(this.Scores.Items, score);
         }
 
-        public void RemoveScore(Score score)
+        public void RemoveScore(BaseScore score)
         {
-            this.Scores = Tools.RemoveElement<Score>(this.Scores, score);
+            this.Scores.Items = Tools.RemoveElement<BaseScore>(this.Scores.Items, score);
         }
 
-        public IEnumerable<Score> ReadChildren(string id)
+        public IEnumerable<BaseScore> ReadChildren(string id)
         {
-            return this.Scores.Where(score => score.enable && score.Parent == id);
+            return this.Scores.Items.Where(score => score.enable && score.Parent == id);
         }
 
-        public void DisableScore(Score score)
+        public void DisableScore(BaseScore score)
         {
             if (score == null)
                 return;
 
             score.enable = false;
-            foreach (Score sc in this.ReadChildren(score.Id))
+            foreach (BaseScore sc in this.ReadChildren(score.Id))
             {
                 DisableScore(sc);
             }
         }
-        public string GetFullName(Score score, string sep)
+        public string GetFullName(BaseScore score, string sep)
         {
             if (score == null)
                 return "";
@@ -158,12 +146,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             return full;
         }
 
-        public Score FindScore(string id)
+        public BaseScore FindScore(string id)
         {
             if (this.Scores == null || String.IsNullOrEmpty(id))
                 return null;
 
-            return this.Scores.FirstOrDefault(score => score.Id == id);
+            return this.Scores.Items.FirstOrDefault(score => score.Id == id);
         }
 
         public Style FindStyle(string name)
@@ -182,9 +170,34 @@ namespace MediaPortal.Plugin.ScoreCenter
             ImportOptions option = (ImportOptions)Enum.Parse(typeof(ImportOptions), this.Setup.UpdateRule, true);
             return ((option & ImportOptions.OverwriteIcons) == ImportOptions.OverwriteIcons);
         }
+
+        public List<string> GetParameters()
+        {
+            List<string> plist = new List<string>();
+            Regex rule = new Regex(@"{@(?<a>[^}]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            foreach (GenericScore sc in this.Scores.Items.OfType<GenericScore>())
+            {
+                if (!sc.enable || !sc.Url.Contains("{"))
+                    continue;
+
+                MatchCollection mc = rule.Matches(sc.Url);
+                if (mc == null)
+                    continue;
+                foreach (Match m in mc)
+                {
+                    string v = m.Value.Substring(2); // remove '{@'
+                    if (plist.Contains(v) == false)
+                    {
+                        plist.Add(v);
+                    }
+                }
+            }
+            
+            return plist;
+        }
     }
 
-    partial class Score
+    public abstract partial class BaseScore
     {
         /// <summary>
         /// Flag to identify new downloaded score.
@@ -199,6 +212,141 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 return LocalizationManager.GetScoreString(this.Id, this.Name);
             }
+        }
+
+        internal abstract BaseScore Clone(string id);
+
+        public virtual bool IsFolder()
+        {
+            return false;
+        }
+        public virtual string GetSource()
+        {
+            return String.Empty;
+        }
+        public virtual IList<string> GetStyles()
+        {
+            return new List<string>();
+        }
+
+        /// <summary>
+        /// Merge this score with newScore using given options.
+        /// </summary>
+        /// <param name="newScore">The score to merge with.</param>
+        /// <param name="type">Merge options.</param>
+        /// <returns>True if the score changed.</returns>
+        public virtual bool Merge(BaseScore newScore, ImportOptions option)
+        {
+            bool result = false;
+            if ((option & ImportOptions.Names) == ImportOptions.Names)
+            {
+                result |= (String.Compare(this.Name, newScore.Name, true) != 0);
+
+                this.Name = newScore.Name;
+                this.Parent = newScore.Parent;
+                this.Image = newScore.Image;
+            }
+
+            return result;
+        }
+
+        public int CompareTo(BaseScore other)
+        {
+            int diff = this.Order - other.Order;
+            if (diff == 0) diff = String.Compare(this.LocName, other.LocName);
+            return diff;
+        }
+        public int CompareToNoLoc(BaseScore other)
+        {
+            int diff = this.Order - other.Order;
+            if (diff == 0) diff = String.Compare(this.Name, other.Name);
+            return diff;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} [{1}]", this.Name, this.Id);
+        }
+    }
+    public partial class FolderScore
+    {
+        internal override BaseScore Clone(string id)
+        {
+            FolderScore copy = new FolderScore();
+            copy.Id = id;
+            if (String.IsNullOrEmpty(id)) copy.Id = Tools.GenerateId();
+
+            copy.Name = this.Name;
+            copy.Image = this.Image;
+            copy.Parent = this.Parent;
+
+            return (BaseScore)copy;
+        }
+
+        public override bool IsFolder()
+        {
+            return true;
+        }
+    }
+    public partial class RssScore
+    {
+        public override string GetSource()
+        {
+            return this.Url;
+        }
+        internal override BaseScore Clone(string id)
+        {
+            RssScore copy = new RssScore();
+            copy.Id = id;
+            if (String.IsNullOrEmpty(id)) copy.Id = Tools.GenerateId();
+
+            copy.Name = this.Name;
+            copy.Url = this.Url;
+            copy.Image = this.Image;
+            copy.Parent = this.Parent;
+
+            return (BaseScore)copy;
+        }
+
+        public override bool Merge(BaseScore newBaseScore, ImportOptions option)
+        {
+            RssScore newScore = newBaseScore as RssScore;
+            if (newScore == null)
+                return false;
+
+            bool result = base.Merge(newScore, option);
+
+            if ((option & ImportOptions.Parsing) == ImportOptions.Parsing)
+            {
+                result |= (String.Compare(this.Url, newScore.Url, true) != 0)
+                    || (String.Compare(this.Encoding, newScore.Encoding, true) != 0);
+
+                this.Url = newScore.Url;
+                this.Encoding = newScore.Encoding;
+            }
+
+            return result;
+        }
+    }
+    public partial class GenericScore
+    {
+        public override string GetSource()
+        {
+            return this.Url;
+        }
+        public override IList<string> GetStyles()
+        {
+            if (this.Rules == null)
+                return base.GetStyles();
+
+            List<string> styles = new List<string>();
+            foreach (Rule r in this.Rules)
+            {
+                if (styles.Contains(r.Format) == false)
+                    styles.Add(r.Format);
+            }
+
+            return styles;
         }
 
         public static bool CheckParsingOption(ParsingOptions opt, ParsingOptions o)
@@ -231,29 +379,35 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.ParseOptions = opt.ToString();
         }
 
-        /// <summary>
-        /// Merge this score with newScore using given options.
-        /// </summary>
-        /// <param name="newScore">The score to merge with.</param>
-        /// <param name="type">Merge options.</param>
-        /// <returns>True if the score changed.</returns>
-        public bool Merge(Score newScore, ImportOptions option)
+        internal override BaseScore Clone(string id)
         {
-            bool result = false;
-            if ((option & ImportOptions.Names) == ImportOptions.Names)
-            {
-                result |= (String.Compare(this.Name, newScore.Name, true) != 0);
+            GenericScore copy = new GenericScore();
+            copy.Id = id;
+            if (String.IsNullOrEmpty(id)) copy.Id = Tools.GenerateId();
 
-                this.Name = newScore.Name;
-                this.Parent = newScore.Parent;
-                this.Image = newScore.Image;
+            copy.Name = this.Name;
+            copy.Url = this.Url;
+            copy.XPath = this.XPath;
+            copy.Headers = this.Headers;
+            copy.Sizes = this.Sizes;
+            copy.Skip = this.Skip;
+            copy.MaxLines = this.MaxLines;
+            copy.Image = this.Image;
+            copy.Element = this.Element;
+            copy.Encoding = this.Encoding;
+            copy.ParseOptions = this.ParseOptions;
+            copy.Parent = this.Parent;
 
-                if (newScore.Headers.Length > 0 || this.Headers.Length == 0)
-                {
-                    this.Headers = newScore.Headers;
-                    result = true;
-                }
-            }
+            return (BaseScore)copy;
+        }
+
+        public override bool Merge(BaseScore newBaseScore, ImportOptions option)
+        {
+            GenericScore newScore = newBaseScore as GenericScore;
+            if (newScore == null)
+                return false;
+
+            bool result = base.Merge(newBaseScore, option);
 
             if ((option & ImportOptions.Parsing) == ImportOptions.Parsing)
             {
@@ -273,6 +427,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.BetweenElts = newScore.BetweenElts;
                 this.Encoding = newScore.Encoding;
                 this.ParseOptions = newScore.ParseOptions;
+                if (newScore.Headers.Length > 0 || this.Headers.Length == 0)
+                {
+                    this.Headers = newScore.Headers;
+                    result = true;
+                }
             }
 
             if ((option & ImportOptions.Rules) == ImportOptions.Rules)
@@ -283,49 +442,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     result = true;
                 }
             }
-
+            
             return result;
-        }
-
-        public int CompareTo(Score other)
-        {
-            int diff = this.Order - other.Order;
-            if (diff == 0) diff = String.Compare(this.LocName, other.LocName);
-            return diff;
-        }
-        public int CompareToNoLoc(Score other)
-        {
-            int diff = this.Order - other.Order;
-            if (diff == 0) diff = String.Compare(this.Name, other.Name);
-            return diff;
-        }
-
-        internal Score Clone(string id)
-        {
-            Score copy = new Score();
-            copy.Id = id;
-            if (String.IsNullOrEmpty(id)) copy.Id = Tools.GenerateId();
-
-            copy.Type = this.Type;
-            copy.Name = this.Name;
-            copy.Url = this.Url;
-            copy.XPath = this.XPath;
-            copy.Headers = this.Headers;
-            copy.Sizes = this.Sizes;
-            copy.Skip = this.Skip;
-            copy.MaxLines = this.MaxLines;
-            copy.Image = this.Image;
-            copy.Element = this.Element;
-            copy.Encoding = this.Encoding;
-            copy.ParseOptions = this.ParseOptions;
-            copy.Parent = this.Parent;
-
-            return copy;
-        }
-
-        public override string ToString()
-        {
-            return String.Format("{0} [{1}]", this.Name, this.Id);
         }
     }
 

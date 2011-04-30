@@ -11,17 +11,21 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public partial class CreateScoreDlg : Form
     {
-        private Score m_parentScore = null;
+        private string m_parentId = null;
 
-        public CreateScoreDlg(Score parent)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="parent"></param>
+        public CreateScoreDlg(BaseScore parent)
         {
             InitializeComponent();
 
-            m_parentScore = parent;
-            if (m_parentScore != null)
+            if (parent != null)
             {
-                rbnParent.Text = m_parentScore.Name;
+                rbnParent.Text = parent.Name;
                 rbnParent.Checked = true;
+                m_parentId = parent.Id;
             }
             else
             {
@@ -29,7 +33,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 rbnParent.Visible = false;
             }
 
-            cbxType.DataSource = Enum.GetValues(typeof(Node));
+            cbxType.DataSource = ScoreFactory.Instance.GetScoreTypes();
             tbxName.Text = Properties.Resources.NewItem;
         }
 
@@ -45,17 +49,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        public Score NewScore
+        public BaseScore NewScore
         {
             get
             {
-                Score score = new Score();
-                score.Id = Tools.GenerateId();
+                BaseScore score = ScoreFactory.Instance.CreateScore(cbxType.SelectedValue.ToString());
                 score.Name = tbxName.Text;
-                score.Type = (Node)cbxType.SelectedValue;
-                if (rbnParent.Checked && m_parentScore != null)
+                if (rbnParent.Checked && !String.IsNullOrEmpty(m_parentId))
                 {
-                    score.Parent = m_parentScore.Id;
+                    score.Parent = m_parentId;
                 }
 
                 return score;
