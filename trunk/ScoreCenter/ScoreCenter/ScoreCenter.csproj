@@ -34,11 +34,15 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core, Version=1.0.0.29788, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Common.Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\Common.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Dialogs, Version=1.0.0.29798, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Dialogs, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
@@ -61,7 +65,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utils, Version=2.2.7.40018, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
     </Reference>
@@ -148,8 +152,9 @@
     <None Include="Resources\Web.png" />
     <None Include="Resources\BuilderDialog_moveup.bmp" />
     <None Include="Resources\BuilderDialog_movedown.bmp" />
-    <Content Include="skin\Blue3wide\MyScoreCenter.xml" />
-    <Content Include="skin\Blue3\MyScoreCenter.xml" />
+    <Content Include="skin\DefaultWide\hover_score center.png" />
+    <Content Include="skin\DefaultWide\MyScoreCenter.xml" />
+    <Content Include="skin\Default\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
     <Content Include="skin\Titanium\MyScoreCenter.xml" />
     <None Include="Resources\CopyHS.png" />
@@ -209,8 +214,8 @@
     <PostBuildEvent>sgen.exe /a:"$(TargetPath)" /force
 copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
-rem copy $(ProjectDir)skin\Blue3wide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Blue3wide" /Y
-rem copy $(ProjectDir)skin\Blue3\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Blue3" /Y
+rem copy $(ProjectDir)skin\DefaultWide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\DefaultWide" /Y
+rem copy $(ProjectDir)skin\Default\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Default" /Y
 rem copy $(ProjectDir)MyScoreCenter.settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
