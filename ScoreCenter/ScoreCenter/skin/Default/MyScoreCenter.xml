@@ -43,7 +43,7 @@
       <posY>5</posY>
       <width>500</width>
       <label>#ScoreCenter.Title</label>
-      <font>font18</font>
+      <font>font14</font>
       <textcolor>aaffffff</textcolor>
       <align>right</align>
       <texture>ScoreCenter\Football.png</texture>
@@ -150,6 +150,7 @@
       <spinPosX>10</spinPosX>
       <spinPosY>550</spinPosY>
       <onright>40</onright>
+      <font>font10</font>
     </control>
 
     <control>
@@ -161,7 +162,7 @@
       <visible>yes</visible>
       <width>500</width>
       <height>470</height>
-      <font>font11</font>
+      <font>font10</font>
     </control>
 
     <control>

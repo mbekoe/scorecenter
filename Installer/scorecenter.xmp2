@@ -47,22 +47,7 @@
         <DefaulChecked>true</DefaulChecked>
         <Description>Skin</Description>
         <Files>
-          <Items>
-            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>NeverOverwrite</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\MyScoreCenter.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{1b568edf-da62-487d-881e-ea05806274eb}-MyScoreCenter.xml</ZipFileName>
-              <DestinationFilename>%Skin%\[DEFAULT]\MyScoreCenter.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>NeverOverwrite</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\hover_score center.png</LocalFileName>
-              <ZipFileName>Installer{GenericSkinFile}\{4a46fe02-bc8c-4e4c-923e-2e6395e99f2c}-hover_score center.png</ZipFileName>
-              <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_score center.png</DestinationFilename>
-            </FileItem>
-          </Items>
+          <Items />
         </Files>
       </GroupItem>
       <GroupItem Name="Languages">
@@ -99,6 +84,54 @@
               <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{d6e7789e-ac97-43b2-9d39-a0f329bee2bd}-strings_de.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="DefaultSkin">
+        <ParentGroup />
+        <DisplayName>Default Skin</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>DefaultSkin</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenter.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{22db8373-f33b-4728-ac3b-4f4e78e2e38b}-MyScoreCenter.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Default\MyScoreCenter.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\hover_score center.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ee4fe92a-55ca-4064-a689-349984a27cdf}-hover_score center.png</ZipFileName>
+              <DestinationFilename>%Skin%\Default\Media\hover_score center.png</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+      <GroupItem Name="DefaultWideSkin">
+        <ParentGroup />
+        <DisplayName>DefaultWide Skin</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>DefaultWideSkin</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\hover_score center.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{51390ea4-86a4-4b45-96dd-71db7185c2c7}-hover_score center.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\hover_score center.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\MyScoreCenter.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{499ed7ee-0833-45c3-a38c-1925fcfbe438}-MyScoreCenter.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\MyScoreCenter.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -145,7 +178,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Params>
           <Items>
             <SectionParam Name="Header Title">
-              <Value>Installing MyScoreCenter 1.2.0</Value>
+              <Value>Installing MyScoreCenter [Version]</Value>
               <ValueType>String</ValueType>
               <Description>Header title</Description>
             </SectionParam>
@@ -221,17 +254,21 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
-      <Minor>3</Minor>
-      <Build>1</Build>
+      <Minor>4</Minor>
+      <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*Fix issue with "XPath Element" field</VersionDescription>
+    <VersionDescription>*MP1.2 compatible
+
+
+*Replace Blue3 skins with new Default skins
+*Update HtmlAgilityPack 1.3 with version 1.4</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.3.1.0.mpe1</OnlineLocation>
-    <ReleaseDate>2010-11-02T18:55:45</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.4.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-04-30T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -296,20 +333,6 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <ZipFileName>Installer{CopyFile}\{443cc41d-8a62-4be1-baba-254a6da8d8d5}-ScoreCenter.XmlSerializers.dll</ZipFileName>
         <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>NeverOverwrite</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\MyScoreCenter.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1b568edf-da62-487d-881e-ea05806274eb}-MyScoreCenter.xml</ZipFileName>
-        <DestinationFilename>%Skin%\[DEFAULT]\MyScoreCenter.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>NeverOverwrite</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Blue3wide\hover_score center.png</LocalFileName>
-        <ZipFileName>Installer{GenericSkinFile}\{4a46fe02-bc8c-4e4c-923e-2e6395e99f2c}-hover_score center.png</ZipFileName>
-        <DestinationFilename>%Skin%\[DEFAULT]\Media\hover_score center.png</DestinationFilename>
-      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -338,18 +361,39 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <ZipFileName>Installer{CopyFile}\{d6e7789e-ac97-43b2-9d39-a0f329bee2bd}-strings_de.xml</ZipFileName>
         <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenter.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{22db8373-f33b-4728-ac3b-4f4e78e2e38b}-MyScoreCenter.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Default\MyScoreCenter.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\hover_score center.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ee4fe92a-55ca-4064-a689-349984a27cdf}-hover_score center.png</ZipFileName>
+        <DestinationFilename>%Skin%\Default\Media\hover_score center.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\MyScoreCenter.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{499ed7ee-0833-45c3-a38c-1925fcfbe438}-MyScoreCenter.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\MyScoreCenter.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{13dbfd76-db29-401f-8e8e-42afb7c28798}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{a3c36de2-1525-492f-8a55-8b7abbaeb0d5}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{3301d16e-9ebb-4487-97ee-22acb5fb38f4}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{178c6a45-ae64-4ff5-9e03-adb87fe1b8b9}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
