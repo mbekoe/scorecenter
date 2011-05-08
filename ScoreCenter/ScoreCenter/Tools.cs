@@ -116,7 +116,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 if (scores.Scores != null)
                 {
-                    foreach (Score s in scores.Scores)
+                    foreach (BaseScore s in scores.Scores.Items)
                     {
                         if (String.IsNullOrEmpty(s.Id))
                         {
@@ -160,7 +160,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scores = (ScoreCenter)xml.Deserialize(sr);
                 }
 
-                foreach (Score s in scores.Scores)
+                foreach (BaseScore s in scores.Scores.Items)
                 {
                     if (String.IsNullOrEmpty(s.Id))
                     {
@@ -388,6 +388,52 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 action(element);
             }
+        }
+
+        /// <summary>
+        /// Parse the URL to replace variables parts.
+        /// </summary>
+        /// <param name="url">The URL to parse.</param>
+        /// <returns>The parsed URL.</returns>
+        public static string ParseUrl(string url, ScoreParameter[] parameters)
+        {
+            return ParseUrl(url, 0, parameters);
+        }
+        public static string ParseUrl(string url, int delta, ScoreParameter[] parameters)
+        {
+            if (url.IndexOf("{") < 0)
+                return url;
+
+            string result = url;
+
+            // subst parameters
+            if (parameters != null)
+            {
+                foreach (ScoreParameter param in parameters)
+                {
+                    result = result.Replace("{@" + param.name + "}", param.Value);
+                }
+            }
+
+            // parse date format
+            DateTime now = DateTime.Now.AddDays(delta);
+            int start, end;
+            while ((start = result.IndexOf('{') + 1) > 0)
+            {
+                end = result.IndexOf('}');
+                string format = result.Substring(start, end - start);
+                if (format.Length == 1)
+                {
+                    // if format contains only one char add a space in the format and then remove it
+                    result = result.Substring(0, start - 1) + now.ToString(" " + format).Substring(1) + result.Substring(end + 1);
+                }
+                else
+                {
+                    result = result.Substring(0, start - 1) + now.ToString(format) + result.Substring(end + 1);
+                }
+            }
+
+            return result;
         }
     }
 

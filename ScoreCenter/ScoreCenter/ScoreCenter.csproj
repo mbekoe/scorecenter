@@ -46,7 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.3.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -65,6 +65,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
@@ -76,6 +79,36 @@
     </Compile>
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateScoreDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateScoreDlg.Designer.cs">
+      <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.Designer.cs">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.Designer.cs">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.Designer.cs">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.Designer.cs">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ExchangeManager.cs" />
     <Compile Include="ExportDialog.cs">
@@ -97,6 +130,9 @@
     <Compile Include="OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parser\FolderScoreParser.cs" />
+    <Compile Include="Parser\GenericScoreParser.cs" />
+    <Compile Include="Parser\RssScoreParser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,7 +154,11 @@
     <Compile Include="ScoreCenterGui.cs" />
     <Compile Include="ScoreCenterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScoreParser.cs" />
+    <Compile Include="ScoreFactory.cs" />
+    <Compile Include="ScoreLocalisation.cs">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Parser\ScoreParser.cs" />
     <Compile Include="StyleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,9 +179,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Football.ico" />
+    <Content Include="language\score_fr.xml" />
     <Content Include="language\strings_de.xml" />
     <Content Include="language\strings_en.xml" />
     <Content Include="language\strings_fr.xml" />
+    <Content Include="language\strings_pl.xml" />
     <Content Include="language\strings_ru.xml" />
     <Content Include="MyScoreCenter.Settings.xml" />
     <None Include="Resources\openfolderHS.png" />
@@ -152,8 +194,11 @@
     <None Include="Resources\Web.png" />
     <None Include="Resources\BuilderDialog_moveup.bmp" />
     <None Include="Resources\BuilderDialog_movedown.bmp" />
-    <Content Include="skin\DefaultWide\hover_score center.png" />
-    <Content Include="skin\DefaultWide\MyScoreCenter.xml" />
+    <None Include="Resources\BuilderDialog_moveback.bmp" />
+    <None Include="Resources\BuilderDialog_moveright.bmp" />
+    <Content Include="MyScoreCenter.Settings2.xml" />
+    <Content Include="skin\Defaultwide\hover_score center.png" />
+    <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
     <Content Include="skin\Default\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
     <Content Include="skin\Titanium\MyScoreCenter.xml" />
@@ -174,10 +219,35 @@
     <None Include="ScoreCenter.xss">
       <DependentUpon>ScoreCenter.xsd</DependentUpon>
     </None>
+    <None Include="ScoreLocalisation.xsc">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreLocalisation.xsd">
+      <LastGenOutput>ScoreLocalisation.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ScoreLocalisation.xss">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateScoreDlg.resx">
+      <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\BaseScoreEditor.resx">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\FolderScoreEditor.resx">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\GenericScoreEditor.resx">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\RssScoreEditor.resx">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportDialog.resx">
       <DependentUpon>ExportDialog.cs</DependentUpon>
@@ -216,7 +286,7 @@ copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 rem copy $(ProjectDir)skin\DefaultWide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\DefaultWide" /Y
 rem copy $(ProjectDir)skin\Default\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Default" /Y
-rem copy $(ProjectDir)MyScoreCenter.settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
+rem copy $(ProjectDir)MyScoreCenter.settings2.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

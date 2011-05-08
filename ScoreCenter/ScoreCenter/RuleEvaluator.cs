@@ -184,7 +184,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (x1.Length > y1.Length)
                 return -1;
 
-                return 0;
+            return 0;
         }
 
         private static int PartCompare(string left, string right)
