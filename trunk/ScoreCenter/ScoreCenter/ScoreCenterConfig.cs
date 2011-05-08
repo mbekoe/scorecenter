@@ -33,6 +33,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
+using MediaPortal.Plugin.ScoreCenter.Editor;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -41,9 +42,7 @@ namespace MediaPortal.Plugin.ScoreCenter
     /// </summary>
     public partial class ScoreCenterConfig : Form
     {
-        //private IList<Score> m_scores;
         private ScoreCenter m_center;
-        private ScoreParser m_parser;
         private string m_settings;
 
         /// <summary>
@@ -61,36 +60,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
             
-            m_parser = new ScoreParser(0);
+            //m_parser = new ScoreParser(0);
             tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
             this.ShowInTaskbar = showInTaskbar;
 
-            tbxCategory.TextChanged += new EventHandler(ScoreChanged);
-            tbxLeague.TextChanged += new EventHandler(ScoreChanged);
-            tbxScore.TextChanged += new EventHandler(ScoreChanged);
-            tbxUrl.TextChanged += new EventHandler(ScoreChanged);
-            tbxXpath.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxElement.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
-            tbxSizes.TextChanged += new EventHandler(ScoreChanged);
-            tbxSkip.TextChanged += new EventHandler(ScoreChanged);
-            tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
-            cbxBetweenElements.SelectedValueChanged +=new EventHandler(ScoreChanged);
-
-            ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
         }
 
-        private void ScoreChanged(object sender, EventArgs e)
-        {
-            SetScoreStatus(false);
-        }
-        
         private void SetScoreStatus(bool saved)
         {
             if (saved)
@@ -111,20 +87,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterPlugin.SettingsFileName);
                 m_center = Tools.ReadSettings(m_settings, true);
 
-                // rule action
-                colAction.DataSource = EnumManager.ReadRuleAction();
-                colAction.ValueMember = "ID";
-                colAction.DisplayMember = "NAME";
-
-                colOperator.DataSource = EnumManager.ReadOperation();
-                colOperator.ValueMember = "ID";
-                colOperator.DisplayMember = "NAME";
-
-                cbxBetweenElements.DataSource = EnumManager.ReadBetweenElements();
-                cbxBetweenElements.ValueMember = "ID";
-                cbxBetweenElements.DisplayMember = "NAME";
-
-                UpdateStyleList();
 
                 BuildScoreList(tvwScores, m_center, true);
             }
@@ -134,60 +96,56 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        private void UpdateStyleList()
-        {
-            colStyle.Items.Clear();
-            colStyle.Items.Add("");
-
-            if (m_center.Styles != null)
-            {
-                foreach (Style st in m_center.Styles)
-                {
-                    colStyle.Items.AddRange(st.Name);
-                }
-            }
-        }
-
         public static void BuildScoreList(ThreeStateTreeView tree, ScoreCenter center, bool show)
         {
             tree.Nodes.Clear();
             if (center == null || center.Scores == null)
                 return;
 
-            IEnumerable<string> categories = center.Scores.Select(sc => sc.Category).Distinct();
-
-            foreach (string cat in categories)
+            tree.BeginUpdate();
+            Dictionary<string, ThreeStateTreeNode> nodes = new Dictionary<string, ThreeStateTreeNode>(center.Scores.Items.Count());
+            foreach (BaseScore sc in center.Scores.Items)
             {
-                ThreeStateTreeNode cnode = new ThreeStateTreeNode(cat);
-                cnode.Name = cat;
-                tree.Nodes.Add(cnode);
-
-                IEnumerable<Score> scores = center.Scores.Where(sc => sc.Category == cat);
-                IEnumerable<string> leagues = scores.Select(sc => sc.Ligue).Distinct();
-                foreach (string league in leagues)
+                ThreeStateTreeNode node = new ThreeStateTreeNode(sc.Name);
+                node.Tag = sc;
+                nodes.Add(sc.Id, node);
+                if (!sc.IsFolder() && sc.enable && show)
                 {
-                    ThreeStateTreeNode lnode = new ThreeStateTreeNode(league);
-                    lnode.Name = league;
-                    cnode.Nodes.Add(lnode);
-
-                    IEnumerable<Score> leagueScores = scores.Where(sc => sc.Ligue == league);
-                    foreach (Score score in leagueScores)
-                    {
-                        ThreeStateTreeNode snode = new ThreeStateTreeNode(score.Name);
-                        lnode.Nodes.Add(snode);
-                        snode.Tag = score;
-                        if (score.enable && show)
-                        {
-                            snode.State = CheckBoxState.Checked;
-                        }
-                    }
-
-                    ThreeStateTreeNode leaf = lnode.FirstNode as ThreeStateTreeNode;
-                    leaf.UpdateStateOfRelatedNodes();
+                    node.Checked = true;
+                    node.State = CheckBoxState.Checked;
                 }
             }
 
+            foreach (KeyValuePair<string, ThreeStateTreeNode> pair in nodes)
+            {
+                ThreeStateTreeNode node = pair.Value;
+                BaseScore sc = node.Tag as BaseScore;
+                if (String.IsNullOrEmpty(sc.Parent))
+                {
+                    tree.Nodes.Add(node);
+                }
+                else
+                {
+                    if (nodes.ContainsKey(sc.Parent))
+                    {
+                        nodes[sc.Parent].Nodes.Add(node);
+                    }
+                }
+            }
+
+            RefreshTreeState(tree.Nodes);
+            tree.EndUpdate();
             tree.Sort();
+        }
+
+        private static void RefreshTreeState(TreeNodeCollection nodes)
+        {
+            foreach (ThreeStateTreeNode node in nodes)
+            {
+                if (node.Nodes.Count == 0)
+                    node.UpdateStateOfRelatedNodes();
+                RefreshTreeState(node.Nodes);
+            }
         }
 
         private void RefreshTree()
@@ -247,103 +205,61 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (tvwScores.SelectedNode == null)
                 return;
 
-            errorProvider1.Clear();
-            if (tvwScores.SelectedNode.Level == 2)
+            // always clear
+            ClearIcon();
+
+            BaseScore bscore = tvwScores.SelectedNode.Tag as BaseScore;
+
+            BaseScoreEditor prevEditor = GetEditor();
+            BaseScoreEditor editor = null;
+            string editorType = ScoreFactory.Instance.GetEditorType(bscore);
+            if (prevEditor != null)
             {
-                // score
-                gbxScore.Enabled = true;
-                Score score = tvwScores.SelectedNode.Tag as Score;
-
-                tbxCategory.Text = score.Category;
-                tbxLeague.Text = score.Ligue;
-                tbxScore.Text = score.Name;
-
-                tbxUrl.Text = score.Url;
-                tbxXpath.Text = score.XPath;
-                tbxEncoding.Text = score.Encoding;
-                tbxHeaders.Text = score.Headers;
-                tbxSizes.Text = score.Sizes;
-                tbxSkip.Text = score.Skip.ToString();
-                tbxMaxLines.Text = score.MaxLines.ToString();
-                tbxElement.Text = score.Element;
-                ckxUseTheader.Checked = score.UseTheader;
-                ckxUseCaption.Checked = score.UseCaption;
-                ckxNewLine.Checked = score.NewLine;
-                ckxAllowWrapping.Checked = score.WordWrap;
-                ckxReverseOrder.Checked = score.ReverseOrder;
-                cbxBetweenElements.SelectedValue = score.BetweenElts;
-                SetIcon(score.Image);
-
-                grdRule.Enabled = true;
-                SetRules(score);
-            }
-            else
-            {
-                // category or league
-                gbxScore.Enabled = false;
-
-                tbxCategory.Text = String.Empty;
-                tbxLeague.Text = String.Empty;
-                tbxScore.Text = String.Empty;
-
-                tbxUrl.Text = String.Empty;
-                tbxXpath.Text = String.Empty;
-                tbxEncoding.Text = String.Empty;
-                tbxHeaders.Text = String.Empty;
-                tbxSizes.Text = String.Empty;
-                tbxSkip.Text = String.Empty;
-                tbxMaxLines.Text = String.Empty;
-                tbxElement.Text = String.Empty;
-                ckxUseTheader.Checked = false;
-                ckxUseCaption.Checked = false;
-                ckxNewLine.Checked = false;
-                ckxAllowWrapping.Checked = false;
-
-                ClearIcon();
-                if (tvwScores.SelectedNode.Level == 0)
+                if (editorType != prevEditor.GetType().Name)
                 {
-                    CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
-                    if (img != null) SetIcon(img.Path);
+                    pnlEditor.Controls.Clear();
+                    (prevEditor as Control).Dispose();
                 }
                 else
                 {
-                    LeagueImg img = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
-                    if (img != null) SetIcon(img.Path);
+                    prevEditor.Clear();
+                    editor = prevEditor;
                 }
-
-                grdRule.Rows.Clear();
-                grdRule.Enabled = false;
             }
 
+            if (editor == null)
+            {
+                Control zeditor = ScoreFactory.Instance.CreateEditor(editorType);
+                pnlEditor.Controls.Add(zeditor);
+                zeditor.Dock = DockStyle.Fill;
+                editor = zeditor as BaseScoreEditor;
+            }
+
+            editor.LoadScore(bscore, m_center);
+            SetIcon(bscore.Image);
+
             ClearTestGrid();
-            tsbCopyScore.Enabled = (tvwScores.SelectedNode.Level == 2);
-            tsbMoveUp.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.PrevNode != null;
-            tsbMoveDown.Enabled = tsbCopyScore.Enabled && tvwScores.SelectedNode.NextNode != null;
+            tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
+            tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
+            tsbNewLigue.Enabled = bscore.IsFolder();
+            tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
+            tsbMoveRight.Enabled = tsbMoveUp.Enabled;
+            btnTest.Enabled = editor.HasTest;
 
             SetScoreStatus(true);
+        }
+
+        private BaseScoreEditor GetEditor()
+        {
+            if (pnlEditor.Controls.Count == 1)
+                return pnlEditor.Controls[0] as BaseScoreEditor;
+            return null;
         }
 
         private void ClearTestGrid()
         {
             pnlTest.Controls.Clear();
             pnlTest.Tag = null;
-        }
-
-        private void SetRules(Score score)
-        {
-            grdRule.Rows.Clear();
-            if (score.Rules == null)
-                return;
-
-            foreach (Rule rule in score.Rules)
-            {
-                Style st = m_center.FindStyle(rule.Format);
-                grdRule.Rows.Add(rule.Column.ToString(),
-                    rule.Operator.ToString(),
-                    rule.Value,
-                    rule.Action.ToString(),
-                    st == null ? String.Empty : rule.Format);
-            }
         }
 
         #region Icon Management
@@ -377,164 +293,48 @@ namespace MediaPortal.Plugin.ScoreCenter
                 || tvwScores.SelectedNode.Tag == null)
                 return;
 
-            errorProvider1.Clear();
-            if (CheckData())
+            BaseScoreEditor editor = GetEditor();
+            if (editor != null)
             {
-                Score score = tvwScores.SelectedNode.Tag as Score;
-
-                // check if hierarchie changed
-                bool refresh = true;
-                if (score.Category == tbxCategory.Text
-                    && score.Ligue == tbxLeague.Text)
+                BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+                if (editor.SaveScore(ref score))
                 {
-                    refresh = false;
-                }
-
-                if (score.Name != tbxScore.Text)
-                {
-                    tvwScores.SelectedNode.Text = tbxScore.Text;
-                }
-
-                score.Category = tbxCategory.Text;
-                score.Ligue = tbxLeague.Text;
-                score.Name = tbxScore.Text;
-                
-                score.Url = tbxUrl.Text;
-                score.XPath = tbxXpath.Text;
-                score.Headers = tbxHeaders.Text;
-                score.Sizes = tbxSizes.Text;
-                score.Encoding = tbxEncoding.Text;
-                score.Element = tbxElement.Text;
-                score.UseTheader = ckxUseTheader.Checked;
-                score.UseCaption = ckxUseCaption.Checked;
-                score.NewLine = ckxNewLine.Checked;
-                score.WordWrap = ckxAllowWrapping.Checked;
-                score.ReverseOrder = ckxReverseOrder.Checked;
-                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
-
-                if (tbxSkip.Text.Length == 0) score.Skip = 0;
-                else score.Skip = int.Parse(tbxSkip.Text);
-
-                if (tbxMaxLines.Text.Length == 0) score.MaxLines = 0;
-                else score.MaxLines = int.Parse(tbxMaxLines.Text);
-
-                SaveRules(score);
-
-                if (refresh)
-                {
-                    RefreshTree();
-                }
-
-                SetScoreStatus(true);
-            }
-        }
-
-        private void SaveRules(Score score)
-        {
-            score.Rules = null;
-            if (grdRule.Rows.Count > 1)
-            {
-                score.Rules = new Rule[grdRule.Rows.Count - 1];
-                int i = 0;
-                foreach (DataGridViewRow row in grdRule.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    Rule r = new Rule();
-                    r.Column = int.Parse(row.Cells[colColumn.Name].Value.ToString());
-                    r.Value = (row.Cells[colValue.Name].Value == null ? String.Empty : row.Cells[colValue.Name].Value.ToString());
-                    r.Operator = Tools.ParseEnum<Operation>(row.Cells[colOperator.Name].Value.ToString());
-                    r.Action = Tools.ParseEnum<RuleAction>(row.Cells[colAction.Name].Value.ToString());
-                    r.Format = (row.Cells[colStyle.Name].Value == null ? String.Empty : row.Cells[colStyle.Name].Value.ToString());
-
-                    score.Rules[i++] = r;
+                    if (tvwScores.SelectedNode.Text != score.Name)
+                    {
+                        tvwScores.SelectedNode.Text = score.Name;
+                    }
                 }
             }
-        }
-
-        private bool CheckData()
-        {
-            bool result = CheckTextBox(tbxUrl, lblUrl, true);
-            result &= CheckTextBox(tbxXpath, lblXPath, true);
-            result &= CheckNumber(tbxSkip, lblSkip, false);
-            result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
-
-            return result;
-        }
-
-        private bool CheckTextBox(TextBox control, Label label, bool require)
-        {
-            if (control.Text.Length == 0 && require)
-            {
-                string message = String.Format(Properties.Resources.RequiredField, label.Text);
-                errorProvider1.SetError(control, message);
-            }
-
-            return errorProvider1.GetError(control).Length == 0;
-        }
-        
-        private bool CheckNumber(TextBox control, Label label, bool require)
-        {
-            if (control.Text.Length == 0)
-            {
-                if (require)
-                {
-                    string message = String.Format(Properties.Resources.RequiredField, label.Text);
-                    errorProvider1.SetError(control, message);
-                }
-            }
-            else
-            {
-                int test;
-                if (false == int.TryParse(control.Text, out test))
-                {
-                    string message = String.Format(Properties.Resources.BadNumberFormat, label.Text);
-                    errorProvider1.SetError(control, message);
-                }
-            }
-
-            return errorProvider1.GetError(control).Length == 0;
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            AboutDialog dlg = new AboutDialog();
+            AboutDialog dlg = new AboutDialog(m_center);
             dlg.ShowDialog();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult res = MessageBox.Show(@"Warning unsaved changes will be lost.
+Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (res == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             SaveConfig();
-            this.Close();
         }
 
         private void SaveConfig()
         {
             #region Order
-            if (m_center.Images != null && m_center.Images.CategoryImg != null)
-            {
-                m_center.Images.CategoryImg = m_center.Images.CategoryImg.OrderBy(img => img.Name).ToArray();
-            }
-
-            if (m_center.Images !=null && m_center.Images.LeagueImg != null)
-            {
-                m_center.Images.LeagueImg = m_center.Images.LeagueImg.OrderBy(img => img.Category)
-                    .ThenBy(img => img.Name)
-                    .ToArray();
-            }
-
             if (m_center.Scores != null)
             {
-                m_center.Scores = m_center.Scores.OrderBy(sc => sc.Category)
-                    .ThenBy(sc => sc.Ligue)
-                    .ThenBy(sc => sc.Order)
-                    .ThenBy(sc => sc.Name)
+                m_center.Scores.Items = m_center.Scores.Items.OrderBy(sc => sc.Parent)
+                    .ThenBy(sc => sc.Id)
                     .ToArray();
             }
             #endregion
@@ -551,36 +351,28 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 this.Cursor = Cursors.WaitCursor;
 
-                // note create a fake ScoreCenterScore to use current values
-                // instead of saved values
-                Score score = new Score();
-                score.Url = tbxUrl.Text;
-                score.Encoding = tbxEncoding.Text;
-                score.XPath = tbxXpath.Text;
-                score.Sizes = tbxSizes.Text;
-                score.Headers = tbxHeaders.Text;
-                score.UseTheader = ckxUseTheader.Checked;
-                score.UseCaption = ckxUseCaption.Checked;
-                score.NewLine = ckxNewLine.Checked;
-                score.WordWrap = ckxAllowWrapping.Checked;
-                score.ReverseOrder = ckxReverseOrder.Checked;
-                score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
+                BaseScoreEditor editor = GetEditor();
+                if (editor == null)
+                    return;
 
-                score.Element = tbxElement.Text;
-                score.Skip = ReadInt(tbxSkip);
-                score.MaxLines = ReadInt(tbxMaxLines);
-                SaveRules(score);
-                
+                Type scoreType = editor.GetScoreType();
+                BaseScore score = ScoreFactory.Instance.CreateScore(scoreType);
+                if (!editor.SaveScore(ref score))
+                    return;
+
                 // read and parse the score
-                string[][] lines = m_parser.Read(score, ckxReload.Checked);
+                string[][] lines = ScoreFactory.Parse(score, ckxReload.Checked, m_center.Parameters);
 
-                ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
-                bld.Center = m_center;
-                bld.Score = score;
-                bld.LimitToPage = false;
-                bld.AutoSize = false;
-                bld.AutoWrap = false;
-                
+                //ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
+                //bld.Styles = m_center.Styles.ToList().AsReadOnly();
+                //bld.Score = score;
+                //bld.LimitToPage = false;
+                //bld.AutoSize = false;
+                //bld.AutoWrap = false;
+
+                IScoreBuilder<Control> bld = ScoreFactory.Instance.GetBuilder<Control>(score);
+                bld.Styles = m_center.Styles.ToList().AsReadOnly();
+
                 int fh = pnlTest.Font.Height;
                 int fw = (int)pnlTest.Font.SizeInPoints;
                 bld.SetFont("", m_center.Setup.DefaultFontColor, 14, fw, fh);
@@ -590,22 +382,22 @@ namespace MediaPortal.Plugin.ScoreCenter
                 int lineNumber, colNumber;
 
                 pnlTest.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
-                //pnlTest.Width = 970;
-                //pnlTest.Height = 600;
-                //pnlTest.Font = new Font(pnlTest.Font.FontFamily, 14.0f);
 
-                IList<Control> controls = bld.Build(lines,
+                //IList<Control> controls = bld.Build(lines,
+                //    0, 0,
+                //    0, 0, pnlTest.Width, pnlTest.Height,
+                //    this.CreateControl,
+                //    out overRight, out overDown, out lineNumber, out colNumber);
+                IList<Control> controls = bld.Build(score, lines,
                     0, 0,
-                    0, 0, pnlTest.Width, pnlTest.Height, score.ReverseOrder,
+                    0, 0, pnlTest.Width, pnlTest.Height,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
-
-                tabScore.SelectedTab = tpgTest;
 
                 pnlTest.Tag = lines;
 
                 pnlTest.SuspendLayout();
-                pnlTest.Controls.AddRange(controls.ToArray());
+                pnlTest.Controls.AddRange(controls.Cast<Control>().ToArray());
             }
             catch (Exception exc)
             {
@@ -666,117 +458,38 @@ namespace MediaPortal.Plugin.ScoreCenter
             return -1;
         }
 
-        private void tsbNewLigue_Click(object sender, EventArgs e)
+        private void tsbNewItem_Click(object sender, EventArgs e)
         {
-            string newName = Properties.Resources.NewItem;
-
             TreeNode parentNode = null;
-            if (tvwScores.SelectedNode == null)
-            {
-                if (tvwScores.Nodes.Count == 0)
-                {
-                    tvwScores.Nodes.Add(newName);
-                }
-
-                parentNode = tvwScores.Nodes[0];
-            }
-            else
+            BaseScore parent = null;
+            if (tvwScores.SelectedNode != null)
             {
                 parentNode = tvwScores.SelectedNode;
+                parent = parentNode.Tag as BaseScore;
             }
 
-            TreeNode categoryNode = null;
-            TreeNode leagueNode = null;
-            string name = newName;
-
-            switch (parentNode.Level)
+            using (var dlg = new CreateScoreDlg(parent))
             {
-                case 1:
-                    categoryNode = parentNode.Parent;
-                    break;
-                case 2:
-                    categoryNode = parentNode.Parent.Parent;
-                    leagueNode = parentNode.Parent;
-                    break;
-            }
-
-            if (categoryNode == null)
-            {
-                categoryNode = new TreeNode();
-                categoryNode.Text = newName;
-                tvwScores.Nodes.Add(categoryNode);
-            }
-
-            if (leagueNode == null)
-            {
-                leagueNode = new TreeNode();
-                leagueNode.Text = newName;
-                categoryNode.Nodes.Add(leagueNode);
-            }
-
-            // create new item
-            Score score = new Score();
-            score.Id = Tools.GenerateId();
-            score.Category = categoryNode.Text;
-            score.Ligue = leagueNode.Text;
-            score.Name = name;
-
-            // add the new item and refresh
-            m_center.AddScore(score);
-
-            // create the tree node
-            ThreeStateTreeNode newNode = new ThreeStateTreeNode(score.Name);
-            newNode.Tag = score;
-
-            leagueNode.Nodes.Add(newNode);
-        }
-
-        private void btnAuto_Click(object sender, EventArgs e)
-        {
-            string result = String.Empty;
-
-            string[][] lines = pnlTest.Tag as string[][];
-            if (lines != null)
-            {
-                // get number of columns
-                int nbCols = 0;
-                for (int j = 0; j < lines.Length; j++)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    if (lines[j] != null)
+                    BaseScore score = dlg.NewScore;
+                    m_center.AddScore(score);
+                    
+                    // create the tree node
+                    ThreeStateTreeNode newNode = new ThreeStateTreeNode(score.Name);
+                    newNode.Checked = true;
+                    newNode.State = CheckBoxState.Checked;
+                    newNode.Tag = score;
+
+                    if (String.IsNullOrEmpty(score.Parent))
                     {
-                        nbCols = Math.Max(nbCols, lines[j].Length);
+                        tvwScores.Nodes.Add(newNode);
+                    }
+                    else
+                    {
+                        parentNode.Nodes.Add(newNode);
                     }
                 }
-
-                // for all columns
-                double dummy;
-                for (int i = 0; i < nbCols; i++)
-                {
-                    int max = 0;
-                    bool digitOnly = true;
-                    // for all lines
-                    for (int j = 0; j < lines.Length; j++)
-                    {
-                        if (lines[j] == null || i >= lines[j].Length)
-                            continue;
-
-                        string cell = lines[j][i];
-                        int cellSize = String.IsNullOrEmpty(cell) ? 0 : lines[j][i].Length;
-                        if (j > 0) digitOnly &= (cellSize == 0 || double.TryParse(cell.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out dummy));
-                        max = Math.Max(max, cellSize);
-                    }
-
-                    if (digitOnly) max++;
-                    else max = -max;
-
-                    if (result.Length > 0) result += ",";
-                    result += max.ToString();
-                }
-            }
-
-            if (String.IsNullOrEmpty(result) == false)
-            {
-                tbxSizes.Text = result;
             }
         }
 
@@ -804,7 +517,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void DeleteScore(TreeNode node)
         {
-            Score score = node.Tag as Score;
+            BaseScore score = node.Tag as BaseScore;
             if (score != null)
             {
                 m_center.RemoveScore(score);
@@ -818,26 +531,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void tsbCopyScore_Click(object sender, EventArgs e)
         {
-            if (tvwScores.SelectedNode == null
-                || tvwScores.SelectedNode.Level != 2)
+            if (tvwScores.SelectedNode == null)
                 return;
 
-            Score source = tvwScores.SelectedNode.Tag as Score;
-            Score copy = new Score();
-            copy.Id = Tools.GenerateId();
-            copy.Category = source.Category;
-            copy.Ligue = source.Ligue;
-            copy.Name = source.Name;
-            copy.Url = source.Url;
-            copy.XPath = source.XPath;
-            copy.Headers = source.Headers;
-            copy.Sizes = source.Sizes;
-            copy.Skip = source.Skip;
-            copy.MaxLines = source.MaxLines;
-            copy.Image = source.Image;
-            copy.Element = source.Element;
-            copy.Encoding = source.Encoding;
-            copy.UseTheader = source.UseTheader;
+            BaseScore source = tvwScores.SelectedNode.Tag as BaseScore;
+            BaseScore copy = source.Clone(Tools.GenerateId());
 
             // add the new item and refresh
             m_center.AddScore(copy);
@@ -856,81 +554,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
             }
             
-            switch (e.Node.Level)
-            {
-                case 0:
-                    // category
-                    UpdateScore(e.Node.Nodes, e.Label, String.Empty);
-                    tbxCategory.Text = e.Label;
-                    UpdateCategoryImage(e.Node.Text, e.Label);
-                    break;
-                case 1:
-                    // league
-                    UpdateScore(e.Node.Nodes, String.Empty, e.Label);
-                    UpdateLeagueImage(e.Node.Text, e.Node.Parent.Text, e.Label);
-                    tbxLeague.Text = e.Label;
-                    break;
-                case 2:
-                    // score
-                    Score score = e.Node.Tag as Score;
-                    score.Name = e.Label;
-                    tbxScore.Text = e.Label;
-                    break;
-            }
-        }
-
-        private void UpdateScore(TreeNodeCollection nodes, string category, string league)
-        {
-            foreach (TreeNode node in nodes)
-            {
-                if (node.Tag != null)
-                {
-                    Score score = node.Tag as Score;
-                    if (!String.IsNullOrEmpty(category)) score.Category = category;
-                    if (!String.IsNullOrEmpty(league)) score.Ligue = league;
-                }
-                else
-                {
-                    UpdateScore(node.Nodes, category, league);
-                }
-            }
-        }
-
-        private void UpdateCategoryImage(string prev, string category)
-        {
-            if (m_center.Images == null)
-                return;
-
-            if (m_center.Images.CategoryImg != null)
-            {
-                foreach (CategoryImg img in m_center.Images.CategoryImg)
-                {
-                    if (img.Name == prev)
-                        img.Name = category;
-                }
-            }
-        }
-
-        private void UpdateLeagueImage(string prev, string category, string league)
-        {
-            if (m_center.Images == null)
-                return;
-
-            if (m_center.Images.LeagueImg != null)
-            {
-                foreach (LeagueImg img in m_center.Images.LeagueImg)
-                {
-                    if (img.Name == prev && img.Category == category)
-                        img.Name = league;
-                }
-            }
+            BaseScore score = e.Node.Tag as BaseScore;
+            score.Name = e.Label;
+            //TODO tbxScore.Text = e.Label;
         }
 
         private void tvwScores_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag != null)
             {
-                Score score = e.Node.Tag as Score;
+                BaseScore score = e.Node.Tag as BaseScore;
                 score.enable = e.Node.Checked;
             }
         }
@@ -938,6 +571,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         private void btnSetIcon_Click(object sender, EventArgs e)
         {
             if (tvwScores.SelectedNode == null)
+                return;
+
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+            if (score == null)
                 return;
 
             if (ofdSelectIcon.ShowDialog() == DialogResult.OK)
@@ -958,36 +595,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 string iconName = newFI.FullName.Substring(root.Length + 1, newFI.FullName.Length - newFI.Extension.Length - root.Length - 1);
                 SetIcon(iconName);
 
-                switch (tvwScores.SelectedNode.Level)
-                {
-                    case 0:
-                        CategoryImg img = m_center.FindCategoryImage(tvwScores.SelectedNode.Text);
-                        if (img == null)
-                        {
-                            img = new CategoryImg();
-                            img.Name = tvwScores.SelectedNode.Text;
-                            m_center.Images.CategoryImg = Tools.AddElement<CategoryImg>(m_center.Images.CategoryImg, img);
-                        }
-
-                        img.Path = iconName;
-                        break;
-                    case 1:
-                        LeagueImg limg = m_center.FindLeagueImage(tvwScores.SelectedNode.Parent.Text, tvwScores.SelectedNode.Text);
-                        if (limg == null)
-                        {
-                            limg = new LeagueImg();
-                            limg.Name = tvwScores.SelectedNode.Text;
-                            limg.Category = tvwScores.SelectedNode.Parent.Text;
-                            m_center.Images.LeagueImg = Tools.AddElement<LeagueImg>(m_center.Images.LeagueImg, limg);
-                        }
-
-                        limg.Path = iconName;
-                        break;
-                    case 2:
-                        Score score = tvwScores.SelectedNode.Tag as Score;
-                        score.Image = iconName;
-                        break;
-                }
+                score.Image = iconName;
             }
         }
 
@@ -996,19 +604,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (tvwScores.SelectedNode == null)
                 return;
 
-            switch (tvwScores.SelectedNode.Level)
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+            if (score != null)
             {
-                case 0:
-                    m_center.Images.CategoryImg = m_center.Images.CategoryImg.Where(limg => limg.Name != tvwScores.SelectedNode.Text).ToArray();
-                    break;
-                case 1:
-                    m_center.Images.LeagueImg = m_center.Images.LeagueImg.Where(limg => limg.Category != tvwScores.SelectedNode.Parent.Text
-                        || limg.Name != tvwScores.SelectedNode.Text).ToArray();
-                    break;
-                case 2:
-                    Score score = tvwScores.SelectedNode.Tag as Score;
-                    score.Image = String.Empty;
-                    break;
+                score.Image = String.Empty;
             }
 
             ClearIcon();
@@ -1056,27 +655,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    UpdateStyleList();
+                    //UpdateStyleList();
                 }
             }
         }
 
-        private void grdRule_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            if (e.ColumnIndex == colStyle.Index)
-            {
-                grdRule[e.ColumnIndex, e.RowIndex].Value = String.Empty;
-            }
-        }
 
-        private void btnOpenUrl_Click(object sender, EventArgs e)
-        {
-            if (tbxUrl.Text.Length > 0)
-            {
-                string url = ScoreParser.ParseUrl(tbxUrl.Text);
-                Process.Start(url);
-            }
-        }
 
         private class ScoreNodeComparer : IComparer
         {
@@ -1086,21 +670,20 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 TreeNode tx = x as TreeNode;
                 TreeNode ty = y as TreeNode;
-                if (tx.Nodes.Count > 0)
-                    return String.Compare(tx.Text, ty.Text);
-
-                Score scx = tx.Tag as Score;
-                Score scy = ty.Tag as Score;
+                BaseScore scx = tx.Tag as BaseScore;
+                BaseScore scy = ty.Tag as BaseScore;
+                
                 if (scx == null && scy == null)
                     return 0;
                 if (scx == null) return -1;
                 if (scy == null) return 1;
-                return scx.CompareTo(scy);
+                return scx.CompareToNoLoc(scy);
             }
 
             #endregion
         }
 
+        #region Move Nodes
         private void tsbMoveUp_Click(object sender, EventArgs e)
         {
             TreeNode node = tvwScores.SelectedNode;
@@ -1109,8 +692,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             ReorderNodes(node);
 
-            Score prevScore = node.PrevNode.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore prevScore = node.PrevNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
             int tmp = currScore.Order;
             currScore.Order = prevScore.Order;
             prevScore.Order = tmp;
@@ -1127,8 +710,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             ReorderNodes(node);
 
-            Score nextScore = node.NextNode.Tag as Score;
-            Score currScore = node.Tag as Score;
+            BaseScore nextScore = node.NextNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
             int tmp = currScore.Order;
             currScore.Order = nextScore.Order;
             nextScore.Order = tmp;
@@ -1137,72 +720,88 @@ namespace MediaPortal.Plugin.ScoreCenter
             tvwScores.SelectedNode = node;
         }
 
+        private void tsbMoveBack_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.Parent == null)
+                return;
+
+            BaseScore parentScore = node.Parent.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
+
+            currScore.Parent = parentScore.Parent;
+
+            var gpNode = node.Parent.Parent;
+            node.Parent.Nodes.Remove(node);
+            if (gpNode == null)
+            {
+                tvwScores.Nodes.Add(node);
+                currScore.Order = tvwScores.Nodes.Count + 1;
+            }
+            else
+            {
+                gpNode.Nodes.Add(node);
+                currScore.Order = gpNode.Nodes.Count + 1;
+            }
+
+            ReorderNodes(node.PrevNode);
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
+        private void tsbMoveRight_Click(object sender, EventArgs e)
+        {
+            TreeNode node = tvwScores.SelectedNode;
+            if (node == null || node.PrevNode == null)
+                return;
+
+            TreeNode prevNode = node.PrevNode;
+            BaseScore prevScore = prevNode.Tag as BaseScore;
+            BaseScore currScore = node.Tag as BaseScore;
+
+            ReorderNodes(node.PrevNode.FirstNode);
+            currScore.Parent = prevScore.Id;
+            currScore.Order = prevNode.Nodes.Count + 1;
+
+            if (node.Parent == null)
+                tvwScores.Nodes.Remove(node);
+            else
+                node.Parent.Nodes.Remove(node);
+            
+            prevNode.Nodes.Add(node);
+            tvwScores.Sort();
+            tvwScores.SelectedNode = node;
+        }
+
         private static void ReorderNodes(TreeNode node)
         {
+            if (node == null)
+                return;
+
             int i = 1;
-            foreach (TreeNode n in node.Parent.Nodes)
+            var coll = (node.Parent == null ? node.TreeView.Nodes : node.Parent.Nodes);
+            foreach (TreeNode n in coll)
             {
-                Score score = n.Tag as Score;
+                BaseScore score = n.Tag as BaseScore;
                 score.Order = i++;
             }
         }
+        #endregion
 
-        private void tbxSizes_TextChanged(object sender, EventArgs e)
-        {
-            int res = 0;
-            ColumnDisplay[] sizes = ColumnDisplay.GetSizes(tbxSizes.Text);
-
-            if (sizes != null)
-            {
-                res = sizes.Sum(col => col.Size);
-            }
-
-            lblTotalSize.Text = String.Format("Total Size = {0}", res);
-        }
 
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleLeft);
+            //AlignColumn(ContentAlignment.MiddleLeft);
         }
 
         private void centerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleCenter);
+            //AlignColumn(ContentAlignment.MiddleCenter);
         }
 
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AlignColumn(ContentAlignment.MiddleRight);
-        }
-
-        private void AlignColumn(ContentAlignment alignement)
-        {
-            Point pt = contextMenuStrip1.Location;
-            pt = pnlTest.PointToClient(pt);
-            Control ctr = pnlTest.GetChildAtPoint(pt);
-            Label lbl = ctr as Label;
-
-            if (lbl == null || lbl.Tag == null)
-                return;
-
-            int columnIndex = Convert.ToInt32(lbl.Tag);
-            if (tbxSizes.Text.Length > 0)
-            {
-                ColumnDisplay[] dd = ColumnDisplay.GetSizes(tbxSizes.Text);
-                dd[columnIndex].Alignement = ConvertAlignment(alignement);
-
-                tbxSizes.Text = Tools.SizesToText(dd);
-            }
-
-            //lbl.TextAlign = alignement;
-
-            foreach (Label c in pnlTest.Controls)
-            {
-                if (c == null || c.Tag == null) continue;
-                int col = Convert.ToInt32(c.Tag);
-                if (col == columnIndex)
-                    c.TextAlign = alignement;
-            }
+            //AlignColumn(ContentAlignment.MiddleRight);
         }
 
         private static ColumnDisplay.Alignment ConvertAlignment(ContentAlignment align)

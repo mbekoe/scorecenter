@@ -29,22 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblVersionLabel = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lnkSite = new System.Windows.Forms.LinkLabel();
+            this.lvwSummary = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
-            // label1
+            // lblTitle
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblTitle, "lblTitle");
+            this.lblTitle.Name = "lblTitle";
             // 
-            // label2
+            // lblVersionLabel
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.lblVersionLabel, "lblVersionLabel");
+            this.lblVersionLabel.Name = "lblVersionLabel";
             // 
             // btnOk
             // 
@@ -66,16 +69,29 @@
             this.lnkSite.TabStop = true;
             this.lnkSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSite_LinkClicked);
             // 
+            // lvwSummary
+            // 
+            resources.ApplyResources(this.lvwSummary, "lvwSummary");
+            this.lvwSummary.BackColor = System.Drawing.SystemColors.Control;
+            this.lvwSummary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.lvwSummary.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvwSummary.Name = "lvwSummary";
+            this.lvwSummary.UseCompatibleStateImageBehavior = false;
+            this.lvwSummary.View = System.Windows.Forms.View.Details;
+            // 
             // AboutDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOk;
+            this.Controls.Add(this.lvwSummary);
             this.Controls.Add(this.lnkSite);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblVersionLabel);
+            this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -87,10 +103,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblVersionLabel;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.LinkLabel lnkSite;
+        private System.Windows.Forms.ListView lvwSummary;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

@@ -24,7 +24,9 @@
 #endregion
 
 using System;
+using System.Data;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -38,12 +40,24 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <summary>
         /// Constructor.
         /// </summary>
-        public AboutDialog()
+        public AboutDialog(ScoreCenter center)
         {
             InitializeComponent();
 
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             lblVersion.Text = v.ToString(4);
+
+            foreach (string tt in ScoreFactory.Instance.GetScoreTypes())
+            {
+                AddCategory(tt, center.Scores.Items.Where(sc => sc.GetType().Name == tt + "Score").Count());
+            }
+            lvwSummary.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+
+        private void AddCategory(string label, int nb)
+        {
+            ListViewItem item = new ListViewItem(new string[] { label, nb.ToString() });
+            lvwSummary.Items.Add(item);
         }
 
         private void btnOk_Click(object sender, EventArgs e)

@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Localisation.LanguageStrings;
 using MediaPortal.Profile;
-using System.Globalization;
-using System.IO;
-using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
     public class LocalizationManager
     {
+        /// <summary>
+        /// The singleton instance.
+        /// </summary>
         private static LocalizationManager m_instance = new LocalizationManager();
+        
+        /// <summary>
+        /// The provider for strings localisation.
+        /// </summary>
         private Localisation.LocalisationProvider m_provider;
+        private ScoreLocalisation m_scoreLocaliser = null;
 
         private LocalizationManager()
         {
             string path = Config.GetSubFolder(Config.Dir.Language, "ScoreCenter");
             if (Directory.Exists(path))
             {
+                // get the string localistion provider
                 Settings settings = new Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
                 string language = settings.GetValueAsString("skin", "language", "English");
 
@@ -36,6 +47,17 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 m_provider = new MediaPortal.Localisation.LocalisationProvider(path, code, false);
+
+                // read the score localisation XML files
+                string file = Path.Combine(path, "score_" + code + ".xml");
+                if (File.Exists(file))
+                {
+                    using (FileStream tr = new FileStream(file, FileMode.Open))
+                    {
+                        XmlSerializer xml = new XmlSerializer(typeof(ScoreLocalisation));
+                        m_scoreLocaliser = (ScoreLocalisation)xml.Deserialize(tr);
+                    }
+                }
             }
         }
 
@@ -46,36 +68,32 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return "?";
             return loc.text;
         }
-        /*
-        public static string GetEnumString(string name, int id)
-        {
-            StringLocalised loc = m_instance.m_provider.Get(name, id);
-            if (loc == null)
-                return "?";
-            return loc.text;
-        }
 
-        public static void GetString(Control control, int id)
+        public static string GetScoreString(string id, string defaultValue)
         {
-            if (m_instance.m_provider != null)
+            if (m_instance.m_scoreLocaliser == null) return defaultValue;
+
+            // first check fo id
+            LocString loc = m_instance.m_scoreLocaliser.Strings.Where(x => x.id == id).FirstOrDefault();
+            if (loc != null)
+                return loc.Value;
+
+            // then check for global
+            loc = m_instance.m_scoreLocaliser.Globals.Where(x => !x.isRegEx && x.id == defaultValue).FirstOrDefault();
+            if (loc != null)
+                return loc.Value;
+
+            // regex
+            foreach (var rg in m_instance.m_scoreLocaliser.Globals.Where(x => x.isRegEx))
             {
-                control.Text = GetString(id);
+                Regex r = new Regex(rg.id);
+                string res = r.Replace(defaultValue, rg.Value);
+                if (res != defaultValue)
+                    return res;
             }
+
+            return defaultValue;
         }
-        public static void GetString(ToolStripButton control, int id)
-        {
-            if (m_instance.m_provider != null)
-            {
-                control.ToolTipText = GetString(id);
-            }
-        }
-        public static void GetString(DataGridViewColumn control, int id)
-        {
-            if (m_instance.m_provider != null)
-            {
-                control.HeaderText = GetString(id);
-            }
-        }*/
     }
 
     public class Labels

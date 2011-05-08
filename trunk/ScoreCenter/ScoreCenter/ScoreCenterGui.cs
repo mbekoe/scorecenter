@@ -32,6 +32,7 @@ using System.Net;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
+using System.Collections;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -42,9 +43,9 @@ namespace MediaPortal.Plugin.ScoreCenter
     {
         #region Members
         public const string SkinFileName = "MyScoreCenter.xml";
-        public const string SettingsFileName = "MyScoreCenter.Settings.xml";
+        public const string SettingsFileName = "MyScoreCenter2.Settings.xml";
         public const string C_HEADER = "*HEADER*";
-        
+
         /// <summary>Start index for GUI controls.</summary>
         private const int StartIndex = 42100;
 
@@ -55,29 +56,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         private List<int> m_indices = new List<int>();
         private int m_currentLine; // 0
         private int m_currentColumn; // 0
-        private Score m_currentScore;
+        private BaseScore m_currentScore;
         private string[][] m_lines;
         private Stack<int> m_prevIndex = new Stack<int>();
 
-        private ScoreBuilder<GUIControl> m_builder;
-
-        /// <summary>
-        /// Kind of view mode.
-        /// </summary>
-        private enum ViewMode
-        {
-            Category,
-            League,
-            Results
-        }
+        private bool m_autoSize = false;
+        private bool m_autoWrap = false;
 
         private ScoreCenter m_center;
-        private ScoreParser m_parser;
-
-        // current status
-        private ViewMode m_mode = ViewMode.Category;
-        private string m_currentCategory;
-        private string m_currentLeague;
 
         #region Skin Controls
         [SkinControlAttribute(10)]
@@ -90,23 +76,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected GUIButtonControl btnNextPage = null;
         [SkinControlAttribute(50)]
         protected GUILabelControl lblVisible = null;
+        [SkinControlAttribute(60)]
+        protected GUIButtonControl btnNextScore = null;
+        [SkinControlAttribute(70)]
+        protected GUIButtonControl btnPreviousScore = null;
 
         #endregion
 
         #endregion
-
-        internal ScoreParser Parser
-        {
-            get
-            {
-                if (m_parser == null)
-                {
-                    m_parser = new ScoreParser(m_center.Setup.CacheExpiration);
-                }
-
-                return m_parser;
-            }
-        }
 
         #region GUI overrides
         public override int GetID
@@ -126,6 +103,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             base.OnPageLoad();
 
             ShowNextButton(false);
+            ShowNextPrevScoreButtons(false);
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
 
@@ -135,45 +113,31 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     ReadSettings();
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
-                    GUIPropertyManager.SetProperty("#ScoreCenter.Category", "_");
-                    GUIPropertyManager.SetProperty("#ScoreCenter.League", " ");
-                    GUIPropertyManager.SetProperty("#ScoreCenter.Results", " ");
-                    GUIPropertyManager.SetProperty("#ScoreCenter.Source", " ");
-
-                    m_builder = new ScoreBuilder<GUIControl>();
-                    m_builder.Center = m_center;
-
-                    GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
-                    int fontSize = font.FontSize;
-                    int charHeight = 0, charWidth = 0;
-                    GetCharFonSize(fontSize, ref charWidth, ref charHeight);
-                    m_builder.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+                    SetScoreProperties(null);
 
                     UpdateSettings(false, false);
 
+                    #region Set HOME
                     if (String.IsNullOrEmpty(m_center.Setup.Home))
                     {
-                        LoadCategories();
+                        LoadScores("");
                     }
                     else
                     {
                         string firstId = m_center.Setup.Home;
-                        Score score = m_center.Scores.FirstOrDefault(s => s.Id == firstId);
+                        BaseScore score = m_center.FindScore(firstId);
                         if (score == null)
                         {
-                            LoadCategories();
+                            LoadScores("");
                             m_center.Setup.Home = "";
                         }
                         else
                         {
-                            Tools.LogMessage("/////////// Score = ", score.Name);
-                            m_currentCategory = score.Category;
-                            SetCategory(score.Category);
-                            LoadScores(score.Ligue);
+                            LoadScores(score.Parent);
                             DisplayScore(score);
-                            m_mode = ViewMode.Results;
                         }
                     }
+                    #endregion
 
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
                 }
@@ -190,10 +154,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         protected override void OnPageDestroy(int new_windowId)
         {
-            SetScore(null);
-            SetLeague(" ");
-            SetCategory("_");
-            m_parser = null;
+            ClearProperties(0);
             m_center = null;
             ClearGrid();
             base.OnPageDestroy(new_windowId);
@@ -203,34 +164,37 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (action.wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU)
             {
-                if (m_mode != ViewMode.Category)
+                // back => find parent folder to get the score to display
+                GUIListItem item = lstDetails.ListItems.Where(x => x.Label == "..").FirstOrDefault();
+                if (item != null)
                 {
-                    UpdateListView(null, true);
+                    UpdateListView(item, true);
                     return;
                 }
             }
-            
+
             base.OnAction(action);
         }
 
         protected override void OnShowContextMenu()
         {
             GUIListItem item = lstDetails.SelectedListItem;
+            BaseScore sc = item.TVTag as BaseScore;
 
             #region create menu
             GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
             menu.Reset();
             menu.SetHeading(m_center.Setup.Name);
-            
+
             // 1: clear cache
             menu.Add(LocalizationManager.GetString(Labels.ClearCache));
 
             // 2: auto mode
-            if (m_builder.AutoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
 
             // 3: auto wrap
-            if (m_builder.AutoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            if (m_autoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
             else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
 
             // 4: synchro
@@ -243,7 +207,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 // 6: disable
                 menu.Add(String.Format(CultureInfo.CurrentCulture, "{1} '{0}'", item.Label, LocalizationManager.GetString(Labels.DisableItem)));
-                
+
                 // 7: set home
                 menu.Add(LocalizationManager.GetString(Labels.SetAsHome));
             }
@@ -251,20 +215,20 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // show the menu
             menu.DoModal(GetID);
-            
+
             // process user action
             switch (menu.SelectedId)
             {
                 case 1:
-                    Parser.ClearCache();
+                    ScoreFactory.Instance.ClearCache();
                     break;
                 case 2:
-                    m_builder.AutoSize = !m_builder.AutoSize;
+                    m_autoSize = !m_autoSize;
                     ClearGrid();
                     CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
                 case 3:
-                    m_builder.AutoWrap = !m_builder.AutoWrap;
+                    m_autoWrap = !m_autoWrap;
                     ClearGrid();
                     CreateGrid(m_lines, m_currentScore, 0, 0);
                     break;
@@ -298,11 +262,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     if (dlg.IsConfirmed)
                     {
-                        Disable(item.Label);
+                        m_center.DisableScore(sc);
+                        SaveSettings();
                     }
                     break;
                 case 7:
-                    m_center.Setup.Home = m_currentScore.Id;
+                    m_center.Setup.Home = sc.Id;
                     SaveSettings();
                     break;
             }
@@ -316,31 +281,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (updated)
             {
                 SaveSettings();
-                if (reload) LoadCategories();
+                if (reload) LoadScores("");
             }
-        }
-
-        private void Disable(string name)
-        {
-            switch (m_mode)
-            {
-                case ViewMode.Results:
-                    m_center.Scores.Where(sc => sc.Category == m_currentCategory && sc.Ligue == m_currentLeague && sc.Name == name)
-                        .ForEach(sc => sc.enable = false);
-                    LoadScores(m_currentLeague);
-                    break;
-                case ViewMode.League:
-                    m_center.Scores.Where(sc => sc.Category == m_currentCategory && sc.Ligue == name)
-                        .ForEach(sc => sc.enable = false);
-                    LoadLeagues(m_currentCategory);
-                    break;
-                case ViewMode.Category:
-                    m_center.Scores.Where(sc => sc.Category == name).ForEach(sc => sc.enable = false);
-                    LoadCategories();
-                    break;
-            }
-
-            SaveSettings();
         }
 
         protected override void OnClicked(int controlId, GUIControl control,
@@ -354,11 +296,21 @@ namespace MediaPortal.Plugin.ScoreCenter
                     CreateGrid(m_lines, m_currentScore, m_currentLine, m_currentColumn);
                 }
             }
+            else if (control == btnNextScore || control == btnPreviousScore)
+            {
+                ClearGrid();
+                if (m_currentScore != null)
+                {
+                    int delta = control == btnPreviousScore ? -1 : 1;
+                    //m_currentScore.variable += delta;
+                    DisplayScore();
+                }
+            }
             else if (control == lstDetails)
             {
                 GUIListItem item = lstDetails.SelectedListItem;
                 bool back = (item.Label == "..");
-                if (!back && m_mode != ViewMode.Results)
+                if (!back)
                 {
                     m_prevIndex.Push(lstDetails.SelectedListItemIndex);
                 }
@@ -371,170 +323,124 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void UpdateListView(GUIListItem item, bool back)
         {
+            //Tools.LogMessage("UpdateListView: {0} back = {1}", item.Label, back);
             m_currentLine = 0;
             m_currentColumn = 0;
-            m_currentScore = null;
             m_lines = null;
 
             // clear grid and hide next button
             ShowNextButton(false);
+            ShowNextPrevScoreButtons(false);
             ClearGrid();
 
+            BaseScore sc = item.TVTag as BaseScore;
+            bool currIsFolder = (m_currentScore == null || m_currentScore.IsFolder());
+            m_currentScore = sc;
+
             bool reselect = true;
-            switch (m_mode)
+            if (back)
             {
-                case ViewMode.Category:
-                    LoadLeagues(item.Label);
-                    imgBackdrop.Refresh();
-                    break;
-                case ViewMode.League:
-                    if (back) LoadCategories();
-                    else LoadScores(lstDetails.SelectedListItem.Label);
-                    break;
-                case ViewMode.Results:
-                    if (back)
-                    {
-                        if (lstDetails.Visible) LoadLeagues(m_currentCategory);
-                        else
-                        {
-                            lstDetails.Visible = true;
-                            reselect = false; // no need to reselect
-                        }
-                    }
-                    else
-                    {
-                        DisplayScore();
-                        lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
-                    }
-                    
-                    break;
-            }
-
-            if (reselect && back && m_prevIndex.Count > 0)
-            {
-                // always pop
-                int prev = m_prevIndex.Pop();
-
-                // if enough set
-                if (lstDetails.Count > prev)
+                if (!currIsFolder) m_level--;
+                m_level--;
+                if (lstDetails.Visible) LoadScores(sc);
+                else
                 {
-                    lstDetails.SelectedListItemIndex = prev;
+                    lstDetails.Visible = true;
+                    reselect = false; // no need to reselect
+                }
+
+                if (reselect && m_prevIndex.Count > 0)
+                {
+                    // always pop
+                    int prev = m_prevIndex.Pop();
+
+                    // if enough set
+                    if (lstDetails.Count > prev)
+                    {
+                        lstDetails.SelectedListItemIndex = prev;
+                    }
                 }
             }
+            else
+            {
+                if (currIsFolder) m_level++;
+                if (sc.IsFolder())
+                {
+                    LoadScores(sc);
+                }
+                else
+                {
+                    DisplayScore();
+                    lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
+                }
+            }
+
+            SetScoreProperties(sc);
         }
 
         #endregion
 
         #region Load Selection
-        private void LoadCategories()
+        private void LoadScores(string id)
         {
+            BaseScore sc = m_center.FindScore(id);
+            LoadScores(sc);
+        }
+        private void LoadScores(BaseScore root)
+        {
+            //Tools.LogMessage("========= load score {0} level = {1}", root == null ? "NULL" : root.ToString(), m_level);
             lstDetails.Clear();
+
+            if (root == null)
+                m_level = 0;
+            ClearProperties(m_level);
+
+            string id = root == null ? "" : root.Id;
             if (m_center != null && m_center.Scores != null)
             {
-                SetCategory("_");
+                if (String.IsNullOrEmpty(id) == false)
+                {
+                    GUIListItem item1 = new GUIListItem();
+                    item1.Label = "..";
+                    item1.IsFolder = true;
+                    item1.TVTag = m_center.FindScore(root.Parent);
+                    MediaPortal.Util.Utils.SetDefaultIcons(item1);
+                    lstDetails.Add(item1);
+                }
 
-                foreach (string category in m_center.ReadCategories())
+                foreach (BaseScore sc in m_center.ReadChildren(id))
                 {
                     GUIListItem item = new GUIListItem();
-                    item.Label = category;
-                    item.IsFolder = true;
-                    item.IconImage = GetCategoryImage(category);
-                    item.IsPlayed = m_center.IsCategoryUpdated(category);
+                    item.Label = sc.LocName;
+                    item.IsFolder = sc.IsFolder();
+                    item.IconImage = GetImage(sc.Image);
+                    item.IsPlayed = sc.IsNew;
+                    item.TVTag = sc;
 
                     lstDetails.Add(item);
                 }
             }
 
-            lstDetails.Sort(new ListComparer(m_mode));
-            m_mode = ViewMode.Category;
+            lstDetails.Sort(new ListComparer());
         }
 
-        private void LoadLeagues(string category)
-        {
-            m_currentCategory = category;
-            SetCategory(category);
-            SetLeague(" ");
-            SetScore(null);
-
-            lstDetails.Clear();
-
-            GUIListItem item1 = new GUIListItem();
-            item1.Label = "..";
-            item1.IsFolder = true;
-            MediaPortal.Util.Utils.SetDefaultIcons(item1);
-            lstDetails.Add(item1);
-
-            foreach (string league in m_center.ReadLeagues(m_currentCategory))
-            {
-                GUIListItem item = new GUIListItem();
-                item.Label = league;
-                item.IsFolder = true;
-                item.IconImage = GetLeagueImage(m_currentCategory, league);
-                item.IsPlayed = m_center.IsLeagueUpdated(m_currentCategory, league);
-
-                lstDetails.Add(item);
-            }
-
-            lstDetails.Sort(new ListComparer(m_mode));
-            m_mode = ViewMode.League;
-        }
-
-        private void LoadScores(string league)
-        {
-            m_currentLeague = league;
-            SetLeague(m_currentLeague);
-            lstDetails.Clear();
-
-            GUIListItem item1 = new GUIListItem();
-            item1.Label = "..";
-            item1.IsFolder = true;
-            MediaPortal.Util.Utils.SetDefaultIcons(item1);
-            lstDetails.Add(item1);
-
-            foreach (Score score in m_center.Scores)
-            {
-                if (score.enable == false)
-                    continue;
-
-                if (score.Category == m_currentCategory
-                    && score.Ligue == m_currentLeague)
-                {
-                    GUIListItem item = new GUIListItem();
-                    item.Label = score.Name;
-                    item.IsFolder = false;
-                    item.IconImage = GetImage(score.Image);
-                    item.TVTag = score;
-                    item.IsPlayed = score.IsNew();
-
-                    lstDetails.Add(item);
-                }
-            }
-
-            m_mode = ViewMode.Results;
-            lstDetails.Sort(new ListComparer(m_mode));
-        }
-        
         private void DisplayScore()
         {
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
             System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
             {
-                string url = String.Empty;
                 try
                 {
-                    GUIListItem item = lstDetails.SelectedListItem;
-                    Score score = item.TVTag as Score;
-                    if (score == null)
+                    if (m_currentScore == null)
                         return;
 
-                    url = DisplayScore(score);
+                    DisplayScore(m_currentScore);
                 }
                 catch (WebException exc)
                 {
                     Tools.LogError("Error in LoadScore", exc);
-                    string txt = "Address not found:" + Environment.NewLine;
-                    txt += url;
+                    string txt = "Address not found:" + Environment.NewLine + m_currentScore.GetSource();
                     GUIControl.SetControlLabel(GetID, 20, txt);
                 }
                 catch (Exception exc)
@@ -551,54 +457,60 @@ namespace MediaPortal.Plugin.ScoreCenter
             });
         }
 
-        private string DisplayScore(Score score)
+        private void DisplayScore(BaseScore score)
         {
-            string url = score.Url;
-            Tools.LogMessage("ShowScore: Url={0}", score.Url);
-            Tools.LogMessage("ShowScore: XPath={0}", score.XPath);
+            if (score.IsFolder())
+                return;
 
-            string[][] results = Parser.Read(score, false);
-            SetScore(score);
+            string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
             m_currentLine = 0;
             m_currentColumn = 0;
-            m_currentScore = score;
             m_lines = results;
             ShowNextButton(false);
+            //ShowNextPrevScoreButtons(score.Url.Contains("{"));
+
             CreateGrid(results, score, 0, 0);
-            return url;
         }
 
         #endregion
 
         #region Properties
 
-        private void SetCategory(string name)
+        private Random m_randomizer = new Random(DateTime.Now.Millisecond);
+        private string FindBackdrop(BaseScore score)
         {
-            GUIPropertyManager.SetProperty("#ScoreCenter.Category", name);
-            GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", GetCategoryImage(name));
-
+            Tools.LogMessage("SetBackdrop for '{0}'", score == null ? "NULL" : score.Name);
             string bd = "";
-            if (m_center.Setup != null && !String.IsNullOrEmpty(m_center.Setup.BackdropDir))
+            if (score != null)
             {
-                string[] bds = Directory.GetFiles(m_center.Setup.BackdropDir, name + "*.jpg");
-                if (bds != null && bds.Length > 0)
+                if (m_center.Setup != null && !String.IsNullOrEmpty(m_center.Setup.BackdropDir))
                 {
-                    Random r = new Random(DateTime.Now.Millisecond);
-                    int index = r.Next(1, bds.Length) - 1;
-                    bd = Path.GetFileNameWithoutExtension(bds[index]);
+                    string name = Path.Combine(m_center.Setup.BackdropDir, m_center.GetFullName(score, ".")); // score.Name;
+                    var bds = Directory.GetFiles(m_center.Setup.BackdropDir, "*.jpg").Where(x => x.StartsWith(name));
+                    if (bds != null && bds.Count() > 0)
+                    {
+                        int index = m_randomizer.Next(1, bds.Count()) - 1;
+                        bd = Path.GetFileNameWithoutExtension(bds.ElementAt(index));
+                    }
                 }
 
                 if (bd.Length == 0)
-                {
-                    bd = GetDefaultBackdrop();
-                }
-
-                if (bd.Length > 0)
-                {
-                    GUIPropertyManager.SetProperty("#ScoreCenter.bd", Path.Combine(m_center.Setup.BackdropDir, bd));
-                    //Tools.LogMessage("BD={0}", bd);
-                }
+                    bd = FindBackdrop(m_center.FindScore(score.Parent));
             }
+            
+            return bd;
+        }
+
+        private void SetBackdrop(BaseScore score)
+        {
+            string bd = FindBackdrop(score);
+            if (bd.Length == 0)
+            {
+                bd = GetDefaultBackdrop();
+            }
+
+            Tools.LogMessage("==> BD={0}", bd);
+            GUIPropertyManager.SetProperty("#ScoreCenter.bd", Path.Combine(m_center.Setup.BackdropDir, bd));
         }
 
         private string GetDefaultBackdrop()
@@ -620,31 +532,95 @@ namespace MediaPortal.Plugin.ScoreCenter
             return bd;
         }
 
-        private void SetLeague(string name)
-        {
-            GUIPropertyManager.SetProperty("#ScoreCenter.League", name);
-            GUIPropertyManager.SetProperty("#ScoreCenter.LIco", GetLeagueImage(m_currentCategory, name));
-        }
-
-        private void SetScore(Score score)
+        private int m_level = 0;
+        private void SetScoreProperties(BaseScore score)
         {
             string name = " ";
             string image = "-";
             string source = " ";
-            if (score != null)
+
+            if (score == null)
             {
-                name = score.Name;
+                m_level = 0;
+            }
+            else
+            {
+                name = score.LocName;
                 image = score.Image;
 
-                source = score.Url.Replace("http://", String.Empty);
-                source = source.Substring(0, source.IndexOf('/'));
-                if (source.StartsWith("www.")) source = source.Substring(4);
+                source = score.GetSource();
+                if (String.IsNullOrEmpty(source) == false)
+                {
+                    source = Tools.ParseUrl(source, m_center.Parameters);
+                    source = source.Replace("http://", String.Empty);
+                    source = source.Substring(0, source.IndexOf('/'));
+                    if (source.StartsWith("www.")) source = source.Substring(4);
+                }
             }
 
-            GUIPropertyManager.SetProperty("#ScoreCenter.Results", name);
-            GUIPropertyManager.SetProperty("#ScoreCenter.ScoreIco", GetImage(image));
+            ClearProperties(m_level);
             GUIPropertyManager.SetProperty("#ScoreCenter.Source", source);
+
+            //Tools.LogMessage("LEVEL = {0}, {1}", m_level, name);
+            GUIPropertyManager.SetProperty("#ScoreCenter.Results", m_center.GetFullName(score, " > "));
+            //SetProperties(m_level, name, GetImage(image));
+            SetIcons(score, m_level);
+            SetBackdrop(score);
         }
+
+        private void ClearProperties(int start)
+        {
+            GUIPropertyManager.SetProperty("#ScoreCenter.Category", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.League", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.Results", "");
+            GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", "-");
+            GUIPropertyManager.SetProperty("#ScoreCenter.LIco", "-");
+            for (int i = start; i < 10; i++)
+            {
+                GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), "-");
+            }
+        }
+
+        private void SetIcons(BaseScore score, int level)
+        {
+            BaseScore curr = score;
+            for (int i = level; i >= 0; i--)
+            {
+                if (curr == null)
+                    continue;
+                string image = GetImage(curr.Image);
+                GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), image);
+
+                if (i == 0) GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
+                else if (i == 1) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);
+                
+                curr = m_center.FindScore(curr.Parent);
+            }
+        }
+
+        private void SetProperties(int level, string name, string image)
+        {
+            //Tools.LogMessage("Set Prop = {0}", String.Format("#ScoreCenter.Label{0}", level));
+            //GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Label{0}", level), name);
+            GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", level), image);
+
+            if (level == 1)
+            {
+                GUIPropertyManager.SetProperty("#ScoreCenter.Category", name);
+                GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
+            }
+            else if (level == 2)
+            {
+                GUIPropertyManager.SetProperty("#ScoreCenter.League", name);
+                GUIPropertyManager.SetProperty("#ScoreCenter.LIco", image);
+            }
+            else if (level > 2)
+            {
+                //GUIPropertyManager.SetProperty("#ScoreCenter.Results", name);
+                GUIPropertyManager.SetProperty("#ScoreCenter.ScoreIco", image);
+            }
+        }
+
         #endregion
 
         #region Grid management
@@ -669,22 +645,30 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="labels">The labels to fill the grid with.</param>
         /// <param name="score">The Score to display.</param>
         /// <param name="startLine">The first line to display.</param>
-        private void CreateGrid(string[][] labels, Score score, int startLine, int startColumn)
+        private void CreateGrid(string[][] labels, BaseScore score, int startLine, int startColumn)
         {
-            m_builder.Score = score;
-
             bool overRight, overDown;
             int lineNumber, colNumber;
-            IList<GUIControl> controls = m_builder.Build(labels,
+
+            IScoreBuilder<GUIControl> bld = ScoreFactory.Instance.GetBuilder<GUIControl>(score);
+            bld.Styles = m_center.Styles.ToList().AsReadOnly();
+
+            GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
+            int fontSize = font.FontSize;
+            int charHeight = 0, charWidth = 0;
+            GetCharFonSize(fontSize, ref charWidth, ref charHeight);
+            bld.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+
+            IList<GUIControl> controls = bld.Build(score, labels,
                 startLine, startColumn,
-                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height, score.ReverseOrder,
+                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
                 this.CreateControl,
                 out overRight, out overDown, out lineNumber, out colNumber);
 
             // add controls to screen
             for (int i = 0; i < controls.Count; i++)
             {
-                GUIControl c = controls[i];
+                GUIControl c = controls[i] as GUIControl;
                 c.AllocResources();
                 Add(ref c);
             }
@@ -748,62 +732,70 @@ namespace MediaPortal.Plugin.ScoreCenter
             // create the control
             int choice = 0;
             GUIControl control = null;
-            if (choice == 0)
+            try
             {
-                GUILabelControl labelControl = new GUILabelControl(GetID);
+                if (choice == 0)
+                {
+                    GUILabelControl labelControl = new GUILabelControl(GetID);
 
-                labelControl.GetID = m_currentIndex++;
-                labelControl._positionX = px;
-                labelControl._positionY = posY;
-                labelControl._width = width;
-                labelControl._height = height;
-                labelControl.FontName = font;
-                labelControl.Label = strLabel;
-                labelControl.TextColor = style.ForeColor;
-                labelControl.TextAlignment = ConvertAlignment(alignment);
-                
-                control = labelControl;
+                    labelControl.GetID = m_currentIndex++;
+                    labelControl._positionX = px;
+                    labelControl._positionY = posY;
+                    labelControl._width = width;
+                    labelControl._height = height;
+                    labelControl.FontName = font;
+                    labelControl.Label = strLabel;
+                    labelControl.TextColor = style.ForeColor;
+                    labelControl.TextAlignment = ConvertAlignment(alignment);
+                    
+                    control = labelControl;
+                }
+                else if (choice == 1)
+                {
+                    GUITextControl labelControl = new GUITextControl(GetID, m_currentIndex++,
+                        px, posY, width, height,
+                        font, 0, 0, "", "", "", "", 0, 0, 0, style.ForeColor);
+                    labelControl.Label = strLabel;
+
+                    control = labelControl;
+                }
+                else if (choice == 2)
+                {
+                    GUITextScrollUpControl labelControl = new GUITextScrollUpControl(GetID, m_currentIndex++,
+                        px, posY, width, height,
+                        font, style.ForeColor);
+                    labelControl.Label = strLabel;
+
+                    control = labelControl;
+                }
+                else if (choice == 3)
+                {
+                    GUIFadeLabel labelControl = new GUIFadeLabel(GetID);
+
+                    labelControl.GetID = m_currentIndex++;
+                    labelControl.XPosition = px;
+                    labelControl.YPosition = posY;
+                    labelControl._width = width;
+                    labelControl._height = height;
+                    labelControl.FontName = font;
+                    labelControl.TextColor = style.ForeColor;
+                    labelControl.TextAlignment = ConvertAlignment(alignment);
+                    labelControl.AllowScrolling = false;
+                    labelControl.Label = strLabel;
+                    labelControl.Visible = true;
+
+                    control = labelControl;
+                }
+
+                if (control != null)
+                {
+                    m_indices.Add(control.GetID);
+                }
             }
-            else if (choice == 1)
+            catch (Exception exc)
             {
-                GUITextControl labelControl = new GUITextControl(GetID, m_currentIndex++,
-                    px, posY, width, height,
-                    font, 0, 0, "", "", "", "", 0, 0, 0, style.ForeColor);
-                labelControl.Label = strLabel;
-
-                control = labelControl;
-            }
-            else if (choice == 2)
-            {
-                GUITextScrollUpControl labelControl = new GUITextScrollUpControl(GetID, m_currentIndex++,
-                    px, posY, width, height,
-                    font, style.ForeColor);
-                labelControl.Label = strLabel;
-
-                control = labelControl;
-            }
-            else if (choice == 3)
-            {
-                GUIFadeLabel labelControl = new GUIFadeLabel(GetID);
-
-                labelControl.GetID = m_currentIndex++;
-                labelControl.XPosition = px;
-                labelControl.YPosition = posY;
-                labelControl._width = width;
-                labelControl._height = height;
-                labelControl.FontName = font;
-                labelControl.TextColor = style.ForeColor;
-                labelControl.TextAlignment = ConvertAlignment(alignment);
-                labelControl.AllowScrolling = false;
-                labelControl.Label = strLabel;
-                labelControl.Visible = true;
-
-                control = labelControl;
-            }
-
-            if (control != null)
-            {
-                m_indices.Add(control.GetID);
+                Tools.LogError(String.Format("bad {0}", strLabel), exc);
+                control = null;
             }
 
             return control;
@@ -813,7 +805,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (alignment == ColumnDisplay.Alignment.Center)
                 return GUIControl.Alignment.Center;
-            
+
             if (alignment == ColumnDisplay.Alignment.Left)
                 return GUIControl.Alignment.Left;
 
@@ -832,6 +824,15 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     GUIControl.FocusControl(GetID, btnNextPage.GetID);
                 }
+            }
+        }
+
+        private void ShowNextPrevScoreButtons(bool visible)
+        {
+            if (btnNextScore != null && btnPreviousScore != null)
+            {
+                btnNextScore.Visible = visible;
+                btnPreviousScore.Visible = visible;
             }
         }
 
@@ -866,52 +867,42 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private static string GetImage(string name)
         {
-            if (name == " ")
+            if (String.IsNullOrEmpty(name) || name == " ")
                 return "-";
 
             return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ".png");
-        }
-
-        private string GetCategoryImage(string name)
-        {
-            CategoryImg img = m_center.FindCategoryImage(name);
-            if (img == null)
-                return "-";
-            return GetImage(img.Path);
-        }
-
-        private string GetLeagueImage(string category, string name)
-        {
-            LeagueImg img = m_center.FindLeagueImage(category, name);
-            if (img == null)
-                return "-";
-            return GetImage(img.Path);
         }
 
         #endregion
 
         private class ListComparer : IComparer<GUIListItem>
         {
-            private ViewMode m_mode = ViewMode.Category;
-
-            public ListComparer(ViewMode mode)
+            public ListComparer()
             {
-                m_mode = mode;
             }
 
             #region IComparer<GUIListItem> Members
 
             public int Compare(GUIListItem x, GUIListItem y)
             {
-                if (m_mode != ViewMode.Results)
-                    return String.Compare(x.Label, y.Label);
+                int res = 0;
+                if (x.Label == ".." && y.Label == "..")
+                    res = 0;
+                else if (x.Label == "..")
+                    res = -1;
+                else if (y.Label == "..")
+                    res = 1;
+                else
+                {
+                    BaseScore scx = x.TVTag as BaseScore;
+                    BaseScore scy = y.TVTag as BaseScore;
+                    if (scx == null || scy == null)
+                        res = String.Compare(x.Label, y.Label);
+                    else
+                        res = scx.CompareTo(scy);
+                }
 
-                Score scx = x.TVTag as Score;
-                Score scy = y.TVTag as Score;
-                if (scx == null || scy == null)
-                    return String.Compare(x.Label, y.Label);
-
-                return scx.CompareTo(scy);
+                return res;
             }
 
             #endregion

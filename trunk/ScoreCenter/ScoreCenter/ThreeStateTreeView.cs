@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -129,5 +130,25 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         #endregion
+
+        public IList<ThreeStateTreeNode> GetCheckedNodes()
+        {
+            return GetCheckedNodes(this.Nodes, new List<ThreeStateTreeNode>());
+        }
+
+        private IList<ThreeStateTreeNode> GetCheckedNodes(TreeNodeCollection nodes, IList<ThreeStateTreeNode> checkedNodes)
+        {
+            foreach (ThreeStateTreeNode node in nodes)
+            {
+                if (node.Checked && !checkedNodes.Contains(node))
+                {
+                    checkedNodes.Add(node);
+                }
+
+                GetCheckedNodes(node.Nodes, checkedNodes);
+            }
+
+            return checkedNodes;
+        }
     }
 }
