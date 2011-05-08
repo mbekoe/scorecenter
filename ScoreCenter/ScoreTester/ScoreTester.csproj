@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrmScoreTester.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmScoreTester.Designer.cs">
       <DependentUpon>FrmScoreTester.cs</DependentUpon>

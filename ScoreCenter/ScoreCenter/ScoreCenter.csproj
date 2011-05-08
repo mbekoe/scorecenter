@@ -196,7 +196,7 @@
     <None Include="Resources\BuilderDialog_movedown.bmp" />
     <None Include="Resources\BuilderDialog_moveback.bmp" />
     <None Include="Resources\BuilderDialog_moveright.bmp" />
-    <Content Include="MyScoreCenter.Settings2.xml" />
+    <Content Include="MyScoreCenter2.Settings.xml" />
     <Content Include="skin\Defaultwide\hover_score center.png" />
     <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
     <Content Include="skin\Default\MyScoreCenter.xml" />
@@ -286,7 +286,7 @@ copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 rem copy $(ProjectDir)skin\DefaultWide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\DefaultWide" /Y
 rem copy $(ProjectDir)skin\Default\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Default" /Y
-rem copy $(ProjectDir)MyScoreCenter.settings2.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
+rem copy $(ProjectDir)MyScoreCenter2.Settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
