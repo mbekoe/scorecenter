@@ -70,6 +70,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Rows.Add(Operation.NotEndsWith, "Not Ends with");
             dt.Rows.Add(Operation.StartsWith, "Starts with");
             dt.Rows.Add(Operation.NotStartsWith, "Not Starts with");
+            dt.Rows.Add(Operation.IsLast, "Is Last");
             dt.Rows.Add(Operation.InList, "In List");
             dt.Rows.Add(Operation.IsNull, "Is Null");
 

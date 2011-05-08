@@ -94,6 +94,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // for all the rows
             List<TC> controls = new List<TC>();
+            int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
             foreach (string[] row_ in labels)
             {
                 // ignore empty lines
@@ -122,12 +123,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                 string[] row = isHeader ? row_.Where(c => c != ScoreCenterPlugin.C_HEADER).ToArray() : row_;
                 
                 #region Evaluate rule for full line
-                //bool isHeader = !String.IsNullOrEmpty(Score.Headers) && lineNumber == 0;
                 Style lineStyle = defaultStyle;
                 bool merge = false;
                 if (!isHeader)
                 {
-                    Rule rule = engine.CheckLine(row, lineNumber);
+                    Rule rule = engine.CheckLine(row, lineNumber, totalLines);
                     if (rule != null)
                     {
                         // skip lines and continue
