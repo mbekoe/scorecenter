@@ -1,4 +1,7 @@
 #labels Featured
+*next version*:
+    * New Rule: 'Is Last'
+
 *version 1.4.0.0 (1 may 2011):*
     * Add compatibility check for MP 1.2 beta.
     * Replace Blue3 skins with new Default skins.
