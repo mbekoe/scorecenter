@@ -74,11 +74,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return score.GetType().Name + "Editor";
         }
-        public Control CreateEditor(string editorType)
+        public BaseScoreEditor CreateEditor(string editorType, Panel testPanel)
         {
             var t = Type.GetType("MediaPortal.Plugin.ScoreCenter.Editor." + editorType);
             if (t == null) t = typeof(FolderScoreEditor);
-            return (Control)Activator.CreateInstance(t);
+            
+            var editor = (BaseScoreEditor)Activator.CreateInstance(t);
+            editor.TestPanel = testPanel;
+            return editor;
         }
 
         public string GetParserType(BaseScore score)

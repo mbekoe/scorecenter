@@ -90,7 +90,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         {
             string result = String.Empty;
 
-            string[][] lines = null;//pnlTest.Tag as string[][];
+            string[][] lines = this.TestPanel == null ? null : this.TestPanel.Tag as string[][];
             if (lines != null)
             {
                 // get number of columns
@@ -146,12 +146,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             lblTotalSize.Text = String.Format("Total Size = {0}", res);
         }
-        private void AlignColumn(ContentAlignment alignement)
+        public override void AlignColumn(Point pt, ContentAlignment alignement)
         {
-            /*
-            Point pt = contextMenuStrip1.Location;
-            pt = pnlTest.PointToClient(pt);
-            Control ctr = pnlTest.GetChildAtPoint(pt);
+            if (this.TestPanel == null)
+                return;
+
+            Control ctr = this.TestPanel.GetChildAtPoint(pt);
             Label lbl = ctr as Label;
 
             if (lbl == null || lbl.Tag == null)
@@ -168,13 +168,23 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             //lbl.TextAlign = alignement;
 
-            foreach (Label c in pnlTest.Controls)
+            foreach (Label c in this.TestPanel.Controls)
             {
                 if (c == null || c.Tag == null) continue;
                 int col = Convert.ToInt32(c.Tag);
                 if (col == columnIndex)
                     c.TextAlign = alignement;
-            }*/
+            }
+        }
+        private static ColumnDisplay.Alignment ConvertAlignment(ContentAlignment align)
+        {
+            if (align == ContentAlignment.MiddleRight)
+                return ColumnDisplay.Alignment.Right;
+
+            if (align == ContentAlignment.MiddleCenter)
+                return ColumnDisplay.Alignment.Center;
+
+            return ColumnDisplay.Alignment.Left;
         }
 
         private void btnOpenUrl_Click(object sender, EventArgs e)

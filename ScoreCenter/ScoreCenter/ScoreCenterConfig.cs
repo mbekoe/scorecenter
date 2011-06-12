@@ -60,7 +60,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
             
-            //m_parser = new ScoreParser(0);
             tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
             this.ShowInTaskbar = showInTaskbar;
@@ -229,7 +228,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             if (editor == null)
             {
-                Control zeditor = ScoreFactory.Instance.CreateEditor(editorType);
+                var zeditor = ScoreFactory.Instance.CreateEditor(editorType, pnlTest);
                 pnlEditor.Controls.Add(zeditor);
                 zeditor.Dock = DockStyle.Fill;
                 editor = zeditor as BaseScoreEditor;
@@ -791,28 +790,29 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AlignColumn(ContentAlignment.MiddleLeft);
+            var editor = GetEditor();
+            if (editor != null)
+            {
+                editor.AlignColumn(pnlTest.PointToClient(contextMenuStrip1.Location), ContentAlignment.MiddleLeft);
+            }
         }
 
         private void centerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AlignColumn(ContentAlignment.MiddleCenter);
+            var editor = GetEditor();
+            if (editor != null)
+            {
+                editor.AlignColumn(pnlTest.PointToClient(contextMenuStrip1.Location), ContentAlignment.MiddleCenter);
+            }
         }
 
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AlignColumn(ContentAlignment.MiddleRight);
-        }
-
-        private static ColumnDisplay.Alignment ConvertAlignment(ContentAlignment align)
-        {
-            if (align == ContentAlignment.MiddleRight)
-                return ColumnDisplay.Alignment.Right;
-
-            if (align == ContentAlignment.MiddleCenter)
-                return ColumnDisplay.Alignment.Center;
-
-            return ColumnDisplay.Alignment.Left;
+            var editor = GetEditor();
+            if (editor != null)
+            {
+                editor.AlignColumn(pnlTest.PointToClient(contextMenuStrip1.Location), ContentAlignment.MiddleRight);
+            }
         }
     }
 }
