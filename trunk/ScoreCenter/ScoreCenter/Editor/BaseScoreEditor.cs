@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MediaPortal.Plugin.ScoreCenter.Editor
@@ -37,9 +38,20 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             get { return false; }
         }
 
+        public Panel TestPanel
+        {
+            get;
+            set;
+        }
+
         public virtual Type GetScoreType()
         {
             throw new NotImplementedException();
+        }
+
+        public virtual void AlignColumn(Point pt, ContentAlignment alignement)
+        {
+            // do nothing
         }
 
         protected bool CheckTextBox(TextBox control, Label label, bool require)
