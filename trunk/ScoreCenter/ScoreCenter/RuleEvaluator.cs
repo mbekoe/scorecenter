@@ -1,3 +1,28 @@
+#region Copyright (C) 2005-2011 Team MediaPortal
+
+/* 
+ *      Copyright (C) 2005-2011 Team MediaPortal
+ *      http://www.team-mediaportal.com
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *   
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *   
+ *  You should have received a copy of the GNU General Public License
+ *  along with GNU Make; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. 
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +33,24 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public class RuleEvaluator
     {
+        /// <summary>The list of rules.</summary>
         private Rule[] m_rules;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="rules">The list of rules.</param>
         public RuleEvaluator(Rule[] rules)
         {
             m_rules = rules;
         }
 
+        /// <summary>
+        /// Check the rules on a cell.
+        /// </summary>
+        /// <param name="text">The text of the cell.</param>
+        /// <param name="colIndex">The index of the cell.</param>
+        /// <returns>The first rule satisifed by the cell or null.</returns>
         public Rule CheckCell(string text, int colIndex)
         {
             if (m_rules == null || m_rules.Length == 0)
@@ -36,6 +72,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             return null;
         }
 
+        /// <summary>
+        /// Check the rules on a line.
+        /// </summary>
+        /// <param name="text">The text of the cells of the line.</param>
+        /// <param name="line">The index of the line.</param>
+        /// <param name="nbLines">The total number of lines.</param>
+        /// <returns>The first rule satisfied by the line or null.</returns>
         public Rule CheckLine(string[] text, int line, int nbLines)
         {
             if (m_rules == null || m_rules.Length == 0)
@@ -79,6 +122,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             return null;
         }
 
+        /// <summary>
+        /// Evaluate a rule.
+        /// </summary>
+        /// <param name="rule">The rule to evaluate.</param>
+        /// <param name="text">The text to check.</param>
+        /// <param name="args">Arguments for the rule.</param>
+        /// <returns>True if the text satisfied the rule, False otherwise.</returns>
         private bool Evaluate(Rule rule, string text, params int[] args)
         {
             bool result = false;
@@ -161,7 +211,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
-        public int CompareStr(string x, string y)
+        /// <summary>
+        /// Compares two strings.
+        /// </summary>
+        /// <param name="x">The first string.</param>
+        /// <param name="y">The second string.</param>
+        /// <returns>0 if the strings are equal, 1 if x > y and -1 otherwise.</returns>
+        private static int CompareStr(string x, string y)
         {
             if (String.Compare(x, y, StringComparison.OrdinalIgnoreCase) == 0)
                 return 0;
