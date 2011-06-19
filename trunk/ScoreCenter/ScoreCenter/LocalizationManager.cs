@@ -58,7 +58,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 // get the string localistion provider
                 Settings settings = new Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
-                string language = settings.GetValueAsString("skin", "language", "English");
+                string language = settings.GetValueAsString("gui", "language", "English");
 
                 CultureInfo[] cultureList = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
                 string code = "en";
