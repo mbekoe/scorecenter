@@ -24,11 +24,10 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -38,19 +37,18 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     public interface IScoreBuilder
     {
+        bool LimitToPage { get; set; }
+        bool AutoSize { get; set; }
+        bool AutoWrap { get; set; }
+        ReadOnlyCollection<Style> Styles { get; set; }
     }
     public interface IScoreBuilder<T> : IScoreBuilder
     {
-        //void Configure(Style[] styles, bool limitToPage, bool autoSize, bool autoWrap);
         void SetFont(string fontName, long textColor, int fontSize, int charWidth, int charHeight);
         IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
             int startX, int startY, int pnlWidth, int pnlHeight,
             CreateControlDelegate<T> createControl,
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber);
-        bool LimitToPage { get; set; }
-        bool AutoSize { get; set; }
-        bool AutoWrap { get; set; }
-        ReadOnlyCollection<Style> Styles { get; set; }
     }
 
     public abstract class ScoreBuilder<T> : IScoreBuilder<T>

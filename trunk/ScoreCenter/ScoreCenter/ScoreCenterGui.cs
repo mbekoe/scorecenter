@@ -24,6 +24,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -32,7 +33,6 @@ using System.Net;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
-using System.Collections;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -116,6 +116,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                     SetScoreProperties(null);
 
                     UpdateSettings(false, false);
+
+                    List<BaseScore> vslist = new List<BaseScore>();
+                    foreach (BaseScore sc in m_center.Scores.Items.Where(p => p.IsVirtualFolder()))
+                    {
+                        IList<BaseScore> children = sc.GetVirtualScores();
+                        if (children != null)
+                        {
+                            vslist.AddRange(children);
+                        }
+                    }
+
+                    m_center.Scores.Items = m_center.Scores.Items.Concat(vslist.ToArray()).ToArray();
 
                     #region Set HOME
                     if (String.IsNullOrEmpty(m_center.Setup.Home))
@@ -334,7 +346,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             ClearGrid();
 
             BaseScore sc = item.TVTag as BaseScore;
-            bool currIsFolder = (m_currentScore == null || m_currentScore.IsFolder());
+            bool currIsFolder = (m_currentScore == null || ScoreIsFolder(m_currentScore));
             m_currentScore = sc;
 
             bool reselect = true;
@@ -364,7 +376,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             else
             {
                 if (currIsFolder) m_level++;
-                if (sc.IsFolder())
+                if (ScoreIsFolder(sc))
                 {
                     LoadScores(sc);
                 }
@@ -412,7 +424,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     GUIListItem item = new GUIListItem();
                     item.Label = sc.LocName;
-                    item.IsFolder = sc.IsFolder();
+                    item.IsFolder = ScoreIsFolder(sc);
                     item.IconImage = GetImage(sc.Image);
                     item.IsPlayed = sc.IsNew;
                     item.TVTag = sc;
@@ -459,7 +471,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void DisplayScore(BaseScore score)
         {
-            if (score.IsFolder())
+            if (ScoreIsFolder(score))
                 return;
 
             string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
@@ -870,7 +882,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (String.IsNullOrEmpty(name) || name == " ")
                 return "-";
 
-            return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ".png");
+            string ext = "";
+            if (!name.Contains(".")) ext = ".png";
+
+            return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ext);
+        }
+
+        private static bool ScoreIsFolder(BaseScore score)
+        {
+            return score.IsFolder() || score.IsVirtualFolder();
         }
 
         #endregion

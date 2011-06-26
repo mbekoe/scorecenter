@@ -86,7 +86,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 toSave.CopyTo(m_center.Styles, 0);
 
                 // rename in scores
-                foreach (GenericScore score in m_center.Scores.Items)
+                foreach (GenericScore score in m_center.Scores.Items.OfType<GenericScore>())
                 {
                     if (score != null && score.Rules != null)
                     {

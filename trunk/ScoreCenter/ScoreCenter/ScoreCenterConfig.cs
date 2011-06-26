@@ -63,7 +63,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             tvwScores.TreeViewNodeSorter = new ScoreNodeComparer();
 
             this.ShowInTaskbar = showInTaskbar;
-
         }
 
         private void SetScoreStatus(bool saved)

@@ -110,6 +110,14 @@
     <Compile Include="Editor\RssScoreEditor.Designer.cs">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorldFootball\ScoreCenter.WorldFootball.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreBuilder.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorldFootball\WorldFootballScoreEditor.Designer.cs">
+      <DependentUpon>WorldFootballScoreEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExchangeManager.cs" />
     <Compile Include="ExportDialog.cs">
       <SubType>Form</SubType>
@@ -133,6 +141,7 @@
     <Compile Include="Parser\FolderScoreParser.cs" />
     <Compile Include="Parser\GenericScoreParser.cs" />
     <Compile Include="Parser\RssScoreParser.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreParser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,6 +206,7 @@
     <None Include="Resources\BuilderDialog_moveback.bmp" />
     <None Include="Resources\BuilderDialog_moveright.bmp" />
     <Content Include="MyScoreCenter2.Settings.xml" />
+    <None Include="Resources\wfb_logo.png" />
     <Content Include="skin\Defaultwide\hover_score center.png" />
     <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
     <Content Include="skin\Default\MyScoreCenter.xml" />
@@ -248,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\RssScoreEditor.resx">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldFootball\WorldFootballScoreEditor.resx">
+      <DependentUpon>WorldFootballScoreEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportDialog.resx">
       <DependentUpon>ExportDialog.cs</DependentUpon>

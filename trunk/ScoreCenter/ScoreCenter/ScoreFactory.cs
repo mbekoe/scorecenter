@@ -24,14 +24,12 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using MediaPortal.Plugin.ScoreCenter.Editor;
 using System.Windows.Forms;
-using MediaPortal.Plugin.ScoreCenter.Parser;
-using System.Collections;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -99,12 +97,12 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return score.GetType().Name + "Editor";
         }
-        public BaseScoreEditor CreateEditor(string editorType, Panel testPanel)
+        public Editor.BaseScoreEditor CreateEditor(string editorType, Panel testPanel)
         {
             var t = Type.GetType("MediaPortal.Plugin.ScoreCenter.Editor." + editorType);
-            if (t == null) t = typeof(FolderScoreEditor);
+            if (t == null) t = typeof(Editor.FolderScoreEditor);
             
-            var editor = (BaseScoreEditor)Activator.CreateInstance(t);
+            var editor = (Editor.BaseScoreEditor)Activator.CreateInstance(t);
             editor.TestPanel = testPanel;
             return editor;
         }
@@ -113,14 +111,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return score.GetType().Name + "Parser";
         }
-        private Dictionary<string, IScoreParser> m_parsers = new Dictionary<string, IScoreParser>();
-        public IScoreParser GetParser(BaseScore score)
+        private Dictionary<string, Parser.IScoreParser> m_parsers = new Dictionary<string, Parser.IScoreParser>();
+        public Parser.IScoreParser GetParser(BaseScore score)
         {
             string parserType = GetParserType(score);
             if (!m_parsers.ContainsKey(parserType))
             {
                 var t = Type.GetType("MediaPortal.Plugin.ScoreCenter.Parser." + parserType);
-                m_parsers[parserType] = (IScoreParser)Activator.CreateInstance(t, 0);
+                m_parsers[parserType] = (Parser.IScoreParser)Activator.CreateInstance(t, 0);
             }
             return m_parsers[parserType];
         }
