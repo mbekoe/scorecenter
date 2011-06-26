@@ -30,6 +30,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using MediaPortal.Plugin.ScoreCenter.Parser;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -58,7 +59,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         Reverse = 16
     }
 
-    public static class EnumManager
+    public static partial class EnumManager
     {
         public static DataTable ReadBetweenElements()
         {
@@ -199,7 +200,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         public List<string> GetParameters()
         {
             List<string> plist = new List<string>();
-            Regex rule = new Regex(@"{@(?<a>[^}]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            Regex rule = new Regex(@"{@(?<a>[^}]*)",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
             foreach (GenericScore sc in this.Scores.Items.OfType<GenericScore>())
             {
                 if (!sc.enable || !sc.Url.Contains("{"))
@@ -244,6 +246,14 @@ namespace MediaPortal.Plugin.ScoreCenter
         public virtual bool IsFolder()
         {
             return false;
+        }
+        public virtual bool IsVirtualFolder()
+        {
+            return false;
+        }
+        public virtual IList<BaseScore> GetVirtualScores()
+        {
+            return null;
         }
         public virtual string GetSource()
         {
@@ -469,6 +479,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             
             return result;
+        }
+    }
+
+    partial class Rule
+    {
+        public override string ToString()
+        {
+            return String.Format("{0} {1} => {2}", this.Operator, this.Value, this.Action);
         }
     }
 

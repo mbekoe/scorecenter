@@ -26,8 +26,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
+using System.Text;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -73,6 +73,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return html;
+        }
+
+        public void GetImage(string url, string fileName)
+        {
+            m_client.DownloadFile(url, fileName);
         }
 
         private class CacheElement

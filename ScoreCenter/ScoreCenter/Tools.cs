@@ -405,6 +405,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return url;
 
             string result = url;
+            
+            // subst special tag
+            DateTime now = DateTime.Now;
+            int year = now.Year;
+            if (now.Month <= 7) year--;
+            result = result.Replace("{Y-Y+1}", String.Format("{0}-{1}", year, year + 1));
 
             // subst parameters
             if (parameters != null)
@@ -416,7 +422,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             // parse date format
-            DateTime now = DateTime.Now.AddDays(delta);
+            now = now.AddDays(delta);
             int start, end;
             while ((start = result.IndexOf('{') + 1) > 0)
             {
@@ -509,6 +515,29 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return sizes;
+        }
+    }
+
+    public static class StringExt
+    {
+        public static string Capitalize(this string str)
+        {
+            string[] elts = str.Replace("-", " ").ToLower().Split();
+
+            string res = "";
+            foreach (string e in elts)
+            {
+                if (e.Length == 1)
+                {
+                    res += " " + e.ToUpper();
+                }
+                else
+                {
+                    res += " " + e.Substring(0, 1).ToUpper() + e.Substring(1);
+                }
+            }
+
+            return res.Trim();
         }
     }
 }

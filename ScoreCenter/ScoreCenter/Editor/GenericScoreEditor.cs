@@ -240,26 +240,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             return result;
         }
 
-        private void ClearControls()
-        {
-            tbxScore.Text = String.Empty;
-            tbxUrl.Text = String.Empty;
-            tbxXpath.Text = String.Empty;
-            tbxEncoding.Text = String.Empty;
-            tbxHeaders.Text = String.Empty;
-            tbxSizes.Text = String.Empty;
-            tbxSkip.Text = String.Empty;
-            tbxMaxLines.Text = String.Empty;
-            tbxElement.Text = String.Empty;
-            ckxUseTheader.Checked = false;
-            ckxUseCaption.Checked = false;
-            ckxNewLine.Checked = false;
-            ckxAllowWrapping.Checked = false;
-
-            grdRule.Rows.Clear();
-            grdRule.Enabled = false;
-        }
-
         public override void Clear()
         {
         }
@@ -276,15 +256,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             errorProvider1.Clear();
 
             // always clear
-            tbxScore.Text = String.Empty;
-            tbxUrl.Text = String.Empty;
-            tbxXpath.Text = String.Empty;
-            tbxEncoding.Text = String.Empty;
-            tbxHeaders.Text = String.Empty;
-            tbxSizes.Text = String.Empty;
-            tbxSkip.Text = String.Empty;
-            tbxMaxLines.Text = String.Empty;
-            tbxElement.Text = String.Empty;
+            tbxScore.Clear();
+            tbxUrl.Clear();
+            tbxXpath.Clear();
+            tbxEncoding.Clear();
+            tbxHeaders.Clear();
+            tbxSizes.Clear();
+            tbxSkip.Clear();
+            tbxMaxLines.Clear();
+            tbxElement.Clear();
             ckxUseTheader.Checked = false;
             ckxUseCaption.Checked = false;
             ckxNewLine.Checked = false;

@@ -23,18 +23,14 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using System.Xml.Serialization;
 using MediaPortal.Configuration;
 using MediaPortal.Localisation.LanguageStrings;
 using MediaPortal.Profile;
-using System.Xml.Serialization;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {

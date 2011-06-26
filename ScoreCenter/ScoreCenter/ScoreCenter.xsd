@@ -54,6 +54,13 @@
       <xs:enumeration value="Manually" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="WorldFootballKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="League" />
+      <xs:enumeration value="Cup" />
+      <xs:enumeration value="Tournament" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:element name="Style" nillable="false">
     <xs:complexType>
       <xs:attribute name="Name" type="xs:string" use="required" />
@@ -129,9 +136,25 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="WorldFootballScore">
+    <xs:complexContent>
+      <xs:extension base="BaseScore">
+	    <xs:sequence>
+          <xs:element name="Country" type="xs:string" minOccurs="1" maxOccurs="1" />
+          <xs:element name="League" type="xs:string" minOccurs="1" maxOccurs="1" />
+          <xs:element name="Season" type="xs:string" minOccurs="1" maxOccurs="1" />
+          <xs:element name="Kind" type="WorldFootballKind" minOccurs="0" maxOccurs="1" default="League" />
+          <xs:element name="NbTeams" type="xs:int" minOccurs="0" maxOccurs="1" default="99" />
+          <xs:element name="Levels" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="Highlights" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+		</xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Folder" type="FolderScore" nillable="false"/>
   <xs:element name="Score" type="GenericScore" nillable="false"/>
   <xs:element name="Rss" type="RssScore" nillable="false"/>
+  <xs:element name="WorldFootball" type="WorldFootballScore" nillable="false"/>
   <xs:element name="ScoreCenter" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
     <xs:complexType>
       <xs:sequence>
@@ -171,6 +194,7 @@
               <xs:element ref="Folder" minOccurs="0" maxOccurs="unbounded" />
               <xs:element ref="Score" minOccurs="0" maxOccurs="unbounded" />
               <xs:element ref="Rss" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="WorldFootball" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
           </xs:complexType>
         </xs:element>
