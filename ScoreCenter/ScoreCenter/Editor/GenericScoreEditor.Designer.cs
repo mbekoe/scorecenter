@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.lblScoreId = new System.Windows.Forms.Label();
             this.cbxBetweenElements = new System.Windows.Forms.ComboBox();
             this.ckxReverseOrder = new System.Windows.Forms.CheckBox();
             this.ckxAllowWrapping = new System.Windows.Forms.CheckBox();
@@ -85,6 +86,7 @@
             // 
             // tpgGeneral
             // 
+            this.tpgGeneral.Controls.Add(this.lblScoreId);
             this.tpgGeneral.Controls.Add(this.cbxBetweenElements);
             this.tpgGeneral.Controls.Add(this.ckxReverseOrder);
             this.tpgGeneral.Controls.Add(this.ckxAllowWrapping);
@@ -118,6 +120,16 @@
             this.tpgGeneral.Size = new System.Drawing.Size(699, 295);
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "General";
+            // 
+            // lblScoreId
+            // 
+            this.lblScoreId.AutoSize = true;
+            this.lblScoreId.Location = new System.Drawing.Point(6, 3);
+            this.lblScoreId.Name = "lblScoreId";
+            this.lblScoreId.Size = new System.Drawing.Size(56, 13);
+            this.lblScoreId.TabIndex = 59;
+            this.lblScoreId.Text = "<score id>";
+            this.lblScoreId.Visible = false;
             // 
             // cbxBetweenElements
             // 
@@ -382,7 +394,7 @@
             this.tpgRules.Location = new System.Drawing.Point(4, 4);
             this.tpgRules.Name = "tpgRules";
             this.tpgRules.Padding = new System.Windows.Forms.Padding(3);
-            this.tpgRules.Size = new System.Drawing.Size(859, 480);
+            this.tpgRules.Size = new System.Drawing.Size(699, 295);
             this.tpgRules.TabIndex = 1;
             this.tpgRules.Text = "Rules";
             // 
@@ -398,7 +410,7 @@
             this.grdRule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdRule.Location = new System.Drawing.Point(3, 3);
             this.grdRule.Name = "grdRule";
-            this.grdRule.Size = new System.Drawing.Size(853, 474);
+            this.grdRule.Size = new System.Drawing.Size(693, 289);
             this.grdRule.TabIndex = 1;
             // 
             // colColumn
@@ -493,5 +505,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn colAction;
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
+        private System.Windows.Forms.Label lblScoreId;
     }
 }
