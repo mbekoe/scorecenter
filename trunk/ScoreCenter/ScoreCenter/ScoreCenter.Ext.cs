@@ -300,7 +300,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public override string ToString()
         {
-            return String.Format("{0} [{1}]", this.Name, this.Id);
+            return this.Name;
         }
     }
     public partial class FolderScore

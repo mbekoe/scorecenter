@@ -59,6 +59,7 @@
       <xs:enumeration value="League" />
       <xs:enumeration value="Cup" />
       <xs:enumeration value="Tournament" />
+      <xs:enumeration value="Qualification" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Style" nillable="false">
@@ -144,6 +145,7 @@
           <xs:element name="League" type="xs:string" minOccurs="1" maxOccurs="1" />
           <xs:element name="Season" type="xs:string" minOccurs="1" maxOccurs="1" />
           <xs:element name="Kind" type="WorldFootballKind" minOccurs="0" maxOccurs="1" default="League" />
+          <xs:element name="Details" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="NbTeams" type="xs:int" minOccurs="0" maxOccurs="1" default="99" />
           <xs:element name="Levels" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="Highlights" type="xs:string" minOccurs="0" maxOccurs="1" default="" />

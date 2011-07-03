@@ -605,6 +605,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private WorldFootballKind kindField;
         
+        private string detailsField;
+        
         private int nbTeamsField;
         
         private string levelsField;
@@ -613,6 +615,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         public WorldFootballScore() {
             this.kindField = WorldFootballKind.League;
+            this.detailsField = "";
             this.nbTeamsField = 99;
             this.levelsField = "";
             this.highlightsField = "";
@@ -660,6 +663,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.kindField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Details {
+            get {
+                return this.detailsField;
+            }
+            set {
+                this.detailsField = value;
             }
         }
         
@@ -713,6 +728,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         Tournament,
+        
+        /// <remarks/>
+        Qualification,
     }
     
     /// <remarks/>
