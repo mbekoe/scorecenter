@@ -110,6 +110,12 @@
     <Compile Include="Editor\RssScoreEditor.Designer.cs">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestScoreSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestScoreSelector.Designer.cs">
+      <DependentUpon>TestScoreSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorldFootball\ScoreCenter.WorldFootball.cs" />
     <Compile Include="WorldFootball\WorldFootballScoreBuilder.cs" />
     <Compile Include="WorldFootball\WorldFootballScoreEditor.cs">
@@ -258,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\RssScoreEditor.resx">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestScoreSelector.resx">
+      <DependentUpon>TestScoreSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldFootball\WorldFootballScoreEditor.resx">
       <DependentUpon>WorldFootballScoreEditor.cs</DependentUpon>
