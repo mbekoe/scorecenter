@@ -55,10 +55,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Columns.Add("Value");
 
             List<string> allready = new List<string>();
-            foreach (var p in center.Parameters)
+            if (center.Parameters != null)
             {
-                dt.Rows.Add(p.name, p.Value);
-                allready.Add(p.name);
+                foreach (var p in center.Parameters)
+                {
+                    dt.Rows.Add(p.name, p.Value);
+                    allready.Add(p.name);
+                }
             }
 
             List<string> plist = m_center.GetParameters();
