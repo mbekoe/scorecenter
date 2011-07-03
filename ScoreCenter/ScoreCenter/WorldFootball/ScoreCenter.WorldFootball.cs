@@ -41,6 +41,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             dt.Rows.Add(WorldFootballKind.Cup, "Cup");
             dt.Rows.Add(WorldFootballKind.League, "League");
+            dt.Rows.Add(WorldFootballKind.Qualification, "Qualification");
             dt.Rows.Add(WorldFootballKind.Tournament, "Tournament");
 
             return dt;
@@ -84,6 +85,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.NbTeams = this.NbTeams;
             copy.Levels = this.Levels;
             copy.Highlights = this.Highlights;
+            copy.Details = this.Details;
 
             return (BaseScore)copy;
         }
@@ -108,7 +110,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.League = newScore.League;
                 this.Season = newScore.Season;
                 this.NbTeams = newScore.NbTeams;
-                this.Levels = newScore.Levels;
+                this.Details = newScore.Details;
+                this.Kind = newScore.Kind;
             }
 
             if ((option & ImportOptions.Rules) == ImportOptions.Rules)

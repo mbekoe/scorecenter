@@ -20,6 +20,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public WorldFootballScoreEditor()
         {
             InitializeComponent();
+
+#if DEBUG
+            lblScoreId.Visible = true;
+#endif
         }
 
         public override Type GetScoreType()
@@ -44,7 +48,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             numNbTeams.Value = 20;
             tbxLevels.Clear();
             tbxHighlights.Clear();
-
+            tbxDetails.Clear();
 
             tbxName.Text = score.Name;
             tbxCountry.Text = score.Country;
@@ -54,6 +58,21 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxLevels.Text = score.Levels;
             cbxKind.SelectedValue = score.Kind;
             tbxHighlights.Text = score.Highlights;
+            tbxDetails.Text = score.Details;
+            lblScoreId.Text = score.Id;
+
+            if (!String.IsNullOrEmpty(score.Image))
+            {
+                string iconPath = Path.Combine(Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter"), score.Image + ".png");
+                if (File.Exists(iconPath))
+                    pictureBox1.Image = new Bitmap(iconPath);
+                else
+                    pictureBox1.Image = Properties.Resources.wfb_logo;
+            }
+            else
+            {
+                pictureBox1.Image = Properties.Resources.wfb_logo;
+            }
         }
 
         public override bool SaveScore(ref BaseScore baseScore)
@@ -70,7 +89,13 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.NbTeams = (int)numNbTeams.Value;
             score.Levels = tbxLevels.Text;
             score.Highlights = tbxHighlights.Text;
+            score.Details = tbxDetails.Text;
             score.Kind = (WorldFootballKind)Enum.Parse(typeof(WorldFootballKind), cbxKind.SelectedValue.ToString());
+
+            if (String.IsNullOrEmpty(score.Image))
+            {
+                score.Image = String.Format("Football\\{0}", GetFullName());
+            }
 
             return true;
         }
@@ -78,7 +103,13 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public override void Clear()
         {
         }
-
+        public override bool HasTest
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override bool CheckData()
         {
             bool result = CheckTextBox(tbxName, lblName, true);
@@ -108,6 +139,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         private string GetUrl()
         {
             return String.Format("{{@worldfootball}}wettbewerb/{0}", GetFullName());
+        }
+        private string GetDefaultIconPath()
+        {
+            string path = Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter");
+            path = Path.Combine(Path.Combine(path, "Football"), GetFullName() + ".png");
+            return path;
         }
 
         private void WorldFootballScoreEditor_Load(object sender, EventArgs e)
@@ -172,14 +209,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                     pictureBox1.Image = null;
                 }
 
-                string path = Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter");
-                path = Path.Combine(Path.Combine(path, "Football"), GetFullName() + ".png");
+                string path = GetDefaultIconPath();
 
                 string url = Tools.ParseUrl(GetUrl(), m_center.Parameters);
                 ScoreCache cache = new ScoreCache(0);
                 string home = cache.GetScore(url, "", false);
 
                 string emblemUrl = WorldFootballScoreParser.GetEmblemUrl(home);
+                if (String.IsNullOrEmpty(emblemUrl))
+                    return;
 
                 string tmpfile = Path.GetTempFileName();
                 File.Delete(tmpfile);

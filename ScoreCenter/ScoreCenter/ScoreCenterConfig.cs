@@ -358,15 +358,22 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                 if (!editor.SaveScore(ref score))
                     return;
 
+                if (score.IsVirtualFolder())
+                {
+                    var zz = score.GetVirtualScores();
+                    using (TestScoreSelector dlg = new TestScoreSelector(zz))
+                    {
+                        if (dlg.ShowDialog() == DialogResult.OK)
+                        {
+                            score = dlg.SelectedScore;
+                        }
+                    }
+                }
+
                 // read and parse the score
                 string[][] lines = ScoreFactory.Parse(score, ckxReload.Checked, m_center.Parameters);
-
-                //ScoreBuilder<Control> bld = new ScoreBuilder<Control>();
-                //bld.Styles = m_center.Styles.ToList().AsReadOnly();
-                //bld.Score = score;
-                //bld.LimitToPage = false;
-                //bld.AutoSize = false;
-                //bld.AutoWrap = false;
+                if (lines == null)
+                    return;
 
                 IScoreBuilder<Control> bld = ScoreFactory.Instance.GetBuilder<Control>(score);
                 bld.Styles = m_center.Styles.ToList().AsReadOnly();
@@ -381,16 +388,13 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
                 pnlTest.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
 
-                //IList<Control> controls = bld.Build(lines,
-                //    0, 0,
-                //    0, 0, pnlTest.Width, pnlTest.Height,
-                //    this.CreateControl,
-                //    out overRight, out overDown, out lineNumber, out colNumber);
                 IList<Control> controls = bld.Build(score, lines,
                     0, 0,
                     0, 0, pnlTest.Width, pnlTest.Height,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
+                if (controls == null)
+                    return;
 
                 pnlTest.Tag = lines;
 
