@@ -54,6 +54,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
             ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
             ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
+
+#if DEBUG
+            lblScoreId.Visible = true;
+#endif
         }
 
         public override bool HasTest
@@ -294,6 +298,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             ckxAllowWrapping.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.WordWrap);
             ckxReverseOrder.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.Reverse);
             cbxBetweenElements.SelectedValue = score.BetweenElts;
+            lblScoreId.Text = score.Id;
 
             grdRule.Enabled = true;
             SetRules(score, center);

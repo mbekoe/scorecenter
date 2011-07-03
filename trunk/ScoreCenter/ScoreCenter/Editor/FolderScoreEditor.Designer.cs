@@ -30,6 +30,8 @@
         {
             this.tbxScore = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
+            this.lblScoreId = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxScore
@@ -50,14 +52,26 @@
             this.lblName.TabIndex = 43;
             this.lblName.Text = "Name";
             // 
-            // DefaultEditor
+            // lblScoreId
+            // 
+            this.lblScoreId.AutoSize = true;
+            this.lblScoreId.Location = new System.Drawing.Point(63, 8);
+            this.lblScoreId.Name = "lblScoreId";
+            this.lblScoreId.Size = new System.Drawing.Size(56, 13);
+            this.lblScoreId.TabIndex = 45;
+            this.lblScoreId.Text = "<score id>";
+            this.lblScoreId.Visible = false;
+            // 
+            // FolderScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblScoreId);
             this.Controls.Add(this.tbxScore);
             this.Controls.Add(this.lblName);
-            this.Name = "DefaultEditor";
+            this.Name = "FolderScoreEditor";
             this.Size = new System.Drawing.Size(632, 150);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,5 +81,6 @@
 
         private System.Windows.Forms.TextBox tbxScore;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblScoreId;
     }
 }
