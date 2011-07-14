@@ -170,8 +170,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 client.Dispose();
             }
-            catch (Exception)
+            catch (Exception exc)
             {
+                Tools.LogError("Error in ReadOnlineSettings", exc);
                 if (allowException)
                     throw;
                 scores = null;

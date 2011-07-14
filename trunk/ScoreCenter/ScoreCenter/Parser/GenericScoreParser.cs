@@ -47,6 +47,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             // get the html
             string html = m_cache.GetScore(url, score.Encoding, reload);
+            if (String.IsNullOrEmpty(html))
+                return null;
+
             string rep = newLine ? Environment.NewLine : " ";
             html = html.Replace("<br>", rep);
             html = html.Replace("<br/>", rep);

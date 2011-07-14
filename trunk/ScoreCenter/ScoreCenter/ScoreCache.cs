@@ -59,6 +59,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public string GetScore(string url, string encoding, bool reload)
         {
+            if (m_client.IsBusy)
+                return "";
+
             string html = String.Empty;
             if (!reload && m_cache.ContainsKey(url))
             {
