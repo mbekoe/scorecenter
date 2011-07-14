@@ -14,6 +14,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
             lbxTest.Items.AddRange(scores.ToArray());
+            lbxTest.SelectedIndex = 0;
         }
 
         /// <summary>

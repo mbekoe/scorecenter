@@ -149,7 +149,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
-        public static bool OnlineUpdate(ScoreCenter center, string url, ImportOptions options)
+        private static bool OnlineUpdate(ScoreCenter center, string url, ImportOptions options)
         {
             bool result = false;
 

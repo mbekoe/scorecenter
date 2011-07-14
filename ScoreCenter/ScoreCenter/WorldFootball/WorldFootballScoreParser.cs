@@ -6,6 +6,9 @@ using HtmlAgilityPack;
 
 namespace MediaPortal.Plugin.ScoreCenter.Parser
 {
+    /// <summary>
+    /// Parser for Worldfootball site.
+    /// </summary>
     public class WorldFootballScoreParser : ScoreParser<WorldFootballScore>
     {
         private const string GLOBAL_XPATH = "//table[@class='standard_tabelle']";
@@ -17,6 +20,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string IMG_TOP_SCORER = @"Football\Top Scorers";
         private const string WF_URL = "{@worldfootball}";
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="lifetime"></param>
         public WorldFootballScoreParser(int lifetime)
             : base(lifetime)
         {
@@ -36,6 +43,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return null;
         }
 
+        /// <summary>
+        /// Get the icon for worldfootball.
+        /// </summary>
+        /// <param name="html">The HTML of the home page of the score.</param>
+        /// <returns>The URL of the icon.</returns>
         public static string GetEmblemUrl(string html)
         {
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
@@ -53,6 +65,18 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         {
             return null;
         }
+
+        #region Utils
+        /// <summary>
+        /// Create a new score for the WorldFootball score.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="image"></param>
+        /// <param name="element"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private static GenericScore CreateNewScore(string parent, string id, string name,
             string image, string element, int index)
         {
@@ -69,6 +93,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return sc;
         }
 
+        /// <summary>
+        /// Adds a rule to a score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="col"></param>
+        /// <param name="ruleOperator"></param>
+        /// <param name="ruleValue"></param>
+        /// <param name="action"></param>
+        /// <param name="ruleFormat"></param>
         private static void AddRule(GenericScore score, int col, Operation ruleOperator, string ruleValue, RuleAction action, string ruleFormat)
         {
             MediaPortal.Plugin.ScoreCenter.Rule rule = new MediaPortal.Plugin.ScoreCenter.Rule();
@@ -84,6 +117,14 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             rules.Add(rule);
             score.Rules = rules.ToArray();
         }
+        
+        /// <summary>
+        /// Adds a highlight rule to a score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="highlights"></param>
+        /// <param name="col"></param>
+        /// <param name="action"></param>
         private static void AddHighlightRule(GenericScore score, string highlights, int col, RuleAction action)
         {
             if (String.IsNullOrEmpty(highlights))
@@ -108,24 +149,33 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             score.Rules = rules.ToArray();
         }
-
+        #endregion
+        
+        /// <summary>
+        /// Defines a League.
+        /// </summary>
+        /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <returns></returns>
         private static List<BaseScore> AddLeague(WorldFootballScore wfscore)
         {
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
 
+            // Last Results
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "3", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = "11,5,20,+1,-20,4";
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
+            // Next Round
             sc = CreateNewScore(wfscore.Id, "next", "Next Round", IMG_NEXT, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = "11,5,20,+1,-20,4";
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
+            // Standings
             sc = CreateNewScore(wfscore.Id, "table", "Standings", IMG_STANDINGS, "0", index++);
             int nbrounds = wfscore.NbTeams * 2 - 2;
             sc.Url = String.Format("{0}spielplan/{1}-{2}-spieltag/{3}/tabelle/", WF_URL, wfscore.FullLeagueName, wfscore.Season, nbrounds);
@@ -151,6 +201,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
+            // Top Scorers
             sc = CreateNewScore(wfscore.Id, "topscorers", "Top Scorers", IMG_TOP_SCORER, "0", index++);
             sc.Url = String.Format("{0}torjaeger/{1}-{2}/", WF_URL, wfscore.FullLeagueName, wfscore.Season);
             sc.Sizes = "6,0,-22,-20,-12";
@@ -158,6 +209,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             AddHighlightRule(sc, wfscore.Highlights, 4, RuleAction.FormatLine);
             scores.Add(sc);
 
+            // History
             sc = CreateNewScore(wfscore.Id, "archives", "History", IMG_HISTORY, "0", index++);
             sc.Url = String.Format("{0}sieger/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
@@ -168,6 +220,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return scores;
         }
 
+        /// <summary>
+        /// Defines a Cup.
+        /// </summary>
+        /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <returns></returns>
         private static List<BaseScore> AddCup(WorldFootballScore wfscore)
         {
             int index = 0;
@@ -189,7 +246,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             return scores;
         }
-        
+
+        /// <summary>
+        /// Defines a Tournament.
+        /// </summary>
+        /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <returns></returns>
         private static List<BaseScore> AddTournament(WorldFootballScore wfscore)
         {
             int index = 0;
