@@ -76,7 +76,7 @@
             this.ckxReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckxReload.AutoSize = true;
             this.ckxReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxReload.Location = new System.Drawing.Point(384, 617);
+            this.ckxReload.Location = new System.Drawing.Point(384, 682);
             this.ckxReload.Name = "ckxReload";
             this.ckxReload.Size = new System.Drawing.Size(59, 17);
             this.ckxReload.TabIndex = 30;
@@ -88,7 +88,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSave.Location = new System.Drawing.Point(222, 613);
+            this.btnSave.Location = new System.Drawing.Point(222, 678);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 28;
@@ -100,7 +100,7 @@
             // 
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnTest.Location = new System.Drawing.Point(303, 613);
+            this.btnTest.Location = new System.Drawing.Point(303, 678);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 29;
@@ -150,7 +150,7 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCancel.Location = new System.Drawing.Point(858, 613);
+            this.btnCancel.Location = new System.Drawing.Point(858, 678);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -163,7 +163,7 @@
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOk.Location = new System.Drawing.Point(777, 613);
+            this.btnOk.Location = new System.Drawing.Point(777, 678);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
@@ -379,7 +379,7 @@
             this.panel1.Controls.Add(this.btnClearIcon);
             this.panel1.Controls.Add(this.pbxIcon);
             this.panel1.Controls.Add(this.btnSetIcon);
-            this.panel1.Location = new System.Drawing.Point(0, 567);
+            this.panel1.Location = new System.Drawing.Point(0, 632);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(212, 81);
             this.panel1.TabIndex = 4;
@@ -394,7 +394,7 @@
             this.pnlTest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlTest.Location = new System.Drawing.Point(218, 342);
             this.pnlTest.Name = "pnlTest";
-            this.pnlTest.Size = new System.Drawing.Size(715, 265);
+            this.pnlTest.Size = new System.Drawing.Size(715, 330);
             this.pnlTest.TabIndex = 7;
             // 
             // ofdImport
@@ -421,7 +421,7 @@
             this.tvwScores.LabelEdit = true;
             this.tvwScores.Location = new System.Drawing.Point(0, 28);
             this.tvwScores.Name = "tvwScores";
-            this.tvwScores.Size = new System.Drawing.Size(212, 533);
+            this.tvwScores.Size = new System.Drawing.Size(212, 598);
             this.tvwScores.TabIndex = 1;
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
@@ -431,7 +431,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(945, 648);
+            this.ClientSize = new System.Drawing.Size(945, 713);
             this.Controls.Add(this.pnlEditor);
             this.Controls.Add(this.pnlTest);
             this.Controls.Add(this.panel1);
