@@ -176,7 +176,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             scores.Add(sc);
 
             // Standings
-            sc = CreateNewScore(wfscore.Id, "table", "Standings", IMG_STANDINGS, "0", index++);
+            string element = "0";
+            string nbLeague = wfscore.Details.Split(',').FirstOrDefault(x => x.Contains(";"));
+            if (!String.IsNullOrEmpty(nbLeague))
+            {
+                element = nbLeague;
+            }
+
+            sc = CreateNewScore(wfscore.Id, "table", "Standings", IMG_STANDINGS, element, index++);
+            sc.BetweenElts = BetweenElements.RepeatHeader;
             int nbrounds = wfscore.NbTeams * 2 - 2;
             sc.Url = String.Format("{0}spielplan/{1}-{2}-spieltag/{3}/tabelle/", WF_URL, wfscore.FullLeagueName, wfscore.Season, nbrounds);
             sc.Skip = 2;
@@ -262,8 +270,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (String.IsNullOrEmpty(wfscore.Season) == false)
                 fullname += "-" + wfscore.Season;
 
-            string[] levels= wfscore.Details.Split(',');
-            char[] groups = levels[0].ToCharArray();
+            string[] details = wfscore.Details.Split(',');
+            char[] groups = details[0].ToCharArray();
             foreach (char g in groups)
             {
                 sc = CreateNewScore(wfscore.Id, "gr" + g, String.Format("Group {0}", Char.ToUpper(g)), "", "0", index++);
@@ -284,9 +292,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 scores.Add(sc);
             }
 
-            foreach (string level in levels)
+            foreach (string level in details)
             {
-                if (level == levels[0]) continue;
+                if (level == details[0]) continue;
                 sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
                 sc.Sizes = "-5,18,-1,-18,-8,0";
