@@ -185,7 +185,9 @@
             // 
             this.tbxSeason.AutoCompleteCustomSource.AddRange(new string[] {
             "{yyyy}",
-            "{Y-Y+1}"});
+            "{YY-YY+1}",
+            "{YYYY-YY+1}",
+            "{YYYY-YYYY+1}"});
             this.tbxSeason.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbxSeason.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbxSeason.Location = new System.Drawing.Point(95, 99);

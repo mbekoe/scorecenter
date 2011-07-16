@@ -409,9 +409,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             
             // subst special tag
             DateTime now = DateTime.Now;
-            int year = now.Year;
-            if (now.Month <= 7) year--;
-            result = result.Replace("{Y-Y+1}", String.Format("{0}-{1}", year, year + 1));
+            if (now.Month <= 7) now = now.AddYears(-1);
+            DateTime next = now.AddYears(1);
+            result = result.Replace("{YY-YY+1}", String.Format("{0}-{1}", now.ToString("yy"), next.ToString("yy")));
+            result = result.Replace("{YYYY-YY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yy")));
+            result = result.Replace("{YYYY-YYYY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yyyy")));
 
             // subst parameters
             if (parameters != null)
