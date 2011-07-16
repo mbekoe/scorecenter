@@ -242,6 +242,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         internal abstract BaseScore Clone(string id);
+        internal abstract void SetDefaultIcon();
 
         public virtual bool IsFolder()
         {
@@ -317,6 +318,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return (BaseScore)copy;
         }
+        internal override void SetDefaultIcon()
+        {
+            this.Image = @"Misc\folder";
+        }
 
         public override bool IsFolder()
         {
@@ -341,6 +346,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Parent = this.Parent;
 
             return (BaseScore)copy;
+        }
+        internal override void SetDefaultIcon()
+        {
+            this.Image = @"Misc\rss";
         }
 
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
@@ -436,6 +445,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             return (BaseScore)copy;
         }
 
+        internal override void SetDefaultIcon()
+        {
+            this.Image = @"Misc\score";
+        }
+
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
         {
             GenericScore newScore = newBaseScore as GenericScore;
@@ -507,6 +521,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     partial class ScoreCenterSetup
     {
+        /// <summary>
+        /// Checks if Update is allowed.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <param name="nb"></param>
+        /// <returns></returns>
         public bool DoUpdate(bool force, int nb)
         {
             bool result = false;

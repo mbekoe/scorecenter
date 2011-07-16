@@ -80,6 +80,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             BaseScore score = (BaseScore)Activator.CreateInstance(scoreType);
             score.Id = Tools.GenerateId();
+            score.SetDefaultIcon();
 
             return score;
         }

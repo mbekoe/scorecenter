@@ -89,6 +89,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return (BaseScore)copy;
         }
+        internal override void SetDefaultIcon()
+        {
+            this.Image = @"Misc\wfb";
+        }
 
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
         {
