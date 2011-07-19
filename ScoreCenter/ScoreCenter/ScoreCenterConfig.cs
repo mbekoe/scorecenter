@@ -449,17 +449,6 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             return control;
         }
 
-        private static int ReadInt(TextBox control)
-        {
-            int result = 0;
-            if (int.TryParse(control.Text, out result))
-            {
-                return result;
-            }
-
-            return -1;
-        }
-
         private void tsbNewItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = null;
@@ -653,36 +642,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
         private void tsbEditStyles_Click(object sender, EventArgs e)
         {
-            using (StyleDialog dlg = new StyleDialog(m_center))
-            {
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    //UpdateStyleList();
-                }
-            }
-        }
-
-
-
-        private class ScoreNodeComparer : IComparer
-        {
-            #region IComparer Members
-
-            public int Compare(object x, object y)
-            {
-                TreeNode tx = x as TreeNode;
-                TreeNode ty = y as TreeNode;
-                BaseScore scx = tx.Tag as BaseScore;
-                BaseScore scy = ty.Tag as BaseScore;
-                
-                if (scx == null && scy == null)
-                    return 0;
-                if (scx == null) return -1;
-                if (scy == null) return 1;
-                return scx.CompareToNoLoc(scy);
-            }
-
-            #endregion
+            StyleDialog dlg = new StyleDialog(m_center);
+            dlg.ShowDialog();
         }
 
         #region Move Nodes
@@ -790,7 +751,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
         }
         #endregion
 
-
+        #region Context Menu
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var editor = GetEditor();
@@ -816,6 +777,28 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             {
                 editor.AlignColumn(pnlTest.PointToClient(contextMenuStrip1.Location), ContentAlignment.MiddleRight);
             }
+        }
+        #endregion
+
+        private class ScoreNodeComparer : IComparer
+        {
+            #region IComparer Members
+
+            public int Compare(object x, object y)
+            {
+                TreeNode tx = x as TreeNode;
+                TreeNode ty = y as TreeNode;
+                BaseScore scx = tx.Tag as BaseScore;
+                BaseScore scy = ty.Tag as BaseScore;
+
+                if (scx == null && scy == null)
+                    return 0;
+                if (scx == null) return -1;
+                if (scy == null) return 1;
+                return scx.CompareToNoLoc(scy);
+            }
+
+            #endregion
         }
     }
 }

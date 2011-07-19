@@ -71,6 +71,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         protected string m_fontName;
         protected long m_textColor;
+        //protected long m_oddColor = -4144960;
         protected int m_fontSize = 12;
         protected int m_charWidth = 8;
         protected int m_charHeight = 12;
@@ -192,6 +193,8 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             Style defaultStyle = new Style();
             defaultStyle.ForeColor = m_textColor;
+            //Style oddStyle = new Style();
+            //oddStyle.ForeColor = m_oddColor;
 
             // Get Columns Sizes
             ColumnDisplay[] cols = GetSizes(genScore, labels);
@@ -234,6 +237,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 #region Evaluate rule for full line
                 //bool isHeader = !String.IsNullOrEmpty(this.Score.Headers) && lineNumber == 0;
+                //Style lineStyle = (lineNumber % 2 == 0) ? defaultStyle : oddStyle;
                 Style lineStyle = defaultStyle;
                 bool merge = false;
                 if (!isHeader)
@@ -348,7 +352,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 posY += m_charHeight * nbLines;
             }
 
-            Tools.LogMessage("{0} controls created", controls.Count);
+            Tools.LogMessage("{0}: {1} controls created", score.Id, controls.Count);
             return controls;
         }
     }
