@@ -409,7 +409,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             
             // subst special tag
             DateTime now = DateTime.Now;
-            if (now.Month <= 7) now = now.AddYears(-1);
+            if (now.Month < 7) now = now.AddYears(-1);
             DateTime next = now.AddYears(1);
             result = result.Replace("{YY-YY+1}", String.Format("{0}-{1}", now.ToString("yy"), next.ToString("yy")));
             result = result.Replace("{YYYY-YY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yy")));
@@ -425,6 +425,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             // parse date format
+            now = DateTime.Now; // reset
             now = now.AddDays(delta);
             int start, end;
             while ((start = result.IndexOf('{') + 1) > 0)
