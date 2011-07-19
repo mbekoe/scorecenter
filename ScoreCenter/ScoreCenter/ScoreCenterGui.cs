@@ -50,10 +50,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         private const int StartIndex = 42100;
 
         /// <summary>Index of the current GUI control.</summary>
-        private int m_currentIndex = StartIndex;
+        //private int m_currentIndex = StartIndex;
 
         /// <summary>List of indices of dymacally build controls.</summary>
-        private List<int> m_indices = new List<int>();
+        //private List<int> m_indices = new List<int>();
         private int m_currentLine; // 0
         private int m_currentColumn; // 0
         private BaseScore m_currentScore;
@@ -64,6 +64,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         private bool m_autoWrap = false;
 
         private ScoreCenter m_center;
+
+        /// <summary>Group to add the score labels.</summary>
+        private GUIGroup m_scoreGroup = null;
 
         #region Skin Controls
         [SkinControlAttribute(10)]
@@ -76,10 +79,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected GUIButtonControl btnNextPage = null;
         [SkinControlAttribute(50)]
         protected GUILabelControl lblVisible = null;
-        [SkinControlAttribute(60)]
-        protected GUIButtonControl btnNextScore = null;
-        [SkinControlAttribute(70)]
-        protected GUIButtonControl btnPreviousScore = null;
+        //[SkinControlAttribute(60)]
+        //protected GUIButtonControl btnNextScore = null;
+        //[SkinControlAttribute(70)]
+        //protected GUIButtonControl btnPreviousScore = null;
 
         #endregion
 
@@ -91,7 +94,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             get { return ScoreCenterPlugin.PluginId; }
             set { }
         }
-
         public override bool Init()
         {
             return Load(GUIGraphicsContext.Skin + @"\" + SkinFileName);
@@ -106,6 +108,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             ShowNextPrevScoreButtons(false);
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
+            m_scoreGroup = new GUIGroup(this.GetID);
+            m_scoreGroup.WindowId = this.GetID;
+            this.Children.Add(m_scoreGroup);
 
             System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
             {
@@ -117,6 +122,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     UpdateSettings(false, false);
 
+                    // replace virtual scores
                     List<BaseScore> vslist = new List<BaseScore>();
                     foreach (BaseScore sc in m_center.Scores.Items.Where(p => p.IsVirtualFolder()))
                     {
@@ -228,7 +234,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             // show the menu
             menu.DoModal(GetID);
 
-            // process user action
+            #region process user action
             switch (menu.SelectedId)
             {
                 case 1:
@@ -283,6 +289,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     SaveSettings();
                     break;
             }
+            #endregion
 
             base.OnShowContextMenu();
         }
@@ -308,16 +315,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                     CreateGrid(m_lines, m_currentScore, m_currentLine, m_currentColumn);
                 }
             }
-            else if (control == btnNextScore || control == btnPreviousScore)
-            {
-                ClearGrid();
-                if (m_currentScore != null)
-                {
-                    int delta = control == btnPreviousScore ? -1 : 1;
-                    //m_currentScore.variable += delta;
-                    DisplayScore();
-                }
-            }
+            //else if (control == btnNextScore || control == btnPreviousScore)
+            //{
+            //    ClearGrid();
+            //    if (m_currentScore != null)
+            //    {
+            //        int delta = control == btnPreviousScore ? -1 : 1;
+            //        //m_currentScore.variable += delta;
+            //        DisplayScore();
+            //    }
+            //}
             else if (control == lstDetails)
             {
                 GUIListItem item = lstDetails.SelectedListItem;
@@ -491,7 +498,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private Random m_randomizer = new Random(DateTime.Now.Millisecond);
         private string FindBackdrop(BaseScore score)
         {
-            Tools.LogMessage("SetBackdrop for '{0}'", score == null ? "NULL" : score.Name);
+            //Tools.LogMessage("SetBackdrop for '{0}'", score == null ? "NULL" : score.Name);
             string bd = "";
             if (score != null)
             {
@@ -521,7 +528,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 bd = GetDefaultBackdrop();
             }
 
-            Tools.LogMessage("==> BD={0}", bd);
+            //Tools.LogMessage("==> BD={0}", bd);
             GUIPropertyManager.SetProperty("#ScoreCenter.bd", Path.Combine(m_center.Setup.BackdropDir, bd));
         }
 
@@ -595,6 +602,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SetIcons(BaseScore score, int level)
         {
+            //Tools.LogMessage(">>> {0}: Icon = {1}", level, score.Image);
             BaseScore curr = score;
             for (int i = level; i >= 0; i--)
             {
@@ -602,9 +610,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     continue;
                 string image = GetImage(curr.Image);
                 GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), image);
+                //Tools.LogMessage(">>>> SetProperties Ico{0} = ", i, image);
 
-                if (i == 0) GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
-                else if (i == 1) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);
+                if (i == 1) GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
+                else if (i == 2) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);
                 
                 curr = m_center.FindScore(curr.Parent);
             }
@@ -641,13 +650,20 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// </summary>
         private void ClearGrid()
         {
-            foreach (int i in m_indices)
+            m_scoreGroup.Visibility = System.Windows.Visibility.Hidden;
+            try
             {
-                Remove(i);
+                foreach (GUIControl g in new List<GUIControl>(m_scoreGroup.Children))
+                {
+                    m_scoreGroup.Children.Remove(g);
+                    g.Dispose();
+                }
+            }
+            finally
+            {
+                m_scoreGroup.Visibility = System.Windows.Visibility.Visible;
             }
 
-            m_indices.Clear();
-            m_currentIndex = StartIndex;
             GUIControl.SetControlLabel(GetID, 20, " ");
         }
 
@@ -659,8 +675,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="startLine">The first line to display.</param>
         private void CreateGrid(string[][] labels, BaseScore score, int startLine, int startColumn)
         {
-            bool overRight, overDown;
-            int lineNumber, colNumber;
+            bool overRight = false;
+            bool overDown = false;
+            int lineNumber = 0;
+            int colNumber = 0;
 
             IScoreBuilder<GUIControl> bld = ScoreFactory.Instance.GetBuilder<GUIControl>(score);
             bld.Styles = m_center.Styles.ToList().AsReadOnly();
@@ -671,18 +689,29 @@ namespace MediaPortal.Plugin.ScoreCenter
             GetCharFonSize(fontSize, ref charWidth, ref charHeight);
             bld.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
 
-            IList<GUIControl> controls = bld.Build(score, labels,
-                startLine, startColumn,
-                tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
-                this.CreateControl,
-                out overRight, out overDown, out lineNumber, out colNumber);
-
             // add controls to screen
-            for (int i = 0; i < controls.Count; i++)
+            try
             {
-                GUIControl c = controls[i] as GUIControl;
-                c.AllocResources();
-                Add(ref c);
+                m_scoreGroup.Visibility = System.Windows.Visibility.Hidden;
+                IList<GUIControl> controls = bld.Build(score, labels,
+                    startLine, startColumn,
+                    tbxDetails.XPosition, tbxDetails.YPosition, tbxDetails.Width, tbxDetails.Height,
+                    this.CreateControl,
+                    out overRight, out overDown, out lineNumber, out colNumber);
+
+                foreach (GUIControl c in controls)
+                {
+                    c.AllocResources();
+                    m_scoreGroup.AddControl(c);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tools.LogError(">>>>>>> Error in Create Grid", exc);
+            }
+            finally
+            {
+                m_scoreGroup.Visibility = System.Windows.Visibility.Visible;
             }
 
             #region Set for Next page
@@ -750,7 +779,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     GUILabelControl labelControl = new GUILabelControl(GetID);
 
-                    labelControl.GetID = m_currentIndex++;
                     labelControl._positionX = px;
                     labelControl._positionY = posY;
                     labelControl._width = width;
@@ -799,10 +827,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     control = labelControl;
                 }
 
-                if (control != null)
-                {
-                    m_indices.Add(control.GetID);
-                }
+                //if (control != null)
+                //{
+                //    m_indices.Add(control.GetID);
+                //}
             }
             catch (Exception exc)
             {
@@ -841,11 +869,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void ShowNextPrevScoreButtons(bool visible)
         {
-            if (btnNextScore != null && btnPreviousScore != null)
-            {
-                btnNextScore.Visible = visible;
-                btnPreviousScore.Visible = visible;
-            }
+            //if (btnNextScore != null && btnPreviousScore != null)
+            //{
+            //    btnNextScore.Visible = visible;
+            //    btnPreviousScore.Visible = visible;
+            //}
         }
 
         #endregion
