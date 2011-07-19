@@ -59,11 +59,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             // parse it
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
-            List<string[]> ll = new List<string[]>();
 
-            // add headers
-            AddHeaders(score, ll);
-
+            // get list of indexes if defined
             List<int> indexes = null;
             if (score.Element.Length > 0)
             {
@@ -78,6 +75,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     }
                 }
             }
+
+            // build the score
+            List<string[]> ll = new List<string[]>();
 
             int skip = score.Skip;
             int max = score.MaxLines;
@@ -95,8 +95,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     string[][] rr = ParseTable(node, skip, max, poptions);
                     if (rr != null)
                     {
-                        ll.AddRange(rr);
-                        if (inode != nodes.Count) // not the last table
+                        if (inode == 0)
+                        {
+                            AddHeaders(score, ll);
+                        }
+                        else
                         {
                             switch (score.BetweenElts)
                             {
@@ -108,6 +111,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                                     break;
                             }
                         }
+                        ll.AddRange(rr);
                     }
                 }
             }
