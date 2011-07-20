@@ -771,66 +771,21 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             // create the control
-            int choice = 0;
             GUIControl control = null;
             try
             {
-                if (choice == 0)
-                {
-                    GUILabelControl labelControl = new GUILabelControl(GetID);
+                GUILabelControl labelControl = new GUILabelControl(GetID);
 
-                    labelControl._positionX = px;
-                    labelControl._positionY = posY;
-                    labelControl._width = width;
-                    labelControl._height = height;
-                    labelControl.FontName = font;
-                    labelControl.Label = strLabel;
-                    labelControl.TextColor = style.ForeColor;
-                    labelControl.TextAlignment = ConvertAlignment(alignment);
-                    
-                    control = labelControl;
-                }
-                else if (choice == 1)
-                {
-                    GUITextControl labelControl = new GUITextControl(GetID, m_currentIndex++,
-                        px, posY, width, height,
-                        font, 0, 0, "", "", "", "", 0, 0, 0, style.ForeColor);
-                    labelControl.Label = strLabel;
-
-                    control = labelControl;
-                }
-                else if (choice == 2)
-                {
-                    GUITextScrollUpControl labelControl = new GUITextScrollUpControl(GetID, m_currentIndex++,
-                        px, posY, width, height,
-                        font, style.ForeColor);
-                    labelControl.Label = strLabel;
-
-                    control = labelControl;
-                }
-                else if (choice == 3)
-                {
-                    GUIFadeLabel labelControl = new GUIFadeLabel(GetID);
-
-                    labelControl.GetID = m_currentIndex++;
-                    labelControl.XPosition = px;
-                    labelControl.YPosition = posY;
-                    labelControl._width = width;
-                    labelControl._height = height;
-                    labelControl.FontName = font;
-                    labelControl.TextColor = style.ForeColor;
-                    labelControl.TextAlignment = ConvertAlignment(alignment);
-                    labelControl.AllowScrolling = false;
-                    labelControl.Label = strLabel;
-                    labelControl.Visible = true;
-
-                    control = labelControl;
-                }
-
-                //if (control != null)
-                //{
-                //    m_indices.Add(control.GetID);
-                //}
+                labelControl._positionX = px;
+                labelControl._positionY = posY;
+                labelControl._width = width;
+                labelControl._height = height;
+                labelControl.FontName = font;
+                labelControl.Label = strLabel;
+                labelControl.TextColor = style.ForeColor;
+                labelControl.TextAlignment = ConvertAlignment(alignment);
+                
+                control = labelControl;
             }
             catch (Exception exc)
             {
