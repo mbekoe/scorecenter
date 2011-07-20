@@ -82,6 +82,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             int skip = score.Skip;
             int max = score.MaxLines;
             if (max > 0) max += skip;
+            bool first = true;
 
             if (nodes != null && nodes.Count > 0)
             {
@@ -95,9 +96,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     string[][] rr = ParseTable(node, skip, max, poptions);
                     if (rr != null)
                     {
-                        if (inode == 0)
+                        if (first)
                         {
                             AddHeaders(score, ll);
+                            first = false;
                         }
                         else
                         {
