@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Serialization;
@@ -199,10 +200,22 @@ namespace MediaPortal.Plugin.ScoreCenter
                 File.Copy(file, file + ".bak", true);
             }
 
-            using (TextWriter tw = new StreamWriter(file))
+            // remove children from virtual scores
+            var originalList = scores.Scores.Items;
+            scores.Scores.Items = scores.Scores.Items.Where(p => !p.IsVirtual).ToArray();
+
+            try
             {
-                XmlSerializer xml = new XmlSerializer(typeof(ScoreCenter));
-                xml.Serialize(tw, scores);
+                using (TextWriter tw = new StreamWriter(file))
+                {
+                    XmlSerializer xml = new XmlSerializer(typeof(ScoreCenter));
+                    xml.Serialize(tw, scores);
+                }
+            }
+            finally
+            {
+                // restore list
+                scores.Scores.Items = originalList;
             }
         }
 

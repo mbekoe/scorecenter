@@ -232,6 +232,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
         public bool IsNew { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
+        public bool IsVirtual { get; set; }
+
         [System.Xml.Serialization.XmlIgnore()]
         public string LocName
         {

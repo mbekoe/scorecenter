@@ -89,6 +89,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.XPath = GLOBAL_XPATH;
             sc.Image = image;
             sc.Element = element;
+            sc.IsVirtual = true;
 
             return sc;
         }
@@ -245,6 +246,20 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
+            string fullname = wfscore.FullLeagueName;
+            if (String.IsNullOrEmpty(wfscore.Season) == false)
+                fullname += "-" + wfscore.Season;
+
+            string[] details = wfscore.Details.Split(',');
+            foreach (string level in details)
+            {
+                sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
+                sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
+                sc.Sizes = "-5,17,+1,-17,-15,0";
+                AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+                scores.Add(sc);
+            }
+
             sc = CreateNewScore(wfscore.Id, "archives", "History", IMG_HISTORY, "0", index++);
             sc.Url = String.Format("{0}sieger/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
@@ -297,7 +312,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 if (level == details[0]) continue;
                 sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
-                sc.Sizes = "-5,18,-1,-18,-8,0";
+                sc.Sizes = "-5,17,+1,-17,-15,0";
                 AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                 scores.Add(sc);
             }
