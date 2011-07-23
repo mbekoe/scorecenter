@@ -1,5 +1,10 @@
 #labels Featured
-*next version*:
+*next version* 2.0:
+    * New structure for the XML settings.
+    * Scores have a type. Possible types are Folder, Generic, Rss or WorldFootball.
+    * WorldFootball type makes it easier to add a league from www.worldfootball.com.
+    * Possibility to use parameters in URL.
+    * New date tags for URL to indicate seasons.
     * New Rule: 'Is Last'
 
 *version 1.4.0.0 (1 may 2011):*
