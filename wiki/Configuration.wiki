@@ -31,8 +31,8 @@ Example: if date is May 25th 2011
 Season tags: these tags are made to show a season, new seasons usually change during the summer in July.
 || *Tag* || *01/11-06/11* || *07/11-12/11* || *01/12-06/12* || *07/12-12/12* ||
 ||`{YY-YY+1`}||10-11||11-12||11-12||12-13||
-||`{YYYY-YY+1`}||2010-11||2011-12||2012-13||
-||`{YYYY-YYYY+1`}||2010-2011||2011-2012||2012-2013||
+||`{YYYY-YY+1`}||2010-11||2011-12||2011-12||2012-13||
+||`{YYYY-YYYY+1`}||2010-2011||2011-2012||2011-2012||2012-2013||
 
 
 == XPath Element ==
