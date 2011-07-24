@@ -20,10 +20,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public WorldFootballScoreEditor()
         {
             InitializeComponent();
-
-#if DEBUG
-            lblScoreId.Visible = true;
-#endif
         }
 
         public override Type GetScoreType()
@@ -59,7 +55,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             cbxKind.SelectedValue = score.Kind;
             tbxHighlights.Text = score.Highlights;
             tbxDetails.Text = score.Details;
-            lblScoreId.Text = score.Id;
+            tbxScoreId.Text = score.Id;
 
             if (!String.IsNullOrEmpty(score.Image))
             {

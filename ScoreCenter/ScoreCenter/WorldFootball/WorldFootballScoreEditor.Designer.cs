@@ -43,16 +43,17 @@
             this.lblNbTeams = new System.Windows.Forms.Label();
             this.lblLevels = new System.Windows.Forms.Label();
             this.cbxKind = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblType = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbxHighlights = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblHighlights = new System.Windows.Forms.Label();
             this.btnIcon = new System.Windows.Forms.Button();
             this.tbxDetails = new System.Windows.Forms.TextBox();
             this.lblDetails = new System.Windows.Forms.Label();
-            this.lblScoreId = new System.Windows.Forms.Label();
             this.cbxDetailsHelper = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblScoreId = new System.Windows.Forms.Label();
+            this.tbxScoreId = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -60,11 +61,11 @@
             // 
             // tbxName
             // 
-            this.tbxName.Location = new System.Drawing.Point(95, 21);
+            this.tbxName.Location = new System.Drawing.Point(95, 29);
             this.tbxName.MaxLength = 30;
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(229, 20);
-            this.tbxName.TabIndex = 1;
+            this.tbxName.TabIndex = 3;
             // 
             // tbxCountry
             // 
@@ -170,19 +171,19 @@
             "wal"});
             this.tbxCountry.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbxCountry.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbxCountry.Location = new System.Drawing.Point(95, 47);
+            this.tbxCountry.Location = new System.Drawing.Point(95, 55);
             this.tbxCountry.MaxLength = 100;
             this.tbxCountry.Name = "tbxCountry";
             this.tbxCountry.Size = new System.Drawing.Size(141, 20);
-            this.tbxCountry.TabIndex = 3;
+            this.tbxCountry.TabIndex = 5;
             // 
             // tbxLeague
             // 
-            this.tbxLeague.Location = new System.Drawing.Point(95, 73);
+            this.tbxLeague.Location = new System.Drawing.Point(95, 81);
             this.tbxLeague.MaxLength = 100;
             this.tbxLeague.Name = "tbxLeague";
             this.tbxLeague.Size = new System.Drawing.Size(141, 20);
-            this.tbxLeague.TabIndex = 5;
+            this.tbxLeague.TabIndex = 7;
             // 
             // tbxSeason
             // 
@@ -195,75 +196,75 @@
             "{YYYY-YYYY+1}"});
             this.tbxSeason.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbxSeason.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tbxSeason.Location = new System.Drawing.Point(95, 99);
+            this.tbxSeason.Location = new System.Drawing.Point(95, 107);
             this.tbxSeason.MaxLength = 20;
             this.tbxSeason.Name = "tbxSeason";
             this.tbxSeason.Size = new System.Drawing.Size(141, 20);
-            this.tbxSeason.TabIndex = 8;
+            this.tbxSeason.TabIndex = 10;
             // 
             // tbxLevels
             // 
-            this.tbxLevels.Location = new System.Drawing.Point(95, 204);
+            this.tbxLevels.Location = new System.Drawing.Point(95, 212);
             this.tbxLevels.MaxLength = 100;
             this.tbxLevels.Name = "tbxLevels";
             this.tbxLevels.Size = new System.Drawing.Size(331, 20);
-            this.tbxLevels.TabIndex = 16;
+            this.tbxLevels.TabIndex = 19;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(54, 24);
+            this.lblName.Location = new System.Drawing.Point(54, 32);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(35, 13);
-            this.lblName.TabIndex = 0;
+            this.lblName.TabIndex = 2;
             this.lblName.Text = "Name";
             // 
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(46, 50);
+            this.lblCountry.Location = new System.Drawing.Point(46, 58);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
-            this.lblCountry.TabIndex = 2;
+            this.lblCountry.TabIndex = 4;
             this.lblCountry.Text = "Country";
             // 
             // lblLeague
             // 
             this.lblLeague.AutoSize = true;
-            this.lblLeague.Location = new System.Drawing.Point(46, 76);
+            this.lblLeague.Location = new System.Drawing.Point(46, 84);
             this.lblLeague.Name = "lblLeague";
             this.lblLeague.Size = new System.Drawing.Size(43, 13);
-            this.lblLeague.TabIndex = 4;
+            this.lblLeague.TabIndex = 6;
             this.lblLeague.Text = "League";
             // 
             // lblSeason
             // 
             this.lblSeason.AutoSize = true;
-            this.lblSeason.Location = new System.Drawing.Point(46, 102);
+            this.lblSeason.Location = new System.Drawing.Point(46, 110);
             this.lblSeason.Name = "lblSeason";
             this.lblSeason.Size = new System.Drawing.Size(43, 13);
-            this.lblSeason.TabIndex = 7;
+            this.lblSeason.TabIndex = 9;
             this.lblSeason.Text = "Season";
             // 
             // btnOpenUrl
             // 
             this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
             this.btnOpenUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpenUrl.Location = new System.Drawing.Point(261, 70);
+            this.btnOpenUrl.Location = new System.Drawing.Point(261, 78);
             this.btnOpenUrl.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnOpenUrl.Name = "btnOpenUrl";
             this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
-            this.btnOpenUrl.TabIndex = 6;
+            this.btnOpenUrl.TabIndex = 8;
             this.toolTip1.SetToolTip(this.btnOpenUrl, "Open the page");
             this.btnOpenUrl.UseVisualStyleBackColor = true;
             this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
             // numNbTeams
             // 
-            this.numNbTeams.Location = new System.Drawing.Point(95, 178);
+            this.numNbTeams.Location = new System.Drawing.Point(95, 186);
             this.numNbTeams.Name = "numNbTeams";
             this.numNbTeams.Size = new System.Drawing.Size(64, 20);
-            this.numNbTeams.TabIndex = 14;
+            this.numNbTeams.TabIndex = 17;
             this.numNbTeams.Value = new decimal(new int[] {
             20,
             0,
@@ -273,38 +274,38 @@
             // lblNbTeams
             // 
             this.lblNbTeams.AutoSize = true;
-            this.lblNbTeams.Location = new System.Drawing.Point(33, 180);
+            this.lblNbTeams.Location = new System.Drawing.Point(33, 188);
             this.lblNbTeams.Name = "lblNbTeams";
             this.lblNbTeams.Size = new System.Drawing.Size(56, 13);
-            this.lblNbTeams.TabIndex = 13;
+            this.lblNbTeams.TabIndex = 16;
             this.lblNbTeams.Text = "Nb Teams";
             // 
             // lblLevels
             // 
             this.lblLevels.AutoSize = true;
-            this.lblLevels.Location = new System.Drawing.Point(51, 207);
+            this.lblLevels.Location = new System.Drawing.Point(51, 215);
             this.lblLevels.Name = "lblLevels";
             this.lblLevels.Size = new System.Drawing.Size(38, 13);
-            this.lblLevels.TabIndex = 15;
+            this.lblLevels.TabIndex = 18;
             this.lblLevels.Text = "Levels";
             // 
             // cbxKind
             // 
             this.cbxKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxKind.FormattingEnabled = true;
-            this.cbxKind.Location = new System.Drawing.Point(95, 125);
+            this.cbxKind.Location = new System.Drawing.Point(95, 133);
             this.cbxKind.Name = "cbxKind";
             this.cbxKind.Size = new System.Drawing.Size(141, 21);
-            this.cbxKind.TabIndex = 10;
+            this.cbxKind.TabIndex = 12;
             // 
-            // label1
+            // lblType
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 128);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Type";
+            this.lblType.AutoSize = true;
+            this.lblType.Location = new System.Drawing.Point(58, 136);
+            this.lblType.Name = "lblType";
+            this.lblType.Size = new System.Drawing.Size(31, 13);
+            this.lblType.TabIndex = 11;
+            this.lblType.Text = "Type";
             // 
             // pictureBox1
             // 
@@ -318,20 +319,20 @@
             // 
             // tbxHighlights
             // 
-            this.tbxHighlights.Location = new System.Drawing.Point(95, 230);
+            this.tbxHighlights.Location = new System.Drawing.Point(95, 238);
             this.tbxHighlights.MaxLength = 100;
             this.tbxHighlights.Name = "tbxHighlights";
             this.tbxHighlights.Size = new System.Drawing.Size(331, 20);
-            this.tbxHighlights.TabIndex = 18;
+            this.tbxHighlights.TabIndex = 21;
             // 
-            // label2
+            // lblHighlights
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 233);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Highlights";
+            this.lblHighlights.AutoSize = true;
+            this.lblHighlights.Location = new System.Drawing.Point(36, 241);
+            this.lblHighlights.Name = "lblHighlights";
+            this.lblHighlights.Size = new System.Drawing.Size(53, 13);
+            this.lblHighlights.TabIndex = 20;
+            this.lblHighlights.Text = "Highlights";
             // 
             // btnIcon
             // 
@@ -339,7 +340,7 @@
             this.btnIcon.Location = new System.Drawing.Point(464, 92);
             this.btnIcon.Name = "btnIcon";
             this.btnIcon.Size = new System.Drawing.Size(80, 23);
-            this.btnIcon.TabIndex = 19;
+            this.btnIcon.TabIndex = 22;
             this.btnIcon.Text = "Icon";
             this.toolTip1.SetToolTip(this.btnIcon, "Get the icon");
             this.btnIcon.UseVisualStyleBackColor = true;
@@ -347,31 +348,21 @@
             // 
             // tbxDetails
             // 
-            this.tbxDetails.Location = new System.Drawing.Point(95, 152);
+            this.tbxDetails.Location = new System.Drawing.Point(95, 160);
             this.tbxDetails.MaxLength = 100;
             this.tbxDetails.Name = "tbxDetails";
             this.tbxDetails.Size = new System.Drawing.Size(331, 20);
-            this.tbxDetails.TabIndex = 12;
+            this.tbxDetails.TabIndex = 14;
             this.toolTip1.SetToolTip(this.tbxDetails, "Details for the score (separate by a ,)");
             // 
             // lblDetails
             // 
             this.lblDetails.AutoSize = true;
-            this.lblDetails.Location = new System.Drawing.Point(36, 155);
+            this.lblDetails.Location = new System.Drawing.Point(36, 163);
             this.lblDetails.Name = "lblDetails";
             this.lblDetails.Size = new System.Drawing.Size(39, 13);
-            this.lblDetails.TabIndex = 11;
+            this.lblDetails.TabIndex = 13;
             this.lblDetails.Text = "Details";
-            // 
-            // lblScoreId
-            // 
-            this.lblScoreId.AutoSize = true;
-            this.lblScoreId.Location = new System.Drawing.Point(3, 4);
-            this.lblScoreId.Name = "lblScoreId";
-            this.lblScoreId.Size = new System.Drawing.Size(56, 13);
-            this.lblScoreId.TabIndex = 60;
-            this.lblScoreId.Text = "<score id>";
-            this.lblScoreId.Visible = false;
             // 
             // cbxDetailsHelper
             // 
@@ -386,29 +377,49 @@
             "halbfinale",
             "3-platz",
             "finale"});
-            this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 151);
+            this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 159);
             this.cbxDetailsHelper.Name = "cbxDetailsHelper";
             this.cbxDetailsHelper.Size = new System.Drawing.Size(112, 21);
-            this.cbxDetailsHelper.TabIndex = 61;
+            this.cbxDetailsHelper.TabIndex = 15;
             this.toolTip1.SetToolTip(this.cbxDetailsHelper, "Select a detail");
             this.cbxDetailsHelper.SelectedIndexChanged += new System.EventHandler(this.cbxDetailsHelper_SelectedIndexChanged);
+            // 
+            // lblScoreId
+            // 
+            this.lblScoreId.AutoSize = true;
+            this.lblScoreId.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblScoreId.Location = new System.Drawing.Point(73, 6);
+            this.lblScoreId.Name = "lblScoreId";
+            this.lblScoreId.Size = new System.Drawing.Size(16, 13);
+            this.lblScoreId.TabIndex = 0;
+            this.lblScoreId.Text = "Id";
+            // 
+            // tbxScoreId
+            // 
+            this.tbxScoreId.HideSelection = false;
+            this.tbxScoreId.Location = new System.Drawing.Point(95, 3);
+            this.tbxScoreId.Name = "tbxScoreId";
+            this.tbxScoreId.ReadOnly = true;
+            this.tbxScoreId.Size = new System.Drawing.Size(301, 20);
+            this.tbxScoreId.TabIndex = 1;
             // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cbxDetailsHelper);
+            this.Controls.Add(this.tbxScoreId);
             this.Controls.Add(this.lblScoreId);
+            this.Controls.Add(this.cbxDetailsHelper);
             this.Controls.Add(this.btnIcon);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbxKind);
             this.Controls.Add(this.numNbTeams);
             this.Controls.Add(this.btnOpenUrl);
             this.Controls.Add(this.lblDetails);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblHighlights);
             this.Controls.Add(this.lblLevels);
             this.Controls.Add(this.lblNbTeams);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblSeason);
             this.Controls.Add(this.lblLeague);
             this.Controls.Add(this.lblCountry);
@@ -448,15 +459,16 @@
         private System.Windows.Forms.Label lblNbTeams;
         private System.Windows.Forms.Label lblLevels;
         private System.Windows.Forms.ComboBox cbxKind;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox tbxHighlights;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblHighlights;
         private System.Windows.Forms.Button btnIcon;
         private System.Windows.Forms.TextBox tbxDetails;
         private System.Windows.Forms.Label lblDetails;
-        private System.Windows.Forms.Label lblScoreId;
         private System.Windows.Forms.ComboBox cbxDetailsHelper;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lblScoreId;
+        private System.Windows.Forms.TextBox tbxScoreId;
     }
 }
