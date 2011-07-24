@@ -188,6 +188,8 @@
             // 
             this.tbxSeason.AutoCompleteCustomSource.AddRange(new string[] {
             "{yyyy}",
+            "{YY+1}",
+            "{YYYY+1}",
             "{YY-YY+1}",
             "{YYYY-YY+1}",
             "{YYYY-YYYY+1}"});
