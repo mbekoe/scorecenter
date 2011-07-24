@@ -242,7 +242,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = "11,5,20,+1,-20,8";
-            AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+            AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
@@ -250,14 +250,17 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (String.IsNullOrEmpty(wfscore.Season) == false)
                 fullname += "-" + wfscore.Season;
 
-            string[] details = wfscore.Details.Split(',');
-            foreach (string level in details)
+            if (!String.IsNullOrEmpty(wfscore.Details))
             {
-                sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
-                sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
-                sc.Sizes = "-5,17,+1,-17,-15,0";
-                AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
-                scores.Add(sc);
+                string[] details = wfscore.Details.Split(',');
+                foreach (string level in details)
+                {
+                    sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
+                    sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
+                    sc.Sizes = "-5,17,+1,-17,-15,0";
+                    AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+                    scores.Add(sc);
+                }
             }
 
             sc = CreateNewScore(wfscore.Id, "archives", "History", IMG_HISTORY, "0", index++);
@@ -293,7 +296,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc.Url = String.Format("{0}spielplan/{1}-gruppe-{2}/0/", WF_URL, fullname, g);
                 sc.Sizes = "-12,15,+1,-15,-8,0";
                 sc.Image = String.Format(@"Groups\Group{0}", Char.ToUpper(g));
-                AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+                AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                 AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
                 scores.Add(sc);
 
@@ -313,7 +316,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
                 sc.Sizes = "-5,17,+1,-17,-15,0";
-                AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+                AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                 scores.Add(sc);
             }
 
