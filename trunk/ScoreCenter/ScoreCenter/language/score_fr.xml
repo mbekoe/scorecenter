@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScoreLocalisation>
   <Strings>
+    <LocString id="Athletics">Athlétisme</LocString>
+    <LocString id="Boxing">Boxe</LocString>
     <LocString id="Cycling">Cyclisme</LocString>
     <LocString id="Ice_Hockey">Hockey sur glace</LocString>
+    <LocString id="Olympics">Jeux Olympiques</LocString>
     <LocString id="Skiing">Ski</LocString>
+    <LocString id="Swimming">Natation</LocString>
     <LocString id="Motors">Auto/Moto</LocString>
   </Strings>
   <Globals>
-    <LocString id="Results">Resultats</LocString>
+    <LocString id="Today">Aujourd'hui</LocString>
+    <LocString id="Results">Résultats</LocString>
     <LocString id="Standings">Classement</LocString>
     <LocString id="Rankings">Classement</LocString>
     <LocString id="Top Scorers">Buteurs</LocString>
     <LocString id="History">Archives</LocString>
     <LocString id="Men">Hommes</LocString>
     <LocString id="Women">Femmes</LocString>
+    <LocString id="(?&lt;grp&gt;\.*)[\s*]Men" isRegEx="true">${grp} Hommes</LocString>
+    <LocString id="(?&lt;grp&gt;\.*)[\s*]Women" isRegEx="true">${grp} Femmes</LocString>
     <LocString id="Pool[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Poule ${grp}</LocString>
     <LocString id="Group[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Groupe ${grp}</LocString>
     <LocString id="Standings[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Classement ${grp}</LocString>
+    <LocString id="finale">Finale</LocString>
+    <LocString id="1-runde">1er tour</LocString>
+    <LocString id="2-runde">2ème tour</LocString>
+    <LocString id="3-runde">3ème tour</LocString>
+    <LocString id="achtelfinale">1/8</LocString>
+    <LocString id="viertelfinale">1/4</LocString>
+    <LocString id="halbfinale">1/2</LocString>
+    <LocString id="3-platz">3ème place</LocString>
   </Globals>
 </ScoreLocalisation>
