@@ -427,6 +427,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             result = result.Replace("{YY-YY+1}", String.Format("{0}-{1}", now.ToString("yy"), next.ToString("yy")));
             result = result.Replace("{YYYY-YY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yy")));
             result = result.Replace("{YYYY-YYYY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yyyy")));
+            result = result.Replace("{YY+1}", String.Format("{0}", next.ToString("yy")));
+            result = result.Replace("{YYYY+1}", String.Format("{0}", next.ToString("yyyy")));
 
             // subst parameters
             if (parameters != null)
