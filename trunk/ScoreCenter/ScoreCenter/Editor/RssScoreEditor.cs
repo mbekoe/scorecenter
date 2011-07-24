@@ -55,6 +55,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             if (score == null)
                 throw new NullReferenceException("Not a RSS score!");
 
+            tbxScoreId.Text = score.Id;
             tbxScore.Text = score.Name;
             tbxUrl.Text = score.Url;
             tbxEncoding.Text = score.Encoding;

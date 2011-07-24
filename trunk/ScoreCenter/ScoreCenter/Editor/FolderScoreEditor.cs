@@ -32,16 +32,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public FolderScoreEditor()
         {
             InitializeComponent();
-
-#if DEBUG
-            lblScoreId.Visible = true;
-#endif
         }
 
         public override void LoadScore(BaseScore baseScore, ScoreCenter center)
         {
             tbxScore.Text = baseScore.Name;
-            lblScoreId.Text = baseScore.Id;
+            tbxScoreId.Text = baseScore.Id;
         }
         public override Type GetScoreType()
         {

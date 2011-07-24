@@ -30,43 +30,54 @@
         {
             this.tbxScore = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.lblScoreId = new System.Windows.Forms.Label();
+            this.lblId = new System.Windows.Forms.Label();
+            this.tbxScoreId = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxScore
             // 
-            this.tbxScore.Location = new System.Drawing.Point(66, 24);
+            this.tbxScore.Location = new System.Drawing.Point(64, 38);
             this.tbxScore.MaxLength = 50;
             this.tbxScore.Name = "tbxScore";
             this.tbxScore.Size = new System.Drawing.Size(461, 20);
-            this.tbxScore.TabIndex = 44;
+            this.tbxScore.TabIndex = 3;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblName.Location = new System.Drawing.Point(24, 27);
+            this.lblName.Location = new System.Drawing.Point(22, 41);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(35, 13);
-            this.lblName.TabIndex = 43;
+            this.lblName.TabIndex = 2;
             this.lblName.Text = "Name";
             // 
-            // lblScoreId
+            // lblId
             // 
-            this.lblScoreId.AutoSize = true;
-            this.lblScoreId.Location = new System.Drawing.Point(63, 8);
-            this.lblScoreId.Name = "lblScoreId";
-            this.lblScoreId.Size = new System.Drawing.Size(56, 13);
-            this.lblScoreId.TabIndex = 45;
-            this.lblScoreId.Text = "<score id>";
-            this.lblScoreId.Visible = false;
+            this.lblId.AutoSize = true;
+            this.lblId.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblId.Location = new System.Drawing.Point(41, 15);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(16, 13);
+            this.lblId.TabIndex = 0;
+            this.lblId.Text = "Id";
+            // 
+            // tbxScoreId
+            // 
+            this.tbxScoreId.HideSelection = false;
+            this.tbxScoreId.Location = new System.Drawing.Point(64, 12);
+            this.tbxScoreId.Name = "tbxScoreId";
+            this.tbxScoreId.ReadOnly = true;
+            this.tbxScoreId.Size = new System.Drawing.Size(301, 20);
+            this.tbxScoreId.TabIndex = 1;
             // 
             // FolderScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblScoreId);
+            this.Controls.Add(this.tbxScoreId);
+            this.Controls.Add(this.lblId);
             this.Controls.Add(this.tbxScore);
             this.Controls.Add(this.lblName);
             this.Name = "FolderScoreEditor";
@@ -81,6 +92,7 @@
 
         private System.Windows.Forms.TextBox tbxScore;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label lblScoreId;
+        private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.TextBox tbxScoreId;
     }
 }
