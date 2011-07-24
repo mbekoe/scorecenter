@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.tbxCountry = new System.Windows.Forms.TextBox();
             this.tbxLeague = new System.Windows.Forms.TextBox();
@@ -50,6 +51,8 @@
             this.tbxDetails = new System.Windows.Forms.TextBox();
             this.lblDetails = new System.Windows.Forms.Label();
             this.lblScoreId = new System.Windows.Forms.Label();
+            this.cbxDetailsHelper = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -249,6 +252,7 @@
             this.btnOpenUrl.Name = "btnOpenUrl";
             this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
             this.btnOpenUrl.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnOpenUrl, "Open the page");
             this.btnOpenUrl.UseVisualStyleBackColor = true;
             this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
@@ -304,7 +308,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.wfb_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(347, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(464, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(80, 83);
             this.pictureBox1.TabIndex = 15;
@@ -330,11 +334,12 @@
             // btnIcon
             // 
             this.btnIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIcon.Location = new System.Drawing.Point(347, 92);
+            this.btnIcon.Location = new System.Drawing.Point(464, 92);
             this.btnIcon.Name = "btnIcon";
             this.btnIcon.Size = new System.Drawing.Size(80, 23);
             this.btnIcon.TabIndex = 19;
             this.btnIcon.Text = "Icon";
+            this.toolTip1.SetToolTip(this.btnIcon, "Get the icon");
             this.btnIcon.UseVisualStyleBackColor = true;
             this.btnIcon.Click += new System.EventHandler(this.btnIcon_Click);
             // 
@@ -345,6 +350,7 @@
             this.tbxDetails.Name = "tbxDetails";
             this.tbxDetails.Size = new System.Drawing.Size(331, 20);
             this.tbxDetails.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.tbxDetails, "Details for the score (separate by a ,)");
             // 
             // lblDetails
             // 
@@ -365,10 +371,31 @@
             this.lblScoreId.Text = "<score id>";
             this.lblScoreId.Visible = false;
             // 
+            // cbxDetailsHelper
+            // 
+            this.cbxDetailsHelper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDetailsHelper.FormattingEnabled = true;
+            this.cbxDetailsHelper.Items.AddRange(new object[] {
+            "1-runde",
+            "2-runde",
+            "3-runde",
+            "achtelfinale",
+            "viertelfinale",
+            "halbfinale",
+            "3-platz",
+            "finale"});
+            this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 151);
+            this.cbxDetailsHelper.Name = "cbxDetailsHelper";
+            this.cbxDetailsHelper.Size = new System.Drawing.Size(112, 21);
+            this.cbxDetailsHelper.TabIndex = 61;
+            this.toolTip1.SetToolTip(this.cbxDetailsHelper, "Select a detail");
+            this.cbxDetailsHelper.SelectedIndexChanged += new System.EventHandler(this.cbxDetailsHelper_SelectedIndexChanged);
+            // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbxDetailsHelper);
             this.Controls.Add(this.lblScoreId);
             this.Controls.Add(this.btnIcon);
             this.Controls.Add(this.pictureBox1);
@@ -393,7 +420,7 @@
             this.Controls.Add(this.tbxName);
             this.MinimumSize = new System.Drawing.Size(430, 259);
             this.Name = "WorldFootballScoreEditor";
-            this.Size = new System.Drawing.Size(430, 272);
+            this.Size = new System.Drawing.Size(547, 272);
             this.Load += new System.EventHandler(this.WorldFootballScoreEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).EndInit();
@@ -427,5 +454,7 @@
         private System.Windows.Forms.TextBox tbxDetails;
         private System.Windows.Forms.Label lblDetails;
         private System.Windows.Forms.Label lblScoreId;
+        private System.Windows.Forms.ComboBox cbxDetailsHelper;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

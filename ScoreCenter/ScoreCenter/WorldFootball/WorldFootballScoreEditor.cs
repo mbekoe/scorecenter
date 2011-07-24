@@ -240,5 +240,20 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 }
             }
         }
+
+        private void cbxDetailsHelper_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = cbxDetailsHelper.Text;
+            string details = tbxDetails.Text;
+            if ((details.Length == 0 || !details.Contains(",")) && details == selectedItem)
+                return;
+            if (details.Length > 0)
+            {
+                if (details.StartsWith(selectedItem + ",") || details.Contains("," + selectedItem + ",") || details.EndsWith("," + selectedItem))
+                    return;
+                tbxDetails.AppendText(",");
+            }
+            tbxDetails.AppendText(selectedItem);
+        }
     }
 }
