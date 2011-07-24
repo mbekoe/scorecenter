@@ -143,7 +143,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 rule.Operator = Operation.Contains;
                 rule.Value = h;
                 rule.Action = action;
-                rule.Format = "WFHighlight";
+                rule.Format = "Highlight";
                 rules.Add(rule);
                 //Tools.LogMessage("Rule = {0}", rule);
             }
