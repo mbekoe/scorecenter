@@ -45,6 +45,8 @@ Season tags: these tags are made to show a season, new seasons usually change du
 <tr><td>{YY-YY+1}</td><td>10-11</td><td colspan="2">11-12</td><td>12-13</td></tr>
 <tr><td>{YYYY-YY+1}</td><td>2010-11</td><td colspan="2">2011-12</td><td>2012-13</td></tr>
 <tr><td>{YYYY-YYYY+1}</td><td>2010-2011</td><td colspan="2">2011-2012</td><td>2012-2013</td></tr>
+<tr><td>{YYYY+1}</td><td>2011</td><td colspan="2">2012</td><td>2013</td></tr>
+<tr><td>{YY+1}</td><td>11</td><td colspan="2">12</td><td>13</td></tr>
 </table>
 
 == XPath Element ==
