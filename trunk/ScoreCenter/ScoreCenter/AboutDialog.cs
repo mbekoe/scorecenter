@@ -47,11 +47,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             lblVersion.Text = v.ToString(4);
 
-            foreach (string tt in ScoreFactory.Instance.GetScoreTypes())
+            if (center.Scores.Items != null)
             {
-                AddCategory(tt, center.Scores.Items.Where(sc => sc.GetType().Name == tt + "Score").Count());
+                foreach (string tt in ScoreFactory.Instance.GetScoreTypes())
+                {
+                    AddCategory(tt, center.Scores.Items.Where(sc => sc.GetType().Name == tt + "Score").Count());
+                }
+                lvwSummary.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
-            lvwSummary.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void AddCategory(string label, int nb)

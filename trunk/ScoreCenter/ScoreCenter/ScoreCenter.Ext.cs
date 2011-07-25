@@ -174,7 +174,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public BaseScore FindScore(string id)
         {
-            if (this.Scores == null || String.IsNullOrEmpty(id))
+            if (this.Scores.Items == null || String.IsNullOrEmpty(id))
                 return null;
 
             return this.Scores.Items.FirstOrDefault(score => score.Id == id);
@@ -202,20 +202,24 @@ namespace MediaPortal.Plugin.ScoreCenter
             List<string> plist = new List<string>();
             Regex rule = new Regex(@"{@(?<a>[^}]*)",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            foreach (GenericScore sc in this.Scores.Items.OfType<GenericScore>())
-            {
-                if (!sc.enable || !sc.Url.Contains("{"))
-                    continue;
 
-                MatchCollection mc = rule.Matches(sc.Url);
-                if (mc == null)
-                    continue;
-                foreach (Match m in mc)
+            if (this.Scores.Items != null)
+            {
+                foreach (GenericScore sc in this.Scores.Items.OfType<GenericScore>())
                 {
-                    string v = m.Value.Substring(2); // remove '{@'
-                    if (plist.Contains(v) == false)
+                    if (!sc.enable || !sc.Url.Contains("{"))
+                        continue;
+
+                    MatchCollection mc = rule.Matches(sc.Url);
+                    if (mc == null)
+                        continue;
+                    foreach (Match m in mc)
                     {
-                        plist.Add(v);
+                        string v = m.Value.Substring(2); // remove '{@'
+                        if (plist.Contains(v) == false)
+                        {
+                            plist.Add(v);
+                        }
                     }
                 }
             }

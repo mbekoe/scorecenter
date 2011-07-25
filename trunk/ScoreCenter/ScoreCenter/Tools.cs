@@ -115,7 +115,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scores = (ScoreCenter)xml.Deserialize(tr);
                 }
 
-                if (scores.Scores != null)
+                if (scores.Scores != null && scores.Scores.Items != null)
                 {
                     foreach (BaseScore s in scores.Scores.Items)
                     {

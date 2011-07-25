@@ -97,7 +97,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         public static void BuildScoreList(ThreeStateTreeView tree, ScoreCenter center, bool show)
         {
             tree.Nodes.Clear();
-            if (center == null || center.Scores == null)
+            if (center == null || center.Scores.Items == null)
                 return;
 
             tree.BeginUpdate();
