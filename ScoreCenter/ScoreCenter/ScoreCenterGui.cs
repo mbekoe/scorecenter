@@ -572,6 +572,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     source = Tools.ParseUrl(source, m_center.Parameters);
                     source = source.Replace("http://", String.Empty);
+                    source = source.Replace("https://", String.Empty);
                     source = source.Substring(0, source.IndexOf('/'));
                     if (source.StartsWith("www.")) source = source.Substring(4);
                 }
