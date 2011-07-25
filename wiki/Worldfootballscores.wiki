@@ -1,0 +1,25 @@
+#instructions to use worldfootball scores.
+
+= Introduction =
+The Worldfootball score type make it easier to add definition for a league. It uses the results from www.worldfootball.net.
+
+= Global configuration =
+WorldFootball site provides the results in several localization. To use the site from your country set the parameter named _worldfootball_ to the url for your country, ex for France: http://www.mondedufoot.fr/ (do not forget the http and the trailing /).
+
+The scores also use the following styles:
+ * Header: style for headers
+ * Highlight: style for user highlights
+ * Level1, Level2 ...: styles to show Level 1, Level 2 teams (in rankings)
+ * Level-1, Level-2 ...: styles to show Level -1, Level -2 teams (i.e. last)
+
+= Definition of a Worldfootball score =
+ * Name: the name of the score
+ * Country: the code for the country (can be empty for international competitions)
+ * League: the name of the league
+ * Season: the season
+ * Type: the type of the competition (League, Cup, Tournament)
+ * Details: details for the competition
+ * Nb Teams: number of teams (to determine the number of matches)
+ * Levels: the levels to highlights (using styles Level[n] and Level[-n])
+ * Highlights: the elements to highlights (separated with a ','). It will use the _Highlight_ style and highlight the lines where a cell contains one of the elements. For ex: Manc,Chel will highlights Manchester United, Manchester City and Chelsea in Standings but also in Results or Top Scorer or History.
+ * Icon: the button will download the the icon from the site and saved it in the thumbs directory. *Note* that you need to click the save button to set the icon to the score.
