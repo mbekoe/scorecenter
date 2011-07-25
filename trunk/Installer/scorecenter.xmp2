@@ -27,9 +27,9 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
               <UpdateOption>NeverOverwrite</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter2.Settings.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
-              <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+              <DestinationFilename>%Config%\MyScoreCenter2.Settings.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
@@ -84,6 +84,13 @@
               <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{d6e7789e-ac97-43b2-9d39-a0f329bee2bd}-strings_de.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e89e6f17-4ef4-4831-8284-5ca84f3ffe75}-score_fr.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -253,22 +260,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-score-center-67687/</ForumPage>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
-      <Major>1</Major>
-      <Minor>4</Minor>
+      <Major>2</Major>
+      <Minor>0</Minor>
       <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*MP1.2 compatible
-
-
-*Replace Blue3 skins with new Default skins
-*Update HtmlAgilityPack 1.3 with version 1.4</VersionDescription>
+    <VersionDescription>*New structure for the settings
+*Unlimited number of levels
+*Support to translate scores names</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.4.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-04-30T18:55:45</ReleaseDate>
+    <ReleaseDate>2011-07-24T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -322,9 +327,9 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>NeverOverwrite</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter.Settings.xml</LocalFileName>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\MyScoreCenter2.Settings.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{2c759d35-849f-45f8-94ca-1cd531f90748}-MyScoreCenter.Settings.xml</ZipFileName>
-        <DestinationFilename>%Config%\MyScoreCenter.Settings.xml</DestinationFilename>
+        <DestinationFilename>%Config%\MyScoreCenter2.Settings.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
@@ -364,6 +369,13 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e89e6f17-4ef4-4831-8284-5ca84f3ffe75}-score_fr.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenter.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{22db8373-f33b-4728-ac3b-4f4e78e2e38b}-MyScoreCenter.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\MyScoreCenter.xml</DestinationFilename>
@@ -386,14 +398,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a3c36de2-1525-492f-8a55-8b7abbaeb0d5}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{6be100d1-7769-4038-b813-4b194042e5b5}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{178c6a45-ae64-4ff5-9e03-adb87fe1b8b9}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{d676ea80-98d6-4ba8-9617-c61882a54b0b}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
