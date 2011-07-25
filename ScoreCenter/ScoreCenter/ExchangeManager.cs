@@ -77,9 +77,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         public static int Import(ScoreCenter center, ScoreCenter imported, ImportOptions mergeOptions)
         {
             int result = 0;
-            if (imported.Scores == null)
+            if (imported.Scores.Items == null)
                 return result;
 
+            bool isnew = center.Scores.Items != null;
             List<BaseScore> toImport = new List<BaseScore>();
             foreach (BaseScore score in imported.Scores.Items)
             {
@@ -100,7 +101,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         toImport.Add(score);
                         result++;
-                        score.IsNew = true;
+                        score.IsNew = isnew;
                         score.enable = true;
                     }
                 }
@@ -108,7 +109,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             if (toImport.Count > 0)
             {
-                if (center.Scores == null)
+                if (center.Scores.Items == null)
                 {
                     center.Scores.Items = toImport.ToArray();
                 }
@@ -134,7 +135,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.LogMessage("        Options: {0}", center.Setup.UpdateRule);
             Tools.LogMessage("        Force: {0}", force);
 
-            if (center.Setup.DoUpdate(force, center.Scores == null ? 0 : center.Scores.Items.Length)
+            if (center.Setup.DoUpdate(force, center.Scores.Items == null ? 0 : center.Scores.Items.Length)
                 && String.IsNullOrEmpty(center.Setup.UpdateUrl) == false)
             {
                 ImportOptions options = (ImportOptions)Enum.Parse(typeof(ImportOptions), center.Setup.UpdateRule, true);

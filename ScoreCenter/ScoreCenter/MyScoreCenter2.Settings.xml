@@ -4,16 +4,27 @@
     <Name>My Score Center</Name>
     <DefaultSkinColor>-16752449</DefaultSkinColor>
     <UpdateOnlineMode>Once</UpdateOnlineMode>
-    <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter.Settings.xml</UpdateUrl>
+    <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter2.Settings.xml</UpdateUrl>
     <UpdateRule>New</UpdateRule>
   </Setup>
+  <Parameters>
+    <ScoreParameter name="worldfootball">http://www.worldfootball.net/</ScoreParameter>
+  </Parameters>
   <Images/>
   <Styles>
     <Style Name="Orange" ForeColor="-32768" />
     <Style Name="Red" ForeColor="-65536" />
     <Style Name="White" ForeColor="-1" />
     <Style Name="Yellow" ForeColor="-128" />
-    <Style Name="Header" ForeColor="-32704" />
+    <Style Name="Green" ForeColor="-16711936" />
+    <Style Name="Header" ForeColor="-32768" />
+    <Style Name="Level1" ForeColor="-8323200" />
+    <Style Name="Level2" ForeColor="-16711872" />
+    <Style Name="Level3" ForeColor="-16711681" />
+    <Style Name="Level-1" ForeColor="-65536" />
+    <Style Name="Level-2" ForeColor="-32576" />
+    <Style Name="Highlight" ForeColor="-32768" />
+    <Style Name="oddLine" ForeColor="-4144960" />
   </Styles>
   <Scores/>
 </ScoreCenter>
