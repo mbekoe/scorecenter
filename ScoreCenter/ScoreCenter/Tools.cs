@@ -279,10 +279,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The transformed HTML.</returns>
         public static string TransformHtml(string value, bool allowNewLine)
         {
-            string result = value;
+            string result = value.Replace("\t", "  ");
 
             if (!allowNewLine)
+            {
+                result = result.Replace("\r", " ");
                 result = result.Replace("\n", " ");
+            }
 
             for (int i = 0; i < HtmlCode.Length; i = i + 2)
             {
