@@ -17,6 +17,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string IMG_NEXT = "Next";
         private const string IMG_STANDINGS = "Standings";
         private const string IMG_HISTORY = "Trophy";
+        private const string IMG_SCORER_HISTORY = @"Football\Top Scorers History";
         private const string IMG_TOP_SCORER = @"Football\Top Scorers";
         private const string WF_URL = "{@worldfootball}";
 
@@ -227,7 +228,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             scores.Add(sc);
 
             // Top scorer History
-            sc = CreateNewScore(wfscore.Id, "archives", "Top Scorer History", IMG_HISTORY, "0", index++);
+            sc = CreateNewScore(wfscore.Id, "scorerhistory", "Top Scorer History", IMG_SCORER_HISTORY, "0", index++);
             sc.Url = String.Format("{0}torschuetzenkoenige/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
             sc.Sizes = "-10,0,-20,0,-20,4";

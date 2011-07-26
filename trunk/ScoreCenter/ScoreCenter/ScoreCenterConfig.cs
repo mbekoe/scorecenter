@@ -239,7 +239,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             ClearTestGrid();
             tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
-            tsbNewLigue.Enabled = bscore.IsFolder();
+            tsbNewLigue.Enabled = bscore.IsFolder() || bscore.IsVirtualFolder();
             tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
             tsbMoveRight.Enabled = tsbMoveUp.Enabled;
             btnTest.Enabled = editor.HasTest;
