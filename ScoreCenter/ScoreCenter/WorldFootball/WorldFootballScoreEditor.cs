@@ -134,7 +134,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         }
         private string GetUrl()
         {
-            return String.Format("{{@worldfootball}}wettbewerb/{0}", GetFullName());
+            var kind = (WorldFootballKind)Enum.Parse(typeof(WorldFootballKind), cbxKind.SelectedValue.ToString());
+            if (kind == WorldFootballKind.Team)
+                return String.Format("{{@worldfootball}}teams/{0}/", GetFullName());
+
+            return String.Format("{{@worldfootball}}wettbewerb/{0}/", GetFullName());
         }
         private string GetDefaultIconPath()
         {

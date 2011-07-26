@@ -38,8 +38,14 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (score.Kind == WorldFootballKind.Cup)
                 return AddCup(score);
 
-            if (score.Kind == WorldFootballKind.Tournament || score.Kind == WorldFootballKind.Qualification)
+            if (score.Kind == WorldFootballKind.Tournament)
                 return AddTournament(score);
+
+            if (score.Kind == WorldFootballKind.Qualification)
+                return AddQualification(score);
+
+            if (score.Kind == WorldFootballKind.Team)
+                return AddTeam(score);
             
             return null;
         }
@@ -162,6 +168,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         {
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
+            string fln2 = wfscore.FullLeagueName;
+            if (wfscore.League == "otp-liga") fln2 = "hun-monicomp-liga";
 
             // Last Results
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "3", index++);
@@ -188,7 +196,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "table", "Standings", IMG_STANDINGS, element, index++);
             sc.BetweenElts = BetweenElements.RepeatHeader;
             int nbrounds = wfscore.NbTeams * 2 - 2;
-            sc.Url = String.Format("{0}spielplan/{1}-{2}-spieltag/{3}/tabelle/", WF_URL, wfscore.FullLeagueName, wfscore.Season, nbrounds);
+            sc.Url = String.Format("{0}spielplan/{1}-{2}-spieltag/{3}/tabelle/", WF_URL, fln2, wfscore.Season, nbrounds);
             sc.Skip = 2;
             sc.Sizes = "5,0,-20,3,3,3,3,5,3,3";
             sc.Headers = ",,,Pl,W,D,L,Goals,+/-,Pts";
@@ -213,7 +221,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             // Top Scorers
             sc = CreateNewScore(wfscore.Id, "topscorers", "Top Scorers", IMG_TOP_SCORER, "0", index++);
-            sc.Url = String.Format("{0}torjaeger/{1}-{2}/", WF_URL, wfscore.FullLeagueName, wfscore.Season);
+            sc.Url = String.Format("{0}torjaeger/{1}-{2}/", WF_URL, fln2, wfscore.Season);
             sc.Sizes = "6,0,-22,-20,-12";
             AddRule(sc, -1, Operation.EqualTo, "1", RuleAction.FormatLine, "Level1");
             AddHighlightRule(sc, wfscore.Highlights, 4, RuleAction.FormatLine);
@@ -283,11 +291,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         }
 
         /// <summary>
-        /// Defines a Tournament.
+        /// Defines a Qualification Tournament.
         /// </summary>
         /// <param name="wfscore">The Worldfootball definition.</param>
         /// <returns></returns>
-        private static List<BaseScore> AddTournament(WorldFootballScore wfscore)
+        private static List<BaseScore> AddQualification(WorldFootballScore wfscore)
         {
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
@@ -341,6 +349,54 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Skip = 1;
             sc.Sizes = "-10,0,-24";
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            scores.Add(sc);
+
+            return scores;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wfscore"></param>
+        /// <returns></returns>
+        private static List<BaseScore> AddTournament(WorldFootballScore wfscore)
+        {
+            var scores = AddQualification(wfscore);
+
+            // Top scorer History
+            var sc = CreateNewScore(wfscore.Id, "scorerhistory", "Top Scorer History", IMG_SCORER_HISTORY, "0", scores.Count() + 1);
+            sc.Url = String.Format("{0}torschuetzenkoenige/{1}/", WF_URL, wfscore.FullLeagueName);
+            sc.Skip = 1;
+            sc.Sizes = "-10,0,-20,0,-20,4";
+            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            scores.Add(sc);
+
+            return scores;
+        }
+
+        private static List<BaseScore> AddTeam(WorldFootballScore wfscore)
+        {
+            int index = 0;
+            List<BaseScore> scores = new List<BaseScore>();
+            GenericScore sc = null;
+
+            sc = CreateNewScore(wfscore.Id, "last", "Last", IMG_RESULTS, "1", index++);
+            sc.Url = String.Format("{0}teams/{1}/", WF_URL, wfscore.FullLeagueName);
+            sc.Sizes = "-10,-8,-10,-2,0,-18,-3,0";
+            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            scores.Add(sc);
+
+            sc = CreateNewScore(wfscore.Id, "results", "Results", IMG_RESULTS, "0", index++);
+            sc.Url = String.Format("{0}teams/{1}/{2}/3/", WF_URL, wfscore.FullLeagueName, wfscore.Season);
+            sc.Sizes = "-10,-10,-5,-2,0,-15,-3";
+            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            scores.Add(sc);
+
+            sc = CreateNewScore(wfscore.Id, "archives", "History", IMG_HISTORY, "1", index++);
+            sc.Url = String.Format("{0}teams/{1}/1/", WF_URL, wfscore.FullLeagueName);
+            sc.Sizes = "-50";
+            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            AddRule(sc, 1, Operation.Contains, " x ", RuleAction.FormatLine, "Header");
             scores.Add(sc);
 
             return scores;
