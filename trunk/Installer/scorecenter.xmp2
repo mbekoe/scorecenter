@@ -92,6 +92,13 @@
               <ZipFileName>Installer{CopyFile}\{e89e6f17-4ef4-4831-8284-5ca84f3ffe75}-score_fr.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_en.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{48dd2933-f78f-4e29-ace6-6721e7881c4a}-score_en.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\score_en.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -250,7 +257,27 @@ Click Next to continue or Cancel to exit Setup.</Value>
     </Items>
   </Sections>
   <Dependencies>
-    <Items />
+    <Items>
+      <DependencyItem>
+        <Type>MediaPortal</Type>
+        <Id />
+        <MinVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
+        </MinVersion>
+        <MaxVersion>
+          <Major>1</Major>
+          <Minor>1</Minor>
+          <Build>7</Build>
+          <Revision>0</Revision>
+        </MaxVersion>
+        <WarnOnly>true</WarnOnly>
+        <Message>Need version of MediaPortal with version betwen 1.1.6.27644 - 1.1.7.0</Message>
+        <Name>MediaPortal</Name>
+      </DependencyItem>
+    </Items>
   </Dependencies>
   <GeneralInfo>
     <Name>MyScoreCenter</Name>
@@ -261,19 +288,19 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>0</Minor>
+      <Minor>1</Minor>
       <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*New structure for the settings
-*Unlimited number of levels
-*Support to translate scores names</VersionDescription>
+    <VersionDescription>*New type for Worldfootball Team to follow a team (club or national).
+*Add 'Top Scorer History' for Leagues and Tournament.
+*It is now possible to add children to a Worldfootball score. </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.4.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-07-24T18:55:45</ReleaseDate>
+    <ReleaseDate>2011-07-26T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -376,6 +403,13 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_en.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{48dd2933-f78f-4e29-ace6-6721e7881c4a}-score_en.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\score_en.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenter.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{22db8373-f33b-4728-ac3b-4f4e78e2e38b}-MyScoreCenter.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\MyScoreCenter.xml</DestinationFilename>
@@ -398,14 +432,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{6be100d1-7769-4038-b813-4b194042e5b5}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{7a9cce2d-d7d3-4c34-af5d-bc72afe32034}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d676ea80-98d6-4ba8-9617-c61882a54b0b}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c1f79f3a-5ebc-4dce-aca0-64d5fdc51d6a}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
