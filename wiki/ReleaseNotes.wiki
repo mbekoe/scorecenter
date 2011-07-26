@@ -1,5 +1,10 @@
 #labels Featured
-*next version* 2.0:
+*next version*:
+    * New type for Worldfootball _Team_ to follow a team (club or national).
+    * Add 'Top Scorer History' for Leagues and Tournament.
+    * It is now possible to add children to a Worldfootball score.
+
+*version 2.0.0.0 (25 july 2011)*:
     * New structure for the XML settings.
     * Scores have a type. Possible types are Folder, Generic, Rss or WorldFootball.
     * WorldFootball type makes it easier to add a league from www.worldfootball.com.
