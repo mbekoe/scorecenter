@@ -43,6 +43,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Rows.Add(WorldFootballKind.League, "League");
             dt.Rows.Add(WorldFootballKind.Qualification, "Qualification");
             dt.Rows.Add(WorldFootballKind.Tournament, "Tournament");
+            dt.Rows.Add(WorldFootballKind.Team, "Team");
 
             return dt;
         }

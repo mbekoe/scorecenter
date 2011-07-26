@@ -60,6 +60,7 @@
       <xs:enumeration value="Cup" />
       <xs:enumeration value="Tournament" />
       <xs:enumeration value="Qualification" />
+      <xs:enumeration value="Team" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Style" nillable="false">

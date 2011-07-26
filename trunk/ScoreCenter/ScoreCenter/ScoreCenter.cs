@@ -731,6 +731,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         Qualification,
+        
+        /// <remarks/>
+        Team,
     }
     
     /// <remarks/>
