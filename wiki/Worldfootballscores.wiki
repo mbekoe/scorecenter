@@ -4,7 +4,12 @@
 The Worldfootball score type make it easier to add definition for a league. It uses the results from www.worldfootball.net.
 
 = Global configuration =
-WorldFootball site provides the results in several localization. To use the site from your country set the parameter named _worldfootball_ to the url for your country, ex for France: http://www.mondedufoot.fr/ (do not forget the http and the trailing /).
+WorldFootball site provides the results in several localization. To use the site from your country set the parameter named _worldfootball_ to the url for your country, ex for France: http://www.mondedufoot.fr/.
+To set the parameter:
+ * open the configuration screen,
+ * open the options dialog (gear icon),
+ * select the _Score Parameters_ tab,
+ * change the URL of the worldfootball site (do not forget the http and the trailing /).
 
 The scores also use the following styles:
  * Header: style for headers
