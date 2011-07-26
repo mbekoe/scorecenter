@@ -117,7 +117,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 foreach (HtmlNode column in columns)
                 {
                     string value = column.InnerText.Normalize();
-                    string tt = Tools.TransformHtml(value.Trim(' ', '\n'), allowNewLine).Trim();
+                    string tt = Tools.TransformHtml(value.Trim(' ', '\n', '\t', '\r'), allowNewLine).Trim();
                     nbChar += tt.Length;
                     strLine[i] = tt;
                     i++;
