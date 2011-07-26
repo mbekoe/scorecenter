@@ -226,6 +226,14 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
+            // Top scorer History
+            sc = CreateNewScore(wfscore.Id, "archives", "Top Scorer History", IMG_HISTORY, "0", index++);
+            sc.Url = String.Format("{0}torschuetzenkoenige/{1}/", WF_URL, wfscore.FullLeagueName);
+            sc.Skip = 1;
+            sc.Sizes = "-10,0,-20,0,-20,4";
+            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            scores.Add(sc);
+
             return scores;
         }
 
