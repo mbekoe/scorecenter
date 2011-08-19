@@ -33,7 +33,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numCacheExpiration = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxBackdrop = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -91,8 +91,8 @@
             // 
             // numericUpDown1
             // 
-            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-            this.numericUpDown1.Name = "numericUpDown1";
+            resources.ApplyResources(this.numCacheExpiration, "numericUpDown1");
+            this.numCacheExpiration.Name = "numericUpDown1";
             // 
             // label1
             // 
@@ -216,7 +216,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tbxName);
-            this.tabPage1.Controls.Add(this.numericUpDown1);
+            this.tabPage1.Controls.Add(this.numCacheExpiration);
             this.tabPage1.Controls.Add(this.lblName);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label2);
@@ -267,7 +267,7 @@
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.OptionsDialog_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -285,7 +285,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox tbxName;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numCacheExpiration;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxBackdrop;
         private System.Windows.Forms.Label label2;
