@@ -196,9 +196,11 @@
     <Content Include="Football.ico" />
     <Content Include="language\score_en.xml" />
     <Content Include="language\score_fr.xml" />
+    <Content Include="language\score_hu.xml" />
     <Content Include="language\strings_de.xml" />
     <Content Include="language\strings_en.xml" />
     <Content Include="language\strings_fr.xml" />
+    <Content Include="language\strings_hu.xml" />
     <Content Include="language\strings_pl.xml" />
     <Content Include="language\strings_ru.xml" />
     <Content Include="MyScoreCenter.Settings.xml" />
