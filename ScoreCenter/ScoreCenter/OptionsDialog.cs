@@ -98,7 +98,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
              
             tbxName.Text = name;
-            numericUpDown1.Value = m_center.Setup.CacheExpiration;
+            numCacheExpiration.Value = m_center.Setup.CacheExpiration;
 
             tbxUrl.Text = m_center.Setup.UpdateUrl;
             ImportOptions option = ImportOptions.None;
@@ -140,6 +140,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             m_center.Setup.Name = tbxName.Text;
             m_center.Setup.BackdropDir = tbxBackdrop.Text;
+            m_center.Setup.CacheExpiration = (int)numCacheExpiration.Value;
 
             m_center.Setup.UpdateOnlineMode = Tools.ParseEnum<UpdateMode>(comboBox1.SelectedValue.ToString());
             m_center.Setup.UpdateUrl = tbxUrl.Text;
