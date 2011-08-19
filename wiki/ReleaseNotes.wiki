@@ -1,5 +1,5 @@
 #labels Featured
-*version 2.*:
+*version 2.2*:
     * Add language files for Hungarian (thanks to vrm42).
 
 *version 2.1.0.0 (26 july 2011)*:
