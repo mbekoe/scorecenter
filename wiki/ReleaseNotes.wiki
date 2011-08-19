@@ -1,4 +1,7 @@
 #labels Featured
+*version 2.*:
+    * Add language files for Hungarian (thanks to vrm42).
+
 *version 2.1.0.0 (26 july 2011)*:
     * New type for Worldfootball _Team_ to follow a team (club or national).
     * Add 'Top Scorer History' for Leagues and Tournament.
