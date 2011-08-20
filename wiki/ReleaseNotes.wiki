@@ -1,7 +1,9 @@
 #labels Featured
 *next version*:
     * Add language files for Hungarian (thanks to vrm42).
-    * Fix: change of Cache Expiration value not saved.
+    * Fix: Change of "Cache Expiration" is not saved.
+    * Fix: Selection is lost after browsing to a real score.
+    * Fix: When starting on home screen Title and Source are not set.
 
 *version 2.1.0.0 (26 july 2011)*:
     * New type for Worldfootball _Team_ to follow a team (club or national).
