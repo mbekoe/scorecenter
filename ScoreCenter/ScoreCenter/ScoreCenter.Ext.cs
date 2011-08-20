@@ -166,10 +166,22 @@ namespace MediaPortal.Plugin.ScoreCenter
             string full = score.LocName;
             if (!String.IsNullOrEmpty(score.Parent))
             {
-                full = GetFullName(this.FindScore(score.Parent), sep) + sep + full;
+                full = GetFullName(FindScore(score.Parent), sep) + sep + full;
             }
 
             return full;
+        }
+
+        public int GetLevel(BaseScore score)
+        {
+            int level = 0;
+
+            if (score != null)
+            {
+                level = 1 + GetLevel(FindScore(score.Parent));
+            }
+
+            return level;
         }
 
         public BaseScore FindScore(string id)
