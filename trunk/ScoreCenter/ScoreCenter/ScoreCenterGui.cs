@@ -153,6 +153,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                         {
                             LoadScores(score.Parent);
                             DisplayScore(score);
+                            m_level = m_center.GetLevel(score);
+                            SetScoreProperties(score);
                         }
                     }
                     #endregion
