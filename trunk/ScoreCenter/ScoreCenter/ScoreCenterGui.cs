@@ -363,7 +363,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (!currIsFolder) m_level--;
                 m_level--;
-                if (lstDetails.Visible) LoadScores(sc);
+
+                if (lstDetails.Visible)
+                {
+                    LoadScores(sc);
+                }
                 else
                 {
                     lstDetails.Visible = true;
@@ -385,6 +389,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             else
             {
                 if (currIsFolder) m_level++;
+
                 if (ScoreIsFolder(sc))
                 {
                     LoadScores(sc);
@@ -393,6 +398,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     DisplayScore();
                     lstDetails.Visible = (lblVisible == null || !lblVisible.Visible);
+                    // pop the score index because it does not need to be reselected
+                    m_prevIndex.Pop();
                 }
             }
 
