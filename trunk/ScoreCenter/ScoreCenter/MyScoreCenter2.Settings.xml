@@ -10,7 +10,6 @@
   <Parameters>
     <ScoreParameter name="worldfootball">http://www.worldfootball.net/</ScoreParameter>
   </Parameters>
-  <Images/>
   <Styles>
     <Style Name="Orange" ForeColor="-32768" />
     <Style Name="Red" ForeColor="-65536" />
