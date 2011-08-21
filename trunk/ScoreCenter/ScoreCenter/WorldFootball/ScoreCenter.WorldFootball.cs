@@ -66,9 +66,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return true;
         }
-        public override IList<BaseScore> GetVirtualScores()
+        public override IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
         {
-            return Parser.WorldFootballScoreParser.GetRealScores(this);
+            return Parser.WorldFootballScoreParser.GetRealScores(this, parameters);
         }
         internal override BaseScore Clone(string id)
         {

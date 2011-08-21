@@ -376,7 +376,9 @@
             "viertelfinale",
             "halbfinale",
             "3-platz",
-            "finale"});
+            "finale",
+            "Players",
+            "Transfers"});
             this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 159);
             this.cbxDetailsHelper.Name = "cbxDetailsHelper";
             this.cbxDetailsHelper.Size = new System.Drawing.Size(112, 21);

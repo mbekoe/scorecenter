@@ -360,7 +360,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
                 if (score.IsVirtualFolder())
                 {
-                    var zz = score.GetVirtualScores();
+                    var zz = score.GetVirtualScores(m_center.Parameters);
                     using (TestScoreSelector dlg = new TestScoreSelector(zz))
                     {
                         if (dlg.ShowDialog() == DialogResult.OK)

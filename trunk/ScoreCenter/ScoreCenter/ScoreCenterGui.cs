@@ -126,7 +126,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     List<BaseScore> vslist = new List<BaseScore>();
                     foreach (BaseScore sc in m_center.Scores.Items.Where(p => p.IsVirtualFolder()))
                     {
-                        IList<BaseScore> children = sc.GetVirtualScores();
+                        IList<BaseScore> children = sc.GetVirtualScores(m_center.Parameters);
                         if (children != null)
                         {
                             vslist.AddRange(children);
