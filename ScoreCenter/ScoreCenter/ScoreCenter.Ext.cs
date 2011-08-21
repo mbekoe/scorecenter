@@ -271,7 +271,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return false;
         }
-        public virtual IList<BaseScore> GetVirtualScores()
+        public virtual IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
         {
             return null;
         }
