@@ -51,12 +51,12 @@
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -89,10 +89,10 @@
             resources.ApplyResources(this.lblName, "lblName");
             this.lblName.Name = "lblName";
             // 
-            // numericUpDown1
+            // numCacheExpiration
             // 
-            resources.ApplyResources(this.numCacheExpiration, "numericUpDown1");
-            this.numCacheExpiration.Name = "numericUpDown1";
+            resources.ApplyResources(this.numCacheExpiration, "numCacheExpiration");
+            this.numCacheExpiration.Name = "numCacheExpiration";
             // 
             // label1
             // 
@@ -191,19 +191,6 @@
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
             // 
-            // ColumnPName
-            // 
-            this.ColumnPName.DataPropertyName = "Name";
-            resources.ApplyResources(this.ColumnPName, "ColumnPName");
-            this.ColumnPName.Name = "ColumnPName";
-            // 
-            // ColumnPValue
-            // 
-            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnPValue.DataPropertyName = "Value";
-            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
-            this.ColumnPValue.Name = "ColumnPValue";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -249,6 +236,19 @@
             resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // ColumnPName
+            // 
+            this.ColumnPName.DataPropertyName = "Name";
+            resources.ApplyResources(this.ColumnPName, "ColumnPName");
+            this.ColumnPName.Name = "ColumnPName";
+            // 
+            // ColumnPValue
+            // 
+            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnPValue.DataPropertyName = "Value";
+            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
+            this.ColumnPValue.Name = "ColumnPValue";
             // 
             // OptionsDialog
             // 
@@ -303,11 +303,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox ckxOverwriteIcons;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
     }
 }

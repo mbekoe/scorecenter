@@ -61,6 +61,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             Tools.SaveSettings(fileName, center, false);
         }
 
+        /// <summary>
+        /// Import scores from an XML file.
+        /// </summary>
+        /// <param name="center">The existing center.</param>
+        /// <param name="fileName">The path of the file to import.</param>
+        /// <param name="mergeOptions">The merge options.</param>
         public static void Import(ScoreCenter center, string fileName, ImportOptions mergeOptions)
         {
             ScoreCenter imported = Tools.ReadSettings(fileName, true);
@@ -119,9 +125,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             }
 
+            // import parameters
+            ExchangeManager.ImportParameters(center, imported);
+
             return result;
         }
 
+        /// <summary>
+        /// Update with online settings.
+        /// </summary>
+        /// <param name="center">The ScoreCenter object.</param>
+        /// <param name="force">True to force the online update.</param>
+        /// <returns></returns>
         public static bool OnlineUpdate(ScoreCenter center, bool force)
         {
             bool result = false;
@@ -211,6 +226,33 @@ namespace MediaPortal.Plugin.ScoreCenter
                 finally
                 {
                     File.Delete(zipFileName);
+                }
+            }
+        }
+
+        private static void ImportParameters(ScoreCenter center, ScoreCenter imported)
+        {
+            if (imported == null || imported.Parameters == null)
+                return;
+
+            if (center.Parameters == null)
+            {
+                center.Parameters = imported.Parameters;
+            }
+            else
+            {
+                List<ScoreParameter> toAdd = new List<ScoreParameter>();
+                foreach (ScoreParameter ip in imported.Parameters)
+                {
+                    if (center.Parameters.FirstOrDefault(p => p.name == ip.name) == null)
+                    {
+                        toAdd.Add(ip);
+                    }
+                }
+
+                if (toAdd.Count > 0)
+                {
+                    center.Parameters = center.Parameters.Concat(toAdd).ToArray();
                 }
             }
         }
