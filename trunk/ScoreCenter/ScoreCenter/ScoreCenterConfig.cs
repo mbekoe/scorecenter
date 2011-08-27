@@ -354,6 +354,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                     return;
 
                 Type scoreType = editor.GetScoreType();
+                ScoreFactory.Instance.CacheExpiration = m_center.Setup.CacheExpiration;
                 BaseScore score = ScoreFactory.Instance.CreateScore(scoreType);
                 if (!editor.SaveScore(ref score))
                     return;
