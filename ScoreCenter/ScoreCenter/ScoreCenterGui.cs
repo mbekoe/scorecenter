@@ -116,8 +116,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 try
                 {
-                    ScoreFactory.Instance.CacheExpiration = m_center.Setup.CacheExpiration;
                     ReadSettings();
+                    ScoreFactory.Instance.CacheExpiration = m_center.Setup.CacheExpiration;
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
                     SetScoreProperties(null);
 
