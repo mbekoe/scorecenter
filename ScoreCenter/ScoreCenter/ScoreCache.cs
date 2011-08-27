@@ -45,18 +45,35 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private int m_lifeTime = 0;
         
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="lifeTime"></param>
         public ScoreCache(int lifeTime)
         {
             m_client = new WebClient();
             m_cache = new Dictionary<string, CacheElement>();
             m_lifeTime = lifeTime;
+
+            m_client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
         }
 
+        /// <summary>
+        /// Clears the cache.
+        /// </summary>
         public void Clear()
         {
             m_cache.Clear();
         }
 
+        /// <summary>
+        /// Gets a score from the cache.
+        /// Get it from the cache if the score has not expired or download it.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="encoding"></param>
+        /// <param name="reload"></param>
+        /// <returns></returns>
         public string GetScore(string url, string encoding, bool reload)
         {
             if (m_client.IsBusy)
@@ -69,20 +86,32 @@ namespace MediaPortal.Plugin.ScoreCenter
                     html = m_cache[url].Value;
             }
 
-            if (html.Length == 0)
+            if (String.IsNullOrEmpty(html))
             {
                 html = Tools.DownloadFile(m_client, url, encoding);
-                m_cache[url] = new CacheElement(m_lifeTime, html);
+                if (m_lifeTime > 0)
+                {
+                    m_cache[url] = new CacheElement(m_lifeTime, html);
+                }
             }
 
             return html;
         }
 
+        /// <summary>
+        /// Gets an image.
+        /// Note that there is no "cache here".
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="fileName"></param>
         public void GetImage(string url, string fileName)
         {
             m_client.DownloadFile(url, fileName);
         }
 
+        /// <summary>
+        /// Class to reprensent an element to store in the cache.
+        /// </summary>
         private class CacheElement
         {
             public string Value;
@@ -90,13 +119,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             public CacheElement(int lifeTime, string value)
             {
-                Value = value;
-                ExpirationDate = lifeTime == 0 ? DateTime.MaxValue : DateTime.Now.AddMinutes(lifeTime);
+                this.Value = value;
+                this.ExpirationDate = DateTime.Now.AddMinutes(lifeTime);
             }
 
             public bool Expired
             {
-                get { return DateTime.Now > ExpirationDate; }
+                get { return DateTime.Now > this.ExpirationDate; }
             }
         }
     }
