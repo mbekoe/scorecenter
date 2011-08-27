@@ -55,12 +55,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_scoreTypes.Add(name, type);
                 }
             }
+
+            this.CacheExpiration = 0;
         }
 
         public static ScoreFactory Instance
         {
             get { return m_instance; }
         }
+
+        public int CacheExpiration { get; set; }
 
         /// <summary>
         /// 
@@ -119,7 +123,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (!m_parsers.ContainsKey(parserType))
             {
                 var t = Type.GetType("MediaPortal.Plugin.ScoreCenter.Parser." + parserType);
-                m_parsers[parserType] = (Parser.IScoreParser)Activator.CreateInstance(t, 0);
+                m_parsers[parserType] = (Parser.IScoreParser)Activator.CreateInstance(t, this.CacheExpiration);
             }
             return m_parsers[parserType];
         }
