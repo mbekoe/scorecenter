@@ -829,7 +829,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         private int versionField;
         
         public ScoreCenterSetup() {
-            this.cacheExpirationField = 5;
+            this.cacheExpirationField = 0;
             this.defaultSkinColorField = -16776961;
             this.defaultFontColorField = -1;
             this.backdropDirField = "";
@@ -853,7 +853,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(5)]
+        [System.ComponentModel.DefaultValueAttribute(0)]
         public int CacheExpiration {
             get {
                 return this.cacheExpirationField;
