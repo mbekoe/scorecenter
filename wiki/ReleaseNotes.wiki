@@ -1,9 +1,12 @@
 #labels Featured
-*next version*:
+*version 2.2.0.0 (28 august 2011)*:
     * Add language files for Hungarian (thanks to vrm42).
+    * WorldFootball Team: add Players and Transfers.
     * Fix: Change of "Cache Expiration" is not saved.
     * Fix: Selection is lost after browsing to a real score.
     * Fix: When starting on home screen Title and Source are not set.
+    * Fix: It is not possible to change columns width for WorldFootball scores.
+    * Fix: CacheExpiration is not working.
 
 *version 2.1.0.0 (26 july 2011)*:
     * New type for Worldfootball _Team_ to follow a team (club or national).
