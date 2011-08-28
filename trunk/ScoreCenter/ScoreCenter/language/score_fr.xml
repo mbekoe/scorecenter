@@ -2,21 +2,43 @@
 <ScoreLocalisation>
   <Strings>
     <LocString id="Athletics">Athlétisme</LocString>
+    <LocString id="AUS_Football">Football Australien</LocString>
+    <LocString id="US_Football">Football Américain</LocString>
     <LocString id="Boxing">Boxe</LocString>
+    <LocString id="Basketball">Basket</LocString>
     <LocString id="Cycling">Cyclisme</LocString>
     <LocString id="Ice_Hockey">Hockey sur glace</LocString>
     <LocString id="Olympics">Jeux Olympiques</LocString>
     <LocString id="Skiing">Ski</LocString>
     <LocString id="Swimming">Natation</LocString>
     <LocString id="Motors">Auto/Moto</LocString>
+    <LocString id="Motors.Formula1">Formule 1</LocString>
+    <LocString id="Motors.Formula1.Pilots">Classement Pilotes</LocString>
+    <LocString id="Motors.Formula1.Teams">Classement Equipes</LocString>
+    <LocString id="89cc812a-95d3-4ac7-b780-720571d204e9">Classement Pilotes</LocString>
+    <LocString id="Tennis.Australie">Australie</LocString>
+    <LocString id="Tennis.Roland_Garros">Roland Garros</LocString>
   </Strings>
   <Globals>
     <LocString id="Today">Aujourd'hui</LocString>
     <LocString id="Results">Résultats</LocString>
+    <LocString id="Last Results">Résultats</LocString>
     <LocString id="Standings">Classement</LocString>
     <LocString id="Rankings">Classement</LocString>
+    <LocString id="Ranking">Classement</LocString>
+    <LocString id="Fixtures">Calendrier</LocString>
+    <LocString id="Next Round">Calendrier</LocString>
+    <LocString id="Ladder">Classement</LocString>
     <LocString id="Top Scorers">Buteurs</LocString>
+    <LocString id="Top Scorers History">Archives Buteurs</LocString>
     <LocString id="History">Archives</LocString>
+    <LocString id="Stages">Etapes</LocString>
+    <LocString id="Mountain">Montagne</LocString>
+    <LocString id="Team">Equipe</LocString>
+    <LocString id="General">Général</LocString>
+    <LocString id="Young Rider">Jeune</LocString>
+    <LocString id="Stage">Etape</LocString>
+    <LocString id="Stages">Etapes</LocString>
     <LocString id="Men">Hommes</LocString>
     <LocString id="Women">Femmes</LocString>
     <LocString id="(?&lt;grp&gt;\.*)[\s*]Men" isRegEx="true">${grp} Hommes</LocString>
@@ -32,5 +54,35 @@
     <LocString id="viertelfinale">1/4</LocString>
     <LocString id="halbfinale">1/2</LocString>
     <LocString id="3-platz">3ème place</LocString>
+    <LocString id="World Records">Records du Monde</LocString>
+    <LocString id="Leaderboard">Classement</LocString>
+    <LocString id="Schedule">Programme</LocString>
+    <!-- Countries -->
+    <LocString id="Algeria">Algérie</LocString>
+    <LocString id="Argentina">Argentine</LocString>
+    <LocString id="Belgium">Belgique</LocString>
+    <LocString id="Brazil">Brésil</LocString>
+    <LocString id="Czech Republic">République Tchèque</LocString>
+    <LocString id="Denmark">Danemark</LocString>
+    <LocString id="England">Angleterre</LocString>
+    <LocString id="Finland">Finlande</LocString>
+    <LocString id="France">France</LocString>
+    <LocString id="Germany">Allemagne</LocString>
+    <LocString id="Greece">Grèce</LocString>
+    <LocString id="Hungary">Hongrie</LocString>
+    <LocString id="Italy">Italie</LocString>
+    <LocString id="Morocco">Maroc</LocString>
+    <LocString id="Netherlands">Pays-Bas</LocString>
+    <LocString id="Norway">Norvège</LocString>
+    <LocString id="Poland">Pologne</LocString>
+    <LocString id="Portugal">Portugal</LocString>
+    <LocString id="Russia">Russie</LocString>
+    <LocString id="Scotland">Ecosse</LocString>
+    <LocString id="Spain">Espagne</LocString>
+    <LocString id="Sweden">Suède</LocString>
+    <LocString id="Switzerland">Suisse</LocString>
+    <LocString id="Tunisia">Tunisie</LocString>
+    <LocString id="Turkey">Turquie</LocString>
+    <LocString id="United-States">Etats-Unis</LocString>
   </Globals>
 </ScoreLocalisation>
