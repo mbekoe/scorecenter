@@ -99,6 +99,20 @@
               <ZipFileName>Installer{CopyFile}\{48dd2933-f78f-4e29-ace6-6721e7881c4a}-score_en.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\score_en.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_hu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{79248ae3-64c8-47b3-93d5-b5346f5e2576}-score_hu.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\score_hu.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_hu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{5ce247f0-7872-4c37-b2a5-20abdeeea353}-strings_hu.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_hu.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -264,17 +278,17 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <MinVersion>
           <Major>1</Major>
           <Minor>1</Minor>
-          <Build>6</Build>
-          <Revision>27644</Revision>
+          <Build>0</Build>
+          <Revision>6</Revision>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>1</Minor>
-          <Build>7</Build>
+          <Minor>2</Minor>
+          <Build>0</Build>
           <Revision>0</Revision>
         </MaxVersion>
-        <WarnOnly>true</WarnOnly>
-        <Message>Need version of MediaPortal with version betwen 1.1.6.27644 - 1.1.7.0</Message>
+        <WarnOnly>false</WarnOnly>
+        <Message>Need version of MediaPortal with version betwen 1.1.0.6 - 1.2.0.0</Message>
         <Name>MediaPortal</Name>
       </DependencyItem>
     </Items>
@@ -288,19 +302,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>1</Minor>
+      <Minor>2</Minor>
       <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*New type for Worldfootball Team to follow a team (club or national).
-*Add 'Top Scorer History' for Leagues and Tournament.
-*It is now possible to add children to a Worldfootball score. </VersionDescription>
+    <VersionDescription>*Fix issues of version 2.1
+*WorldFootball Team type add Players and Transfers</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v1.4.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2011-07-26T18:55:45</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.2.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-08-28T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -410,6 +423,20 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_hu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{79248ae3-64c8-47b3-93d5-b5346f5e2576}-score_hu.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\score_hu.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_hu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{5ce247f0-7872-4c37-b2a5-20abdeeea353}-strings_hu.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_hu.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenter.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{22db8373-f33b-4728-ac3b-4f4e78e2e38b}-MyScoreCenter.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\MyScoreCenter.xml</DestinationFilename>
@@ -432,14 +459,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{7a9cce2d-d7d3-4c34-af5d-bc72afe32034}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{cc734456-74e6-4a67-ba17-9ce809aa6dd5}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c1f79f3a-5ebc-4dce-aca0-64d5fdc51d6a}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{561d8b30-2606-475f-96e5-4900fc46b3c3}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
