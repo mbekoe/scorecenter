@@ -278,14 +278,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <MinVersion>
           <Major>1</Major>
           <Minor>1</Minor>
-          <Build>0</Build>
-          <Revision>6</Revision>
+          <Build>6</Build>
+          <Revision>27644</Revision>
         </MinVersion>
         <MaxVersion>
           <Major>1</Major>
-          <Minor>2</Minor>
-          <Build>0</Build>
-          <Revision>0</Revision>
+          <Minor>1</Minor>
+          <Build>6</Build>
+          <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
         <Message>Need version of MediaPortal with version betwen 1.1.0.6 - 1.2.0.0</Message>
@@ -293,6 +293,26 @@ Click Next to continue or Cancel to exit Setup.</Value>
       </DependencyItem>
     </Items>
   </Dependencies>
+  <PluginDependencies>
+    <Items>
+      <PluginDependencyItem AssemblyName="ScoreCenter.dll">
+        <CompatibleVersion>
+          <Items>
+            <CompatibleVersionItem>
+              <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
+              <DesignedForVersion>1.2.0.0</DesignedForVersion>
+            </CompatibleVersionItem>
+          </Items>
+        </CompatibleVersion>
+        <SubSystemsUsed>
+          <Items>
+            <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
+          </Items>
+        </SubSystemsUsed>
+      </PluginDependencyItem>
+    </Items>
+  </PluginDependencies>
   <GeneralInfo>
     <Name>MyScoreCenter</Name>
     <Id>68c15c1a-49b3-4318-a22f-4b93e512bdf2</Id>
@@ -304,7 +324,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>2</Major>
       <Minor>2</Minor>
       <Build>0</Build>
-      <Revision>0</Revision>
+      <Revision>2</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
@@ -312,7 +332,7 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
     <VersionDescription>*Fix issues of version 2.1
 *WorldFootball Team type add Players and Transfers</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.2.0.0.mpe1</OnlineLocation>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.2.0.2.mpe1</OnlineLocation>
     <ReleaseDate>2011-08-28T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
@@ -459,23 +479,24 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{cc734456-74e6-4a67-ba17-9ce809aa6dd5}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b3c64da4-1f3a-4956-8830-6d2dba118344}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{561d8b30-2606-475f-96e5-4900fc46b3c3}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{01475507-2be8-4299-9a55-47192a468299}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
   </UniqueFileList>
   <ProjectSettings>
     <FolderGroups />
-    <ProjectFilename>F:\svnroot\scorecenter\trunk\Installer\scorecenter.xmp2</ProjectFilename>
+    <ProjectFilename>scorecenter.xmp2</ProjectFilename>
     <UpdatePath1>F:\svnroot\scorecenter\trunk\Installer\scorecenter.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
+  <IsSkin>false</IsSkin>
 </PackageClass>
