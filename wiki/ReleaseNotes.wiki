@@ -1,5 +1,5 @@
 #labels Featured
-*version 2.2.0.1*:
+*version 2.2.0.2*:
     *Version for MP 1.2 RC
 
 *version 2.2.0.0 (28 august 2011)*:
