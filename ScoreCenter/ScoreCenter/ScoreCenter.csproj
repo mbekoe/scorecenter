@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Football.ico" />
+    <Content Include="language\score_de.xml" />
     <Content Include="language\score_en.xml" />
     <Content Include="language\score_fr.xml" />
     <Content Include="language\score_hu.xml" />
