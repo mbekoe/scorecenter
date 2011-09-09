@@ -256,6 +256,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 #endregion
 
                 int nbLines = 1;
+                int nbControls = 0;
                 for (int index = startColumn; index < row.Length; index++)
                 {
                     int colIndex = reverseOrder ? row.Length - index - 1 : index;
@@ -341,6 +342,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         if (control != null)
                         {
                             controls.Add(control);
+                            nbControls++;
                         }
                     }
 
@@ -349,7 +351,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 // set Y pos to the bottom of the control
-                posY += m_charHeight * nbLines;
+                if (nbControls > 0)
+                {
+                    posY += m_charHeight * nbLines;
+                }
             }
 
             Tools.LogMessage("{0}: {1} controls created", score.Id, controls.Count);
