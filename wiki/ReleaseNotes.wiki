@@ -1,4 +1,8 @@
 #labels Featured
+*version 2.3* (?):
+    * Live Feature.
+    * Add: WorldFootball scores, add a global "Results" for Tournament and Qualification type. (to use with the live feature).
+
 *version 2.2.0.2*:
     * Version for MP 1.2 RC
 
