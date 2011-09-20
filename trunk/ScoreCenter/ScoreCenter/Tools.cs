@@ -30,6 +30,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Serialization;
+using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 
 namespace MediaPortal.Plugin.ScoreCenter
@@ -192,7 +193,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="file">The file tosave to.</param>
         /// <param name="scores">The objects to serialize.</param>
         /// <param name="backup">True to backup the previous file.</param>
-        public static void SaveSettings(string file, ScoreCenter scores, bool backup)
+        /// <param name="keepVirtual">Keep the virtual scores.</param>
+        public static void SaveSettings(string file, ScoreCenter scores, bool backup, bool keepVirtual)
         {
             // backup
             if (backup && File.Exists(file))
@@ -200,9 +202,23 @@ namespace MediaPortal.Plugin.ScoreCenter
                 File.Copy(file, file + ".bak", true);
             }
 
-            // remove children from virtual scores
             var originalList = scores.Scores.Items;
-            scores.Scores.Items = scores.Scores.Items.Where(p => !p.IsVirtual).ToArray();
+            if (!keepVirtual)
+            {
+                // remove children from virtual scores
+                scores.Scores.Items = scores.Scores.Items.Where(p => !p.IsVirtual).ToArray();
+            }
+
+            foreach (BaseScore sc in scores.Scores.Items)
+            {
+                if (sc.LiveConfig != null)
+                {
+                    if (!sc.LiveConfig.enabled && String.IsNullOrEmpty(sc.LiveConfig.Value))
+                    {
+                        sc.LiveConfig = null;
+                    }
+                }
+            }
 
             try
             {
@@ -217,6 +233,22 @@ namespace MediaPortal.Plugin.ScoreCenter
                 // restore list
                 scores.Scores.Items = originalList;
             }
+        }
+
+        /// <summary>
+        /// Gets a thumb picture.
+        /// </summary>
+        /// <param name="name">The thumb relative path.</param>
+        /// <returns>The full path to the thumb.</returns>
+        public static string GetThumbs(string name)
+        {
+            if (String.IsNullOrEmpty(name) || name == " ")
+                return "-";
+
+            string ext = "";
+            if (!name.Contains(".")) ext = ".png";
+
+            return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ext);
         }
 
         /// <summary>

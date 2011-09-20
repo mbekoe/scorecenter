@@ -51,16 +51,30 @@
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gbxLive = new System.Windows.Forms.GroupBox();
+            this.ckxPlaySound = new System.Windows.Forms.CheckBox();
+            this.lblCheckUnit = new System.Windows.Forms.Label();
+            this.lblNotifUnit = new System.Windows.Forms.Label();
+            this.numCheckDelay = new System.Windows.Forms.NumericUpDown();
+            this.numNotificationTime = new System.Windows.Forms.NumericUpDown();
+            this.lblCheckDelay = new System.Windows.Forms.Label();
+            this.lblNotificationTime = new System.Windows.Forms.Label();
+            this.gbxGeneral = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.gbxLive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCheckDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).BeginInit();
+            this.gbxGeneral.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
@@ -191,6 +205,19 @@
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
             // 
+            // ColumnPName
+            // 
+            this.ColumnPName.DataPropertyName = "Name";
+            resources.ApplyResources(this.ColumnPName, "ColumnPName");
+            this.ColumnPName.Name = "ColumnPName";
+            // 
+            // ColumnPValue
+            // 
+            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnPValue.DataPropertyName = "Value";
+            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
+            this.ColumnPValue.Name = "ColumnPValue";
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -202,16 +229,109 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tbxName);
-            this.tabPage1.Controls.Add(this.numCacheExpiration);
-            this.tabPage1.Controls.Add(this.lblName);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.btnSelectDir);
-            this.tabPage1.Controls.Add(this.tbxBackdrop);
+            this.tabPage1.Controls.Add(this.gbxLive);
+            this.tabPage1.Controls.Add(this.gbxGeneral);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // gbxLive
+            // 
+            this.gbxLive.Controls.Add(this.ckxPlaySound);
+            this.gbxLive.Controls.Add(this.lblCheckUnit);
+            this.gbxLive.Controls.Add(this.lblNotifUnit);
+            this.gbxLive.Controls.Add(this.numCheckDelay);
+            this.gbxLive.Controls.Add(this.numNotificationTime);
+            this.gbxLive.Controls.Add(this.lblCheckDelay);
+            this.gbxLive.Controls.Add(this.lblNotificationTime);
+            resources.ApplyResources(this.gbxLive, "gbxLive");
+            this.gbxLive.Name = "gbxLive";
+            this.gbxLive.TabStop = false;
+            // 
+            // ckxPlaySound
+            // 
+            resources.ApplyResources(this.ckxPlaySound, "ckxPlaySound");
+            this.ckxPlaySound.Name = "ckxPlaySound";
+            this.ckxPlaySound.UseVisualStyleBackColor = true;
+            // 
+            // lblCheckUnit
+            // 
+            resources.ApplyResources(this.lblCheckUnit, "lblCheckUnit");
+            this.lblCheckUnit.Name = "lblCheckUnit";
+            // 
+            // lblNotifUnit
+            // 
+            resources.ApplyResources(this.lblNotifUnit, "lblNotifUnit");
+            this.lblNotifUnit.Name = "lblNotifUnit";
+            // 
+            // numCheckDelay
+            // 
+            resources.ApplyResources(this.numCheckDelay, "numCheckDelay");
+            this.numCheckDelay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCheckDelay.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCheckDelay.Name = "numCheckDelay";
+            this.numCheckDelay.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numNotificationTime
+            // 
+            resources.ApplyResources(this.numNotificationTime, "numNotificationTime");
+            this.numNotificationTime.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numNotificationTime.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numNotificationTime.Name = "numNotificationTime";
+            this.numNotificationTime.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // lblCheckDelay
+            // 
+            resources.ApplyResources(this.lblCheckDelay, "lblCheckDelay");
+            this.lblCheckDelay.Name = "lblCheckDelay";
+            // 
+            // lblNotificationTime
+            // 
+            resources.ApplyResources(this.lblNotificationTime, "lblNotificationTime");
+            this.lblNotificationTime.Name = "lblNotificationTime";
+            // 
+            // gbxGeneral
+            // 
+            this.gbxGeneral.Controls.Add(this.label5);
+            this.gbxGeneral.Controls.Add(this.lblName);
+            this.gbxGeneral.Controls.Add(this.tbxName);
+            this.gbxGeneral.Controls.Add(this.tbxBackdrop);
+            this.gbxGeneral.Controls.Add(this.numCacheExpiration);
+            this.gbxGeneral.Controls.Add(this.btnSelectDir);
+            this.gbxGeneral.Controls.Add(this.label2);
+            this.gbxGeneral.Controls.Add(this.label1);
+            resources.ApplyResources(this.gbxGeneral, "gbxGeneral");
+            this.gbxGeneral.Name = "gbxGeneral";
+            this.gbxGeneral.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // tabPage2
             // 
@@ -237,19 +357,6 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // ColumnPName
-            // 
-            this.ColumnPName.DataPropertyName = "Name";
-            resources.ApplyResources(this.ColumnPName, "ColumnPName");
-            this.ColumnPName.Name = "ColumnPName";
-            // 
-            // ColumnPValue
-            // 
-            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnPValue.DataPropertyName = "Value";
-            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
-            this.ColumnPValue.Name = "ColumnPValue";
-            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -271,7 +378,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.gbxLive.ResumeLayout(false);
+            this.gbxLive.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCheckDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).EndInit();
+            this.gbxGeneral.ResumeLayout(false);
+            this.gbxGeneral.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -309,5 +421,15 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
+        private System.Windows.Forms.GroupBox gbxGeneral;
+        private System.Windows.Forms.GroupBox gbxLive;
+        private System.Windows.Forms.NumericUpDown numCheckDelay;
+        private System.Windows.Forms.NumericUpDown numNotificationTime;
+        private System.Windows.Forms.Label lblCheckDelay;
+        private System.Windows.Forms.Label lblNotificationTime;
+        private System.Windows.Forms.Label lblCheckUnit;
+        private System.Windows.Forms.Label lblNotifUnit;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox ckxPlaySound;
     }
 }

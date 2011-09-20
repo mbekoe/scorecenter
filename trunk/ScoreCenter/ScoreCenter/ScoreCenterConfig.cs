@@ -337,7 +337,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             }
             #endregion
 
-            Tools.SaveSettings(m_settings, m_center, true);
+            Tools.SaveSettings(m_settings, m_center, true, false);
         }
 
         private void btnTest_Click(object sender, EventArgs e)

@@ -219,6 +219,7 @@
     <None Include="Resources\wfb_logo.png" />
     <Content Include="skin\Defaultwide\hover_score center.png" />
     <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
+    <Content Include="skin\Defaultwide\MyScoreCenterNotify.xml" />
     <Content Include="skin\Default\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
     <Content Include="skin\Titanium\MyScoreCenter.xml" />

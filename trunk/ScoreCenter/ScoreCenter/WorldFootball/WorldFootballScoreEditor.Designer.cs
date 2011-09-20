@@ -54,6 +54,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblScoreId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
+            this.lblLive = new System.Windows.Forms.Label();
+            this.ckxLiveEnabled = new System.Windows.Forms.CheckBox();
+            this.lblLiveDetails = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -209,6 +212,7 @@
             this.tbxLevels.Name = "tbxLevels";
             this.tbxLevels.Size = new System.Drawing.Size(331, 20);
             this.tbxLevels.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.tbxLevels, "Configure Level Highlights");
             // 
             // lblName
             // 
@@ -265,6 +269,7 @@
             this.numNbTeams.Name = "numNbTeams";
             this.numNbTeams.Size = new System.Drawing.Size(64, 20);
             this.numNbTeams.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.numNbTeams, "Set number of teams");
             this.numNbTeams.Value = new decimal(new int[] {
             20,
             0,
@@ -297,6 +302,7 @@
             this.cbxKind.Name = "cbxKind";
             this.cbxKind.Size = new System.Drawing.Size(141, 21);
             this.cbxKind.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.cbxKind, "The type of competition");
             // 
             // lblType
             // 
@@ -324,6 +330,7 @@
             this.tbxHighlights.Name = "tbxHighlights";
             this.tbxHighlights.Size = new System.Drawing.Size(331, 20);
             this.tbxHighlights.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.tbxHighlights, "Elements to highlight (separated by \',\')");
             // 
             // lblHighlights
             // 
@@ -340,7 +347,7 @@
             this.btnIcon.Location = new System.Drawing.Point(464, 92);
             this.btnIcon.Name = "btnIcon";
             this.btnIcon.Size = new System.Drawing.Size(80, 23);
-            this.btnIcon.TabIndex = 22;
+            this.btnIcon.TabIndex = 25;
             this.btnIcon.Text = "Icon";
             this.toolTip1.SetToolTip(this.btnIcon, "Get the icon");
             this.btnIcon.UseVisualStyleBackColor = true;
@@ -405,10 +412,39 @@
             this.tbxScoreId.Size = new System.Drawing.Size(301, 20);
             this.tbxScoreId.TabIndex = 1;
             // 
+            // lblLive
+            // 
+            this.lblLive.AutoSize = true;
+            this.lblLive.Location = new System.Drawing.Point(62, 267);
+            this.lblLive.Name = "lblLive";
+            this.lblLive.Size = new System.Drawing.Size(27, 13);
+            this.lblLive.TabIndex = 22;
+            this.lblLive.Text = "Live";
+            // 
+            // ckxLiveEnabled
+            // 
+            this.ckxLiveEnabled.AutoSize = true;
+            this.ckxLiveEnabled.Location = new System.Drawing.Point(95, 267);
+            this.ckxLiveEnabled.Name = "ckxLiveEnabled";
+            this.ckxLiveEnabled.Size = new System.Drawing.Size(15, 14);
+            this.ckxLiveEnabled.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.ckxLiveEnabled, "Set as live");
+            this.ckxLiveEnabled.UseVisualStyleBackColor = true;
+            // 
+            // lblLiveDetails
+            // 
+            this.lblLiveDetails.AutoSize = true;
+            this.lblLiveDetails.Location = new System.Drawing.Point(116, 267);
+            this.lblLiveDetails.Name = "lblLiveDetails";
+            this.lblLiveDetails.Size = new System.Drawing.Size(93, 13);
+            this.lblLiveDetails.TabIndex = 24;
+            this.lblLiveDetails.Text = "(Last Results only)";
+            // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ckxLiveEnabled);
             this.Controls.Add(this.tbxScoreId);
             this.Controls.Add(this.lblScoreId);
             this.Controls.Add(this.cbxDetailsHelper);
@@ -418,6 +454,8 @@
             this.Controls.Add(this.numNbTeams);
             this.Controls.Add(this.btnOpenUrl);
             this.Controls.Add(this.lblDetails);
+            this.Controls.Add(this.lblLiveDetails);
+            this.Controls.Add(this.lblLive);
             this.Controls.Add(this.lblHighlights);
             this.Controls.Add(this.lblLevels);
             this.Controls.Add(this.lblNbTeams);
@@ -435,7 +473,7 @@
             this.Controls.Add(this.tbxName);
             this.MinimumSize = new System.Drawing.Size(430, 259);
             this.Name = "WorldFootballScoreEditor";
-            this.Size = new System.Drawing.Size(547, 272);
+            this.Size = new System.Drawing.Size(547, 301);
             this.Load += new System.EventHandler(this.WorldFootballScoreEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).EndInit();
@@ -472,5 +510,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblScoreId;
         private System.Windows.Forms.TextBox tbxScoreId;
+        private System.Windows.Forms.Label lblLive;
+        private System.Windows.Forms.CheckBox ckxLiveEnabled;
+        private System.Windows.Forms.Label lblLiveDetails;
     }
 }

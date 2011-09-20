@@ -87,6 +87,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Levels = this.Levels;
             copy.Highlights = this.Highlights;
             copy.Details = this.Details;
+            copy.LiveConfig = this.LiveConfig;
 
             return (BaseScore)copy;
         }
@@ -94,7 +95,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             this.Image = @"Misc\wfb";
         }
-
+        public override bool IsLive()
+        {
+            return false;
+        }
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
         {
             WorldFootballScore newScore = newBaseScore as WorldFootballScore;

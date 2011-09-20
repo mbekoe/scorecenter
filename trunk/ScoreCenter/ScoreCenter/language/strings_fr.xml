@@ -10,5 +10,15 @@
     <String id="7">Désactiver le mode multi ligne</String>
     <String id="8">Choisir comme page de démarrage</String>
     <String id="9">Supprimer la page de démarrage</String>
+    <String id="10">LIVE ON</String>
+    <String id="11">Live Off</String>
+    <String id="12">ScoreCenter - Live</String>
+    <String id="13">Désactiver le Live</String>
+    <String id="14">Activer le Live</String>
+    <String id="15">Configuration</String>
+    <String id="16">Aucun score "live" trouvé</String>
+    <String id="17">Démarrer le Live</String>
+    <String id="18">Arrêter le Live</String>
+    <String id="19">Enlever tous les Live</String>
   </Section>
 </Language>

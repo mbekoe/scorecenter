@@ -6,12 +6,12 @@ using MediaPortal.Common.Utils;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ScoreCenter")]
+[assembly: AssemblyTitle("ScoreCenterLive")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FredP42")]
-[assembly: AssemblyProduct("ScoreCenter")]
-[assembly: AssemblyCopyright("Copyright ©  2009-2011")]
+[assembly: AssemblyProduct("ScoreCenterLive")]
+[assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +21,7 @@ using MediaPortal.Common.Utils;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2ae3353d-1ad2-4df4-8378-cb748792811f")]
+[assembly: Guid("1f3a053b-4aa6-4527-b7b4-00fe1481ccf6")]
 
 // Version information for an assembly consists of the following four values:
 //

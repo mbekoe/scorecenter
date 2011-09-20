@@ -23,6 +23,7 @@
 
 #endregion
 
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// The provider for strings localisation.
         /// </summary>
         private Localisation.LocalisationProvider m_provider;
+        private Localisation.LocalisationProvider m_defaultProvider;
         private ScoreLocalisation m_scoreLocaliser = null;
 
         private LocalizationManager()
@@ -68,6 +70,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 m_provider = new MediaPortal.Localisation.LocalisationProvider(path, code, false);
+                m_defaultProvider = new MediaPortal.Localisation.LocalisationProvider(path, "en", false);
 
                 // read the score localisation XML files
                 string file = Path.Combine(path, "score_" + code + ".xml");
@@ -86,7 +89,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             StringLocalised loc = m_instance.m_provider.Get("unmapped", id);
             if (loc == null)
-                return "?";
+            {
+                loc = m_instance.m_defaultProvider.Get("unmapped", id);
+                if (loc == null)
+                    return String.Format("?{0}", id);
+                return loc.text;
+            }
+            
             return loc.text;
         }
 
@@ -128,5 +137,15 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const int UnuseAutoWrap = 7;
         public const int SetAsHome = 8;
         public const int ClearHome = 9;
+        public const int LiveOn = 10;
+        public const int LiveOff = 11;
+        public const int DefaultNotifyTitle = 12;
+        public const int DisableLive = 13;
+        public const int ActivateLive = 14;
+        public const int Configuration = 15;
+        public const int NoLiveScore = 16;
+        public const int StartLive = 17;
+        public const int StopLive = 18;
+        public const int ClearLive = 19;
     }
 }

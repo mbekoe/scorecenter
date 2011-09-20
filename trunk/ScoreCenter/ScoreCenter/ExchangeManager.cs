@@ -58,7 +58,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 center.Styles[i++] = source.FindStyle(str);
             }
 
-            Tools.SaveSettings(fileName, center, false);
+            Tools.SaveSettings(fileName, center, false, false);
         }
 
         /// <summary>

@@ -44,24 +44,25 @@ namespace MediaPortal.Plugin.ScoreCenter
         #region Members
         public const string SkinFileName = "MyScoreCenter.xml";
         public const string SettingsFileName = "MyScoreCenter2.Settings.xml";
+        public const string LiveSettingsFileName = "MyScoreCenterLive.Settings.xml";
         public const string C_HEADER = "*HEADER*";
+        public const string C_EMPTY = "*EMPTY*";
 
         /// <summary>Start index for GUI controls.</summary>
         private const int StartIndex = 42100;
 
-        /// <summary>Index of the current GUI control.</summary>
-        //private int m_currentIndex = StartIndex;
-
-        /// <summary>List of indices of dymacally build controls.</summary>
-        //private List<int> m_indices = new List<int>();
         private int m_currentLine; // 0
         private int m_currentColumn; // 0
         private BaseScore m_currentScore;
         private string[][] m_lines;
         private Stack<int> m_prevIndex = new Stack<int>();
 
+        private int m_level = 0;
         private bool m_autoSize = false;
         private bool m_autoWrap = false;
+        private bool m_liveEnabled = false;
+        private string m_livePinImage = Tools.GetThumbs("Misc\\Live");
+        private string m_settgins = Config.GetFile(Config.Dir.Config, SettingsFileName);
 
         private ScoreCenter m_center;
 
@@ -99,10 +100,27 @@ namespace MediaPortal.Plugin.ScoreCenter
             return Load(GUIGraphicsContext.Skin + @"\" + SkinFileName);
         }
 
+        private void SetLiveStatus()
+        {
+            int nb = 0;
+            if (m_center != null)
+            {
+                nb = m_center.Scores.Items.Where(sc => sc.IsLive()).Count();
+            }
+
+            int liveLabel = m_liveEnabled ? Labels.LiveOn : Labels.LiveOff;
+            GUIPropertyManager.SetProperty("#ScoreCenter.Live", String.Format("{0} ({1})", LocalizationManager.GetString(liveLabel), nb));
+        }
+
         protected override void OnPageLoad()
         {
             //Tools.LogMessage("entering OnPageLoad()");
             base.OnPageLoad();
+
+            // prepare live parameters
+            m_liveEnabled = File.Exists(Config.GetFile(Config.Dir.Config, LiveSettingsFileName));
+            string liveSkinIcon = GUIGraphicsContext.Skin + @"\Media\ScoreCenterLive.png";
+            if (File.Exists(liveSkinIcon)) m_livePinImage = liveSkinIcon;
 
             ShowNextButton(false);
             ShowNextPrevScoreButtons(false);
@@ -121,20 +139,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                     GUIPropertyManager.SetProperty("#ScoreCenter.Title", m_center.Setup.Name);
                     SetScoreProperties(null);
 
+                    // update
                     UpdateSettings(false, false);
 
                     // replace virtual scores
-                    List<BaseScore> vslist = new List<BaseScore>();
-                    foreach (BaseScore sc in m_center.Scores.Items.Where(p => p.IsVirtualFolder()))
-                    {
-                        IList<BaseScore> children = sc.GetVirtualScores(m_center.Parameters);
-                        if (children != null)
-                        {
-                            vslist.AddRange(children);
-                        }
-                    }
-
-                    m_center.Scores.Items = m_center.Scores.Items.Concat(vslist.ToArray()).ToArray();
+                    m_center.ReplaceVirtualScores();
 
                     #region Set HOME
                     if (String.IsNullOrEmpty(m_center.Setup.Home))
@@ -160,6 +169,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                     #endregion
 
+                    SetLiveStatus();
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
                 }
                 catch (Exception ex)
@@ -200,101 +210,241 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected override void OnShowContextMenu()
         {
             GUIListItem item = lstDetails.SelectedListItem;
-            BaseScore sc = item.TVTag as BaseScore;
+            BaseScore itemScore = item.TVTag as BaseScore;
 
-            #region create menu
+            int menuIndice = 1;
+
+            #region Create Menu
             GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
             menu.Reset();
             menu.SetHeading(m_center.Setup.Name);
 
-            // 1: clear cache
-            menu.Add(LocalizationManager.GetString(Labels.ClearCache));
+            // configure
+            menu.Add(LocalizationManager.GetString(Labels.Configuration));
+            int menuConfigure = menuIndice++;
 
-            // 2: auto mode
-            if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
-            else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
-
-            // 3: auto wrap
-            if (m_autoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
-            else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
-
-            // 4: synchro
+            // synchro
             menu.Add(LocalizationManager.GetString(Labels.SynchroOnline));
+            int menuSyncho = menuIndice++;
 
-            // 5: clear home
-            menu.Add(LocalizationManager.GetString(Labels.ClearHome));
+            // enable/disable live
+            if (m_liveEnabled) menu.Add(LocalizationManager.GetString(Labels.StopLive));
+            else menu.Add(LocalizationManager.GetString(Labels.StartLive));
+            int menuLive = menuIndice++;
 
+            // clear all live
+            int menuClearLive = 0;
+            if (!m_liveEnabled)
+            {
+                menu.Add(LocalizationManager.GetString(Labels.ClearLive));
+                menuClearLive = menuIndice++;
+            }
+
+            int menuDelete = 0;
+            int menuSetHome = 0;
+            int menuSetLive = 0;
             if (item.Label != "..")
             {
-                // 6: disable
+                // disable
                 menu.Add(String.Format(CultureInfo.CurrentCulture, "{1} '{0}'", item.Label, LocalizationManager.GetString(Labels.DisableItem)));
+                menuDelete = menuIndice++;
 
-                // 7: set home
-                menu.Add(LocalizationManager.GetString(Labels.SetAsHome));
+                // set home
+                if (!itemScore.IsContainer())
+                {
+                    menu.Add(LocalizationManager.GetString(Labels.SetAsHome));
+                    menuSetHome = menuIndice++;
+                }
+
+                if (!m_liveEnabled && !item.IsFolder && !itemScore.CannotLive)
+                {
+                    // set live
+                    menu.Add(LocalizationManager.GetString(item.HasPinIcon ? Labels.DisableLive : Labels.ActivateLive));
+                    menuSetLive = menuIndice++;
+                }
             }
+
             #endregion
 
             // show the menu
             menu.DoModal(GetID);
 
             #region process user action
-            switch (menu.SelectedId)
+            if (menu.SelectedId == menuLive)
             {
-                case 1:
-                    ScoreFactory.Instance.ClearCache();
-                    break;
-                case 2:
-                    m_autoSize = !m_autoSize;
-                    ClearGrid();
-                    CreateGrid(m_lines, m_currentScore, 0, 0);
-                    break;
-                case 3:
-                    m_autoWrap = !m_autoWrap;
-                    ClearGrid();
-                    CreateGrid(m_lines, m_currentScore, 0, 0);
-                    break;
-                case 4:
-                    System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+                SetLiveSettings();
+            }
+            else if (menu.SelectedId == menuClearLive)
+            {
+                ClearLiveSettings();
+            }
+            else if (menu.SelectedId == menuSyncho)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+                {
+                    try
                     {
-                        try
-                        {
-                            UpdateSettings(true, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Tools.LogError("Error occured while executing the Online Update: ", ex);
-                        }
-                        finally
-                        {
-                            GUIWaitCursor.Hide();
-                        }
-                    });
-                    break;
-                case 5:
-                    m_center.Setup.Home = "";
-                    SaveSettings();
-                    break;
-                case 6:
-                    GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
-                    string disable = LocalizationManager.GetString(Labels.DisableItem);
-                    dlg.SetHeading(disable);
-                    dlg.SetLine(1, String.Format(CultureInfo.CurrentCulture, "{0} '{1}'?", disable, item.Label));
-                    dlg.DoModal(GetID);
-
-                    if (dlg.IsConfirmed)
-                    {
-                        m_center.DisableScore(sc);
-                        SaveSettings();
+                        UpdateSettings(true, true);
                     }
-                    break;
-                case 7:
-                    m_center.Setup.Home = sc.Id;
+                    catch (Exception ex)
+                    {
+                        Tools.LogError("Error occured while executing the Online Update: ", ex);
+                    }
+                    finally
+                    {
+                        GUIWaitCursor.Hide();
+                    }
+                });
+            }
+            else if (menu.SelectedId == menuConfigure)
+            {
+                ShowConfigurationMenu();
+            }
+            else if (menu.SelectedId == menuDelete)
+            {
+                GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
+                string disable = LocalizationManager.GetString(Labels.DisableItem);
+                dlg.SetHeading(disable);
+                dlg.SetLine(1, String.Format(CultureInfo.CurrentCulture, "{0} '{1}'?", disable, item.Label));
+                dlg.DoModal(GetID);
+
+                if (dlg.IsConfirmed)
+                {
+                    m_center.DisableScore(itemScore);
                     SaveSettings();
-                    break;
+                }
+            }
+            else if (menu.SelectedId == menuSetHome)
+            {
+                m_center.Setup.Home = itemScore.Id;
+                SaveSettings();
+            }
+            else if (menu.SelectedId == menuSetLive)
+            {
+                m_center.SetLiveScore(itemScore, !item.HasPinIcon);
+                item.PinImage = item.HasPinIcon ? "" : m_livePinImage;
+                SaveSettings();
+                SetLiveStatus();
             }
             #endregion
 
             base.OnShowContextMenu();
+        }
+
+        private void ShowConfigurationMenu()
+        {
+            GUIDialogMenu menu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+            menu.Reset();
+            menu.SetHeading(LocalizationManager.GetString(Labels.Configuration));
+
+            int menuIndice = 1;
+
+            // clear cache
+            menu.Add(LocalizationManager.GetString(Labels.ClearCache));
+            int menuClearCache = menuIndice++;
+
+            // clear home
+            menu.Add(LocalizationManager.GetString(Labels.ClearHome));
+            int menuHome = menuIndice++;
+
+            // auto mode
+            if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
+            else menu.Add(LocalizationManager.GetString(Labels.UseAutoMode));
+            int menuAutoMode = menuIndice++;
+
+            // auto wrap
+            if (m_autoWrap) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoWrap));
+            else menu.Add(LocalizationManager.GetString(Labels.UseAutoWrap));
+            int menuAutoWrap = menuIndice++;
+
+            menu.DoModal(GetID);
+
+            if (menu.SelectedId == menuClearCache)
+            {
+                ScoreFactory.Instance.ClearCache();
+            }
+            else if (menu.SelectedId == menuAutoMode)
+            {
+                m_autoSize = !m_autoSize;
+                ClearGrid();
+                CreateGrid(m_lines, m_currentScore, 0, 0);
+            }
+            else if (menu.SelectedId == menuAutoWrap)
+            {
+                m_autoWrap = !m_autoWrap;
+                ClearGrid();
+                CreateGrid(m_lines, m_currentScore, 0, 0);
+            }
+            else if (menu.SelectedId == menuHome)
+            {
+                m_center.Setup.Home = "";
+                SaveSettings();
+            }
+            
+            base.OnShowContextMenu();
+        }
+
+        private void ClearLiveSettings()
+        {
+            foreach (BaseScore score in m_center.Scores.Items)
+            {
+                //score.SetLive(false);
+                m_center.SetLiveScore(score, false);
+            }
+
+            // clear pin icon
+            foreach (var ii in lstDetails.ListItems)
+            {
+                ii.PinImage = "";
+            }
+
+            SaveSettings();
+            SetLiveStatus();
+        }
+
+        private void SetLiveSettings()
+        {
+            if (m_liveEnabled)
+            {
+                File.Delete(Config.GetFile(Config.Dir.Config, LiveSettingsFileName));
+                m_liveEnabled = false;
+                SetLiveStatus();
+            }
+            else
+            {
+                var liveList = m_center.Scores.Items.Where(sc => sc.LiveConfig != null && sc.LiveConfig.enabled && sc.IsScore());
+                if (liveList.Count() == 0)
+                {
+                    GUIDialogText ww = (GUIDialogText)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_TEXT);
+                    ww.SetHeading("ScoreCenter");
+                    ww.SetText(LocalizationManager.GetString(Labels.NoLiveScore));
+                    ww.DoModal(GetID);
+                }
+                else
+                {
+                    ScoreCenter liveExport = new ScoreCenter();
+                    liveExport.Parameters = m_center.Parameters;
+                    liveExport.Setup = m_center.Setup;
+                    liveExport.Styles = m_center.Styles;
+                    liveExport.Scores = new ScoreCenterScores();
+                    liveExport.Scores.Items = liveList.ToArray();
+
+                    foreach (BaseScore score in liveList)
+                    {
+                        BaseScore parent = m_center.FindScore(score.Parent);
+                        if (parent != null)
+                        {
+                            score.Name = parent.LocName;
+                            score.Image = parent.Image;
+                        }
+                    }
+
+                    Tools.SaveSettings(Config.GetFile(Config.Dir.Config, LiveSettingsFileName), liveExport, false, true);
+
+                    m_liveEnabled = true;
+                    SetLiveStatus();
+                }
+            }
         }
 
         private void UpdateSettings(bool force, bool reload)
@@ -356,7 +506,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             ClearGrid();
 
             BaseScore sc = item.TVTag as BaseScore;
-            bool currIsFolder = (m_currentScore == null || ScoreIsFolder(m_currentScore));
+            bool currIsFolder = (m_currentScore == null || m_currentScore.IsContainer());
             m_currentScore = sc;
 
             bool reselect = true;
@@ -391,7 +541,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (currIsFolder) m_level++;
 
-                if (ScoreIsFolder(sc))
+                if (sc.IsContainer())
                 {
                     LoadScores(sc);
                 }
@@ -441,8 +591,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     GUIListItem item = new GUIListItem();
                     item.Label = sc.LocName;
-                    item.IsFolder = ScoreIsFolder(sc);
-                    item.IconImage = GetImage(sc.Image);
+                    item.IsFolder = sc.IsContainer();
+                    item.IconImage = Tools.GetThumbs(sc.Image);
+
+                    if (sc.IsLive())
+                    {
+                        item.PinImage = m_livePinImage;
+                    }
                     item.IsPlayed = sc.IsNew;
                     item.TVTag = sc;
 
@@ -488,7 +643,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void DisplayScore(BaseScore score)
         {
-            if (ScoreIsFolder(score))
+            if (score.IsContainer())
                 return;
 
             string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
@@ -561,7 +716,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             return bd;
         }
 
-        private int m_level = 0;
         private void SetScoreProperties(BaseScore score)
         {
             string name = " ";
@@ -593,7 +747,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             //Tools.LogMessage("LEVEL = {0}, {1}", m_level, name);
             GUIPropertyManager.SetProperty("#ScoreCenter.Results", m_center.GetFullName(score, " > "));
-            //SetProperties(m_level, name, GetImage(image));
             SetIcons(score, m_level);
             SetBackdrop(score);
         }
@@ -619,7 +772,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (curr == null)
                     continue;
-                string image = GetImage(curr.Image);
+                string image = Tools.GetThumbs(curr.Image);
                 GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), image);
                 //Tools.LogMessage(">>>> SetProperties Ico{0} = ", i, image);
 
@@ -627,29 +780,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 else if (i == 2) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);
                 
                 curr = m_center.FindScore(curr.Parent);
-            }
-        }
-
-        private void SetProperties(int level, string name, string image)
-        {
-            //Tools.LogMessage("Set Prop = {0}", String.Format("#ScoreCenter.Label{0}", level));
-            //GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Label{0}", level), name);
-            GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", level), image);
-
-            if (level == 1)
-            {
-                GUIPropertyManager.SetProperty("#ScoreCenter.Category", name);
-                GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
-            }
-            else if (level == 2)
-            {
-                GUIPropertyManager.SetProperty("#ScoreCenter.League", name);
-                GUIPropertyManager.SetProperty("#ScoreCenter.LIco", image);
-            }
-            else if (level > 2)
-            {
-                //GUIPropertyManager.SetProperty("#ScoreCenter.Results", name);
-                GUIPropertyManager.SetProperty("#ScoreCenter.ScoreIco", image);
             }
         }
 
@@ -751,7 +881,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             #endregion
         }
 
-        private void GetCharFonSize(int fontSize, ref int width, ref int height)
+        private static void GetCharFonSize(int fontSize, ref int width, ref int height)
         {
             float w1 = 0, w2 = 0, h1 = 0, h2 = 0;
 
@@ -849,8 +979,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             try
             {
-                string filename = Config.GetFile(Config.Dir.Config, SettingsFileName);
-                m_center = Tools.ReadSettings(filename, false);
+                m_center = Tools.ReadSettings(m_settgins, false);
             }
             catch (Exception exc)
             {
@@ -862,29 +991,12 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             try
             {
-                string filename = Config.GetFile(Config.Dir.Config, SettingsFileName);
-                Tools.SaveSettings(filename, m_center, true);
+                Tools.SaveSettings(m_settgins, m_center, true, false);
             }
             catch (Exception exc)
             {
                 GUIControl.SetControlLabel(GetID, 20, exc.Message);
             }
-        }
-
-        private static string GetImage(string name)
-        {
-            if (String.IsNullOrEmpty(name) || name == " ")
-                return "-";
-
-            string ext = "";
-            if (!name.Contains(".")) ext = ".png";
-
-            return Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ext);
-        }
-
-        private static bool ScoreIsFolder(BaseScore score)
-        {
-            return score.IsFolder() || score.IsVirtualFolder();
         }
 
         #endregion

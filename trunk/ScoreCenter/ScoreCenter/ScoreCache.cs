@@ -54,7 +54,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_client = new WebClient();
             m_cache = new Dictionary<string, CacheElement>();
             m_lifeTime = lifeTime;
-
+            //Tools.LogMessage("ScoreCache = {0}", m_lifeTime);
             m_client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
         }
 
@@ -88,6 +88,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             if (String.IsNullOrEmpty(html))
             {
+                Tools.LogMessage("Download = {0}", url);
                 html = Tools.DownloadFile(m_client, url, encoding);
                 if (m_lifeTime > 0)
                 {

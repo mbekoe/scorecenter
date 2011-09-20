@@ -66,6 +66,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string imageField;
         
+        private LiveConfig liveConfigField;
+        
         private string idField;
         
         private string parentField;
@@ -101,6 +103,16 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.imageField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public LiveConfig LiveConfig {
+            get {
+                return this.liveConfigField;
+            }
+            set {
+                this.liveConfigField = value;
             }
         }
         
@@ -148,6 +160,47 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.enableField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class LiveConfig {
+        
+        private bool enabledField;
+        
+        private string valueField;
+        
+        public LiveConfig() {
+            this.enabledField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }
@@ -826,6 +879,12 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string homeField;
         
+        private int liveNotifTimeField;
+        
+        private int liveCheckDelayField;
+        
+        private bool livePlaySoundField;
+        
         private int versionField;
         
         public ScoreCenterSetup() {
@@ -837,6 +896,9 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.updateUrlField = "";
             this.updateRuleField = "";
             this.homeField = "";
+            this.liveNotifTimeField = 3;
+            this.liveCheckDelayField = 2;
+            this.livePlaySoundField = true;
             this.versionField = 1;
         }
         
@@ -944,6 +1006,42 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.homeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(3)]
+        public int LiveNotifTime {
+            get {
+                return this.liveNotifTimeField;
+            }
+            set {
+                this.liveNotifTimeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(2)]
+        public int LiveCheckDelay {
+            get {
+                return this.liveCheckDelayField;
+            }
+            set {
+                this.liveCheckDelayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool LivePlaySound {
+            get {
+                return this.livePlaySoundField;
+            }
+            set {
+                this.livePlaySoundField = value;
             }
         }
         

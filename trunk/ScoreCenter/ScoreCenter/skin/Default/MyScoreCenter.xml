@@ -48,13 +48,22 @@
       <texture>ScoreCenter\Football.png</texture>
     </control>
     <control>
-            <description>Current Image1</description>
+      <description>Live Status</description>
+      <type>label</type>
+      <posX>10</posX>
+      <posY>10</posY>
+      <width>150</width>
+      <font>font12</font>
+      <label>#ScoreCenter.Live</label>
+    </control>
+    <control>
+      <description>Current Image1</description>
       <type>image</type>
       <posX>10</posX>
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-            <texture>#ScoreCenter.Ico1</texture>
+      <texture>#ScoreCenter.Ico1</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
@@ -65,18 +74,18 @@
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-            <texture>#ScoreCenter.Ico2</texture>
+      <texture>#ScoreCenter.Ico2</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
     <control>
-            <description>Current Image3</description>
+      <description>Current Image3</description>
       <type>image</type>
       <posX>130</posX>
       <posY>50</posY>
       <width>50</width>
       <height>50</height>
-            <texture>#ScoreCenter.Ico3</texture>
+      <texture>#ScoreCenter.Ico3</texture>
       <keepaspectratio>yes</keepaspectratio>
       <centered>yes</centered>
     </control>
@@ -110,7 +119,7 @@
       <posX>10</posX>
       <posY>100</posY>
       <width>200</width>
-            <height>439</height>
+      <height>439</height>
       <textXOff>10</textXOff>
       <textYOff>2</textYOff>
       <IconXOff>5</IconXOff>
@@ -122,7 +131,11 @@
       <keepaspectratio>yes</keepaspectratio>
       <itemHeight>32</itemHeight>
       <spinPosX>10</spinPosX>
-            <spinPosY>500</spinPosY>
+      <spinPosY>500</spinPosY>
+      <PinIconWidth>25</PinIconWidth>
+      <PinIconHeight>25</PinIconHeight>
+      <PinIconXOff>180</PinIconXOff>
+      <PinIconYOff>5</PinIconYOff>
       <font>font10</font>
     </control>
     <control>
@@ -133,7 +146,7 @@
       <posX>210</posX>
       <posY>100</posY>
       <width>500</width>
-            <height>340</height>
+      <height>340</height>
       <font>font10</font>
     </control>
     <control>
