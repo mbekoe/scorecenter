@@ -42,6 +42,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         bool AutoWrap { get; set; }
         ReadOnlyCollection<Style> Styles { get; set; }
     }
+
     public interface IScoreBuilder<T> : IScoreBuilder
     {
         void SetFont(string fontName, long textColor, int fontSize, int charWidth, int charHeight);
@@ -51,6 +52,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber);
     }
 
+    /// <summary>
+    /// Base class for builders
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class ScoreBuilder<T> : IScoreBuilder<T>
     {
         public ReadOnlyCollection<Style> Styles { get; set; }
@@ -85,28 +90,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_charWidth = charWidth;
             m_charHeight = charHeight;
         }
-
-        /*
-        public IList<TC> Build(string[][] labels, int startLine, int startColumn,
-            int startX, int startY, int pnlWidth, int pnlHeight,
-            CreateControlDelegate<TC> createControl,
-            out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
-        {
-            if (this.Score is GenericScore)
-                return BuildGenericScore(labels, startLine, startColumn, startX, startY, pnlWidth, pnlHeight,
-                    createControl, out overRight, out overDown, out lineNumber, out colNumber);
-
-            if (this.Score is RssScore)
-                return BuildRssScore(labels, startLine, startColumn, startX, startY, pnlWidth, pnlHeight,
-                    createControl, out overRight, out overDown, out lineNumber, out colNumber);
-
-            lineNumber = -1;
-            colNumber = -1;
-            overRight = false;
-            overDown = false;
-            return null;
-        }*/
-
 
         protected Style FindStyle(string name)
         {
@@ -167,6 +150,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
     }
 
+    /// <summary>
+    /// Builder for Generic scores.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class GenericScoreBuilder<T> : ScoreBuilder<T>
     {
         public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
@@ -255,6 +242,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
                 #endregion
 
+                #region For all columns
                 int nbLines = 1;
                 int nbControls = 0;
                 for (int index = startColumn; index < row.Length; index++)
@@ -349,9 +337,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     // set X pos to the end of the control
                     posX += Math.Min(length, pnlWidth - 1);
                 }
+                #endregion
 
                 // set Y pos to the bottom of the control
-                if (nbControls > 0)
+                if (nbControls > 0 || isHeader)
                 {
                     posY += m_charHeight * nbLines;
                 }
@@ -361,6 +350,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             return controls;
         }
     }
+    
+    /// <summary>
+    /// Builder for RSS scores.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class RssScoreBuilder<T> : ScoreBuilder<T>
     {
         public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
@@ -450,6 +444,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             return controls;
         }
     }
+    
+    /// <summary>
+    /// Builder for Folders.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class FolderScoreBuilder<T> : ScoreBuilder<T>
     {
         public override IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
@@ -457,6 +456,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             CreateControlDelegate<T> createControl,
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber)
         {
+            // do nothing
             overRight = false;
             overDown = false;
             lineNumber = -1;
