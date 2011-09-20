@@ -84,6 +84,13 @@ namespace MediaPortal.Plugin.ScoreCenter
             get { return m_reload; }
         }
 
+        private static decimal CheckInt(int val, NumericUpDown numbox)
+        {
+            if (val < numbox.Minimum) return numbox.Minimum;
+            if (val > numbox.Maximum) return numbox.Maximum;
+            return val;
+        }
+        
         private void OptionsDialog_Load(object sender, EventArgs e)
         {
             string name = ScoreCenterPlugin.DefaultPluginName;
@@ -99,6 +106,9 @@ namespace MediaPortal.Plugin.ScoreCenter
              
             tbxName.Text = name;
             numCacheExpiration.Value = m_center.Setup.CacheExpiration;
+            numNotificationTime.Value = CheckInt(m_center.Setup.LiveNotifTime, numNotificationTime);
+            numCheckDelay.Value = CheckInt(m_center.Setup.LiveCheckDelay, numCheckDelay);
+            ckxPlaySound.Checked = m_center.Setup.LivePlaySound;
 
             tbxUrl.Text = m_center.Setup.UpdateUrl;
             ImportOptions option = ImportOptions.None;
@@ -141,6 +151,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_center.Setup.Name = tbxName.Text;
             m_center.Setup.BackdropDir = tbxBackdrop.Text;
             m_center.Setup.CacheExpiration = (int)numCacheExpiration.Value;
+            m_center.Setup.LiveNotifTime = (int)numNotificationTime.Value;
+            m_center.Setup.LiveCheckDelay = (int)numCheckDelay.Value;
+            m_center.Setup.LivePlaySound = ckxPlaySound.Checked;
 
             m_center.Setup.UpdateOnlineMode = Tools.ParseEnum<UpdateMode>(comboBox1.SelectedValue.ToString());
             m_center.Setup.UpdateUrl = tbxUrl.Text;

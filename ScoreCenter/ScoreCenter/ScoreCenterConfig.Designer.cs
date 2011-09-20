@@ -93,7 +93,7 @@
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 28;
             this.btnSave.Text = "&Save";
-            this.toolTip1.SetToolTip(this.btnSave, "Save the current settings");
+            this.toolTip1.SetToolTip(this.btnSave, "Save the current score");
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnTest
@@ -105,7 +105,7 @@
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 29;
             this.btnTest.Text = "&Test";
-            this.toolTip1.SetToolTip(this.btnTest, "Test your settings");
+            this.toolTip1.SetToolTip(this.btnTest, "Test the current score");
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
@@ -155,6 +155,7 @@
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "&Close";
+            this.toolTip1.SetToolTip(this.btnCancel, "Close this dialog");
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -168,6 +169,7 @@
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
             this.btnOk.Text = "Sa&ve";
+            this.toolTip1.SetToolTip(this.btnOk, "Save the settings");
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 

@@ -38,22 +38,22 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         {
             InitializeComponent();
 
-            tbxScore.TextChanged += new EventHandler(ScoreChanged);
-            tbxUrl.TextChanged += new EventHandler(ScoreChanged);
-            tbxXpath.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxElement.TextChanged += new EventHandler(ScoreChanged);
-            tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
-            tbxSizes.TextChanged += new EventHandler(ScoreChanged);
-            tbxSkip.TextChanged += new EventHandler(ScoreChanged);
-            tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
-            cbxBetweenElements.SelectedValueChanged += new EventHandler(ScoreChanged);
+            //tbxScore.TextChanged += new EventHandler(ScoreChanged);
+            //tbxUrl.TextChanged += new EventHandler(ScoreChanged);
+            //tbxXpath.TextChanged += new EventHandler(ScoreChanged);
+            //tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
+            //tbxElement.TextChanged += new EventHandler(ScoreChanged);
+            //tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
+            //tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
+            //tbxSizes.TextChanged += new EventHandler(ScoreChanged);
+            //tbxSkip.TextChanged += new EventHandler(ScoreChanged);
+            //tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
+            //cbxBetweenElements.SelectedValueChanged += new EventHandler(ScoreChanged);
 
-            ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
-            ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
+            //ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
+            //ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
+            //ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
+            //ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
         }
 
         public override bool HasTest
@@ -269,12 +269,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             ckxUseCaption.Checked = false;
             ckxNewLine.Checked = false;
             ckxAllowWrapping.Checked = false;
+            ckxLive.Checked = false;
+            tbxLiveFormat.Clear();
 
             grdRule.Rows.Clear();
             grdRule.Enabled = false;
 
             // score
             EnableControls();
+            tbxLiveFormat.Enabled = false;
 
             ParsingOptions options = score.GetParseOption();
             tbxScore.Text = score.Name;
@@ -287,6 +290,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxSkip.Text = score.Skip.ToString();
             tbxMaxLines.Text = score.MaxLines.ToString();
             tbxElement.Text = score.Element;
+
+            if (score.LiveConfig != null)
+            {
+                ckxLive.Checked = score.LiveConfig.enabled;
+                tbxLiveFormat.Text = score.LiveConfig.Value;
+            }
 
             ckxUseTheader.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.UseTheader);
             ckxUseCaption.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.Caption);
@@ -324,6 +333,17 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             if (tbxMaxLines.Text.Length == 0) score.MaxLines = 0;
             else score.MaxLines = int.Parse(tbxMaxLines.Text);
+
+            if (ckxLive.Checked == false && tbxLiveFormat.Text.Length == 0)
+            {
+                score.LiveConfig = null;
+            }
+            else
+            {
+                score.LiveConfig = new LiveConfig();
+                score.LiveConfig.enabled = ckxLive.Checked;
+                score.LiveConfig.Value = tbxLiveFormat.Text;
+            }
 
             SaveRules(score);
             return true;
@@ -381,6 +401,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             cbxBetweenElements.DataSource = EnumManager.ReadBetweenElements();
             cbxBetweenElements.ValueMember = "ID";
             cbxBetweenElements.DisplayMember = "NAME";
+        }
+
+        private void ckxLive_CheckedChanged(object sender, EventArgs e)
+        {
+            tbxLiveFormat.Enabled = !tbxLiveFormat.Enabled;
         }
     }
 }

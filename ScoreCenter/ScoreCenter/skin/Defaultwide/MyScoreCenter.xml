@@ -48,6 +48,15 @@
       <texture>ScoreCenter\Football.png</texture>
     </control>
     <control>
+      <description>Live Status</description>
+      <type>label</type>
+      <posX>10</posX>
+      <posY>10</posY>
+      <width>200</width>
+      <font>font12</font>
+      <label>#ScoreCenter.Live</label>
+    </control>
+    <control>
       <description>Current Image1</description>
       <type>image</type>
       <posX>10</posX>
@@ -133,6 +142,10 @@
       <keepaspectratio>yes</keepaspectratio>
       <spinPosX>10</spinPosX>
       <spinPosY>660</spinPosY>
+	  <PinIconWidth>25</PinIconWidth>
+	  <PinIconHeight>25</PinIconHeight>
+	  <PinIconXOff>270</PinIconXOff>
+	  <PinIconYOff>3</PinIconYOff>
       <font>font10</font>
     </control>
 

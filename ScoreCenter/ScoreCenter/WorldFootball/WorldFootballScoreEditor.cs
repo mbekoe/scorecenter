@@ -45,6 +45,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxLevels.Clear();
             tbxHighlights.Clear();
             tbxDetails.Clear();
+            ckxLiveEnabled.Checked = false;
 
             tbxName.Text = score.Name;
             tbxCountry.Text = score.Country;
@@ -56,6 +57,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxHighlights.Text = score.Highlights;
             tbxDetails.Text = score.Details;
             tbxScoreId.Text = score.Id;
+            ckxLiveEnabled.Checked = score.LiveConfig != null && score.LiveConfig.enabled;
 
             if (!String.IsNullOrEmpty(score.Image))
             {
@@ -87,6 +89,16 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.Highlights = tbxHighlights.Text;
             score.Details = tbxDetails.Text;
             score.Kind = (WorldFootballKind)Enum.Parse(typeof(WorldFootballKind), cbxKind.SelectedValue.ToString());
+
+            if (ckxLiveEnabled.Checked)
+            {
+                score.LiveConfig = new LiveConfig();
+                score.LiveConfig.enabled = true;
+            }
+            else
+            {
+                score.LiveConfig = null;
+            }
 
             if (String.IsNullOrEmpty(score.Image))
             {

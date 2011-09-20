@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.tbxLiveFormat = new System.Windows.Forms.TextBox();
+            this.ckxLive = new System.Windows.Forms.CheckBox();
             this.lblId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
             this.cbxBetweenElements = new System.Windows.Forms.ComboBox();
@@ -53,6 +56,7 @@
             this.tbxHeaders = new System.Windows.Forms.TextBox();
             this.tbxXpath = new System.Windows.Forms.TextBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
+            this.lblLive = new System.Windows.Forms.Label();
             this.lblSizes = new System.Windows.Forms.Label();
             this.lblHeaders = new System.Windows.Forms.Label();
             this.lblXpathElement = new System.Windows.Forms.Label();
@@ -66,6 +70,7 @@
             this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -87,6 +92,8 @@
             // 
             // tpgGeneral
             // 
+            this.tpgGeneral.Controls.Add(this.tbxLiveFormat);
+            this.tpgGeneral.Controls.Add(this.ckxLive);
             this.tpgGeneral.Controls.Add(this.lblId);
             this.tpgGeneral.Controls.Add(this.tbxScoreId);
             this.tpgGeneral.Controls.Add(this.cbxBetweenElements);
@@ -110,6 +117,7 @@
             this.tpgGeneral.Controls.Add(this.tbxHeaders);
             this.tpgGeneral.Controls.Add(this.tbxXpath);
             this.tpgGeneral.Controls.Add(this.tbxUrl);
+            this.tpgGeneral.Controls.Add(this.lblLive);
             this.tpgGeneral.Controls.Add(this.lblSizes);
             this.tpgGeneral.Controls.Add(this.lblHeaders);
             this.tpgGeneral.Controls.Add(this.lblXpathElement);
@@ -122,6 +130,25 @@
             this.tpgGeneral.Size = new System.Drawing.Size(699, 295);
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "General";
+            // 
+            // tbxLiveFormat
+            // 
+            this.tbxLiveFormat.Location = new System.Drawing.Point(93, 229);
+            this.tbxLiveFormat.Name = "tbxLiveFormat";
+            this.tbxLiveFormat.Size = new System.Drawing.Size(440, 20);
+            this.tbxLiveFormat.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.tbxLiveFormat, "Configure the live display");
+            // 
+            // ckxLive
+            // 
+            this.ckxLive.AutoSize = true;
+            this.ckxLive.Location = new System.Drawing.Point(72, 232);
+            this.ckxLive.Name = "ckxLive";
+            this.ckxLive.Size = new System.Drawing.Size(15, 14);
+            this.ckxLive.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.ckxLive, "Set as live");
+            this.ckxLive.UseVisualStyleBackColor = true;
+            this.ckxLive.CheckedChanged += new System.EventHandler(this.ckxLive_CheckedChanged);
             // 
             // lblId
             // 
@@ -150,6 +177,7 @@
             this.cbxBetweenElements.Name = "cbxBetweenElements";
             this.cbxBetweenElements.Size = new System.Drawing.Size(142, 21);
             this.cbxBetweenElements.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.cbxBetweenElements, "Action between each elements");
             // 
             // ckxReverseOrder
             // 
@@ -198,6 +226,7 @@
             this.tbxEncoding.Name = "tbxEncoding";
             this.tbxEncoding.Size = new System.Drawing.Size(119, 20);
             this.tbxEncoding.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.tbxEncoding, "Web page encoding");
             // 
             // tbxElement
             // 
@@ -205,6 +234,7 @@
             this.tbxElement.Name = "tbxElement";
             this.tbxElement.Size = new System.Drawing.Size(100, 20);
             this.tbxElement.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.tbxElement, "XPath elements to keep (separated by \';\')");
             // 
             // btnOpenUrl
             // 
@@ -215,6 +245,7 @@
             this.btnOpenUrl.Name = "btnOpenUrl";
             this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
             this.btnOpenUrl.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnOpenUrl, "Open in a browser");
             this.btnOpenUrl.UseVisualStyleBackColor = true;
             this.btnOpenUrl.Click += new System.EventHandler(this.btnOpenUrl_Click);
             // 
@@ -226,6 +257,7 @@
             this.btnAuto.Size = new System.Drawing.Size(75, 23);
             this.btnAuto.TabIndex = 18;
             this.btnAuto.Text = "Auto";
+            this.toolTip1.SetToolTip(this.btnAuto, "Auto calculate the columns width");
             this.btnAuto.UseVisualStyleBackColor = true;
             this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
@@ -276,7 +308,7 @@
             this.lblMaxLines.Location = new System.Drawing.Point(567, 86);
             this.lblMaxLines.Name = "lblMaxLines";
             this.lblMaxLines.Size = new System.Drawing.Size(55, 13);
-            this.lblMaxLines.TabIndex = 27;
+            this.lblMaxLines.TabIndex = 30;
             this.lblMaxLines.Text = "Max Lines";
             // 
             // lblSkip
@@ -286,7 +318,7 @@
             this.lblSkip.Location = new System.Drawing.Point(587, 60);
             this.lblSkip.Name = "lblSkip";
             this.lblSkip.Size = new System.Drawing.Size(28, 13);
-            this.lblSkip.TabIndex = 25;
+            this.lblSkip.TabIndex = 28;
             this.lblSkip.Text = "Skip";
             // 
             // tbxSkip
@@ -295,7 +327,8 @@
             this.tbxSkip.MaxLength = 3;
             this.tbxSkip.Name = "tbxSkip";
             this.tbxSkip.Size = new System.Drawing.Size(45, 20);
-            this.tbxSkip.TabIndex = 26;
+            this.tbxSkip.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.tbxSkip, "Number of line to skip");
             // 
             // tbxMaxLines
             // 
@@ -303,7 +336,8 @@
             this.tbxMaxLines.MaxLength = 3;
             this.tbxMaxLines.Name = "tbxMaxLines";
             this.tbxMaxLines.Size = new System.Drawing.Size(45, 20);
-            this.tbxMaxLines.TabIndex = 28;
+            this.tbxMaxLines.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.tbxMaxLines, "Maximum number of lines to keep");
             // 
             // tbxSizes
             // 
@@ -312,6 +346,7 @@
             this.tbxSizes.Name = "tbxSizes";
             this.tbxSizes.Size = new System.Drawing.Size(462, 20);
             this.tbxSizes.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.tbxSizes, "Columns sizes");
             this.tbxSizes.TextChanged += new System.EventHandler(this.tbxSizes_TextChanged);
             // 
             // tbxHeaders
@@ -321,6 +356,7 @@
             this.tbxHeaders.Name = "tbxHeaders";
             this.tbxHeaders.Size = new System.Drawing.Size(462, 20);
             this.tbxHeaders.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.tbxHeaders, "Headers to display on first line");
             // 
             // tbxXpath
             // 
@@ -329,6 +365,7 @@
             this.tbxXpath.Name = "tbxXpath";
             this.tbxXpath.Size = new System.Drawing.Size(462, 20);
             this.tbxXpath.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.tbxXpath, "XPath expression to find the score");
             // 
             // tbxUrl
             // 
@@ -338,6 +375,16 @@
             this.tbxUrl.Name = "tbxUrl";
             this.tbxUrl.Size = new System.Drawing.Size(462, 20);
             this.tbxUrl.TabIndex = 5;
+            // 
+            // lblLive
+            // 
+            this.lblLive.AutoSize = true;
+            this.lblLive.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblLive.Location = new System.Drawing.Point(33, 232);
+            this.lblLive.Name = "lblLive";
+            this.lblLive.Size = new System.Drawing.Size(27, 13);
+            this.lblLive.TabIndex = 25;
+            this.lblLive.Text = "Live";
             // 
             // lblSizes
             // 
@@ -518,5 +565,9 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn colStyle;
         private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.TextBox tbxScoreId;
+        private System.Windows.Forms.TextBox tbxLiveFormat;
+        private System.Windows.Forms.CheckBox ckxLive;
+        private System.Windows.Forms.Label lblLive;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

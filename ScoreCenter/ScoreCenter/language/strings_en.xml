@@ -10,5 +10,15 @@
     <String id="7">Disable Auto wrap mode</String>
     <String id="8">Set as home score</String>
     <String id="9">Clear home score</String>
+    <String id="10">LIVE ON</String>
+    <String id="11">Live Off</String>
+    <String id="12">ScoreCenter - Live</String>
+    <String id="13">Disable Live</String>
+    <String id="14">Activate Live</String>
+    <String id="15">Configure</String>
+    <String id="16">No LIVE Score found in settings</String>
+    <String id="17">Start Live</String>
+    <String id="18">Stop Live</String>
+    <String id="19">Remove All Live Scores</String>
   </Section>
 </Language>

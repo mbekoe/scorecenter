@@ -30,6 +30,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string SIZES_SCORER = "6,0,-22,-20,-12";
         private const string SIZES_CUP_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_CUP_LEVEL = "-5,17,+1,-17,-15,0";
+        private const string SIZES_RESULTS = "-12,5,15,+1,-15,-8,0";
         private const string SIZES_GROUP_RESULTS = "-12,15,+1,-15,-8,0";
         private const string SIZES_GROUP_STANDINGS = "-6,0,-15,3,3,3,3,6,3,3";
         private const string SIZES_TEAM_LAST = "-10,-8,-10,-2,0,-18,-3,0";
@@ -115,6 +116,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Image = image;
             sc.Element = element;
             sc.IsVirtual = true;
+            sc.CannotLive = true;
 
             return sc;
         }
@@ -214,6 +216,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "next", "Next Round", IMG_NEXT, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueNext", SIZES_LEAGUE_RESULTS);
+            sc.LiveConfig = wfscore.LiveConfig;
+            if (sc.LiveConfig != null) sc.LiveConfig.Value = GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}");
+            sc.CannotLive = false;
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
@@ -336,6 +341,15 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             string fullname = wfscore.FullLeagueName;
             if (String.IsNullOrEmpty(wfscore.Season) == false)
                 fullname += "-" + wfscore.Season;
+
+            sc = CreateNewScore(wfscore.Id, "results", "Results", "Next", "2", index++);
+            sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
+            sc.Sizes = GetParameter(parameters, "WF.Results", SIZES_RESULTS);
+            AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+            sc.LiveConfig = wfscore.LiveConfig;
+            if (sc.LiveConfig != null) sc.LiveConfig.Value = GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}");
+            sc.CannotLive = true;
+            scores.Add(sc);
 
             string[] details = wfscore.Details.Split(',');
             char[] groups = details[0].ToCharArray();

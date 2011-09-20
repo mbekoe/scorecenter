@@ -132,6 +132,21 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     public partial class ScoreCenter
     {
+        public void ReplaceVirtualScores()
+        {
+            List<BaseScore> vslist = new List<BaseScore>();
+            foreach (BaseScore sc in this.Scores.Items.Where(p => p.IsVirtualFolder()))
+            {
+                IList<BaseScore> children = sc.GetVirtualScores(this.Parameters);
+                if (children != null)
+                {
+                    vslist.AddRange(children);
+                }
+            }
+
+            this.Scores.Items = this.Scores.Items.Concat(vslist.ToArray()).ToArray();
+        }
+
         public void AddScore(BaseScore score)
         {
             this.Scores.Items = Tools.AddElement<BaseScore>(this.Scores.Items, score);
@@ -158,6 +173,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 DisableScore(sc);
             }
         }
+
         public string GetFullName(BaseScore score, string sep)
         {
             if (score == null)
@@ -238,6 +254,17 @@ namespace MediaPortal.Plugin.ScoreCenter
             
             return plist;
         }
+
+        public void SetLiveScore(BaseScore score, bool enable)
+        {
+            if (score.IsVirtual)
+            {
+                BaseScore sc = FindScore(score.Parent);
+                if (sc != null) sc.SetLive(enable);
+            }
+
+            score.SetLive(enable);
+        }
     }
 
     public abstract partial class BaseScore
@@ -260,6 +287,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
+        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
+        public bool CannotLive { get; set; }
+
         internal abstract BaseScore Clone(string id);
         internal abstract void SetDefaultIcon();
 
@@ -270,6 +300,28 @@ namespace MediaPortal.Plugin.ScoreCenter
         public virtual bool IsVirtualFolder()
         {
             return false;
+        }
+        public bool IsContainer()
+        {
+            return IsFolder() || IsVirtualFolder();
+        }
+        public virtual bool IsScore()
+        {
+            return !IsFolder() && !IsVirtualFolder();
+        }
+        public virtual bool IsLive()
+        {
+            return this.LiveConfig != null && this.LiveConfig.enabled;
+        }
+        public virtual void SetLive(bool enable)
+        {
+            if (this.LiveConfig == null)
+            {
+                if (!enable)
+                    return;
+                this.LiveConfig = new LiveConfig();
+            }
+            this.LiveConfig.enabled = enable;
         }
         public virtual IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
         {
@@ -341,10 +393,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             this.Image = @"Misc\folder";
         }
-
         public override bool IsFolder()
         {
             return true;
+        }
+        public override bool IsLive()
+        {
+            return false;
         }
     }
     public partial class RssScore
@@ -369,6 +424,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         internal override void SetDefaultIcon()
         {
             this.Image = @"Misc\rss";
+        }
+        public override bool IsLive()
+        {
+            return false;
         }
 
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
@@ -460,6 +519,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Encoding = this.Encoding;
             copy.ParseOptions = this.ParseOptions;
             copy.Parent = this.Parent;
+            copy.LiveConfig = this.LiveConfig;
 
             return (BaseScore)copy;
         }

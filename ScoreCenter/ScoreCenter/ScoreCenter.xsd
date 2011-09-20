@@ -69,6 +69,15 @@
       <xs:attribute name="ForeColor" type="xs:long" use="required" />
     </xs:complexType>
   </xs:element>
+  <xs:element name="LiveConfig" nillable="false">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="enabled" type="xs:boolean" default="false" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ScoreParameter" nillable="false">
     <xs:complexType>
       <xs:simpleContent>
@@ -91,6 +100,7 @@
     <xs:sequence>
       <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
       <xs:element name="Image" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+      <xs:element ref="LiveConfig" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="Id" type="xs:string" use="required" />
     <xs:attribute name="Parent" type="xs:string" default="" />
@@ -105,17 +115,17 @@
   <xs:complexType name="RssScore">
     <xs:complexContent>
       <xs:extension base="BaseScore">
-	    <xs:sequence>
+        <xs:sequence>
           <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
           <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-		</xs:sequence>
-	  </xs:extension>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="GenericScore">
     <xs:complexContent>
       <xs:extension base="BaseScore">
-	    <xs:sequence>
+          <xs:sequence>
           <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
           <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="XPath" type="xs:string" minOccurs="0" maxOccurs="1" />
@@ -134,14 +144,14 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-		</xs:sequence>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="WorldFootballScore">
     <xs:complexContent>
       <xs:extension base="BaseScore">
-	    <xs:sequence>
+        <xs:sequence>
           <xs:element name="Country" type="xs:string" minOccurs="1" maxOccurs="1" />
           <xs:element name="League" type="xs:string" minOccurs="1" maxOccurs="1" />
           <xs:element name="Season" type="xs:string" minOccurs="1" maxOccurs="1" />
@@ -150,7 +160,7 @@
           <xs:element name="NbTeams" type="xs:int" minOccurs="0" maxOccurs="1" default="99" />
           <xs:element name="Levels" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="Highlights" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-		</xs:sequence>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -173,6 +183,9 @@
               <xs:element name="UpdateUrl" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="UpdateRule" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="Home" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+              <xs:element name="LiveNotifTime" type="xs:int" minOccurs="0" maxOccurs="1" default="3" />
+              <xs:element name="LiveCheckDelay" type="xs:int" minOccurs="0" maxOccurs="1" default="2" />
+              <xs:element name="LivePlaySound" type="xs:boolean" minOccurs="0" maxOccurs="1" default="true" />
             </xs:sequence>
             <xs:attribute name="version" type="xs:int" default="1" />
           </xs:complexType>
