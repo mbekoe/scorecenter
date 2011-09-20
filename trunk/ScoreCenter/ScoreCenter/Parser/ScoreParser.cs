@@ -127,7 +127,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     result[nbLines++] = strLine;
             }
 
-            return result;
+            return result.Where(l => l != null).ToArray();
         }
 
         #region Format
