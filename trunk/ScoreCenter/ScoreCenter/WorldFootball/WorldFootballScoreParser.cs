@@ -197,6 +197,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// Defines a League.
         /// </summary>
         /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         private static List<BaseScore> AddLeague(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
@@ -209,6 +210,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "3", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueResults", SIZES_LEAGUE_RESULTS);
+            AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
@@ -219,6 +221,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.LiveConfig = wfscore.LiveConfig;
             if (sc.LiveConfig != null) sc.LiveConfig.Value = GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}");
             sc.CannotLive = false;
+            AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
@@ -287,6 +290,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// Defines a Cup.
         /// </summary>
         /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         private static List<BaseScore> AddCup(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
@@ -331,6 +335,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// Defines a Qualification Tournament.
         /// </summary>
         /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         private static List<BaseScore> AddQualification(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
@@ -401,9 +406,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         }
 
         /// <summary>
-        /// 
+        /// Defines a Tournament = Qualification + Top Scorer History.
         /// </summary>
-        /// <param name="wfscore"></param>
+        /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         private static List<BaseScore> AddTournament(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
@@ -420,6 +426,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return scores;
         }
 
+        /// <summary>
+        /// Defines a Team score.
+        /// </summary>
+        /// <param name="wfscore">The Worldfootball definition.</param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         private static List<BaseScore> AddTeam(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
             int index = 0;
@@ -437,6 +449,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}teams/{1}/{{YYYY+1}}/3/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.TeamResults", SIZES_TEAM_RESULTS);
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            AddRule(sc, 2, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+            AddRule(sc, 4, Operation.IsNull, "", RuleAction.FormatLine, "Level1");
             scores.Add(sc);
 
             List<string> items = wfscore.Details.Split(',').ToList();
