@@ -412,9 +412,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else
             {
+                // create a settings with all live settings
                 var liveList = m_center.Scores.Items.Where(sc => sc.LiveConfig != null && sc.LiveConfig.enabled && sc.IsScore());
                 if (liveList.Count() == 0)
                 {
+                    // no live score configure
                     GUIDialogText ww = (GUIDialogText)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_TEXT);
                     ww.SetHeading("ScoreCenter");
                     ww.SetText(LocalizationManager.GetString(Labels.NoLiveScore));
@@ -422,25 +424,34 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
                 else
                 {
+                    // create new score center
                     ScoreCenter liveExport = new ScoreCenter();
                     liveExport.Parameters = m_center.Parameters;
                     liveExport.Setup = m_center.Setup;
                     liveExport.Styles = m_center.Styles;
-                    liveExport.Scores = new ScoreCenterScores();
-                    liveExport.Scores.Items = liveList.ToArray();
 
+                    // clone the scores
+                    var ll = new List<BaseScore>(liveList.Count());
                     foreach (BaseScore score in liveList)
                     {
-                        BaseScore parent = m_center.FindScore(score.Parent);
+                        BaseScore livescore = score.Clone(score.Id);
+                        BaseScore parent = m_center.FindScore(livescore.Parent);
                         if (parent != null)
                         {
-                            score.Name = parent.LocName;
-                            score.Image = parent.Image;
+                            // use parent icon and name for notification
+                            livescore.Name = parent.LocName;
+                            livescore.Image = parent.Image;
                         }
-                    }
+                        ll.Add(livescore);
 
+                    }
+                    liveExport.Scores = new ScoreCenterScores();
+                    liveExport.Scores.Items = ll.ToArray();
+
+                    // create the settings
                     Tools.SaveSettings(Config.GetFile(Config.Dir.Config, LiveSettingsFileName), liveExport, false, true);
 
+                    // update the status
                     m_liveEnabled = true;
                     SetLiveStatus();
                 }
