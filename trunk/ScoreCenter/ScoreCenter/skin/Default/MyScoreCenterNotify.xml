@@ -5,24 +5,31 @@
     <allowoverlay>no</allowoverlay>
     <controls>
         <control>
+            <id>0</id>
+            <type>image</type>
+            <colordiffuse>40ffffff</colordiffuse>
+            <width>720</width>
+            <height>576</height>
+            <texture>black.png</texture>
+        </control>
+        <control>
             <description>group element</description>
             <type>group</type>
             <control>
                 <id>0</id>
                 <type>image</type>
-                <visible>yes</visible>
-                <posX>240</posX>
-                <posY>570</posY>
-                <width>800</width>
-                <height>162</height>
+                <posX>114</posX>
+                <posY>440</posY>
+                <width>632</width>
+                <height>152</height>
                 <texture>dialog_background.png</texture>
             </control>
             <control>
                 <id>3</id>
                 <description>Heading text label</description>
                 <type>label</type>
-                <posX>312</posX>
-                <posY>588</posY>
+                <posX>162</posX>
+                <posY>456</posY>
                 <font>font10</font>
                 <textcolor>ffffffff</textcolor>
                 <label>181</label>
@@ -35,10 +42,10 @@
                 <onright>4</onright>
                 <onup>4</onup>
                 <ondown>4</ondown>
-                <posX>932</posX>
-                <posY>585</posY>
-                <width>50</width>
-                <height>30</height>
+                <posX>663</posX>
+                <posY>453</posY>
+                <width>32</width>
+                <height>32</height>
                 <textureFocus>dialogue_ok_focus.png</textureFocus>
                 <textureNoFocus>dialogue_ok_nofocus.png</textureNoFocus>
                 <label>-</label>
@@ -48,10 +55,10 @@
                 <description>logo</description>
                 <type>image</type>
                 <colordiffuse>ffffffff</colordiffuse>
-                <posX>296</posX>
-                <posY>617</posY>
-                <width>48</width>
-                <height>48</height>
+                <posX>158</posX>
+                <posY>479</posY>
+                <width>50</width>
+                <height>50</height>
                 <texture>#thumb</texture>
                 <colorkey>FFFF00FF</colorkey>
                 <keepaspectratio>yes</keepaspectratio>
@@ -64,12 +71,12 @@
                 <onright>4</onright>
                 <onup>4</onup>
                 <ondown>4</ondown>
-                <posX>351</posX>
-                <posY>615</posY>
-                <width>630</width>
-                <height>93</height>
-                <spinPosX>880</spinPosX>
-                <spinPosY>680</spinPosY>
+                <posX>213</posX>
+                <posY>478</posY>
+                <width>488</width>
+                <height>89</height>
+                <spinPosX>630</spinPosX>
+                <spinPosY>545</spinPosY>
                 <label>-</label>
             </control>
         </control>

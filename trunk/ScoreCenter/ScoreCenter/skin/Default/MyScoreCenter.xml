@@ -52,7 +52,7 @@
       <type>label</type>
       <posX>10</posX>
       <posY>10</posY>
-      <width>150</width>
+      <width>200</width>
       <font>font12</font>
       <label>#ScoreCenter.Live</label>
     </control>
