@@ -85,7 +85,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        public static string GetString(int id)
+        public static string GetString(int id, params object[] args)
         {
             StringLocalised loc = m_instance.m_provider.Get("unmapped", id);
             if (loc == null)
@@ -93,17 +93,23 @@ namespace MediaPortal.Plugin.ScoreCenter
                 loc = m_instance.m_defaultProvider.Get("unmapped", id);
                 if (loc == null)
                     return String.Format("?{0}", id);
+            }
+
+            try
+            {
+                return String.Format(loc.text, args);
+            }
+            catch (FormatException)
+            {
                 return loc.text;
             }
-            
-            return loc.text;
         }
 
         public static string GetScoreString(string id, string defaultValue)
         {
             if (m_instance.m_scoreLocaliser == null) return defaultValue;
 
-            // first check fo id
+            // first check for id
             LocString loc = m_instance.m_scoreLocaliser.Strings.Where(x => x.id == id).FirstOrDefault();
             if (loc != null)
                 return loc.Value;

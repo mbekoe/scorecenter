@@ -109,7 +109,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             int liveLabel = m_liveEnabled ? Labels.LiveOn : Labels.LiveOff;
-            GUIPropertyManager.SetProperty("#ScoreCenter.Live", String.Format("{0} ({1})", LocalizationManager.GetString(liveLabel), nb));
+            GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(liveLabel, nb));
         }
 
         protected override void OnPageLoad()
@@ -223,10 +223,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             menu.Add(LocalizationManager.GetString(Labels.Configuration));
             int menuConfigure = menuIndice++;
 
-            // synchro
-            menu.Add(LocalizationManager.GetString(Labels.SynchroOnline));
-            int menuSyncho = menuIndice++;
-
             // enable/disable live
             if (m_liveEnabled) menu.Add(LocalizationManager.GetString(Labels.StopLive));
             else menu.Add(LocalizationManager.GetString(Labels.StartLive));
@@ -246,7 +242,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (item.Label != "..")
             {
                 // disable
-                menu.Add(String.Format(CultureInfo.CurrentCulture, "{1} '{0}'", item.Label, LocalizationManager.GetString(Labels.DisableItem)));
+                menu.Add(LocalizationManager.GetString(Labels.DisableItem, item.Label));
                 menuDelete = menuIndice++;
 
                 // set home
@@ -259,7 +255,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (!m_liveEnabled && !item.IsFolder && !itemScore.CannotLive)
                 {
                     // set live
-                    menu.Add(LocalizationManager.GetString(item.HasPinIcon ? Labels.DisableLive : Labels.ActivateLive));
+                    menu.Add(LocalizationManager.GetString(item.HasPinIcon ? Labels.DisableLive : Labels.ActivateLive, item.Label));
                     menuSetLive = menuIndice++;
                 }
             }
@@ -277,24 +273,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             else if (menu.SelectedId == menuClearLive)
             {
                 ClearLiveSettings();
-            }
-            else if (menu.SelectedId == menuSyncho)
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
-                {
-                    try
-                    {
-                        UpdateSettings(true, true);
-                    }
-                    catch (Exception ex)
-                    {
-                        Tools.LogError("Error occured while executing the Online Update: ", ex);
-                    }
-                    finally
-                    {
-                        GUIWaitCursor.Hide();
-                    }
-                });
             }
             else if (menu.SelectedId == menuConfigure)
             {
@@ -339,6 +317,10 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             int menuIndice = 1;
 
+            // synchro
+            menu.Add(LocalizationManager.GetString(Labels.SynchroOnline));
+            int menuSyncho = menuIndice++;
+
             // clear cache
             menu.Add(LocalizationManager.GetString(Labels.ClearCache));
             int menuClearCache = menuIndice++;
@@ -380,7 +362,25 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_center.Setup.Home = "";
                 SaveSettings();
             }
-            
+            else if (menu.SelectedId == menuSyncho)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+                {
+                    try
+                    {
+                        UpdateSettings(true, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Tools.LogError("Error occured while executing the Online Update: ", ex);
+                    }
+                    finally
+                    {
+                        GUIWaitCursor.Hide();
+                    }
+                });
+            }
+
             base.OnShowContextMenu();
         }
 
