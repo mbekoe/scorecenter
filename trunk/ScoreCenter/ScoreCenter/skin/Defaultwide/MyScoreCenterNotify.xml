@@ -12,17 +12,17 @@
                 <type>image</type>
                 <visible>yes</visible>
                 <posX>240</posX>
-                <posY>570</posY>
+                <posY>527</posY>
                 <width>800</width>
-                <height>162</height>
+                <height>205</height>
                 <texture>dialog_background.png</texture>
             </control>
             <control>
                 <id>3</id>
                 <description>Heading text label</description>
                 <type>label</type>
-                <posX>312</posX>
-                <posY>588</posY>
+                <posX>306</posX>
+                <posY>556</posY>
                 <font>font10</font>
                 <textcolor>ffffffff</textcolor>
                 <label>181</label>
@@ -35,8 +35,8 @@
                 <onright>4</onright>
                 <onup>4</onup>
                 <ondown>4</ondown>
-                <posX>932</posX>
-                <posY>585</posY>
+                <posX>927</posX>
+                <posY>548</posY>
                 <width>50</width>
                 <height>30</height>
                 <textureFocus>dialogue_ok_focus.png</textureFocus>
@@ -48,8 +48,8 @@
                 <description>logo</description>
                 <type>image</type>
                 <colordiffuse>ffffffff</colordiffuse>
-                <posX>296</posX>
-                <posY>617</posY>
+                <posX>298</posX>
+                <posY>587</posY>
                 <width>48</width>
                 <height>48</height>
                 <texture>#thumb</texture>
@@ -65,9 +65,9 @@
                 <onup>4</onup>
                 <ondown>4</ondown>
                 <posX>351</posX>
-                <posY>615</posY>
+                <posY>586</posY>
                 <width>630</width>
-                <height>93</height>
+                <height>118</height>
                 <spinPosX>880</spinPosX>
                 <spinPosY>680</spinPosY>
                 <label>-</label>

@@ -896,7 +896,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.updateUrlField = "";
             this.updateRuleField = "";
             this.homeField = "";
-            this.liveNotifTimeField = 3;
+            this.liveNotifTimeField = 10;
             this.liveCheckDelayField = 2;
             this.livePlaySoundField = true;
             this.versionField = 1;
@@ -1011,7 +1011,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(3)]
+        [System.ComponentModel.DefaultValueAttribute(10)]
         public int LiveNotifTime {
             get {
                 return this.liveNotifTimeField;
