@@ -38,7 +38,6 @@ namespace MediaPortal.Plugin.ScoreCenter
     {
         private IEnumerable<BaseScore> m_scores;
         private ScoreCenter m_center;
-        private bool m_debug = false;
 
         private Dictionary<BaseScore, string[][]> m_cache = new Dictionary<BaseScore, string[][]>();
 
@@ -58,28 +57,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.SleepTimer = m_center.Setup.LiveCheckDelay * 60000;
         }
 
-        private void DoTest(DoWorkEventArgs e)
-        {
-            System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Lowest;
-            int i = 0;
-            while (!this.CancellationPending)
-            {
-                Notify(null, String.Format("Hello {0}", i++));
-                System.Threading.Thread.Sleep(100);
-                Notify(null, String.Format("Hello2 {0}", i++));
-                System.Threading.Thread.Sleep(this.SleepTimer);
-            }
-        }
-
         protected override void OnDoWork(DoWorkEventArgs e)
         {
             System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Lowest;
-            if (m_debug)
-            {
-                this.SleepTimer = 5000;
-                DoTest(e);
-                return;
-            }
 
             while (!this.CancellationPending)
             {
@@ -99,12 +79,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                             Notify(score, message);
                             m_cache[score] = results;
                         }
-                        //else
-                        //{
-                        //    Notify(score, "No Change");
-                        //}
                     }
-                    //Tools.LogMessage("\n\n");
                 }
 
                 System.Threading.Thread.Sleep(this.SleepTimer);
