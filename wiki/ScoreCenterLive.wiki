@@ -18,7 +18,7 @@ To set a score as "live", you can either use the Configuration and check the opt
 =Skin=
 *Live Status Label*: the Property #ScoreCenter.Live is set by the plugin when the status changed is shows the status followed by the number of scores set as live, ex: "Live Off (1)".
 
-*List View Pin Icon*: live scores are displayed in the list view with a PinIcon. It will use _<skin>\Media\ScoreCenterLive.png_ if it exists otherwise <thums>\ScoreCenter\Misc\Live.png.
+*List View Pin Icon*: live scores are displayed in the list view with a PinIcon. It will use _`<skin>\Media\ScoreCenterLive.png`_ if it exists otherwise _`<thums>\ScoreCenter\Misc\Live.png`_.
 
 *Notification Dialog*: by default, the MediaPortal Notification Dialog is used (DialogNotify.xml). But you can create a dedicated notification dialog: if the file _MyScoreCenterNotify.xml_ exists it will be used for the notification dialog (ID = 42010).
 
