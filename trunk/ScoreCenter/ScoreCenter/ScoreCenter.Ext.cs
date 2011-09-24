@@ -629,4 +629,18 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
     }
+
+    partial class LiveConfig
+    {
+        public static LiveConfig Copy(LiveConfig source, string format)
+        {
+            if (source == null)
+                return null;
+
+            LiveConfig copy = new LiveConfig();
+            copy.enabled = source.enabled;
+            copy.Value = String.IsNullOrEmpty(format) ? source.Value : format;
+            return copy;
+        }
+    }
 }
