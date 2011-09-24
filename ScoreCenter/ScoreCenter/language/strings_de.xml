@@ -5,7 +5,7 @@
     <String id="2">Automatische Spaltenausrichtung ein</String>
     <String id="3">Automatische Spaltenausrichtung aus</String>
     <String id="4">Online synchronisieren</String>
-    <String id="5">Deaktivieren</String>
+    <String id="5">Deaktivieren '{0}'</String>
     <String id="6">Automatischer Umbruch ein</String>
     <String id="7">Automatischer Umbruch aus</String>
     <String id="8">Als Start-Anzeige festlegen</String>

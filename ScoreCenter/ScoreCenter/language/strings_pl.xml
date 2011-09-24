@@ -5,7 +5,7 @@
     <String id="2">Użyj trybu autodopasowania kolumn</String>
     <String id="3">Nie używaj trybu autodopasowania kolumn</String>
     <String id="4">Synchronizuj online</String>
-    <String id="5">Wyłącz</String>
+    <String id="5">Wyłącz '{0}'</String>
     <String id="6">Use Auto wrap mode</String>
     <String id="7">Wyłącz tryb zawijania</String>
     <String id="8">Ustaw jako wynik u siebie</String>
