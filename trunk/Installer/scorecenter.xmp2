@@ -38,6 +38,13 @@
               <ZipFileName>Installer{CopyFile}\{443cc41d-8a62-4be1-baba-254a6da8d8d5}-ScoreCenter.XmlSerializers.dll</ZipFileName>
               <DestinationFilename>%Plugins%\Windows\ScoreCenter.XmlSerializers.dll</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenterLive\bin\Release\ScoreCenterLive.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d5432637-2d45-4a0e-b0b8-7620a872bde9}-ScoreCenterLive.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Process\ScoreCenterLive.dll</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -57,61 +64,75 @@
         <Description>Languages</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{0f91bfef-8751-40c5-b197-c6c64eed2a9b}-strings_en.xml</ZipFileName>
-              <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_de.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{1902ec00-97e3-4241-88bb-377abde64f43}-score_de.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\score_de.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f865ef45-84f4-42ff-a158-c481bf0eb479}-strings_fr.xml</ZipFileName>
-              <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{4c3a87fb-5d9a-4d02-b9a6-8845c6e56a1c}-strings_ru.xml</ZipFileName>
-              <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{d6e7789e-ac97-43b2-9d39-a0f329bee2bd}-strings_de.xml</ZipFileName>
-              <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{e89e6f17-4ef4-4831-8284-5ca84f3ffe75}-score_fr.xml</ZipFileName>
-              <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_en.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{48dd2933-f78f-4e29-ace6-6721e7881c4a}-score_en.xml</ZipFileName>
+              <ZipFileName>Installer{CopyFile}\{cee47f62-83a3-4b7a-ae06-ebbb003b8c72}-score_en.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\score_en.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{978ce176-6959-46a9-b7dd-dec45bebc330}-score_fr.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_hu.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{79248ae3-64c8-47b3-93d5-b5346f5e2576}-score_hu.xml</ZipFileName>
+              <ZipFileName>Installer{CopyFile}\{efb7d260-2b83-45af-84f3-88c54dec2271}-score_hu.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\score_hu.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fbc7596c-f59b-4780-a35a-47b7ae5c0bbf}-strings_de.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{47171088-346f-40a5-8f8c-500abd8c6121}-strings_en.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{efc99fe3-6be6-4068-a09b-8c1e98bc0dfb}-strings_fr.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_hu.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{5ce247f0-7872-4c37-b2a5-20abdeeea353}-strings_hu.xml</ZipFileName>
+              <ZipFileName>Installer{CopyFile}\{8a29ee59-4a26-4091-b121-7382777598b9}-strings_hu.xml</ZipFileName>
               <DestinationFilename>%Language%\ScoreCenter\strings_hu.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_pl.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f869bfab-bf07-44a2-aae9-15a41556e890}-strings_pl.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_pl.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{87e28b82-4964-4977-ba87-183c8d3c5593}-strings_ru.xml</ZipFileName>
+              <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -137,6 +158,13 @@
               <ZipFileName>Installer{CopyFile}\{ee4fe92a-55ca-4064-a689-349984a27cdf}-hover_score center.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\Media\hover_score center.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenterNotify.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2b1b9cad-13ff-4c60-a00a-35c5f71521ac}-MyScoreCenterNotify.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Default\MyScoreCenterNotify.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -160,6 +188,13 @@
               <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\MyScoreCenter.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{499ed7ee-0833-45c3-a38c-1925fcfbe438}-MyScoreCenter.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\MyScoreCenter.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\MyScoreCenterNotify.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{40e992bc-867c-4e35-b25f-181a4dbed251}-MyScoreCenterNotify.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\MyScoreCenterNotify.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -306,6 +341,22 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
+            <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.SkinEngine" />
+          </Items>
+        </SubSystemsUsed>
+      </PluginDependencyItem>
+      <PluginDependencyItem AssemblyName="ScoreCenterLive.dll">
+        <CompatibleVersion>
+          <Items>
+            <CompatibleVersionItem>
+              <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
+              <DesignedForVersion>1.2.0.0</DesignedForVersion>
+            </CompatibleVersionItem>
+          </Items>
+        </CompatibleVersion>
+        <SubSystemsUsed>
+          <Items>
             <SubSystemItem Name="MP.SkinEngine" />
             <SubSystemItem Name="MP.Config" />
           </Items>
@@ -322,18 +373,17 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>2</Minor>
+      <Minor>3</Minor>
       <Build>0</Build>
-      <Revision>2</Revision>
+      <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*Fix issues of version 2.1
-*WorldFootball Team type add Players and Transfers</VersionDescription>
+    <VersionDescription>*ScoreCenterLive Plugin</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.2.0.2.mpe1</OnlineLocation>
-    <ReleaseDate>2011-08-28T18:55:45</ReleaseDate>
+    <ReleaseDate>2011-09-22T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -401,58 +451,79 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{0f91bfef-8751-40c5-b197-c6c64eed2a9b}-strings_en.xml</ZipFileName>
-        <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+        <LocalFileName>..\ScoreCenter\ScoreCenterLive\bin\Release\ScoreCenterLive.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d5432637-2d45-4a0e-b0b8-7620a872bde9}-ScoreCenterLive.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Process\ScoreCenterLive.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f865ef45-84f4-42ff-a158-c481bf0eb479}-strings_fr.xml</ZipFileName>
-        <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_de.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{1902ec00-97e3-4241-88bb-377abde64f43}-score_de.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\score_de.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{4c3a87fb-5d9a-4d02-b9a6-8845c6e56a1c}-strings_ru.xml</ZipFileName>
-        <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d6e7789e-ac97-43b2-9d39-a0f329bee2bd}-strings_de.xml</ZipFileName>
-        <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e89e6f17-4ef4-4831-8284-5ca84f3ffe75}-score_fr.xml</ZipFileName>
-        <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_en.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{48dd2933-f78f-4e29-ace6-6721e7881c4a}-score_en.xml</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{cee47f62-83a3-4b7a-ae06-ebbb003b8c72}-score_en.xml</ZipFileName>
         <DestinationFilename>%Language%\ScoreCenter\score_en.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_fr.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{978ce176-6959-46a9-b7dd-dec45bebc330}-score_fr.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\score_fr.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\language\score_hu.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{79248ae3-64c8-47b3-93d5-b5346f5e2576}-score_hu.xml</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{efb7d260-2b83-45af-84f3-88c54dec2271}-score_hu.xml</ZipFileName>
         <DestinationFilename>%Language%\ScoreCenter\score_hu.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_de.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{fbc7596c-f59b-4780-a35a-47b7ae5c0bbf}-strings_de.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_de.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_en.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{47171088-346f-40a5-8f8c-500abd8c6121}-strings_en.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_en.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_fr.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{efc99fe3-6be6-4068-a09b-8c1e98bc0dfb}-strings_fr.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_fr.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_hu.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5ce247f0-7872-4c37-b2a5-20abdeeea353}-strings_hu.xml</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8a29ee59-4a26-4091-b121-7382777598b9}-strings_hu.xml</ZipFileName>
         <DestinationFilename>%Language%\ScoreCenter\strings_hu.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_pl.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f869bfab-bf07-44a2-aae9-15a41556e890}-strings_pl.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_pl.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\language\strings_ru.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{87e28b82-4964-4977-ba87-183c8d3c5593}-strings_ru.xml</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter\strings_ru.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
@@ -471,28 +542,53 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Default\MyScoreCenterNotify.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2b1b9cad-13ff-4c60-a00a-35c5f71521ac}-MyScoreCenterNotify.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Default\MyScoreCenterNotify.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\skin\DefaultWide\MyScoreCenter.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{499ed7ee-0833-45c3-a38c-1925fcfbe438}-MyScoreCenter.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\MyScoreCenter.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\MyScoreCenterNotify.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{40e992bc-867c-4e35-b25f-181a4dbed251}-MyScoreCenterNotify.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\MyScoreCenterNotify.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b3c64da4-1f3a-4956-8830-6d2dba118344}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{47c54773-2b4c-4b68-8ade-a546f1102c68}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{01475507-2be8-4299-9a55-47192a468299}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{9ebf188d-39d0-410f-9df8-cc07627f52e6}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
   </UniqueFileList>
   <ProjectSettings>
-    <FolderGroups />
+    <FolderGroups>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{e796acd4-6d5e-45d8-af8b-b9cd7f2b0b61}-</ZipFileName>
+        <DestinationFilename>%Language%\ScoreCenter</DestinationFilename>
+        <Folder>..\ScoreCenter\ScoreCenter\language</Folder>
+        <Group>Languages</Group>
+        <Recursive>false</Recursive>
+      </FolderGroup>
+    </FolderGroups>
     <ProjectFilename>scorecenter.xmp2</ProjectFilename>
     <UpdatePath1>F:\svnroot\scorecenter\trunk\Installer\scorecenter.xml</UpdatePath1>
     <UpdatePath2 />
