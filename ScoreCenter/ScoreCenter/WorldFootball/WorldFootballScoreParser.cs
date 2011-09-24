@@ -218,8 +218,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "next", "Next Round", IMG_NEXT, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueNext", SIZES_LEAGUE_RESULTS);
-            sc.LiveConfig = wfscore.LiveConfig;
-            if (sc.LiveConfig != null) sc.LiveConfig.Value = GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}");
+            sc.LiveConfig = LiveConfig.Copy(wfscore.LiveConfig, GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}"));
             sc.CannotLive = false;
             AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
@@ -351,8 +350,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.Results", SIZES_RESULTS);
             AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
-            sc.LiveConfig = wfscore.LiveConfig;
-            if (sc.LiveConfig != null) sc.LiveConfig.Value = GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}");
+            sc.LiveConfig = LiveConfig.Copy(wfscore.LiveConfig, GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}"));
             sc.CannotLive = true;
             scores.Add(sc);
 
