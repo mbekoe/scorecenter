@@ -1,4 +1,7 @@
 #labels Featured
+*next version* (not released yet)
+    * Fix: Missing Icon when going to MediaPortal Home.
+
 *version 2.3.0.0 (24 September 2011)*:
     * Live Feature.
     * Add: WorldFootball scores, add a global "Results" for Tournament and Qualification type. (to use with the live feature).
