@@ -117,6 +117,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             //Tools.LogMessage("entering OnPageLoad()");
             base.OnPageLoad();
 
+            m_level = 0;
+            m_prevIndex.Clear();
+            m_currentScore = null;
+
             // prepare live parameters
             m_liveEnabled = File.Exists(Config.GetFile(Config.Dir.Config, LiveSettingsFileName));
             string liveSkinIcon = GUIGraphicsContext.Skin + @"\Media\ScoreCenterLive.png";
@@ -777,7 +781,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SetIcons(BaseScore score, int level)
         {
-            //Tools.LogMessage(">>> {0}: Icon = {1}", level, score.Image);
+            //Tools.LogMessage(">>> {0}: Icon = {1}", level, score == null ? "" : score.Image);
             BaseScore curr = score;
             for (int i = level; i >= 0; i--)
             {
