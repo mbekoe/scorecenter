@@ -481,6 +481,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 {
                     ClearGrid();
                     CreateGrid(m_lines, m_currentScore, m_currentLine, m_currentColumn);
+                    GUIControl.FocusControl(GetID, btnNextPage.GetID);
                 }
             }
             //else if (control == btnNextScore || control == btnPreviousScore)
@@ -965,6 +966,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void ShowNextButton(bool visible)
         {
+            int id = lstDetails.GetID;
             if (btnNextPage != null)
             {
                 // set focus if button is currently not visible but will be
@@ -973,9 +975,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 if (focus)
                 {
-                    GUIControl.FocusControl(GetID, btnNextPage.GetID);
+                    id = btnNextPage.GetID;
                 }
             }
+
+            GUIControl.FocusControl(GetID, id);
         }
 
         private void ShowNextPrevScoreButtons(bool visible)
