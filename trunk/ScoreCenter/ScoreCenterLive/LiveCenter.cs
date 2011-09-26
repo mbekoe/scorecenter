@@ -107,13 +107,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scoreFormat = score.LiveConfig.Value;
                 }
 
+                // for all row of old score
                 for (int iRow = 0; iRow < oldScore.Length; iRow++)
                 {
                     // ignore missing row in new score
                     if (newScore.Length <= iRow || newScore[iRow] == null)
                         continue;
 
-                    string newRow = String.Join(" ", newScore[iRow]);
+                    string newRow = BuildScore(scoreFormat, newScore[iRow]);
 
                     // if old score is missing then new is new
                     if (oldScore[iRow] == null)
@@ -122,28 +123,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                         continue;
                     }
 
-                    string oldRow = String.Join(" ", oldScore[iRow]);
+                    string oldRow = BuildScore(scoreFormat, oldScore[iRow]);
 
                     if (!String.Equals(oldRow, newRow))
                     {
                         Tools.LogMessage("OLD = {0}", oldRow);
                         Tools.LogMessage("NEW = {0}", newRow);
                         if (message.Length > 0) message += Environment.NewLine;
-                        if (scoreFormat.Length > 0)
-                        {
-                            try
-                            {
-                                message += String.Format(scoreFormat, newScore[iRow]);
-                            }
-                            catch (FormatException)
-                            {
-                                message += newRow;
-                            }
-                        }
-                        else
-                        {
-                            message += newRow;
-                        }
+                        message += newRow;
                     }
                 }
             }
@@ -154,6 +141,19 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return message;
+        }
+
+        private static string BuildScore(string format, string[] row)
+        {
+            try
+            {
+                return String.Format(format, row);
+            }
+            catch (FormatException exc)
+            {
+                Tools.LogError("Format failed", exc);
+                return String.Join(" ", row);
+            }
         }
 
         private void Notify(BaseScore score, string message)
