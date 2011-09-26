@@ -285,9 +285,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             else if (menu.SelectedId == menuDelete)
             {
                 GUIDialogYesNo dlg = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
-                string disable = LocalizationManager.GetString(Labels.DisableItem);
-                dlg.SetHeading(disable);
-                dlg.SetLine(1, String.Format(CultureInfo.CurrentCulture, "{0} '{1}'?", disable, item.Label));
+                string disable = LocalizationManager.GetString(Labels.DisableItem, item.Label);
+                dlg.SetHeading(m_center.Setup.Name);
+                dlg.SetLine(1, LocalizationManager.GetString(Labels.DisableItem, item.Label) + " ?");
                 dlg.DoModal(GetID);
 
                 if (dlg.IsConfirmed)

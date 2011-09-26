@@ -888,6 +888,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         private int versionField;
         
         public ScoreCenterSetup() {
+            this.nameField = "Score Center";
             this.cacheExpirationField = 0;
             this.defaultSkinColorField = -16776961;
             this.defaultFontColorField = -1;
@@ -904,6 +905,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("Score Center")]
         public string Name {
             get {
                 return this.nameField;
