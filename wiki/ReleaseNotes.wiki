@@ -2,6 +2,7 @@
 *next version* (not released yet)
     * Fix: Missing Icon when going to MediaPortal Home.
     * Fix: Focus is lost when going back.
+    * Fix: Format Live Score before comparing them.
 
 *version 2.3.0.0 (24 September 2011)*:
     * Live Feature.
