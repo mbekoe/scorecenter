@@ -148,32 +148,35 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void RefreshTree()
         {
-            if (tvwScores.Nodes.Count == 0)
-                return;
-
-            // keep selected node and expanded nodes
             IList<string> keys = new List<string>();
             string selectedPath = String.Empty;
-            if (tvwScores.SelectedNode != null)
-                selectedPath = tvwScores.SelectedNode.FullPath;
-
-            TreeNode node = tvwScores.Nodes[0];
-            do
+            if (tvwScores.Nodes.Count != 0)
             {
-                if (node.IsExpanded)
-                    keys.Add(node.FullPath);
+                // keep selected node and expanded nodes
+                if (tvwScores.SelectedNode != null)
+                    selectedPath = tvwScores.SelectedNode.FullPath;
 
-                node = node.NextVisibleNode;
+                TreeNode node = tvwScores.Nodes[0];
+                do
+                {
+                    if (node.IsExpanded)
+                        keys.Add(node.FullPath);
+
+                    node = node.NextVisibleNode;
+                }
+                while (node != null);
             }
-            while (node != null);
 
             // rebuild tree
             BuildScoreList(tvwScores, m_center, true);
 
             // reselect
-            TreeNode selected = SelectNodes(tvwScores.Nodes, keys, selectedPath);
-            if (selected == null && tvwScores.Nodes.Count > 0) selected = tvwScores.Nodes[0];
-            tvwScores.SelectedNode = selected;
+            if (!String.IsNullOrEmpty(selectedPath))
+            {
+                TreeNode selected = SelectNodes(tvwScores.Nodes, keys, selectedPath);
+                if (selected == null && tvwScores.Nodes.Count > 0) selected = tvwScores.Nodes[0];
+                tvwScores.SelectedNode = selected;
+            }
         }
 
         private TreeNode SelectNodes(TreeNodeCollection nodes, IList<string> keys, string current)
@@ -635,7 +638,6 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
                 if (dlg.ReloadRequired)
                 {
-                    this.Refresh();
                     RefreshTree();
                 }
             }
