@@ -62,6 +62,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private bool m_autoWrap = false;
         private bool m_liveEnabled = false;
         private string m_livePinImage = Tools.GetThumbs("Misc\\Live");
+        private string m_livePinImageDisabled = Tools.GetThumbs("Misc\\LiveDisabled");
         private string m_settgins = Config.GetFile(Config.Dir.Config, SettingsFileName);
 
         private ScoreCenter m_center;
@@ -80,6 +81,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected GUIButtonControl btnNextPage = null;
         [SkinControlAttribute(50)]
         protected GUILabelControl lblVisible = null;
+        [SkinControlAttribute(60)]
+        protected GUILabelControl lblLiveStatus = null;
+
         //[SkinControlAttribute(60)]
         //protected GUIButtonControl btnNextScore = null;
         //[SkinControlAttribute(70)]
@@ -110,6 +114,12 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             int liveLabel = m_liveEnabled ? Labels.LiveOn : Labels.LiveOff;
             GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(liveLabel, nb));
+            GUIPropertyManager.SetProperty("#ScoreCenter.LiveOn", m_liveEnabled ? "1" : "0");
+
+            if (lblLiveStatus != null)
+            {
+                lblLiveStatus.TextColor = m_liveEnabled ? -8323200 : -1;
+            }
         }
 
         protected override void OnPageLoad()
@@ -125,6 +135,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_liveEnabled = File.Exists(Config.GetFile(Config.Dir.Config, LiveSettingsFileName));
             string liveSkinIcon = GUIGraphicsContext.Skin + @"\Media\ScoreCenterLive.png";
             if (File.Exists(liveSkinIcon)) m_livePinImage = liveSkinIcon;
+            liveSkinIcon = GUIGraphicsContext.Skin + @"\Media\ScoreCenterLiveDisabled.png";
+            if (File.Exists(liveSkinIcon)) m_livePinImageDisabled = liveSkinIcon;
 
             ShowNextButton(false);
             ShowNextPrevScoreButtons(false);
@@ -256,10 +268,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     menuSetHome = menuIndice++;
                 }
 
-                if (!m_liveEnabled && !item.IsFolder && !itemScore.CannotLive)
+                if (!m_liveEnabled && itemScore.CanLive())
                 {
                     // set live
-                    menu.Add(LocalizationManager.GetString(item.HasPinIcon ? Labels.DisableLive : Labels.ActivateLive, item.Label));
+                    menu.Add(LocalizationManager.GetString(item.PinImage == m_livePinImage ? Labels.DisableLive : Labels.ActivateLive, item.Label));
                     menuSetLive = menuIndice++;
                 }
             }
@@ -303,8 +315,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else if (menu.SelectedId == menuSetLive)
             {
-                m_center.SetLiveScore(itemScore, !item.HasPinIcon);
-                item.PinImage = item.HasPinIcon ? "" : m_livePinImage;
+                bool on = item.PinImage == m_livePinImage;
+                m_center.SetLiveScore(itemScore, !on);
+                string pin = "";
+                if (!on)
+                    pin = m_livePinImage;
+                else if (itemScore.CanLive())
+                    pin = m_livePinImageDisabled;
+
+                item.PinImage = pin;
                 SaveSettings();
                 SetLiveStatus();
             }
@@ -612,7 +631,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                     if (sc.IsLive())
                     {
-                        item.PinImage = m_livePinImage;
+                        item.PinImage = m_livePinImage; 
+                    }
+                    else if (sc.CanLive())
+                    {
+                        item.PinImage = m_livePinImageDisabled;
                     }
                     item.IsPlayed = sc.IsNew;
                     item.TVTag = sc;
