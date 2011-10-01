@@ -110,6 +110,18 @@
     <Compile Include="Editor\RssScoreEditor.Designer.cs">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreCenter.BaseScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.FolderScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.GenericScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.RssScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestScoreSelector.cs">
       <SubType>Form</SubType>
     </Compile>
