@@ -116,7 +116,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Image = image;
             sc.Element = element;
             sc.IsVirtual = true;
-            sc.CannotLive = true;
+            sc.SetCanLive(false);
 
             return sc;
         }
@@ -219,7 +219,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueNext", SIZES_LEAGUE_RESULTS);
             sc.LiveConfig = LiveConfig.Copy(wfscore.LiveConfig, GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}"));
-            sc.CannotLive = false;
+            sc.SetCanLive(true);
             AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
@@ -351,7 +351,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Sizes = GetParameter(parameters, "WF.Results", SIZES_RESULTS);
             AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
             sc.LiveConfig = LiveConfig.Copy(wfscore.LiveConfig, GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}"));
-            sc.CannotLive = true;
+            sc.SetCanLive(true);
             scores.Add(sc);
 
             string[] details = wfscore.Details.Split(',');
