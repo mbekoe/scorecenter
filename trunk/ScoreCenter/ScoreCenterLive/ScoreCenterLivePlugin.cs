@@ -143,7 +143,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public bool DefaultEnabled()
         {
-            return false;
+            return true;
         }
 
         public string Description()
