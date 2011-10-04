@@ -38,7 +38,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         {
             tbxScore.Text = baseScore.Name;
             tbxScoreId.Text = baseScore.Id;
-        }
+       }
+
         public override Type GetScoreType()
         {
             return typeof(FolderScore);
@@ -53,9 +54,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             return true;
         }
 
-        public override void Clear()
-        {
-        }
         public override bool CheckData()
         {
             return CheckTextBox(tbxScore, lblName, true);

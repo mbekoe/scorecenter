@@ -48,11 +48,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             throw new NotImplementedException();
         }
         
-        public virtual void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual bool CheckData()
         {
             throw new NotImplementedException();
@@ -85,6 +80,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             {
                 string message = String.Format(Properties.Resources.RequiredField, label.Text);
                 errorProvider1.SetError(control, message);
+            }
+            else
+            {
+                errorProvider1.SetError(control, String.Empty);
             }
 
             return errorProvider1.GetError(control).Length == 0;

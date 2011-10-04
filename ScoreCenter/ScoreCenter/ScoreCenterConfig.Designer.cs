@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCenterConfig));
             this.ckxReload = new System.Windows.Forms.CheckBox();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnTest = new System.Windows.Forms.Button();
             this.btnClearIcon = new System.Windows.Forms.Button();
             this.btnSetIcon = new System.Windows.Forms.Button();
@@ -76,7 +75,7 @@
             this.ckxReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckxReload.AutoSize = true;
             this.ckxReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxReload.Location = new System.Drawing.Point(384, 682);
+            this.ckxReload.Location = new System.Drawing.Point(299, 682);
             this.ckxReload.Name = "ckxReload";
             this.ckxReload.Size = new System.Drawing.Size(59, 17);
             this.ckxReload.TabIndex = 30;
@@ -84,23 +83,11 @@
             this.toolTip1.SetToolTip(this.ckxReload, "Reload the page before testing");
             this.ckxReload.UseVisualStyleBackColor = true;
             // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSave.Location = new System.Drawing.Point(222, 678);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 28;
-            this.btnSave.Text = "&Save";
-            this.toolTip1.SetToolTip(this.btnSave, "Save the current score");
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // btnTest
             // 
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnTest.Location = new System.Drawing.Point(303, 678);
+            this.btnTest.Location = new System.Drawing.Point(218, 678);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 29;
@@ -168,7 +155,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
-            this.btnOk.Text = "Sa&ve";
+            this.btnOk.Text = "&Save";
             this.toolTip1.SetToolTip(this.btnOk, "Save the settings");
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -428,6 +415,7 @@
             this.tvwScores.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterCheck);
             this.tvwScores.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvwScores_AfterLabelEdit);
             this.tvwScores.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwScores_AfterSelect);
+            this.tvwScores.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwScores_BeforeSelect);
             // 
             // ScoreCenterConfig
             // 
@@ -441,7 +429,6 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tvwScores);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.ckxReload);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -463,7 +450,6 @@
         #endregion
 
         private ThreeStateTreeView tvwScores;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
