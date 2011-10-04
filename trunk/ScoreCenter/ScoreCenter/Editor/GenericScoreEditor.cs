@@ -37,23 +37,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public GenericScoreEditor()
         {
             InitializeComponent();
-
-            //tbxScore.TextChanged += new EventHandler(ScoreChanged);
-            //tbxUrl.TextChanged += new EventHandler(ScoreChanged);
-            //tbxXpath.TextChanged += new EventHandler(ScoreChanged);
-            //tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            //tbxElement.TextChanged += new EventHandler(ScoreChanged);
-            //tbxEncoding.TextChanged += new EventHandler(ScoreChanged);
-            //tbxHeaders.TextChanged += new EventHandler(ScoreChanged);
-            //tbxSizes.TextChanged += new EventHandler(ScoreChanged);
-            //tbxSkip.TextChanged += new EventHandler(ScoreChanged);
-            //tbxMaxLines.TextChanged += new EventHandler(ScoreChanged);
-            //cbxBetweenElements.SelectedValueChanged += new EventHandler(ScoreChanged);
-
-            //ckxAllowWrapping.CheckedChanged += new EventHandler(ScoreChanged);
-            //ckxNewLine.CheckedChanged += new EventHandler(ScoreChanged);
-            //ckxUseTheader.CheckedChanged += new EventHandler(ScoreChanged);
-            //ckxUseCaption.CheckedChanged += new EventHandler(ScoreChanged);
         }
 
         public override bool HasTest
@@ -68,10 +51,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             return typeof(GenericScore);
         }
 
-        private void ScoreChanged(object sender, EventArgs e)
-        {
-            //SetScoreStatus(false);
-        }
         private void SetRules(GenericScore score)
         {
             grdRule.Rows.Clear();
@@ -238,10 +217,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             result &= CheckNumber(tbxMaxLines, lblMaxLines, false);
 
             return result;
-        }
-
-        public override void Clear()
-        {
         }
 
         public override void LoadScore(BaseScore baseScore, ScoreCenter center)

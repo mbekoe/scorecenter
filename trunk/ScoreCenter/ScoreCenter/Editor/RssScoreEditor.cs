@@ -75,10 +75,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             return true;
         }
 
-        public override void Clear()
-        {
-        }
-
         public override bool CheckData()
         {
             bool result = CheckTextBox(tbxScore, lblName, true);
@@ -86,6 +82,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             return result;
         }
+
         private void btnOpenUrl_Click(object sender, EventArgs e)
         {
             if (tbxUrl.Text.Length > 0)

@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MediaPortal.Plugin.ScoreCenter.Parser;
-using System.IO;
 using MediaPortal.Configuration;
+using MediaPortal.Plugin.ScoreCenter.Parser;
 
 namespace MediaPortal.Plugin.ScoreCenter.Editor
 {
@@ -108,9 +108,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             return true;
         }
 
-        public override void Clear()
-        {
-        }
         public override bool HasTest
         {
             get
@@ -118,6 +115,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 return true;
             }
         }
+
         public override bool CheckData()
         {
             bool result = CheckTextBox(tbxName, lblName, true);

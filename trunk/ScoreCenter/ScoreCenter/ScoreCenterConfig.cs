@@ -65,19 +65,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.ShowInTaskbar = showInTaskbar;
         }
 
-        private void SetScoreStatus(bool saved)
-        {
-            if (saved)
-            {
-                btnSave.BackColor = SystemColors.Control;
-                btnSave.UseVisualStyleBackColor = true;
-            }
-            else
-            {
-                btnSave.BackColor = Color.Salmon;
-            }
-        }
-
         private void ScoreCenterConfig_Load(object sender, EventArgs e)
         {
             try
@@ -201,6 +188,31 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
+        private void tvwScores_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if (tvwScores.SelectedNode == null
+                || tvwScores.SelectedNode.Tag == null)
+                return;
+
+            BaseScoreEditor editor = GetEditor();
+            if (editor != null)
+            {
+                BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+                if (!editor.SaveScore(ref score))
+                {
+                    // errors while saving Cancel selection
+                    e.Cancel = true;
+                }
+                else
+                {
+                    if (tvwScores.SelectedNode.Text != score.Name)
+                    {
+                        tvwScores.SelectedNode.Text = score.Name;
+                    }
+                }
+            }
+        }
+
         private void tvwScores_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (tvwScores.SelectedNode == null)
@@ -223,7 +235,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
                 else
                 {
-                    prevEditor.Clear();
                     editor = prevEditor;
                 }
             }
@@ -246,8 +257,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
             tsbMoveRight.Enabled = tsbMoveUp.Enabled;
             btnTest.Enabled = editor.HasTest;
-
-            SetScoreStatus(true);
         }
 
         private BaseScoreEditor GetEditor()
@@ -287,26 +296,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         #endregion
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (tvwScores.SelectedNode == null
-                || tvwScores.SelectedNode.Tag == null)
-                return;
-
-            BaseScoreEditor editor = GetEditor();
-            if (editor != null)
-            {
-                BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
-                if (editor.SaveScore(ref score))
-                {
-                    if (tvwScores.SelectedNode.Text != score.Name)
-                    {
-                        tvwScores.SelectedNode.Text = score.Name;
-                    }
-                }
-            }
-        }
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
