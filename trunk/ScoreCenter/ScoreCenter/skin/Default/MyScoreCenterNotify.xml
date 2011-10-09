@@ -5,16 +5,10 @@
     <allowoverlay>no</allowoverlay>
     <controls>
         <control>
-            <id>0</id>
-            <type>image</type>
-            <colordiffuse>40ffffff</colordiffuse>
-            <width>720</width>
-            <height>576</height>
-            <texture>black.png</texture>
-        </control>
-        <control>
             <description>group element</description>
             <type>group</type>
+            <animation effect="slide" start="0,100" time="500">WindowOpen</animation>
+            <animation effect="fade" start="100" end="0" time="1000">WindowClose</animation>
             <control>
                 <id>0</id>
                 <type>image</type>
