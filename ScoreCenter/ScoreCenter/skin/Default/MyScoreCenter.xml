@@ -48,6 +48,7 @@
       <texture>ScoreCenter\Football.png</texture>
     </control>
     <control>
+      <id>60</id>
       <description>Live Status</description>
       <type>label</type>
       <posX>10</posX>
