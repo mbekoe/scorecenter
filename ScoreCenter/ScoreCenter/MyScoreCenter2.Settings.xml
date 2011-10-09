@@ -3,9 +3,9 @@
   <Setup version="2">
     <Name>My Score Center</Name>
     <DefaultSkinColor>-16752449</DefaultSkinColor>
-    <UpdateOnlineMode>Once</UpdateOnlineMode>
+    <UpdateOnlineMode>Always</UpdateOnlineMode>
     <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter2.Settings.xml</UpdateUrl>
-    <UpdateRule>New</UpdateRule>
+    <UpdateRule>All</UpdateRule>
   </Setup>
   <Parameters>
     <ScoreParameter name="worldfootball">http://www.worldfootball.net/</ScoreParameter>
