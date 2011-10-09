@@ -140,6 +140,7 @@
             // 
             // btnUpdateNow
             // 
+            this.btnUpdateNow.DialogResult = System.Windows.Forms.DialogResult.OK;
             resources.ApplyResources(this.btnUpdateNow, "btnUpdateNow");
             this.btnUpdateNow.Name = "btnUpdateNow";
             this.btnUpdateNow.UseVisualStyleBackColor = true;

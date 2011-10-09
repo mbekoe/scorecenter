@@ -47,8 +47,8 @@
             this.tsbMoveDown = new System.Windows.Forms.ToolStripButton();
             this.tsbMoveBack = new System.Windows.Forms.ToolStripButton();
             this.tsbMoveRight = new System.Windows.Forms.ToolStripButton();
-            this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
             this.tsbOptions = new System.Windows.Forms.ToolStripButton();
@@ -173,8 +173,8 @@
             this.tsbMoveDown,
             this.tsbMoveBack,
             this.tsbMoveRight,
-            this.tsbEditStyles,
             this.toolStripSeparator1,
+            this.tsbEditStyles,
             this.tsbExport,
             this.tsbImport,
             this.tsbOptions});
@@ -275,49 +275,45 @@
             this.tsbMoveRight.ToolTipText = "Move Right";
             this.tsbMoveRight.Click += new System.EventHandler(this.tsbMoveRight_Click);
             // 
-            // tsbEditStyles
-            // 
-            this.tsbEditStyles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbEditStyles.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.ChooseColor;
-            this.tsbEditStyles.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbEditStyles.Name = "tsbEditStyles";
-            this.tsbEditStyles.Size = new System.Drawing.Size(23, 22);
-            this.tsbEditStyles.Text = "Styles";
-            this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // tsbEditStyles
+            // 
+            this.tsbEditStyles.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.ChooseColor;
+            this.tsbEditStyles.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditStyles.Name = "tsbEditStyles";
+            this.tsbEditStyles.Size = new System.Drawing.Size(57, 22);
+            this.tsbEditStyles.Text = "St&yles";
+            this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
+            // 
             // tsbExport
             // 
-            this.tsbExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbExport.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.DownloadDocument;
             this.tsbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExport.Name = "tsbExport";
-            this.tsbExport.Size = new System.Drawing.Size(23, 22);
-            this.tsbExport.Text = "Export";
+            this.tsbExport.Size = new System.Drawing.Size(60, 22);
+            this.tsbExport.Text = "&Export";
             this.tsbExport.Click += new System.EventHandler(this.tsbExport_Click);
             // 
             // tsbImport
             // 
-            this.tsbImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbImport.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Webcontrol_Fileupload;
             this.tsbImport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbImport.Name = "tsbImport";
-            this.tsbImport.Size = new System.Drawing.Size(23, 22);
-            this.tsbImport.Text = "Import";
+            this.tsbImport.Size = new System.Drawing.Size(63, 22);
+            this.tsbImport.Text = "&Import";
             this.tsbImport.Click += new System.EventHandler(this.tsbImport_Click);
             // 
             // tsbOptions
             // 
-            this.tsbOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbOptions.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.gear_32;
             this.tsbOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOptions.Name = "tsbOptions";
-            this.tsbOptions.Size = new System.Drawing.Size(23, 22);
-            this.tsbOptions.Text = "Options";
+            this.tsbOptions.Size = new System.Drawing.Size(69, 22);
+            this.tsbOptions.Text = "&Options";
             this.tsbOptions.Click += new System.EventHandler(this.tsbOptions_Click);
             // 
             // contextMenuStrip1
