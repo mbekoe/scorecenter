@@ -42,8 +42,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
         public bool IsVirtual { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
-        private bool m_canLive { get; set; }
+        [System.Xml.Serialization.XmlIgnore()]
+        private bool m_canLive = true;
 
         [System.Xml.Serialization.XmlIgnore()]
         public string LocName
