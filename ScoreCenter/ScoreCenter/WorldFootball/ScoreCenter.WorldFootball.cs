@@ -99,6 +99,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return false;
         }
+        public override bool CanLive()
+        {
+            return false;
+        }
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
         {
             WorldFootballScore newScore = newBaseScore as WorldFootballScore;
