@@ -190,10 +190,15 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void tvwScores_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
+            e.Cancel = !SaveScore();
+        }
+        private bool SaveScore()
+        {
             if (tvwScores.SelectedNode == null
                 || tvwScores.SelectedNode.Tag == null)
-                return;
+                return true;
 
+            bool res = true;
             BaseScoreEditor editor = GetEditor();
             if (editor != null)
             {
@@ -201,7 +206,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (!editor.SaveScore(ref score))
                 {
                     // errors while saving Cancel selection
-                    e.Cancel = true;
+                    res = false;
                 }
                 else
                 {
@@ -211,6 +216,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     }
                 }
             }
+
+            return res;
         }
 
         private void tvwScores_AfterSelect(object sender, TreeViewEventArgs e)
@@ -315,6 +322,8 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            if (!SaveScore())
+                return;
             SaveConfig();
         }
 
