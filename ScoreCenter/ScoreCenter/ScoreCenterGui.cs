@@ -106,19 +106,20 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SetLiveStatus()
         {
-            int nb = 0;
-            if (m_center != null)
+            int nb = m_center == null ? 0 : m_center.Scores.Items.Where(sc => sc.IsLive()).Count();
+            if (m_liveEnabled)
             {
-                nb = m_center.Scores.Items.Where(sc => sc.IsLive()).Count();
+                GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(Labels.LiveOn, nb));
+                GUIPropertyManager.SetProperty("#ScoreCenter.LiveOn", "1");
+                GUIPropertyManager.SetProperty("#ScoreCenter.LiveIcon", m_livePinImage);
+                if (lblLiveStatus != null) lblLiveStatus.TextColor = -8323200;
             }
-
-            int liveLabel = m_liveEnabled ? Labels.LiveOn : Labels.LiveOff;
-            GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(liveLabel, nb));
-            GUIPropertyManager.SetProperty("#ScoreCenter.LiveOn", m_liveEnabled ? "1" : "0");
-
-            if (lblLiveStatus != null)
+            else
             {
-                lblLiveStatus.TextColor = m_liveEnabled ? -8323200 : -1;
+                GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(Labels.LiveOff, nb));
+                GUIPropertyManager.SetProperty("#ScoreCenter.LiveOn", "0");
+                GUIPropertyManager.SetProperty("#ScoreCenter.LiveIcon", m_livePinImageDisabled);
+                if (lblLiveStatus != null) lblLiveStatus.TextColor = -8323200;
             }
         }
 

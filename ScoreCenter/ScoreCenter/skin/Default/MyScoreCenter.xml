@@ -48,10 +48,22 @@
       <texture>ScoreCenter\Football.png</texture>
     </control>
     <control>
+      <description>live icon</description>
+      <type>image</type>
+      <visible>yes</visible>
+      <posX>8</posX>
+      <posY>10</posY>
+      <width>22</width>
+      <height>20</height>
+      <texture>#ScoreCenter.LiveIcon</texture>
+      <animation effect="fade" start="0" end="100" time="2000" tween="linear" pulse="true" reversible="false"
+          condition="string.equals(#ScoreCenter.LiveOn,1)">Conditional</animation>
+    </control>
+    <control>
       <id>60</id>
       <description>Live Status</description>
       <type>label</type>
-      <posX>10</posX>
+      <posX>32</posX>
       <posY>10</posY>
       <width>200</width>
       <font>font12</font>
@@ -127,16 +139,16 @@
       <IconYOff>5</IconYOff>
       <textvisible2>no</textvisible2>
       <textvisible3>no</textvisible3>
-      <spaceBetweenItems>2</spaceBetweenItems>
-      <textureHeight>35</textureHeight>
+      <spaceBetweenItems>1</spaceBetweenItems>
+      <textureHeight>25</textureHeight>
       <keepaspectratio>yes</keepaspectratio>
       <itemHeight>32</itemHeight>
       <spinPosX>10</spinPosX>
       <spinPosY>500</spinPosY>
-      <PinIconWidth>25</PinIconWidth>
-      <PinIconHeight>25</PinIconHeight>
+      <PinIconWidth>20</PinIconWidth>
+      <PinIconHeight>20</PinIconHeight>
       <PinIconXOff>180</PinIconXOff>
-      <PinIconYOff>5</PinIconYOff>
+      <PinIconYOff>0</PinIconYOff>
       <font>font10</font>
     </control>
     <control>

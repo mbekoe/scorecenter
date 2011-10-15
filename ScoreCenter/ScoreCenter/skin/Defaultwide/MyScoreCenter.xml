@@ -50,11 +50,23 @@
             <id>60</id>
             <description>Live Status</description>
             <type>label</type>
-            <posX>10</posX>
+            <posX>40</posX>
             <posY>10</posY>
             <width>200</width>
             <font>font12</font>
             <label>#ScoreCenter.Live</label>
+        </control>
+        <control>
+            <description>live icon</description>
+            <type>image</type>
+            <visible>yes</visible>
+            <posX>8</posX>
+            <posY>10</posY>
+            <width>32</width>
+            <height>30</height>
+            <texture>#ScoreCenter.LiveIcon</texture>
+            <animation effect="fade" start="0" end="100" time="2000" tween="linear" pulse="true" reversible="false"
+                condition="string.equals(#ScoreCenter.LiveOn,1)">Conditional</animation>
         </control>
         <control>
             <description>Current Image1</description>
