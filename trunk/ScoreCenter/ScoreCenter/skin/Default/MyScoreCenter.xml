@@ -21,7 +21,7 @@
       <texture>background.png</texture>
     </control>
 
-	<!-- backdrop matching current sport -->
+    <!-- backdrop matching current sport -->
     <control>
       <id>30</id>
       <description>backdrop</description>
