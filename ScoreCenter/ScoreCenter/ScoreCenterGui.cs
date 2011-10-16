@@ -48,9 +48,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const string C_HEADER = "*HEADER*";
         public const string C_EMPTY = "*EMPTY*";
 
-        /// <summary>Start index for GUI controls.</summary>
-        private const int StartIndex = 42100;
-
         private int m_currentLine; // 0
         private int m_currentColumn; // 0
         private BaseScore m_currentScore;
@@ -64,6 +61,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         private string m_livePinImage = Tools.GetThumbs("Misc\\Live");
         private string m_livePinImageDisabled = Tools.GetThumbs("Misc\\LiveDisabled");
         private string m_settgins = Config.GetFile(Config.Dir.Config, SettingsFileName);
+        private long m_liveLabelDefaultColor = -1;
 
         private ScoreCenter m_center;
 
@@ -119,7 +117,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(Labels.LiveOff, nb));
                 GUIPropertyManager.SetProperty("#ScoreCenter.LiveOn", "0");
                 GUIPropertyManager.SetProperty("#ScoreCenter.LiveIcon", m_livePinImageDisabled);
-                if (lblLiveStatus != null) lblLiveStatus.TextColor = -8323200;
+                if (lblLiveStatus != null) lblLiveStatus.TextColor = m_liveLabelDefaultColor;
             }
         }
 
@@ -138,6 +136,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (File.Exists(liveSkinIcon)) m_livePinImage = liveSkinIcon;
             liveSkinIcon = GUIGraphicsContext.Skin + @"\Media\ScoreCenterLiveDisabled.png";
             if (File.Exists(liveSkinIcon)) m_livePinImageDisabled = liveSkinIcon;
+            if (lblLiveStatus != null) m_liveLabelDefaultColor = lblLiveStatus.TextColor;
 
             ShowNextButton(false);
             ShowNextPrevScoreButtons(false);
