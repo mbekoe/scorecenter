@@ -50,7 +50,7 @@
             <id>60</id>
             <description>Live Status</description>
             <type>label</type>
-            <posX>40</posX>
+            <posX>42</posX>
             <posY>10</posY>
             <width>200</width>
             <font>font12</font>
