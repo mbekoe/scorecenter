@@ -71,6 +71,7 @@
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblLiveFormat = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -92,6 +93,7 @@
             // 
             // tpgGeneral
             // 
+            this.tpgGeneral.Controls.Add(this.lblLiveFormat);
             this.tpgGeneral.Controls.Add(this.tbxLiveFormat);
             this.tpgGeneral.Controls.Add(this.ckxLive);
             this.tpgGeneral.Controls.Add(this.lblId);
@@ -133,9 +135,9 @@
             // 
             // tbxLiveFormat
             // 
-            this.tbxLiveFormat.Location = new System.Drawing.Point(93, 229);
+            this.tbxLiveFormat.Location = new System.Drawing.Point(163, 229);
             this.tbxLiveFormat.Name = "tbxLiveFormat";
-            this.tbxLiveFormat.Size = new System.Drawing.Size(440, 20);
+            this.tbxLiveFormat.Size = new System.Drawing.Size(370, 20);
             this.tbxLiveFormat.TabIndex = 27;
             this.toolTip1.SetToolTip(this.tbxLiveFormat, "Configure the live display");
             // 
@@ -507,6 +509,15 @@
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // lblLiveFormat
+            // 
+            this.lblLiveFormat.AutoSize = true;
+            this.lblLiveFormat.Location = new System.Drawing.Point(93, 232);
+            this.lblLiveFormat.Name = "lblLiveFormat";
+            this.lblLiveFormat.Size = new System.Drawing.Size(64, 13);
+            this.lblLiveFormat.TabIndex = 32;
+            this.lblLiveFormat.Text = "Live Display";
+            // 
             // GenericScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -569,5 +580,6 @@
         private System.Windows.Forms.CheckBox ckxLive;
         private System.Windows.Forms.Label lblLive;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lblLiveFormat;
     }
 }
