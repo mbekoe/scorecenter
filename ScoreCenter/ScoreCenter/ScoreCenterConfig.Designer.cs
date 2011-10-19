@@ -187,12 +187,11 @@
             // tsbNewLigue
             // 
             this.tsbNewLigue.AutoToolTip = false;
-            this.tsbNewLigue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbNewLigue.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.NewDocumentHS;
             this.tsbNewLigue.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNewLigue.Name = "tsbNewLigue";
-            this.tsbNewLigue.Size = new System.Drawing.Size(23, 22);
-            this.tsbNewLigue.Text = "Add";
+            this.tsbNewLigue.Size = new System.Drawing.Size(51, 22);
+            this.tsbNewLigue.Text = "&New";
             this.tsbNewLigue.ToolTipText = "Add a new score";
             this.tsbNewLigue.Click += new System.EventHandler(this.tsbNewItem_Click);
             // 
@@ -210,23 +209,22 @@
             // tsbCopyScore
             // 
             this.tsbCopyScore.AutoToolTip = false;
-            this.tsbCopyScore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbCopyScore.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.CopyHS;
             this.tsbCopyScore.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCopyScore.Name = "tsbCopyScore";
-            this.tsbCopyScore.Size = new System.Drawing.Size(23, 22);
-            this.tsbCopyScore.Text = "Copy";
+            this.tsbCopyScore.Size = new System.Drawing.Size(55, 22);
+            this.tsbCopyScore.Text = "Co&py";
             this.tsbCopyScore.ToolTipText = "Copy a score";
             this.tsbCopyScore.Click += new System.EventHandler(this.tsbCopyScore_Click);
             // 
             // tsbDelete
             // 
-            this.tsbDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbDelete.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.DeleteHS;
             this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDelete.Name = "tsbDelete";
-            this.tsbDelete.Size = new System.Drawing.Size(23, 22);
-            this.tsbDelete.Text = "Delete";
+            this.tsbDelete.Size = new System.Drawing.Size(60, 22);
+            this.tsbDelete.Text = "&Delete";
+            this.tsbDelete.ToolTipText = "Delete score";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
             // 
             // toolStripSeparator2
@@ -287,6 +285,7 @@
             this.tsbEditStyles.Name = "tsbEditStyles";
             this.tsbEditStyles.Size = new System.Drawing.Size(57, 22);
             this.tsbEditStyles.Text = "St&yles";
+            this.tsbEditStyles.ToolTipText = "Edit Styles";
             this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
             // 
             // tsbExport
@@ -296,6 +295,7 @@
             this.tsbExport.Name = "tsbExport";
             this.tsbExport.Size = new System.Drawing.Size(60, 22);
             this.tsbExport.Text = "&Export";
+            this.tsbExport.ToolTipText = "Export settings";
             this.tsbExport.Click += new System.EventHandler(this.tsbExport_Click);
             // 
             // tsbImport
@@ -305,6 +305,7 @@
             this.tsbImport.Name = "tsbImport";
             this.tsbImport.Size = new System.Drawing.Size(63, 22);
             this.tsbImport.Text = "&Import";
+            this.tsbImport.ToolTipText = "Import settings";
             this.tsbImport.Click += new System.EventHandler(this.tsbImport_Click);
             // 
             // tsbOptions
