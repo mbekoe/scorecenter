@@ -340,10 +340,20 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The new array.</returns>
         public static T[] AddElement<T>(T[] tab, T element)
         {
-            T[] newTab = new T[tab.Length + 1];
-            tab.CopyTo(newTab, 0);
+            T[] newTab = null;
+            if (tab == null)
+            {
+                newTab = new T[1];
+                newTab[0] = element;
+            }
+            else
+            {
+                newTab = new T[tab.Length + 1];
+                tab.CopyTo(newTab, 0);
 
-            newTab[newTab.Length - 1] = element;
+                newTab[newTab.Length - 1] = element;
+            }
+
             return newTab;
         }
 
@@ -459,11 +469,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             DateTime now = DateTime.Now;
             if (now.Month < 7) now = now.AddYears(-1);
             DateTime next = now.AddYears(1);
+            DateTime prev = now.AddYears(-1);
             result = result.Replace("{YY-YY+1}", String.Format("{0}-{1}", now.ToString("yy"), next.ToString("yy")));
             result = result.Replace("{YYYY-YY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yy")));
             result = result.Replace("{YYYY-YYYY+1}", String.Format("{0}-{1}", now.ToString("yyyy"), next.ToString("yyyy")));
             result = result.Replace("{YY+1}", String.Format("{0}", next.ToString("yy")));
             result = result.Replace("{YYYY+1}", String.Format("{0}", next.ToString("yyyy")));
+            result = result.Replace("{YY-1}", String.Format("{0}", now.ToString("yy")));
+            result = result.Replace("{YYYY-1}", String.Format("{0}", now.ToString("yyyy")));
 
             // subst parameters
             if (parameters != null)
