@@ -46,15 +46,16 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             InitializeComponent();
 
+            rbnNone.Checked = true;
             if (parent != null)
             {
                 rbnParent.Text = parent.Name;
-                rbnParent.Checked = true;
+                rbnParent.Checked = parent.IsContainer();
+                rbnParent.Enabled = rbnParent.Checked;
                 m_parentId = parent.Id;
             }
             else
             {
-                rbnNone.Checked = true;
                 rbnParent.Visible = false;
             }
 

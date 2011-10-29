@@ -430,6 +430,7 @@
             this.Controls.Add(this.ckxReload);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(930, 550);
             this.Name = "ScoreCenterConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "My Score Center Configuration";
