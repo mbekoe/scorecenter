@@ -15,6 +15,11 @@ In the option dialog of the Configuration Screen, you will find the following pa
 
 To set a score as "live", you can either use the Configuration and check the option "Live", or in MediaPortal select the score in the list view and the enable/disable the live status by using the context menu.
 
+Then you can configure the Live Display by giving an output format.
+The format is a classic '.Net' format, for example if you want to show only column 1 and 3, the format is (without the quotes) '{0} {2}' (column index is 0-based).
+If you want to show column 2, then 1 separeted by a dash use '{1} - {0}'.
+If the format failed because of a typo or a missing column, ALL the columns will be displayed.
+
 =Skin=
 *Live Status Label*: the Property #ScoreCenter.Live is set by the plugin when the status changed is shows the status followed by the number of scores set as live, ex: "Live Off (1)".
 
