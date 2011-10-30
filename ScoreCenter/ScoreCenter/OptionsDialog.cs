@@ -45,7 +45,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// Constructor.
         /// </summary>
         /// <param name="center">The score center to use.</param>
-        public OptionsDialog(ScoreCenter center)
+        /// <param name="selectUpdate">True to select the update tab.</param>
+        public OptionsDialog(ScoreCenter center, bool selectUpdate)
         {
             InitializeComponent();
 
@@ -74,6 +75,11 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             dataGridView1.DataSource = dt;
+            
+            if (selectUpdate)
+            {
+                tbcOptions.SelectedTab = tpgUpdate;
+            }
         }
 
         /// <summary>

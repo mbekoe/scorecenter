@@ -360,6 +360,12 @@
   <data name="comboBox1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
+  </metadata>
+  <data name="comboBox1.ToolTip" xml:space="preserve">
+    <value>Update behavior in MediaPortal</value>
+  </data>
   <data name="&gt;&gt;comboBox1.Name" xml:space="preserve">
     <value>comboBox1</value>
   </data>
@@ -367,7 +373,7 @@
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBox1.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -391,7 +397,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnUpdateNow.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;btnUpdateNow.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -421,7 +427,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -448,7 +454,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -478,7 +484,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxOverwriteIcons.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxOverwriteIcons.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -508,7 +514,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxRules.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxRules.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -538,7 +544,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxUrl.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxUrl.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -568,7 +574,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxNew.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxNew.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -598,7 +604,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxNames.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxNames.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -625,7 +631,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ckxMergeExisting.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;ckxMergeExisting.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -645,6 +651,9 @@
   <data name="tbxUrl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="tbxUrl.ToolTip" xml:space="preserve">
+    <value>URL of the online settings</value>
+  </data>
   <data name="&gt;&gt;tbxUrl.Name" xml:space="preserve">
     <value>tbxUrl</value>
   </data>
@@ -652,7 +661,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbxUrl.Parent" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>tpgUpdate</value>
   </data>
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -694,7 +703,7 @@
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
-    <value>tabPage3</value>
+    <value>tpgParameters</value>
   </data>
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -904,7 +913,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbxLive.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpgPlugin</value>
   </data>
   <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -961,111 +970,111 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbxGeneral.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpgPlugin</value>
   </data>
   <data name="&gt;&gt;gbxGeneral.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tpgPlugin.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tpgPlugin.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 10, 3</value>
   </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpgPlugin.Size" type="System.Drawing.Size, System.Drawing">
     <value>573, 321</value>
   </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+  <data name="tpgPlugin.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="tabPage1.Text" xml:space="preserve">
+  <data name="tpgPlugin.Text" xml:space="preserve">
     <value>Plugin</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;tpgPlugin.Name" xml:space="preserve">
+    <value>tpgPlugin</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tpgPlugin.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tpgPlugin.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
   </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpgPlugin.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tpgUpdate.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tpgUpdate.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpgUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>573, 321</value>
   </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+  <data name="tpgUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="tabPage2.Text" xml:space="preserve">
+  <data name="tpgUpdate.Text" xml:space="preserve">
     <value>Update</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="&gt;&gt;tpgUpdate.Name" xml:space="preserve">
+    <value>tpgUpdate</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+  <data name="&gt;&gt;tpgUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tpgUpdate.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
   </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpgUpdate.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tpgParameters.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpgParameters.Size" type="System.Drawing.Size, System.Drawing">
     <value>573, 321</value>
   </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+  <data name="tpgParameters.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="tabPage3.Text" xml:space="preserve">
+  <data name="tpgParameters.Text" xml:space="preserve">
     <value>Score Parameters</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
+  <data name="&gt;&gt;tpgParameters.Name" xml:space="preserve">
+    <value>tpgParameters</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+  <data name="&gt;&gt;tpgParameters.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tpgParameters.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
   </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpgParameters.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="tbcOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tbcOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tbcOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>581, 347</value>
   </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+  <data name="tbcOptions.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;tbcOptions.Name" xml:space="preserve">
+    <value>tbcOptions</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tbcOptions.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tbcOptions.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tbcOptions.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1103,6 +1112,12 @@
   </data>
   <data name="&gt;&gt;ColumnPValue.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>

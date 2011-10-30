@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -53,8 +54,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbcOptions = new System.Windows.Forms.TabControl();
+            this.tpgPlugin = new System.Windows.Forms.TabPage();
             this.gbxLive = new System.Windows.Forms.GroupBox();
             this.ckxPlaySound = new System.Windows.Forms.CheckBox();
             this.lblCheckUnit = new System.Windows.Forms.Label();
@@ -65,18 +66,19 @@
             this.lblNotificationTime = new System.Windows.Forms.Label();
             this.gbxGeneral = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpgUpdate = new System.Windows.Forms.TabPage();
+            this.tpgParameters = new System.Windows.Forms.TabPage();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tbcOptions.SuspendLayout();
+            this.tpgPlugin.SuspendLayout();
             this.gbxLive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCheckDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).BeginInit();
             this.gbxGeneral.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpgUpdate.SuspendLayout();
+            this.tpgParameters.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
@@ -137,6 +139,7 @@
             this.comboBox1.FormattingEnabled = true;
             resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.Name = "comboBox1";
+            this.toolTip1.SetToolTip(this.comboBox1, resources.GetString("comboBox1.ToolTip"));
             // 
             // btnUpdateNow
             // 
@@ -196,6 +199,7 @@
             // 
             resources.ApplyResources(this.tbxUrl, "tbxUrl");
             this.tbxUrl.Name = "tbxUrl";
+            this.toolTip1.SetToolTip(this.tbxUrl, resources.GetString("tbxUrl.ToolTip"));
             // 
             // dataGridView1
             // 
@@ -219,22 +223,22 @@
             resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
             this.ColumnPValue.Name = "ColumnPValue";
             // 
-            // tabControl1
+            // tbcOptions
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            resources.ApplyResources(this.tabControl1, "tabControl1");
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
+            this.tbcOptions.Controls.Add(this.tpgPlugin);
+            this.tbcOptions.Controls.Add(this.tpgUpdate);
+            this.tbcOptions.Controls.Add(this.tpgParameters);
+            resources.ApplyResources(this.tbcOptions, "tbcOptions");
+            this.tbcOptions.Name = "tbcOptions";
+            this.tbcOptions.SelectedIndex = 0;
             // 
-            // tabPage1
+            // tpgPlugin
             // 
-            this.tabPage1.Controls.Add(this.gbxLive);
-            this.tabPage1.Controls.Add(this.gbxGeneral);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpgPlugin.Controls.Add(this.gbxLive);
+            this.tpgPlugin.Controls.Add(this.gbxGeneral);
+            resources.ApplyResources(this.tpgPlugin, "tpgPlugin");
+            this.tpgPlugin.Name = "tpgPlugin";
+            this.tpgPlugin.UseVisualStyleBackColor = true;
             // 
             // gbxLive
             // 
@@ -334,29 +338,29 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // tabPage2
+            // tpgUpdate
             // 
-            this.tabPage2.Controls.Add(this.comboBox1);
-            this.tabPage2.Controls.Add(this.btnUpdateNow);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.tbxUrl);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.ckxMergeExisting);
-            this.tabPage2.Controls.Add(this.ckxOverwriteIcons);
-            this.tabPage2.Controls.Add(this.ckxNames);
-            this.tabPage2.Controls.Add(this.ckxRules);
-            this.tabPage2.Controls.Add(this.ckxNew);
-            this.tabPage2.Controls.Add(this.ckxUrl);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpgUpdate.Controls.Add(this.comboBox1);
+            this.tpgUpdate.Controls.Add(this.btnUpdateNow);
+            this.tpgUpdate.Controls.Add(this.label4);
+            this.tpgUpdate.Controls.Add(this.tbxUrl);
+            this.tpgUpdate.Controls.Add(this.label3);
+            this.tpgUpdate.Controls.Add(this.ckxMergeExisting);
+            this.tpgUpdate.Controls.Add(this.ckxOverwriteIcons);
+            this.tpgUpdate.Controls.Add(this.ckxNames);
+            this.tpgUpdate.Controls.Add(this.ckxRules);
+            this.tpgUpdate.Controls.Add(this.ckxNew);
+            this.tpgUpdate.Controls.Add(this.ckxUrl);
+            resources.ApplyResources(this.tpgUpdate, "tpgUpdate");
+            this.tpgUpdate.Name = "tpgUpdate";
+            this.tpgUpdate.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tpgParameters
             // 
-            this.tabPage3.Controls.Add(this.dataGridView1);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpgParameters.Controls.Add(this.dataGridView1);
+            resources.ApplyResources(this.tpgParameters, "tpgParameters");
+            this.tpgParameters.Name = "tpgParameters";
+            this.tpgParameters.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -364,7 +368,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tbcOptions);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -377,17 +381,17 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tbcOptions.ResumeLayout(false);
+            this.tpgPlugin.ResumeLayout(false);
             this.gbxLive.ResumeLayout(false);
             this.gbxLive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCheckDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).EndInit();
             this.gbxGeneral.ResumeLayout(false);
             this.gbxGeneral.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this.tpgUpdate.ResumeLayout(false);
+            this.tpgUpdate.PerformLayout();
+            this.tpgParameters.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -416,10 +420,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox ckxOverwriteIcons;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabControl tbcOptions;
+        private System.Windows.Forms.TabPage tpgPlugin;
+        private System.Windows.Forms.TabPage tpgUpdate;
+        private System.Windows.Forms.TabPage tpgParameters;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
         private System.Windows.Forms.GroupBox gbxGeneral;
@@ -432,5 +436,6 @@
         private System.Windows.Forms.Label lblNotifUnit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox ckxPlaySound;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
