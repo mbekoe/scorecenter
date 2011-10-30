@@ -1,11 +1,14 @@
 #labels Featured
-*next version* (not released yet)
+*version 2.4.0.0* (not released yet)
     * Fix: Missing Icon when going to MediaPortal Home.
     * Fix: Focus is lost when going back.
     * Fix: Format Live Score before comparing them.
     * Fix: Update from config dialog does not refresh settings.
+    * Fix: Exception in config dialog when adding new score to an empty settings.
+    * Fix: When the settings is empty ask the user if he wants to download the online settings.
     * Add: Skin parameter #ScoreCenter.LiveOn to give Live status.
     * Add: Disabled pin icon for score for which live is not set.
+    * Remove: Save button for scores. Changes to scores are now auto saved.
 
 *version 2.3.0.0 (24 September 2011)*:
     * Live Feature.
