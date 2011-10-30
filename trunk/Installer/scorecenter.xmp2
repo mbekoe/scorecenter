@@ -45,6 +45,20 @@
               <ZipFileName>Installer{CopyFile}\{d5432637-2d45-4a0e-b0b8-7620a872bde9}-ScoreCenterLive.dll</ZipFileName>
               <DestinationFilename>%Plugins%\Process\ScoreCenterLive.dll</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>C:\ProgramData\Team MediaPortal\MediaPortal\thumbs\ScoreCenter\Misc\Live.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{4ba1c7ac-1e80-4e00-a36f-a3f4c7641210}-Live.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ScoreCenter\Misc\Live.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>C:\ProgramData\Team MediaPortal\MediaPortal\thumbs\ScoreCenter\Misc\LiveDisabled.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{32e9c32b-8a03-4bf1-80ed-1adc1e9a3c75}-LiveDisabled.png</ZipFileName>
+              <DestinationFilename>%Thumbs%\ScoreCenter\Misc\LiveDisabled.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -341,8 +355,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -373,17 +387,25 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>3</Minor>
+      <Minor>4</Minor>
       <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*ScoreCenterLive Plugin</VersionDescription>
+    <VersionDescription>*Fix: Missing Icon when going to MediaPortal Home.
+*Fix: Focus is lost when going back.
+*Fix: Format Live Score before comparing them.
+*Fix: Update from config dialog does not refresh settings.
+*Fix: Exception in config dialog when adding new score to an empty settings.
+*Fix: When the settings is empty ask the user if he wants to download the online settings.
+*Add: Skin parameter #ScoreCenter.LiveOn to give Live status.
+*Add: Show disabled pin icon for score for which live is not set.
+*Remove: Save button for scores. Changes to scores are now auto saved.</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.2.0.2.mpe1</OnlineLocation>
-    <ReleaseDate>2011-09-22T18:55:45</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.4.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2011-10-30T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -454,6 +476,20 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <LocalFileName>..\ScoreCenter\ScoreCenterLive\bin\Release\ScoreCenterLive.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{d5432637-2d45-4a0e-b0b8-7620a872bde9}-ScoreCenterLive.dll</ZipFileName>
         <DestinationFilename>%Plugins%\Process\ScoreCenterLive.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>C:\ProgramData\Team MediaPortal\MediaPortal\thumbs\ScoreCenter\Misc\Live.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4ba1c7ac-1e80-4e00-a36f-a3f4c7641210}-Live.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ScoreCenter\Misc\Live.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>C:\ProgramData\Team MediaPortal\MediaPortal\thumbs\ScoreCenter\Misc\LiveDisabled.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{32e9c32b-8a03-4bf1-80ed-1adc1e9a3c75}-LiveDisabled.png</ZipFileName>
+        <DestinationFilename>%Thumbs%\ScoreCenter\Misc\LiveDisabled.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -564,14 +600,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{47c54773-2b4c-4b68-8ade-a546f1102c68}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{157d40f6-a859-4cd6-a79a-121fb21254f7}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9ebf188d-39d0-410f-9df8-cc07627f52e6}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{db9905b4-624d-4206-bacd-edc553056894}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
