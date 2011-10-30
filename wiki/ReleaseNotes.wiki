@@ -7,6 +7,7 @@
     * Fix: Exception in config dialog when adding new score to an empty settings.
     * Fix: When the settings is empty ask the user if he wants to download the online settings.
     * Add: Skin parameter #ScoreCenter.LiveOn to give Live status.
+    * Add: Skin parameter #ScoreCenter.LiveIcon to show Live status as an icon.
     * Add: Disabled pin icon for score for which live is not set.
     * Remove: Save button for scores. Changes to scores are now auto saved.
 
