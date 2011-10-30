@@ -72,12 +72,21 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_settings = Config.GetFile(Config.Dir.Config, ScoreCenterPlugin.SettingsFileName);
                 m_center = Tools.ReadSettings(m_settings, true);
 
-
                 BuildScoreList(tvwScores, m_center, true);
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, Properties.Resources.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (m_center.Scores.Items == null || m_center.Scores.Items.Length == 0)
+            {
+                DialogResult res = MessageBox.Show("The settings is empty, do you want to download the online settings?",
+                    "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    ShowOptions(true);
+                }
             }
         }
 
@@ -629,10 +638,13 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
         private void tsbOptions_Click(object sender, EventArgs e)
         {
-            using (OptionsDialog dlg = new OptionsDialog(m_center))
+            ShowOptions(false);
+        }
+        private void ShowOptions(bool selectUpdate)
+        {
+            using (OptionsDialog dlg = new OptionsDialog(m_center, selectUpdate))
             {
                 dlg.ShowDialog();
-
                 if (dlg.ReloadRequired)
                 {
                     RefreshTree();
