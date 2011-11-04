@@ -210,6 +210,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "3", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueResults", SIZES_LEAGUE_RESULTS);
+            sc.Dictionary = "WF.last";
             AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
@@ -218,6 +219,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "next", "Next Round", IMG_NEXT, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.LeagueNext", SIZES_LEAGUE_RESULTS);
+            sc.Dictionary = "WF.next";
             sc.LiveConfig = LiveConfig.Copy(wfscore.LiveConfig, GetParameter(parameters, "WF.LiveFormat", "{2} {5} {4}"));
             sc.SetCanLive(true);
             AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");
@@ -238,6 +240,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}spielplan/{1}-{2}-spieltag/{3}/tabelle/", WF_URL, fln2, wfscore.Season, nbrounds);
             sc.Skip = 2;
             sc.Sizes = GetParameter(parameters, "WF.LeagueStandings", SIZES_STANDINGS);
+            sc.Dictionary = "WF.table";
             sc.Headers = GetParameter(parameters, "WF.HeaderStandings", HEADERS_STANDINGS);
             if (String.IsNullOrEmpty(wfscore.Levels) == false)
             {
@@ -262,6 +265,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "topscorers", "Top Scorers", IMG_TOP_SCORER, "0", index++);
             sc.Url = String.Format("{0}torjaeger/{1}-{2}/", WF_URL, fln2, wfscore.Season);
             sc.Sizes = GetParameter(parameters, "WF.TopScorers", SIZES_SCORER);
+            sc.Dictionary = "WF.scorer";
             AddRule(sc, -1, Operation.EqualTo, "1", RuleAction.FormatLine, "Level1");
             AddHighlightRule(sc, wfscore.Highlights, 4, RuleAction.FormatLine);
             scores.Add(sc);
@@ -271,6 +275,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}sieger/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
             sc.Sizes = GetParameter(parameters, "WF.History", SIZES_HISTORY);
+            sc.Dictionary = "WF.archives";
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
@@ -279,6 +284,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}torschuetzenkoenige/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
             sc.Sizes = GetParameter(parameters, "WF.TopScorerHistory", SIZES_SCORER_HISTORY);
+            sc.Dictionary = "WF.scorer";
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
@@ -299,6 +305,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "2", index++);
             sc.Url = String.Format("{0}wettbewerb/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.CupResults", SIZES_CUP_RESULTS);
+            sc.Dictionary = "WF.last";
             AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
             AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
@@ -324,6 +331,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Url = String.Format("{0}sieger/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Skip = 1;
             sc.Sizes = GetParameter(parameters, "WF.History", SIZES_HISTORY);
+            sc.Dictionary = "WF.scorer";
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
@@ -436,14 +444,14 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             List<BaseScore> scores = new List<BaseScore>();
             GenericScore sc = null;
 
-            sc = CreateNewScore(wfscore.Id, "last", "Last", IMG_RESULTS, "1", index++);
+            sc = CreateNewScore(wfscore.Id, "teamlast", "Last", IMG_RESULTS, "1", index++);
             sc.Url = String.Format("{0}teams/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.TeamLast", SIZES_TEAM_LAST);
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
             AddRule(sc, 1, Operation.EndsWith, ";", RuleAction.SkipLine, "");
             scores.Add(sc);
 
-            sc = CreateNewScore(wfscore.Id, "results", "Results", IMG_RESULTS, "0", index++);
+            sc = CreateNewScore(wfscore.Id, "teamresults", "Results", IMG_RESULTS, "0", index++);
             sc.Url = String.Format("{0}teams/{1}/{{YYYY+1}}/3/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.TeamResults", SIZES_TEAM_RESULTS);
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
@@ -472,7 +480,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 scores.Add(sc);
             }
 
-            sc = CreateNewScore(wfscore.Id, "archives", "History", IMG_HISTORY, "1", index++);
+            sc = CreateNewScore(wfscore.Id, "teamarchives", "History", IMG_HISTORY, "1", index++);
             sc.Url = String.Format("{0}teams/{1}/1/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = GetParameter(parameters, "WF.TeamHistory", SIZES_TEAM_ARCHIVES);
             AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
