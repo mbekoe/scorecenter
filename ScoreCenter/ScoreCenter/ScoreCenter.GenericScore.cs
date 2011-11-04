@@ -101,6 +101,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.ParseOptions = this.ParseOptions;
             copy.Parent = this.Parent;
             copy.LiveConfig = this.LiveConfig;
+            copy.Dictionary = this.Dictionary;
 
             return (BaseScore)copy;
         }

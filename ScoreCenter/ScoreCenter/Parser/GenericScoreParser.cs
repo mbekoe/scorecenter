@@ -122,7 +122,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = Math.Min(ll.Count, score.MaxLines);
             string[][] aa = new string[nbLines][];
             ll.CopyTo(0, aa, 0, nbLines);
-            return aa;
+            return LocalizationManager.LocalizeScore(aa, score.Dictionary);
         }
         /// <summary>
         /// Adds a header line in the score.

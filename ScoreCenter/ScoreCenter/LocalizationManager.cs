@@ -110,12 +110,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (m_instance.m_scoreLocaliser == null) return defaultValue;
 
             // first check for id
-            LocString loc = m_instance.m_scoreLocaliser.Strings.Where(x => x.id == id).FirstOrDefault();
+            LocString loc = m_instance.m_scoreLocaliser.Strings.FirstOrDefault(x => x.id == id);
             if (loc != null)
                 return loc.Value;
 
             // then check for global
-            loc = m_instance.m_scoreLocaliser.Globals.Where(x => !x.isRegEx && x.id == defaultValue).FirstOrDefault();
+            loc = m_instance.m_scoreLocaliser.Globals.FirstOrDefault(x => !x.isRegEx && x.id == defaultValue);
             if (loc != null)
                 return loc.Value;
 
@@ -129,6 +129,27 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return defaultValue;
+        }
+
+        public static string[][] LocalizeScore(string[][] score, string dictionaryName)
+        {
+            if (m_instance.m_scoreLocaliser.ScoreDictionaries == null
+                || m_instance.m_scoreLocaliser.ScoreDictionaries.Length == 0 || score == null)
+                return score;
+
+            ScoreDictionary dic = m_instance.m_scoreLocaliser.ScoreDictionaries.FirstOrDefault(d => d.name == dictionaryName);
+            if (dic == null || dic.LocString == null)
+                return score;
+
+            foreach (string[] line in score)
+            {
+                for (int i = 0; i < line.Length; i++)
+                {
+                    line[i] = dic.Translate(line[i]);
+                }
+            }
+
+            return score;
         }
     }
 
@@ -153,5 +174,26 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const int StartLive = 17;
         public const int StopLive = 18;
         public const int ClearLive = 19;
+    }
+
+    public partial class ScoreDictionary
+    {
+        public string Translate(string key)
+        {
+            LocString translation = this.LocString.FirstOrDefault(w => w.id == key && !w.isRegEx);
+            if (translation != null)
+                return translation.Value;
+
+            // regex
+            foreach (var rg in this.LocString.Where(x => x.isRegEx))
+            {
+                Regex r = new Regex(rg.id);
+                string res = r.Replace(key, rg.Value);
+                if (res != key)
+                    return res;
+            }
+
+            return key;
+        }
     }
 }

@@ -10,6 +10,14 @@
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ScoreDictionary" nillable="false">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LocString" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ScoreLocalisation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
     <xs:complexType>
       <xs:sequence>
@@ -24,6 +32,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="LocString" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ScoreDictionaries" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="ScoreDictionary" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

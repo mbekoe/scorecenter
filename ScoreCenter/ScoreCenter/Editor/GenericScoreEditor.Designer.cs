@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.lblLiveFormat = new System.Windows.Forms.Label();
             this.tbxLiveFormat = new System.Windows.Forms.TextBox();
             this.ckxLive = new System.Windows.Forms.CheckBox();
             this.lblId = new System.Windows.Forms.Label();
@@ -71,7 +72,8 @@
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblLiveFormat = new System.Windows.Forms.Label();
+            this.lblDictionary = new System.Windows.Forms.Label();
+            this.tbxDictionary = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -93,6 +95,8 @@
             // 
             // tpgGeneral
             // 
+            this.tpgGeneral.Controls.Add(this.tbxDictionary);
+            this.tpgGeneral.Controls.Add(this.lblDictionary);
             this.tpgGeneral.Controls.Add(this.lblLiveFormat);
             this.tpgGeneral.Controls.Add(this.tbxLiveFormat);
             this.tpgGeneral.Controls.Add(this.ckxLive);
@@ -133,12 +137,21 @@
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "General";
             // 
+            // lblLiveFormat
+            // 
+            this.lblLiveFormat.AutoSize = true;
+            this.lblLiveFormat.Location = new System.Drawing.Point(93, 232);
+            this.lblLiveFormat.Name = "lblLiveFormat";
+            this.lblLiveFormat.Size = new System.Drawing.Size(64, 13);
+            this.lblLiveFormat.TabIndex = 27;
+            this.lblLiveFormat.Text = "Live Display";
+            // 
             // tbxLiveFormat
             // 
             this.tbxLiveFormat.Location = new System.Drawing.Point(163, 229);
             this.tbxLiveFormat.Name = "tbxLiveFormat";
             this.tbxLiveFormat.Size = new System.Drawing.Size(370, 20);
-            this.tbxLiveFormat.TabIndex = 27;
+            this.tbxLiveFormat.TabIndex = 28;
             this.toolTip1.SetToolTip(this.tbxLiveFormat, "Configure the live display");
             // 
             // ckxLive
@@ -310,7 +323,7 @@
             this.lblMaxLines.Location = new System.Drawing.Point(567, 86);
             this.lblMaxLines.Name = "lblMaxLines";
             this.lblMaxLines.Size = new System.Drawing.Size(55, 13);
-            this.lblMaxLines.TabIndex = 30;
+            this.lblMaxLines.TabIndex = 33;
             this.lblMaxLines.Text = "Max Lines";
             // 
             // lblSkip
@@ -320,7 +333,7 @@
             this.lblSkip.Location = new System.Drawing.Point(587, 60);
             this.lblSkip.Name = "lblSkip";
             this.lblSkip.Size = new System.Drawing.Size(28, 13);
-            this.lblSkip.TabIndex = 28;
+            this.lblSkip.TabIndex = 31;
             this.lblSkip.Text = "Skip";
             // 
             // tbxSkip
@@ -329,7 +342,7 @@
             this.tbxSkip.MaxLength = 3;
             this.tbxSkip.Name = "tbxSkip";
             this.tbxSkip.Size = new System.Drawing.Size(45, 20);
-            this.tbxSkip.TabIndex = 29;
+            this.tbxSkip.TabIndex = 32;
             this.toolTip1.SetToolTip(this.tbxSkip, "Number of line to skip");
             // 
             // tbxMaxLines
@@ -338,7 +351,7 @@
             this.tbxMaxLines.MaxLength = 3;
             this.tbxMaxLines.Name = "tbxMaxLines";
             this.tbxMaxLines.Size = new System.Drawing.Size(45, 20);
-            this.tbxMaxLines.TabIndex = 31;
+            this.tbxMaxLines.TabIndex = 34;
             this.toolTip1.SetToolTip(this.tbxMaxLines, "Maximum number of lines to keep");
             // 
             // tbxSizes
@@ -509,14 +522,23 @@
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // lblLiveFormat
+            // lblDictionary
             // 
-            this.lblLiveFormat.AutoSize = true;
-            this.lblLiveFormat.Location = new System.Drawing.Point(93, 232);
-            this.lblLiveFormat.Name = "lblLiveFormat";
-            this.lblLiveFormat.Size = new System.Drawing.Size(64, 13);
-            this.lblLiveFormat.TabIndex = 32;
-            this.lblLiveFormat.Text = "Live Display";
+            this.lblDictionary.AutoSize = true;
+            this.lblDictionary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblDictionary.Location = new System.Drawing.Point(11, 258);
+            this.lblDictionary.Name = "lblDictionary";
+            this.lblDictionary.Size = new System.Drawing.Size(54, 13);
+            this.lblDictionary.TabIndex = 29;
+            this.lblDictionary.Text = "Dictionary";
+            // 
+            // tbxDictionary
+            // 
+            this.tbxDictionary.Location = new System.Drawing.Point(72, 255);
+            this.tbxDictionary.Name = "tbxDictionary";
+            this.tbxDictionary.Size = new System.Drawing.Size(119, 20);
+            this.tbxDictionary.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.tbxDictionary, "Configure the live display");
             // 
             // GenericScoreEditor
             // 
@@ -581,5 +603,7 @@
         private System.Windows.Forms.Label lblLive;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblLiveFormat;
+        private System.Windows.Forms.TextBox tbxDictionary;
+        private System.Windows.Forms.Label lblDictionary;
     }
 }
