@@ -1,5 +1,8 @@
 #labels Featured
-*version 2.4.0.0* (not released yet)
+*next version* (not released yet)
+    * Add: Localization for scores.
+
+*version 2.4.0.0 (30 October 2011)*:
     * Fix: Missing Icon when going to MediaPortal Home.
     * Fix: Focus is lost when going back.
     * Fix: Format Live Score before comparing them.
@@ -14,7 +17,7 @@
 *version 2.3.0.0 (24 September 2011)*:
     * Live Feature.
     * Add: WorldFootball scores, add a global "Results" for Tournament and Qualification type. (to use with the live feature).
-    * Add: German scores localisation (thanks to catavolt).
+    * Add: German scores localization (thanks to catavolt).
 
 *version 2.2.0.2*:
     * Version for MP 1.2 RC
