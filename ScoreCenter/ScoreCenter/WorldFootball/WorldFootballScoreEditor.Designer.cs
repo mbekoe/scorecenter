@@ -52,10 +52,10 @@
             this.lblDetails = new System.Windows.Forms.Label();
             this.cbxDetailsHelper = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ckxLiveEnabled = new System.Windows.Forms.CheckBox();
             this.lblScoreId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
             this.lblLive = new System.Windows.Forms.Label();
-            this.ckxLiveEnabled = new System.Windows.Forms.CheckBox();
             this.lblLiveDetails = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
@@ -385,13 +385,25 @@
             "3-platz",
             "finale",
             "Players",
-            "Transfers"});
+            "Transfers",
+            "stadium",
+            "referee"});
             this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 159);
             this.cbxDetailsHelper.Name = "cbxDetailsHelper";
             this.cbxDetailsHelper.Size = new System.Drawing.Size(112, 21);
             this.cbxDetailsHelper.TabIndex = 15;
             this.toolTip1.SetToolTip(this.cbxDetailsHelper, "Select a detail");
             this.cbxDetailsHelper.SelectedIndexChanged += new System.EventHandler(this.cbxDetailsHelper_SelectedIndexChanged);
+            // 
+            // ckxLiveEnabled
+            // 
+            this.ckxLiveEnabled.AutoSize = true;
+            this.ckxLiveEnabled.Location = new System.Drawing.Point(95, 267);
+            this.ckxLiveEnabled.Name = "ckxLiveEnabled";
+            this.ckxLiveEnabled.Size = new System.Drawing.Size(15, 14);
+            this.ckxLiveEnabled.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.ckxLiveEnabled, "Set as live");
+            this.ckxLiveEnabled.UseVisualStyleBackColor = true;
             // 
             // lblScoreId
             // 
@@ -420,16 +432,6 @@
             this.lblLive.Size = new System.Drawing.Size(27, 13);
             this.lblLive.TabIndex = 22;
             this.lblLive.Text = "Live";
-            // 
-            // ckxLiveEnabled
-            // 
-            this.ckxLiveEnabled.AutoSize = true;
-            this.ckxLiveEnabled.Location = new System.Drawing.Point(95, 267);
-            this.ckxLiveEnabled.Name = "ckxLiveEnabled";
-            this.ckxLiveEnabled.Size = new System.Drawing.Size(15, 14);
-            this.ckxLiveEnabled.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.ckxLiveEnabled, "Set as live");
-            this.ckxLiveEnabled.UseVisualStyleBackColor = true;
             // 
             // lblLiveDetails
             // 
