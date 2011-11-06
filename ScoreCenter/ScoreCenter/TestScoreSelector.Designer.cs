@@ -58,6 +58,7 @@
             // 
             resources.ApplyResources(this.lbxTest, "lbxTest");
             this.lbxTest.FormattingEnabled = true;
+            this.lbxTest.MultiColumn = true;
             this.lbxTest.Name = "lbxTest";
             // 
             // TestScoreSelector
