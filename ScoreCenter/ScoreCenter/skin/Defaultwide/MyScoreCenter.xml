@@ -173,6 +173,7 @@
             <width>970</width>
             <height>510</height>
             <font>font10</font>
+            <colordiffuse>ffc0c0c0</colordiffuse>
         </control>
         <control>
             <id>40</id>
