@@ -161,6 +161,7 @@
       <width>500</width>
       <height>340</height>
       <font>font10</font>
+      <colordiffuse>ffc0c0c0</colordiffuse>
     </control>
     <control>
       <id>40</id>
