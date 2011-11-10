@@ -47,6 +47,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 pnlSkinColor.BackColor = Color.FromArgb(m_center.Setup.DefaultSkinColor);
                 pnlFontColor.BackColor = Color.FromArgb(m_center.Setup.DefaultFontColor);
+                pnlAltColor.BackColor = Color.FromArgb(m_center.Setup.AltFontColor);
             }
         }
 
@@ -108,12 +109,16 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 m_center.Setup.DefaultSkinColor = pnlSkinColor.BackColor.ToArgb();
                 m_center.Setup.DefaultFontColor = pnlFontColor.BackColor.ToArgb();
+                m_center.Setup.AltFontColor = pnlAltColor.BackColor.ToArgb();
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            AddControl(new Style());
+            Style ns = new Style();
+            ns.Name = "new";
+            ns.ForeColor = -1;
+            AddControl(ns);
         }
 
         private void AddControl(Style style)
@@ -134,24 +139,20 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        private void btnSetSkinColor_Click(object sender, EventArgs e)
+        private void pnlColor_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = sender == btnSetSkinColor
-                ? pnlSkinColor.BackColor : pnlFontColor.BackColor;
+            Panel pnl = sender as Panel;
+            colorDialog1.Color = pnl.BackColor;
 
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (sender == btnSetSkinColor)
+                pnl.BackColor = colorDialog1.Color;
+                if (sender == pnlSkinColor)
                 {
-                    pnlSkinColor.BackColor = colorDialog1.Color;
                     foreach (StyleControl ctrl in flowLayoutPanel1.Controls)
                     {
                         ctrl.SetBackColor(pnlSkinColor.BackColor);
                     }
-                }
-                else if (sender == btnSetFontColor)
-                {
-                    pnlFontColor.BackColor = colorDialog1.Color;
                 }
             }
         }

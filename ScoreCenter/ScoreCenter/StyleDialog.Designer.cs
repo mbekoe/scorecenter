@@ -37,12 +37,13 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSkinColor = new System.Windows.Forms.Label();
             this.pnlSkinColor = new System.Windows.Forms.Panel();
-            this.btnSetSkinColor = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.lblFontColor = new System.Windows.Forms.Label();
             this.pnlFontColor = new System.Windows.Forms.Panel();
-            this.btnSetFontColor = new System.Windows.Forms.Button();
+            this.pnlAltColor = new System.Windows.Forms.Panel();
+            this.lblAltColor = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnOk
@@ -89,14 +90,7 @@
             this.pnlSkinColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.pnlSkinColor, "pnlSkinColor");
             this.pnlSkinColor.Name = "pnlSkinColor";
-            // 
-            // btnSetSkinColor
-            // 
-            resources.ApplyResources(this.btnSetSkinColor, "btnSetSkinColor");
-            this.btnSetSkinColor.Name = "btnSetSkinColor";
-            this.toolTip1.SetToolTip(this.btnSetSkinColor, resources.GetString("btnSetSkinColor.ToolTip"));
-            this.btnSetSkinColor.UseVisualStyleBackColor = true;
-            this.btnSetSkinColor.Click += new System.EventHandler(this.btnSetSkinColor_Click);
+            this.pnlSkinColor.Click += new System.EventHandler(this.pnlColor_Click);
             // 
             // lblFontColor
             // 
@@ -109,14 +103,25 @@
             this.pnlFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.pnlFontColor, "pnlFontColor");
             this.pnlFontColor.Name = "pnlFontColor";
+            this.pnlFontColor.Click += new System.EventHandler(this.pnlColor_Click);
             // 
-            // btnSetFontColor
+            // pnlAltColor
             // 
-            resources.ApplyResources(this.btnSetFontColor, "btnSetFontColor");
-            this.btnSetFontColor.Name = "btnSetFontColor";
-            this.toolTip1.SetToolTip(this.btnSetFontColor, resources.GetString("btnSetFontColor.ToolTip"));
-            this.btnSetFontColor.UseVisualStyleBackColor = true;
-            this.btnSetFontColor.Click += new System.EventHandler(this.btnSetSkinColor_Click);
+            this.pnlAltColor.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlAltColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.pnlAltColor, "pnlAltColor");
+            this.pnlAltColor.Name = "pnlAltColor";
+            this.pnlAltColor.Click += new System.EventHandler(this.pnlColor_Click);
+            // 
+            // lblAltColor
+            // 
+            resources.ApplyResources(this.lblAltColor, "lblAltColor");
+            this.lblAltColor.Name = "lblAltColor";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // StyleDialog
             // 
@@ -124,9 +129,10 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.Controls.Add(this.btnSetFontColor);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pnlAltColor);
+            this.Controls.Add(this.lblAltColor);
             this.Controls.Add(this.pnlFontColor);
-            this.Controls.Add(this.btnSetSkinColor);
             this.Controls.Add(this.lblFontColor);
             this.Controls.Add(this.pnlSkinColor);
             this.Controls.Add(this.lblSkinColor);
@@ -155,11 +161,12 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label lblSkinColor;
         private System.Windows.Forms.Panel pnlSkinColor;
-        private System.Windows.Forms.Button btnSetSkinColor;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Label lblFontColor;
         private System.Windows.Forms.Panel pnlFontColor;
-        private System.Windows.Forms.Button btnSetFontColor;
+        private System.Windows.Forms.Panel pnlAltColor;
+        private System.Windows.Forms.Label lblAltColor;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -387,10 +387,11 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
                 IScoreBuilder<Control> bld = ScoreFactory.Instance.GetBuilder<Control>(score);
                 bld.Styles = m_center.Styles.ToList().AsReadOnly();
+                bld.UseAltColor = m_center.Setup.UseAltColor;
 
                 int fh = pnlTest.Font.Height;
                 int fw = (int)pnlTest.Font.SizeInPoints;
-                bld.SetFont("", m_center.Setup.DefaultFontColor, 14, fw, fh);
+                bld.SetFont("", m_center.Setup.DefaultFontColor, m_center.Setup.AltFontColor, 14, fw, fh);
                 
                 bool overRight = false;
                 bool overDown = false;
@@ -400,7 +401,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
 
                 IList<Control> controls = bld.Build(score, lines,
                     0, 0,
-                    0, 0, pnlTest.Width, pnlTest.Height,
+                    0, 0, pnlTest.Width, 10000,
                     this.CreateControl,
                     out overRight, out overDown, out lineNumber, out colNumber);
                 if (controls == null)

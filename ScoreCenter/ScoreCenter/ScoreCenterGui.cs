@@ -215,7 +215,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 GUIListItem item = lstDetails.ListItems.Where(x => x.Label == "..").FirstOrDefault();
                 if (item != null)
                 {
-                    UpdateListView(item, true);
+                    UpdateListView(item.TVTag as BaseScore, true);
                     return;
                 }
             }
@@ -522,13 +522,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                     m_prevIndex.Push(lstDetails.SelectedListItemIndex);
                 }
 
-                UpdateListView(item, back);
+                UpdateListView(item.TVTag as BaseScore, back);
             }
 
             base.OnClicked(controlId, control, actionType);
         }
 
-        private void UpdateListView(GUIListItem item, bool back)
+        private void UpdateListView(BaseScore sc, bool back)
         {
             //Tools.LogMessage("UpdateListView: {0} back = {1}", item.Label, back);
             m_currentLine = 0;
@@ -540,7 +540,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             ShowNextPrevScoreButtons(false);
             ClearGrid();
 
-            BaseScore sc = item.TVTag as BaseScore;
             bool currIsFolder = (m_currentScore == null || m_currentScore.IsContainer());
             m_currentScore = sc;
 
@@ -862,12 +861,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             IScoreBuilder<GUIControl> bld = ScoreFactory.Instance.GetBuilder<GUIControl>(score);
             bld.Styles = m_center.Styles.ToList().AsReadOnly();
+            bld.UseAltColor = m_center.Setup.UseAltColor;
 
             GUIFont font = GUIFontManager.GetFont(tbxDetails.FontName);
             int fontSize = font.FontSize;
             int charHeight = 0, charWidth = 0;
             GetCharFonSize(fontSize, ref charWidth, ref charHeight);
-            bld.SetFont(tbxDetails.FontName, tbxDetails.TextColor, fontSize, charWidth, charHeight);
+            bld.SetFont(tbxDetails.FontName, tbxDetails.TextColor, tbxDetails.ColourDiffuse, fontSize, charWidth, charHeight);
 
             // add controls to screen
             try

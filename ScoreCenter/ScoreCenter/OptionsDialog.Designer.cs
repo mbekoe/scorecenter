@@ -69,6 +69,7 @@
             this.tpgUpdate = new System.Windows.Forms.TabPage();
             this.tpgParameters = new System.Windows.Forms.TabPage();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ckxUseAltColor = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tbcOptions.SuspendLayout();
@@ -257,6 +258,7 @@
             // 
             resources.ApplyResources(this.ckxPlaySound, "ckxPlaySound");
             this.ckxPlaySound.Name = "ckxPlaySound";
+            this.toolTip1.SetToolTip(this.ckxPlaySound, resources.GetString("ckxPlaySound.ToolTip"));
             this.ckxPlaySound.UseVisualStyleBackColor = true;
             // 
             // lblCheckUnit
@@ -283,8 +285,9 @@
             0,
             0});
             this.numCheckDelay.Name = "numCheckDelay";
+            this.toolTip1.SetToolTip(this.numCheckDelay, resources.GetString("numCheckDelay.ToolTip"));
             this.numCheckDelay.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -303,8 +306,9 @@
             0,
             0});
             this.numNotificationTime.Name = "numNotificationTime";
+            this.toolTip1.SetToolTip(this.numNotificationTime, resources.GetString("numNotificationTime.ToolTip"));
             this.numNotificationTime.Value = new decimal(new int[] {
-            3,
+            10,
             0,
             0,
             0});
@@ -321,6 +325,7 @@
             // 
             // gbxGeneral
             // 
+            this.gbxGeneral.Controls.Add(this.ckxUseAltColor);
             this.gbxGeneral.Controls.Add(this.label5);
             this.gbxGeneral.Controls.Add(this.lblName);
             this.gbxGeneral.Controls.Add(this.tbxName);
@@ -361,6 +366,12 @@
             resources.ApplyResources(this.tpgParameters, "tpgParameters");
             this.tpgParameters.Name = "tpgParameters";
             this.tpgParameters.UseVisualStyleBackColor = true;
+            // 
+            // ckxUseAltColor
+            // 
+            resources.ApplyResources(this.ckxUseAltColor, "ckxUseAltColor");
+            this.ckxUseAltColor.Name = "ckxUseAltColor";
+            this.ckxUseAltColor.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -437,5 +448,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox ckxPlaySound;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox ckxUseAltColor;
     }
 }

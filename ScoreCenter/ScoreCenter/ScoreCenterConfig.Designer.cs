@@ -174,9 +174,9 @@
             this.tsbMoveBack,
             this.tsbMoveRight,
             this.toolStripSeparator1,
-            this.tsbEditStyles,
             this.tsbExport,
             this.tsbImport,
+            this.tsbEditStyles,
             this.tsbOptions});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";

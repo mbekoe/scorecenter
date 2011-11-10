@@ -884,6 +884,10 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private int defaultFontColorField;
         
+        private int altFontColorField;
+        
+        private bool useAltColorField;
+        
         private string backdropDirField;
         
         private UpdateMode updateOnlineModeField;
@@ -907,6 +911,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.cacheExpirationField = 0;
             this.defaultSkinColorField = -16776961;
             this.defaultFontColorField = -1;
+            this.altFontColorField = -4144960;
+            this.useAltColorField = true;
             this.backdropDirField = "";
             this.updateOnlineModeField = UpdateMode.Never;
             this.updateUrlField = "";
@@ -963,6 +969,30 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.defaultFontColorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(-4144960)]
+        public int AltFontColor {
+            get {
+                return this.altFontColorField;
+            }
+            set {
+                this.altFontColorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool UseAltColor {
+            get {
+                return this.useAltColorField;
+            }
+            set {
+                this.useAltColorField = value;
             }
         }
         
