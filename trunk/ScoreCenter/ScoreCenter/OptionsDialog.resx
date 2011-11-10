@@ -196,7 +196,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;tbxName.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -223,7 +223,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="numCacheExpiration.Location" type="System.Drawing.Point, System.Drawing">
     <value>115, 74</value>
@@ -244,7 +244,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;numCacheExpiration.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -274,7 +274,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="tbxBackdrop.Location" type="System.Drawing.Point, System.Drawing">
     <value>115, 47</value>
@@ -295,7 +295,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;tbxBackdrop.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -325,7 +325,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="btnSelectDir.Location" type="System.Drawing.Point, System.Drawing">
     <value>461, 47</value>
@@ -346,10 +346,13 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;btnSelectDir.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
   </metadata>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>97, 19</value>
@@ -360,9 +363,6 @@
   <data name="comboBox1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 17</value>
-  </metadata>
   <data name="comboBox1.ToolTip" xml:space="preserve">
     <value>Update behavior in MediaPortal</value>
   </data>
@@ -669,21 +669,9 @@
   <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="ColumnPName.HeaderText" xml:space="preserve">
-    <value>Parameter</value>
-  </data>
-  <data name="ColumnPName.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="ColumnPName.Width" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
   <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="ColumnPValue.HeaderText" xml:space="preserve">
-    <value>Value</value>
-  </data>
   <data name="dataGridView1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -708,6 +696,27 @@
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="ColumnPName.HeaderText" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ColumnPName.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="ColumnPName.Width" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
+  <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="ColumnPValue.HeaderText" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
+  </metadata>
   <data name="ckxPlaySound.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -722,6 +731,9 @@
   </data>
   <data name="ckxPlaySound.Text" xml:space="preserve">
     <value>Play Sound</value>
+  </data>
+  <data name="ckxPlaySound.ToolTip" xml:space="preserve">
+    <value>Play sound whit notification</value>
   </data>
   <data name="&gt;&gt;ckxPlaySound.Name" xml:space="preserve">
     <value>ckxPlaySound</value>
@@ -801,6 +813,12 @@
   <data name="numCheckDelay.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
+  </metadata>
+  <data name="numCheckDelay.ToolTip" xml:space="preserve">
+    <value>Time between two check</value>
+  </data>
   <data name="&gt;&gt;numCheckDelay.Name" xml:space="preserve">
     <value>numCheckDelay</value>
   </data>
@@ -821,6 +839,9 @@
   </data>
   <data name="numNotificationTime.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="numNotificationTime.ToolTip" xml:space="preserve">
+    <value>Number of seconds to show the notification</value>
   </data>
   <data name="&gt;&gt;numNotificationTime.Name" xml:space="preserve">
     <value>numNotificationTime</value>
@@ -895,7 +916,7 @@
     <value>Top</value>
   </data>
   <data name="gbxLive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 124</value>
+    <value>10, 147</value>
   </data>
   <data name="gbxLive.Size" type="System.Drawing.Size, System.Drawing">
     <value>553, 119</value>
@@ -918,23 +939,17 @@
   <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;ckxUseAltColor.Name" xml:space="preserve">
+    <value>ckxUseAltColor</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;ckxUseAltColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 76</value>
+  <data name="&gt;&gt;ckxUseAltColor.Parent" xml:space="preserve">
+    <value>gbxGeneral</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>minutes</value>
+  <data name="&gt;&gt;ckxUseAltColor.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -946,7 +961,7 @@
     <value>gbxGeneral</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="gbxGeneral.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -955,7 +970,7 @@
     <value>10, 3</value>
   </data>
   <data name="gbxGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 121</value>
+    <value>553, 144</value>
   </data>
   <data name="gbxGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1075,6 +1090,66 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbcOptions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 76</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 13</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>gbxGeneral</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ckxUseAltColor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ckxUseAltColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ckxUseAltColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 104</value>
+  </data>
+  <data name="ckxUseAltColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 17</value>
+  </data>
+  <data name="ckxUseAltColor.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ckxUseAltColor.Text" xml:space="preserve">
+    <value>Use Alternate Row Color</value>
+  </data>
+  <data name="&gt;&gt;ckxUseAltColor.Name" xml:space="preserve">
+    <value>ckxUseAltColor</value>
+  </data>
+  <data name="&gt;&gt;ckxUseAltColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ckxUseAltColor.Parent" xml:space="preserve">
+    <value>gbxGeneral</value>
+  </data>
+  <data name="&gt;&gt;ckxUseAltColor.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

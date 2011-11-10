@@ -73,20 +73,21 @@ namespace MediaPortal.Plugin.ScoreCenter
             tbxStyleName.BackColor = bckColor;
         }
 
-        private void btnSelectColor_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                pnlStyle.BackColor = colorDialog1.Color;
-                tbxStyleName.ForeColor = colorDialog1.Color;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (OnDelete != null)
             {
                 OnDelete(this, null);
+            }
+        }
+
+        private void pnlStyle_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = pnlStyle.BackColor;
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                pnlStyle.BackColor = colorDialog1.Color;
+                tbxStyleName.ForeColor = colorDialog1.Color;
             }
         }
     }

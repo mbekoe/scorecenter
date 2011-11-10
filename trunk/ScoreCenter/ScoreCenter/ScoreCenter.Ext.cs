@@ -277,6 +277,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     partial class Style
     {
+        public static Style CreateFromColor(long color)
+        {
+            Style st = new Style();
+            st.ForeColor = color;
+            return st;
+        }
+
         public Style Clone()
         {
             Style style = new Style();

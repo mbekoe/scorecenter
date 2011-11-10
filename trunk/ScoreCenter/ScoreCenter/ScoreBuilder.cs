@@ -40,12 +40,13 @@ namespace MediaPortal.Plugin.ScoreCenter
         bool LimitToPage { get; set; }
         bool AutoSize { get; set; }
         bool AutoWrap { get; set; }
+        bool UseAltColor { get; set; }
         ReadOnlyCollection<Style> Styles { get; set; }
     }
 
     public interface IScoreBuilder<T> : IScoreBuilder
     {
-        void SetFont(string fontName, long textColor, int fontSize, int charWidth, int charHeight);
+        void SetFont(string fontName, long textColor, long altColor, int fontSize, int charWidth, int charHeight);
         IList<T> Build(BaseScore score, string[][] labels, int startLine, int startColumn,
             int startX, int startY, int pnlWidth, int pnlHeight,
             CreateControlDelegate<T> createControl,
@@ -53,7 +54,7 @@ namespace MediaPortal.Plugin.ScoreCenter
     }
 
     /// <summary>
-    /// Base class for builders
+    /// Base class for builders.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class ScoreBuilder<T> : IScoreBuilder<T>
@@ -63,6 +64,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         public bool LimitToPage { get; set; }
         public bool AutoSize { get; set; }
         public bool AutoWrap { get; set; }
+        public bool UseAltColor { get; set; }
 
         public ScoreBuilder()
         {
@@ -75,20 +77,22 @@ namespace MediaPortal.Plugin.ScoreCenter
             out bool overRight, out bool overDown, out int lineNumber, out int colNumber);
 
         protected string m_fontName;
-        protected long m_textColor;
-        //protected long m_oddColor = -4144960;
         protected int m_fontSize = 12;
         protected int m_charWidth = 8;
         protected int m_charHeight = 12;
+        protected Style m_defaultStyle;
+        protected Style m_altStyle;
         
-        public void SetFont(string fontName, long textColor, int fontSize,
+        public void SetFont(string fontName, long textColor, long altColor, int fontSize,
             int charWidth, int charHeight)
         {
             m_fontName = fontName;
-            m_textColor = textColor;
             m_fontSize = fontSize;
             m_charWidth = charWidth;
             m_charHeight = charHeight;
+
+            m_defaultStyle = Style.CreateFromColor(textColor);
+            m_altStyle = Style.CreateFromColor(altColor);
         }
 
         protected Style FindStyle(string name)
@@ -178,11 +182,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             int posY = startY;
             int maxColumnSize = pnlWidth / m_charWidth;
 
-            Style defaultStyle = new Style();
-            defaultStyle.ForeColor = m_textColor;
-            //Style oddStyle = new Style();
-            //oddStyle.ForeColor = m_oddColor;
-
             // Get Columns Sizes
             ColumnDisplay[] cols = GetSizes(genScore, labels);
 
@@ -224,8 +223,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 #region Evaluate rule for full line
                 //bool isHeader = !String.IsNullOrEmpty(this.Score.Headers) && lineNumber == 0;
-                //Style lineStyle = (lineNumber % 2 == 0) ? defaultStyle : oddStyle;
-                Style lineStyle = defaultStyle;
+                Style lineStyle = (lineNumber % 2 == 0) ? m_defaultStyle : m_altStyle;
                 bool merge = false;
                 if (!isHeader)
                 {
@@ -237,7 +235,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                             continue;
 
                         merge = rule.Action == RuleAction.MergeCells;
-                        lineStyle = FindStyle(rule.Format) ?? defaultStyle;
+                        lineStyle = FindStyle(rule.Format) ?? lineStyle;
                     }
                 }
                 #endregion
@@ -377,9 +375,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             int posY = startY;
             int maxColumnSize = pnlWidth / m_charWidth;
 
-            Style defaultStyle = new Style();
-            defaultStyle.ForeColor = m_textColor;
-
             // for all the rows
             IList<T> controls = new List<T>();
             int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
@@ -406,6 +401,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 bool isHeader = (row_[0] == ScoreCenterPlugin.C_HEADER);
                 string[] row = isHeader ? row_.Where(c => c != ScoreCenterPlugin.C_HEADER).ToArray() : row_;
+                Style lineStyle = (lineNumber % 2 == 0) ? m_defaultStyle : m_altStyle;
 
                 int nbLines = 1;
                 for (int index = startColumn; index < row.Length; index++)
@@ -428,7 +424,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     T control = createControl(posX, posY, length, m_charHeight,
                         ColumnDisplay.Alignment.Left,
                         aa[0],
-                        m_fontName, m_fontSize, defaultStyle, maxChar, 0);
+                        m_fontName, m_fontSize, lineStyle, maxChar, 0);
 
                     if (control != null)
                     {
