@@ -157,7 +157,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 score.LiveConfig = new LiveConfig();
                 score.LiveConfig.enabled = ckxLive.Checked;
                 score.LiveConfig.Value = tbxLiveFormat.Text;
-                score.LiveConfig.filter = String.Join(",", tbxLiveFilter.Text.Split(',').Select(f => f.Trim()).ToArray());
+                score.LiveConfig.filter = Tools.TrimList(tbxLiveFilter.Text);
                 tbxLiveFilter.Text = score.LiveConfig.filter;
             }
 

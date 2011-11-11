@@ -53,10 +53,12 @@
             this.cbxDetailsHelper = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ckxLiveEnabled = new System.Windows.Forms.CheckBox();
+            this.tbxLiveFilter = new System.Windows.Forms.TextBox();
             this.lblScoreId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
             this.lblLive = new System.Windows.Forms.Label();
             this.lblLiveDetails = new System.Windows.Forms.Label();
+            this.lblLiveFilter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -347,7 +349,7 @@
             this.btnIcon.Location = new System.Drawing.Point(464, 92);
             this.btnIcon.Name = "btnIcon";
             this.btnIcon.Size = new System.Drawing.Size(80, 23);
-            this.btnIcon.TabIndex = 25;
+            this.btnIcon.TabIndex = 27;
             this.btnIcon.Text = "Icon";
             this.toolTip1.SetToolTip(this.btnIcon, "Get the icon");
             this.btnIcon.UseVisualStyleBackColor = true;
@@ -384,8 +386,8 @@
             "halbfinale",
             "3-platz",
             "finale",
-            "Players",
-            "Transfers",
+            "players",
+            "transfers",
             "stadium",
             "referee"});
             this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 159);
@@ -404,6 +406,16 @@
             this.ckxLiveEnabled.TabIndex = 23;
             this.toolTip1.SetToolTip(this.ckxLiveEnabled, "Set as live");
             this.ckxLiveEnabled.UseVisualStyleBackColor = true;
+            // 
+            // tbxLiveFilter
+            // 
+            this.tbxLiveFilter.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.tbxLiveFilter.Location = new System.Drawing.Point(95, 287);
+            this.tbxLiveFilter.MaxLength = 100;
+            this.tbxLiveFilter.Name = "tbxLiveFilter";
+            this.tbxLiveFilter.Size = new System.Drawing.Size(331, 20);
+            this.tbxLiveFilter.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.tbxLiveFilter, "Nity only scores containing (separated by \',\')");
             // 
             // lblScoreId
             // 
@@ -442,10 +454,21 @@
             this.lblLiveDetails.TabIndex = 24;
             this.lblLiveDetails.Text = "(Last Results only)";
             // 
+            // lblLiveFilter
+            // 
+            this.lblLiveFilter.AutoSize = true;
+            this.lblLiveFilter.Location = new System.Drawing.Point(37, 290);
+            this.lblLiveFilter.Name = "lblLiveFilter";
+            this.lblLiveFilter.Size = new System.Drawing.Size(52, 13);
+            this.lblLiveFilter.TabIndex = 25;
+            this.lblLiveFilter.Text = "Live Filter";
+            // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblLiveFilter);
+            this.Controls.Add(this.tbxLiveFilter);
             this.Controls.Add(this.ckxLiveEnabled);
             this.Controls.Add(this.tbxScoreId);
             this.Controls.Add(this.lblScoreId);
@@ -475,7 +498,7 @@
             this.Controls.Add(this.tbxName);
             this.MinimumSize = new System.Drawing.Size(430, 259);
             this.Name = "WorldFootballScoreEditor";
-            this.Size = new System.Drawing.Size(547, 301);
+            this.Size = new System.Drawing.Size(547, 328);
             this.Load += new System.EventHandler(this.WorldFootballScoreEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).EndInit();
@@ -515,5 +538,7 @@
         private System.Windows.Forms.Label lblLive;
         private System.Windows.Forms.CheckBox ckxLiveEnabled;
         private System.Windows.Forms.Label lblLiveDetails;
+        private System.Windows.Forms.TextBox tbxLiveFilter;
+        private System.Windows.Forms.Label lblLiveFilter;
     }
 }
