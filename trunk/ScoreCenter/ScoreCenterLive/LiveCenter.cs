@@ -61,10 +61,26 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Lowest;
 
+#if DEBUG
+            this.SleepTimer = 15000; // 15ms
+#endif
+
             while (!this.CancellationPending)
             {
                 foreach (BaseScore score in m_scores)
                 {
+#if DEBUG
+                    string[] filters = score.LiveConfig.filter.Split(',');
+                    string message = LiveCenter.AddToMessage("", score.Name, filters);
+                    if (message.Length > 0)
+                    {
+                        Notify(score, message);
+                    }
+                    else
+                    {
+                        Tools.LogMessage("No NOTIFICATION for '{0}", score.Name);
+                    }
+#else
                     //Tools.LogMessage("\n\n>> {0} {1}", score.Name, score.GetType().ToString());
                     string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
                     if (!m_cache.ContainsKey(score))
@@ -80,6 +96,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                             m_cache[score] = results;
                         }
                     }
+#endif
                 }
 
                 System.Threading.Thread.Sleep(this.SleepTimer);
@@ -107,6 +124,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scoreFormat = score.LiveConfig.Value;
                 }
 
+                string[] filters = score.LiveConfig.filter.Split(',');
+
                 // for all row of old score
                 for (int iRow = 0; iRow < oldScore.Length; iRow++)
                 {
@@ -119,7 +138,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     // if old score is missing then new is new
                     if (oldScore[iRow] == null)
                     {
-                        message += newRow;
+                        message = AddToMessage(message, newRow, filters);
                         continue;
                     }
 
@@ -129,8 +148,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         Tools.LogMessage("OLD = {0}", oldRow);
                         Tools.LogMessage("NEW = {0}", newRow);
-                        if (message.Length > 0) message += Environment.NewLine;
-                        message += newRow;
+                        message = AddToMessage(message, newRow, filters);
                     }
                 }
             }
@@ -140,6 +158,32 @@ namespace MediaPortal.Plugin.ScoreCenter
                 message = "ERROR";
             }
 
+            return message;
+        }
+
+        private static string AddToMessage(string message, string newRow, string[] filters)
+        {
+            bool add = true;
+            if (filters != null)
+            {
+                add = false;
+                string lowrow = newRow.ToLower();
+                foreach (string f in filters)
+                {
+                    if (lowrow.Contains(f))
+                    {
+                        add = true;
+                        break;
+                    }
+                }
+            }
+
+            if (add)
+            {
+                if (message.Length > 0) message += Environment.NewLine;
+                message += newRow;
+            }
+            
             return message;
         }
 

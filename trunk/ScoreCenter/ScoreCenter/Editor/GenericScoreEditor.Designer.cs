@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.lblLiveFilter = new System.Windows.Forms.Label();
+            this.tbxLiveFilter = new System.Windows.Forms.TextBox();
+            this.tbxDictionary = new System.Windows.Forms.TextBox();
+            this.lblDictionary = new System.Windows.Forms.Label();
             this.lblLiveFormat = new System.Windows.Forms.Label();
             this.tbxLiveFormat = new System.Windows.Forms.TextBox();
             this.ckxLive = new System.Windows.Forms.CheckBox();
@@ -72,8 +76,6 @@
             this.colAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblDictionary = new System.Windows.Forms.Label();
-            this.tbxDictionary = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -95,6 +97,8 @@
             // 
             // tpgGeneral
             // 
+            this.tpgGeneral.Controls.Add(this.lblLiveFilter);
+            this.tpgGeneral.Controls.Add(this.tbxLiveFilter);
             this.tpgGeneral.Controls.Add(this.tbxDictionary);
             this.tpgGeneral.Controls.Add(this.lblDictionary);
             this.tpgGeneral.Controls.Add(this.lblLiveFormat);
@@ -136,6 +140,43 @@
             this.tpgGeneral.Size = new System.Drawing.Size(699, 295);
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "General";
+            // 
+            // lblLiveFilter
+            // 
+            this.lblLiveFilter.AutoSize = true;
+            this.lblLiveFilter.Location = new System.Drawing.Point(197, 258);
+            this.lblLiveFilter.Name = "lblLiveFilter";
+            this.lblLiveFilter.Size = new System.Drawing.Size(52, 13);
+            this.lblLiveFilter.TabIndex = 36;
+            this.lblLiveFilter.Text = "Live Filter";
+            // 
+            // tbxLiveFilter
+            // 
+            this.tbxLiveFilter.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.tbxLiveFilter.Location = new System.Drawing.Point(255, 255);
+            this.tbxLiveFilter.MaxLength = 100;
+            this.tbxLiveFilter.Name = "tbxLiveFilter";
+            this.tbxLiveFilter.Size = new System.Drawing.Size(278, 20);
+            this.tbxLiveFilter.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.tbxLiveFilter, "Configure the live display");
+            // 
+            // tbxDictionary
+            // 
+            this.tbxDictionary.Location = new System.Drawing.Point(72, 255);
+            this.tbxDictionary.Name = "tbxDictionary";
+            this.tbxDictionary.Size = new System.Drawing.Size(119, 20);
+            this.tbxDictionary.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.tbxDictionary, "Configure the live display");
+            // 
+            // lblDictionary
+            // 
+            this.lblDictionary.AutoSize = true;
+            this.lblDictionary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblDictionary.Location = new System.Drawing.Point(11, 258);
+            this.lblDictionary.Name = "lblDictionary";
+            this.lblDictionary.Size = new System.Drawing.Size(54, 13);
+            this.lblDictionary.TabIndex = 29;
+            this.lblDictionary.Text = "Dictionary";
             // 
             // lblLiveFormat
             // 
@@ -522,24 +563,6 @@
             this.colStyle.Name = "colStyle";
             this.colStyle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // lblDictionary
-            // 
-            this.lblDictionary.AutoSize = true;
-            this.lblDictionary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblDictionary.Location = new System.Drawing.Point(11, 258);
-            this.lblDictionary.Name = "lblDictionary";
-            this.lblDictionary.Size = new System.Drawing.Size(54, 13);
-            this.lblDictionary.TabIndex = 29;
-            this.lblDictionary.Text = "Dictionary";
-            // 
-            // tbxDictionary
-            // 
-            this.tbxDictionary.Location = new System.Drawing.Point(72, 255);
-            this.tbxDictionary.Name = "tbxDictionary";
-            this.tbxDictionary.Size = new System.Drawing.Size(119, 20);
-            this.tbxDictionary.TabIndex = 30;
-            this.toolTip1.SetToolTip(this.tbxDictionary, "Configure the live display");
-            // 
             // GenericScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,5 +628,7 @@
         private System.Windows.Forms.Label lblLiveFormat;
         private System.Windows.Forms.TextBox tbxDictionary;
         private System.Windows.Forms.Label lblDictionary;
+        private System.Windows.Forms.TextBox tbxLiveFilter;
+        private System.Windows.Forms.Label lblLiveFilter;
     }
 }

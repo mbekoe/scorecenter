@@ -213,7 +213,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 if (sc.LiveConfig != null)
                 {
-                    if (!sc.LiveConfig.enabled && String.IsNullOrEmpty(sc.LiveConfig.Value))
+                    if (sc.LiveConfig.IsNull())
                     {
                         sc.LiveConfig = null;
                     }
@@ -582,29 +582,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             return sizes;
-        }
-    }
-
-    public static class StringExt
-    {
-        public static string Capitalize(this string str)
-        {
-            string[] elts = str.Replace("-", " ").ToLower().Split();
-
-            string res = "";
-            foreach (string e in elts)
-            {
-                if (e.Length == 1)
-                {
-                    res += " " + e.ToUpper();
-                }
-                else
-                {
-                    res += " " + e.Substring(0, 1).ToUpper() + e.Substring(1);
-                }
-            }
-
-            return res.Trim();
         }
     }
 }

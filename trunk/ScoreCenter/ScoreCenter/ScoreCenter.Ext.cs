@@ -331,6 +331,11 @@ namespace MediaPortal.Plugin.ScoreCenter
 
     partial class LiveConfig
     {
+        public bool IsNull()
+        {
+            return !this.enabled && String.IsNullOrEmpty(this.Value) && String.IsNullOrEmpty(this.filter);
+        }
+
         public static LiveConfig Copy(LiveConfig source, string format)
         {
             if (source == null)
@@ -339,6 +344,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             LiveConfig copy = new LiveConfig();
             copy.enabled = source.enabled;
             copy.Value = String.IsNullOrEmpty(format) ? source.Value : format;
+            copy.filter = source.filter;
             return copy;
         }
     }

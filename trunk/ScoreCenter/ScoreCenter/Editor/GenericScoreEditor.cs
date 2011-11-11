@@ -80,6 +80,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             ckxAllowWrapping.Checked = false;
             ckxLive.Checked = false;
             tbxLiveFormat.Clear();
+            tbxLiveFilter.Clear();
             tbxDictionary.Clear();
 
             grdRule.Rows.Clear();
@@ -88,6 +89,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             // score
             EnableControls();
             tbxLiveFormat.Enabled = false;
+            tbxLiveFilter.Enabled = false;
 
             ParsingOptions options = score.GetParseOption();
             tbxScore.Text = score.Name;
@@ -106,6 +108,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             {
                 ckxLive.Checked = score.LiveConfig.enabled;
                 tbxLiveFormat.Text = score.LiveConfig.Value;
+                tbxLiveFilter.Text = score.LiveConfig.filter;
             }
 
             ckxUseTheader.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.UseTheader);
@@ -145,7 +148,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             if (tbxMaxLines.Text.Length == 0) score.MaxLines = 0;
             else score.MaxLines = int.Parse(tbxMaxLines.Text);
 
-            if (ckxLive.Checked == false && tbxLiveFormat.Text.Length == 0)
+            if (!ckxLive.Checked && tbxLiveFormat.Text.Length == 0 && tbxLiveFilter.Text.Length == 0)
             {
                 score.LiveConfig = null;
             }
@@ -154,6 +157,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 score.LiveConfig = new LiveConfig();
                 score.LiveConfig.enabled = ckxLive.Checked;
                 score.LiveConfig.Value = tbxLiveFormat.Text;
+                score.LiveConfig.filter = String.Join(",", tbxLiveFilter.Text.Split(',').Select(f => f.Trim()).ToArray());
+                tbxLiveFilter.Text = score.LiveConfig.filter;
             }
 
             SaveRules(score);
@@ -384,6 +389,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         private void ckxLive_CheckedChanged(object sender, EventArgs e)
         {
             tbxLiveFormat.Enabled = !tbxLiveFormat.Enabled;
+            tbxLiveFilter.Enabled = !tbxLiveFilter.Enabled;
         }
     }
 }
