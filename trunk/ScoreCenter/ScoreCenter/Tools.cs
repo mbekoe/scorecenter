@@ -330,6 +330,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
+        public static string TrimList(string list)
+        {
+            return TrimList(list, ',');
+        }
+        public static string TrimList(string list, char sep)
+        {
+            return String.Join(sep.ToString(), list.Split(sep).Select(f => f.Trim()).ToArray());
+        }
+
         #region Array Processing
         /// <summary>
         /// Add an element to an array.
