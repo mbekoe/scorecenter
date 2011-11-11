@@ -175,10 +175,13 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private bool enabledField;
         
+        private string filterField;
+        
         private string valueField;
         
         public LiveConfig() {
             this.enabledField = false;
+            this.filterField = "";
         }
         
         /// <remarks/>
@@ -190,6 +193,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.enabledField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string filter {
+            get {
+                return this.filterField;
+            }
+            set {
+                this.filterField = value;
             }
         }
         
