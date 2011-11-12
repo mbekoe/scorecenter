@@ -351,9 +351,6 @@
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 17</value>
-  </metadata>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>97, 19</value>
   </data>
@@ -363,6 +360,9 @@
   <data name="comboBox1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
+  </metadata>
   <data name="comboBox1.ToolTip" xml:space="preserve">
     <value>Update behavior in MediaPortal</value>
   </data>
@@ -669,9 +669,21 @@
   <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="ColumnPName.HeaderText" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ColumnPName.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="ColumnPName.Width" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
   <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="ColumnPValue.HeaderText" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <data name="dataGridView1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -679,7 +691,7 @@
     <value>0, 0</value>
   </data>
   <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 321</value>
+    <value>573, 320</value>
   </data>
   <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -696,27 +708,6 @@
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="ColumnPName.HeaderText" xml:space="preserve">
-    <value>Parameter</value>
-  </data>
-  <data name="ColumnPName.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="ColumnPName.Width" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
-  <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="ColumnPValue.HeaderText" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 17</value>
-  </metadata>
   <data name="ckxPlaySound.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -813,9 +804,6 @@
   <data name="numCheckDelay.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>186, 17</value>
-  </metadata>
   <data name="numCheckDelay.ToolTip" xml:space="preserve">
     <value>Time between two check</value>
   </data>
@@ -939,6 +927,24 @@
   <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="ckxUseAltColor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ckxUseAltColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ckxUseAltColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 104</value>
+  </data>
+  <data name="ckxUseAltColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 17</value>
+  </data>
+  <data name="ckxUseAltColor.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ckxUseAltColor.Text" xml:space="preserve">
+    <value>Use Alternate Row Color</value>
+  </data>
   <data name="&gt;&gt;ckxUseAltColor.Name" xml:space="preserve">
     <value>ckxUseAltColor</value>
   </data>
@@ -950,6 +956,24 @@
   </data>
   <data name="&gt;&gt;ckxUseAltColor.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 76</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 13</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>minutes</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -990,14 +1014,17 @@
   <data name="&gt;&gt;gbxGeneral.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="tpgPlugin.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="tpgPlugin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 23</value>
   </data>
   <data name="tpgPlugin.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 10, 3</value>
   </data>
   <data name="tpgPlugin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 321</value>
+    <value>573, 320</value>
   </data>
   <data name="tpgPlugin.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1017,14 +1044,17 @@
   <data name="&gt;&gt;tpgPlugin.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="tpgUpdate.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="tpgUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 23</value>
   </data>
   <data name="tpgUpdate.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpgUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 321</value>
+    <value>573, 320</value>
   </data>
   <data name="tpgUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1044,11 +1074,14 @@
   <data name="&gt;&gt;tpgUpdate.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="tpgParameters.ImageIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="tpgParameters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 23</value>
   </data>
   <data name="tpgParameters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 321</value>
+    <value>573, 320</value>
   </data>
   <data name="tpgParameters.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1071,6 +1104,72 @@
   <data name="tbcOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
+  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>283, 17</value>
+  </metadata>
+  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
+        DQAAAk1TRnQBSQFMAgEBAwEAAQgBAAEEAQABEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEYBgABDEsAAYwBRAEhAfEB7QHrBgABtwGiAZMBYwFJATUBYwFJATUBYwFJATUBYwFJ
+        ATUBYwFJATUBYwFJATUBYwFJATVjAAG5AaMBlQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFj
+        AUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNRIAAfkB+AH3AZIBRwEjAYwBRAEhAfEB7QHr
+        AwABvAGmAZcB/gHwAegB5gHTAcgB5wHPAcIB6AHLAbsB6AHIAbcB6AHHAbYBYwFJATVjAAG6AaUBlgH8
+        AfoB7wH6AfIB5gH2AekB2gHyAd4BzQHuAdMBvwHqAcgBsgHmAb4BpQHiAbQBmgHfAa0BkAHdAacBiQFj
+        AUkBNQ8AAfEB6wHoAbkBXQEvAboBZgE7AeABgQFPAY8BRgEjAfYB8QHvAb4BqQGaAf4B9AHuAbcBlAGB
+        AbQBjQF8AbABiQF2Aa4BhQFxAegByAG3AWMBSQE1BgAB1AGNAW4BvAFkAVYBpwFJAUABoQFEATQBowFE
+        ASwJAAHBAWUBNgGzAVQBPQGrAVQBPAGrAVkBQwGvAWUBVjYAAbwBpgGYAv8B9gG4AaUBnAG2AaIBmAH2
+        AegB2gGzAZ0BkAGyAZoBjQGxAZgBiwGxAZgBiwGxAZgBiwHfAa0BkAFjAUkBNQwAAfIB7gHrAcIBbwFE
+        AfQBtQGTAfkBqQF+Af0BlwFgAeABgQFPAbUBYQE2AcIBpAGRAf0B9wHzAf4B8wHsAf4B7gHlAf4B6QHd
+        Af4B5AHXAegByQG6AWMBSQE1BgAB6AGMATEB1QF1ASkBugFcAUYBqQFQAUgBsQFlAV0JAAHQAYEBUAHB
+        AWUBPwGyAVgBQgGoAUkBMAGjAU0BMjYAAb4BqAGZAv8B9gL/AfYB/QH6Ae8B+gHyAeUB9gHoAdoB8gHe
+        Ac0B7gHTAcAB6gHIAbIB5gG+AaYB4wG0AZoBYwFJATUMAAHmAa4BkgH2AbMBjQHVAYYBXQH2Ab8BoQH5
+        AaUBeAG1AWEBNgHuAd8B2AHDAa0BngH9AfsB9wHAAaEBkQG8AZsBigG4AZUBhAG1AZABfgHoAcwBvwG1
+        AasBogYAAfMBmQEuAfMB7AHoAfgB9gH1Ab4BWAE0AcwBlwGPCQAB2QGgAX0BzgF0ATgB9QHxAfAB6QHa
+        AdUBrgFTASc2AAHAAaoBnAL/AfYBtwGmAZwBtgGjAZgB/QH5Ae8BswGcAZABsgGZAY0BsQGYAYsBsQGY
+        AYsBsQGYAYsB5gG+AaUBYwFJATUMAAHqAcUBsgHMAYkBZwHkAd8B2wHUAXwBTQG1AWEBNgHhAdsB1wGU
+        AYMBdgHFAa8BoQH9Af4B/AH9AfoB9wH9AfYB8AH+AfEB6QH/AesB4QHoAc8BwwHaAdYB0wwAAeUBuwGh
+        AdMBewFCAfIB6wHqCQAB8wHsAekB1QGAAT8B0wGiAZI8AAHDAa4BngL/AfYC/wH2Av8B9gL/AfYB/QH5
+        Ae8B+gHyAeUB9gHoAdkB8wHeAc0B7gHTAcAB6gHIAbIBYwFJATUMAAHdAagBjgHSAa0BmQH8AesB4QHJ
+        AXgBTgHjAbwBpwHoAcsBuwHoAcgBtwHHAbIBogH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
+        AdMByAGMAUQBIQHzAfAB7wYAAfUB7wHtAdYBbgE3AdUBlQF9DwAB2gGWAWgBwgFiATgB7wHoAec5AAHF
+        AbABoAL/AfYC/wH2Av8B9gL/AfYC/wH2Af0B+gHvAcEBxAHFAUEBXAFyAfIB3gHNAe4B0wHAAWMBSQE1
+        CQAD/AHUAaUBjwHnAeAB3QH+AfQB7gHJAa4BoAHHAakBnAGwAYkBdgGuAYUBcQHJAbQBpAH9Af8B/gH9
+        Af8B/gH9AfwB+gH+AfkB9QH+AfQB7QHmAdcBzQGtAY0BewGwAYQBbgMAAfkB9wH2AdgBjgF7AcIBSAEv
+        AfAB5wHlDwAB7gHfAdYB1QF6ASgBuAFvAWoB9wL0NgABxwGxAaIB/gH9AfwB4gLpAV4BdQGEAd8C4wL/
+        AfYBwgHIAckBSgFhAXABLgGpAdYBIwE1AUcBrwGjAZkBYwFJATUGAAHNAdkBzwFBAYIBTAHeAcMBtgHf
+        Ac4BxQH7AfIB7QH+AfMB7AH+Ae4B5QH+AekB3QH+AeQB1wHLAbUBpgH9Af8B/gHTAb4BsgHQAbgBqwHL
+        AbIBpQHHAawBngHmAdsB1AHeAdcB0gGMAUQBIQMAAfIB6AHjAdUBegFfAccBbAFjFQAB2AGFAT8BugFa
+        AUIB6AHcAds2AAHJAbMBpQP+AY8BpAGsAYYB0wHlAUsBYQFwAa8BuAG9AUoBYQFwAWEBwQHeAUwBYQFv
+        ASkBtgHpARUBJwEzARABLAE6ARcBKQE1AagBrQGwAT0BdAFDAUsBpwFhAfcB9gH1AcUBhQFlAf0B+wH3
+        AcABoQGRAbwBmwGKAbgBlQGEAbUBkAF+AcwBtgGnAf0B/wH+Af0B/wH+Af0B/wH+AfcB6AHgAdMBZQEv
+        Af4B9wHyAb8BnAGJAZoBTgEpAwAB6gG9AZ8B1gFmATkB5QHRAdMVAAHfAa4BjgG/AVYBLgHNAaMBoDYA
+        AcsBtQGmA/4B5ALqAY8BpAGsAYMB4QH2AUsBYQFwAXoBzQHiAUwBYQFvAWUB0gHyAUUBXQFxATIBsgHf
+        AR0BmQHIARoBiAGzAR8BUwFtAU8BhAFYAUwBrAFkAwAB6wHnAeUB/QH+AfwB/QH6AfcB/QH2AfAB/gHx
+        AekB/wHrAeEBzAG2AacBywG1AaYBxwGyAaMB5wHZAdIBzwFkAS8BmQFMASYB4wHcAdcBmQFQAS0BwAGN
+        AXQDAAHqAbQBkAHgAXcBQAHdAb4BwhUAAd0BpwGGAcEBVQEvAcoBmQGUNgABzAG2AacBzAG2AacBygG1
+        AaYBvQGwAaYBjwGkAawBgwHhAfYBSwFhAXABgwHhAfYBPAFZAXMBZQHSAfIBUAHJAe8BOwG/AesBJwGy
+        AeQBHAGjAdYBZAGVAW4BUwG0AWwDAAHUAcYBvQH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
+        AdMByAFjAUkBNQH3AfQB8gHdAXgBRQH5AZ0BbAG+AWsBQQGaAU8BKgG8AWcBOwHeAcgBvAMAAfUB7wLr
+        AZoBYgHKAXkBegHvAeUB5g8AAeYBxAGzAd4BjwFjAcgBagFNAeoB3AHbQgAB8gLzAY8BpAGsAYMB4QH2
+        AUABWwFyAYMB4QH2AXcB2wH0AWUB0gHyAVAByQHvATsBvwHrASkBtgHpAXYBpQGDAV0BwAF4AwAByQG0
+        AaQB/QH/Af4B/QH/Af4B/QH8AfoB/gH5AfUB/gH0Ae0B5gHXAc0BcwFTATwB5wGaAXEB8wG3AZYB+wHE
+        AaYB+wGxAYgB7gGSAWEB0AF2AUcB9QHxAe8DAAP9Ae8B2wHPAe0BuwGYAdgBjwF/AdkBqQGlAekB1AHS
+        AesB2QHXAeMBvQG2AeIBoAF8AfEBnQFMAecBlwFUAecBzQHDA/1FAAHyAvMBjwGkAawBgwHhAfYBgwHh
+        AfYBgwHhAfYBdwHbAfQBZQHSAfIBXwGyAc8BegGLAZYBrgHBAaYBkwHTAZoDAAHLAbUBpgH9Af8B/gHT
+        Ab4BsgHQAbgBqwHLAbIBpQHHAawBngHmAdsB1AFjAUkBNQH0Ae4B6wHnAZoBcQH4AcIBpAHbAZEBagHs
+        AY8BXQH6AfkB+AkAA/0B+gH4AfcB8AHfAdQB8AHZAccB8QHCAZQB9QG0AXIB8gG8AYcB7wHRAbgB8AHd
+        AdEB9QHwAe0B+wL6SwAB8gLzAY8BpAGsAYwBoQGpAYgBnAGlAYMBlgGgAX4BkAGaAXoBiwGWAdUB2gHc
+        AZkBuAGcAa4BwQGmAwABzAG2AacB/QH/Af4B/QH/Af4B/QH/Af4B/QH+Af0B/gH7AfgB/gH3AfIBYwFJ
+        ATUDAAH0Ae4B6wHnAZoBcQHXAYQBV5wAAcwBtgGnAcsBtQGmAccBsgGjAcUBrwGgAcEBrAGdAb8BqQGa
+        AbsBpgGXAbgBpAGUBgAB9AHuAesB5wGaAXFpAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
+        AYAXAAP/AQAC/wHmAQEC/wMAAQ8BwgEBAv8DAAEPAYABAQKDAwABDwEAAQECgwMAAQ8BAAEBAoMDAAEP
+        AQABAQHjAY8DAAEPAgACxwMAAQ4CAAGHAcMDAAEMAgABjwHjBgABjwHjBAABgAEAAY8B4wQAAYABAAGH
+        AcMCAAHwAQABgAEAAYABAwIAAfgBAAGAAQEBwAEHAgAB/AEAAYABRwL/AgAC/wGAAWcC/wIACw==
+</value>
+  </data>
   <data name="tbcOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1090,66 +1189,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbcOptions.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 76</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>minutes</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ckxUseAltColor.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ckxUseAltColor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ckxUseAltColor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 104</value>
-  </data>
-  <data name="ckxUseAltColor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
-  </data>
-  <data name="ckxUseAltColor.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="ckxUseAltColor.Text" xml:space="preserve">
-    <value>Use Alternate Row Color</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Name" xml:space="preserve">
-    <value>ckxUseAltColor</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1193,6 +1232,12 @@
   </data>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Name" xml:space="preserve">
+    <value>imageList1</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>

@@ -65,11 +65,12 @@
             this.lblCheckDelay = new System.Windows.Forms.Label();
             this.lblNotificationTime = new System.Windows.Forms.Label();
             this.gbxGeneral = new System.Windows.Forms.GroupBox();
+            this.ckxUseAltColor = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tpgUpdate = new System.Windows.Forms.TabPage();
             this.tpgParameters = new System.Windows.Forms.TabPage();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.ckxUseAltColor = new System.Windows.Forms.CheckBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tbcOptions.SuspendLayout();
@@ -230,6 +231,7 @@
             this.tbcOptions.Controls.Add(this.tpgUpdate);
             this.tbcOptions.Controls.Add(this.tpgParameters);
             resources.ApplyResources(this.tbcOptions, "tbcOptions");
+            this.tbcOptions.ImageList = this.imageList1;
             this.tbcOptions.Name = "tbcOptions";
             this.tbcOptions.SelectedIndex = 0;
             // 
@@ -338,6 +340,12 @@
             this.gbxGeneral.Name = "gbxGeneral";
             this.gbxGeneral.TabStop = false;
             // 
+            // ckxUseAltColor
+            // 
+            resources.ApplyResources(this.ckxUseAltColor, "ckxUseAltColor");
+            this.ckxUseAltColor.Name = "ckxUseAltColor";
+            this.ckxUseAltColor.UseVisualStyleBackColor = true;
+            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
@@ -367,11 +375,13 @@
             this.tpgParameters.Name = "tpgParameters";
             this.tpgParameters.UseVisualStyleBackColor = true;
             // 
-            // ckxUseAltColor
+            // imageList1
             // 
-            resources.ApplyResources(this.ckxUseAltColor, "ckxUseAltColor");
-            this.ckxUseAltColor.Name = "ckxUseAltColor";
-            this.ckxUseAltColor.UseVisualStyleBackColor = true;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "PropertiesHS.png");
+            this.imageList1.Images.SetKeyName(1, "SychronizeListHS.png");
+            this.imageList1.Images.SetKeyName(2, "SymbolHS.png");
             // 
             // OptionsDialog
             // 
@@ -449,5 +459,6 @@
         private System.Windows.Forms.CheckBox ckxPlaySound;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox ckxUseAltColor;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
