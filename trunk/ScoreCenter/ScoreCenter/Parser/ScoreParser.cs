@@ -118,6 +118,19 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 {
                     string value = column.InnerText.Normalize();
                     string tt = Tools.TransformHtml(value.Trim(' ', '\n', '\t', '\r'), allowNewLine).Trim();
+                    if (tt.Length == 0)
+                    {
+                        var images = column.SelectNodes(".//img");
+                        if (images != null && images.Count > 0)
+                        {
+                            foreach (var img in images)
+                            {
+                                if (tt.Length > 0) tt += " ";
+                                tt += img.GetAttributeValue("alt", "");
+                            }
+                        }
+                    }
+
                     nbChar += tt.Length;
                     strLine[i] = tt;
                     i++;
