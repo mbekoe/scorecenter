@@ -158,9 +158,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                     // update
                     UpdateSettings(false, false);
 
-                    // replace virtual scores
-                    m_center.ReplaceVirtualScores();
-
                     #region Set HOME
                     if (String.IsNullOrEmpty(m_center.Setup.Home))
                     {
@@ -608,10 +605,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 m_level = 0;
             ClearProperties(m_level);
 
-            string id = root == null ? "" : root.Id;
             if (m_center != null && m_center.Scores != null)
             {
-                if (String.IsNullOrEmpty(id) == false)
+                if (root != null)
                 {
                     GUIListItem item1 = new GUIListItem();
                     item1.Label = "..";
@@ -621,7 +617,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     lstDetails.Add(item1);
                 }
 
-                foreach (BaseScore sc in m_center.ReadChildren(id))
+                foreach (BaseScore sc in m_center.ReadChildren(root))
                 {
                     GUIListItem item = new GUIListItem();
                     item.Label = sc.LocName;
