@@ -46,6 +46,9 @@ namespace MediaPortal.Plugin.ScoreCenter
         private bool m_canLive = true;
 
         [System.Xml.Serialization.XmlIgnore()]
+        private bool m_virtualResolved = false;
+
+        [System.Xml.Serialization.XmlIgnore()]
         public string LocName
         {
             get
@@ -101,6 +104,16 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.LiveConfig = new LiveConfig();
             }
             this.LiveConfig.enabled = enable;
+        }
+
+        public bool IsVirtualResolved()
+        {
+            return m_virtualResolved;
+        }
+
+        public void SetVirtualResolved()
+        {
+            m_virtualResolved = true;
         }
 
         public virtual IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)

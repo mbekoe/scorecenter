@@ -157,9 +157,20 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.Scores.Items = Tools.RemoveElement<BaseScore>(this.Scores.Items, score);
         }
 
-        public IEnumerable<BaseScore> ReadChildren(string id)
+        public IEnumerable<BaseScore> ReadChildren(BaseScore parent)
         {
-            return this.Scores.Items.Where(score => score.enable && score.Parent == id);
+            if (parent != null && parent.IsVirtualFolder() && !parent.IsVirtualResolved())
+            {
+                IList<BaseScore> scores = parent.GetVirtualScores(this.Parameters);
+                parent.SetVirtualResolved();
+                this.Scores.Items = this.Scores.Items.Concat(scores).ToArray();
+                return scores;
+            }
+            else
+            {
+                string id = parent == null ? "" : parent.Id;
+                return this.Scores.Items.Where(score => score.enable && score.Parent == id);
+            }
         }
 
         public void DisableScore(BaseScore score)
@@ -168,7 +179,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
 
             score.enable = false;
-            foreach (BaseScore sc in this.ReadChildren(score.Id))
+            foreach (BaseScore sc in this.ReadChildren(score))
             {
                 DisableScore(sc);
             }
