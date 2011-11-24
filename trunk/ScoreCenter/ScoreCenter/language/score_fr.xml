@@ -57,6 +57,10 @@
     <LocString id="World Records">Records du Monde</LocString>
     <LocString id="Leaderboard">Classement</LocString>
     <LocString id="Schedule">Programme</LocString>
+    <LocString id="Referees">Arbitres</LocString>
+    <LocString id="Stadiums">Stades</LocString>
+    <LocString id="Round[\s*](?&lt;grp&gt;\w*)" isRegEx="true">${grp}e Journée</LocString>
+    <LocString id="Top Scorer History">Meilleurs buteurs</LocString>
     <!-- Countries -->
     <LocString id="Algeria">Algérie</LocString>
     <LocString id="Argentina">Argentine</LocString>
