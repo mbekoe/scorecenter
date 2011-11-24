@@ -33,6 +33,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lbxTest = new System.Windows.Forms.ListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
@@ -60,6 +62,13 @@
             this.lbxTest.FormattingEnabled = true;
             this.lbxTest.MultiColumn = true;
             this.lbxTest.Name = "lbxTest";
+            this.lbxTest.SelectedIndexChanged += new System.EventHandler(this.lbxTest_SelectedIndexChanged);
+            // 
+            // pictureBox1
+            // 
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // TestScoreSelector
             // 
@@ -68,6 +77,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbxTest);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
@@ -75,6 +85,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "TestScoreSelector";
             this.ShowInTaskbar = false;
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,5 +97,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lbxTest;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
