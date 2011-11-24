@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using MediaPortal.Configuration;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
@@ -25,6 +28,16 @@ namespace MediaPortal.Plugin.ScoreCenter
             get
             {
                 return lbxTest.SelectedItem as BaseScore;
+            }
+        }
+
+        private void lbxTest_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            BaseScore sc = lbxTest.SelectedItem as BaseScore;
+            string path = Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", sc.Image + ".png");
+            if (File.Exists(path))
+            {
+                pictureBox1.Image = new Bitmap(path);
             }
         }
     }
