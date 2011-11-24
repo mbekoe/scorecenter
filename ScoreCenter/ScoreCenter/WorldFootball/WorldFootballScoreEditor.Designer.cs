@@ -387,9 +387,7 @@
             "3-platz",
             "finale",
             "players",
-            "transfers",
-            "stadium",
-            "referee"});
+            "transfers"});
             this.cbxDetailsHelper.Location = new System.Drawing.Point(432, 159);
             this.cbxDetailsHelper.Name = "cbxDetailsHelper";
             this.cbxDetailsHelper.Size = new System.Drawing.Size(112, 21);
