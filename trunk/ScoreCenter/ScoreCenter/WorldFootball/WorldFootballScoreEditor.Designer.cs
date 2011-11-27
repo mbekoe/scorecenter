@@ -179,7 +179,7 @@
             this.tbxCountry.Location = new System.Drawing.Point(95, 55);
             this.tbxCountry.MaxLength = 100;
             this.tbxCountry.Name = "tbxCountry";
-            this.tbxCountry.Size = new System.Drawing.Size(141, 20);
+            this.tbxCountry.Size = new System.Drawing.Size(229, 20);
             this.tbxCountry.TabIndex = 5;
             // 
             // tbxLeague
@@ -187,7 +187,7 @@
             this.tbxLeague.Location = new System.Drawing.Point(95, 81);
             this.tbxLeague.MaxLength = 100;
             this.tbxLeague.Name = "tbxLeague";
-            this.tbxLeague.Size = new System.Drawing.Size(141, 20);
+            this.tbxLeague.Size = new System.Drawing.Size(229, 20);
             this.tbxLeague.TabIndex = 7;
             // 
             // tbxSeason
@@ -202,9 +202,9 @@
             this.tbxSeason.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbxSeason.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.tbxSeason.Location = new System.Drawing.Point(95, 107);
-            this.tbxSeason.MaxLength = 20;
+            this.tbxSeason.MaxLength = 100;
             this.tbxSeason.Name = "tbxSeason";
-            this.tbxSeason.Size = new System.Drawing.Size(141, 20);
+            this.tbxSeason.Size = new System.Drawing.Size(229, 20);
             this.tbxSeason.TabIndex = 10;
             // 
             // tbxLevels
@@ -256,7 +256,7 @@
             // 
             this.btnOpenUrl.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.Web;
             this.btnOpenUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpenUrl.Location = new System.Drawing.Point(261, 78);
+            this.btnOpenUrl.Location = new System.Drawing.Point(340, 78);
             this.btnOpenUrl.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnOpenUrl.Name = "btnOpenUrl";
             this.btnOpenUrl.Size = new System.Drawing.Size(25, 25);
