@@ -1,8 +1,10 @@
 #labels Featured
 *next version* (not released yet)
+    * Improve: WorldFootball scores analyzed which items to show (last results, ranking, scorer).
+    * Add: WorldFootball possibility to navigate through rounds.
+    * Add: WorldFootball add _Assist_, _Stadium_ and _Referee_.
     * Add: Localization for scores.
-    * Add: improve parsing to use "alt" attribute of _img_ tag when the column contains only images.
-    * Add: WorldFootball add _Stadium_ and _Referee_.
+    * Add: Improve parsing to use "alt" attribute of _img_ tag when the column contains only images.
     * Reorganize _Generic Score Editor_ with tabs.
 
 *version 2.4.0.0 (30 October 2011)*:
