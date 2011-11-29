@@ -84,20 +84,21 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Season = this.Season;
             copy.Kind = this.Kind;
             copy.NbTeams = this.NbTeams;
+            copy.Rounds = this.Rounds;
             copy.Levels = this.Levels;
             copy.Highlights = this.Highlights;
             copy.Details = this.Details;
             copy.LiveConfig = this.LiveConfig;
+            if (this.Range != null)
+            {
+                copy.Range = this.Range.Clone();
+            }
 
             return (BaseScore)copy;
         }
         internal override void SetDefaultIcon()
         {
             this.Image = @"Misc\wfb";
-        }
-        public override bool IsLive()
-        {
-            return false;
         }
         public override bool CanLive()
         {
@@ -117,12 +118,14 @@ namespace MediaPortal.Plugin.ScoreCenter
                     || (String.Compare(this.League, newScore.League, true) != 0)
                     || (String.Compare(this.Season, newScore.Season, true) != 0)
                     || (this.NbTeams != newScore.NbTeams)
+                    || (this.Rounds != newScore.Rounds)
                     || (this.Kind != newScore.Kind);
 
                 this.Country = newScore.Country;
                 this.League = newScore.League;
                 this.Season = newScore.Season;
                 this.NbTeams = newScore.NbTeams;
+                this.Rounds = newScore.Rounds;
                 this.Details = newScore.Details;
                 this.Kind = newScore.Kind;
             }

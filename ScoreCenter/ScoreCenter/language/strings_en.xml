@@ -20,5 +20,6 @@
     <String id="17">Start Live</String>
     <String id="18">Stop Live</String>
     <String id="19">Remove All Live Scores</String>
+    <String id="20">Round {0}</String>
   </Section>
 </Language>

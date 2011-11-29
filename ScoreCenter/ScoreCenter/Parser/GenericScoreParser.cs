@@ -40,7 +40,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         protected override string[][] Parse(GenericScore score, bool reload, ScoreParameter[] parameters)
         {
             // get score definition
-            string url = Tools.ParseUrl(score.Url, score.variable, parameters);
+            string url = Tools.ParseUrl(score.GetUrl(), parameters);
 
             ParsingOptions poptions = score.GetParseOption();
             bool newLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);

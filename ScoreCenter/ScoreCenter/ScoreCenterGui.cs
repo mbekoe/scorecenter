@@ -82,10 +82,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         [SkinControlAttribute(60)]
         protected GUILabelControl lblLiveStatus = null;
 
-        //[SkinControlAttribute(60)]
-        //protected GUIButtonControl btnNextScore = null;
-        //[SkinControlAttribute(70)]
-        //protected GUIButtonControl btnPreviousScore = null;
+        [SkinControlAttribute(70)]
+        protected GUIButtonControl btnPreviousScore = null;
+        [SkinControlAttribute(80)]
+        protected GUIButtonControl btnNextScore = null;
 
         #endregion
 
@@ -104,7 +104,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private void SetLiveStatus()
         {
-            int nb = m_center == null ? 0 : m_center.Scores.Items.Where(sc => sc.IsLive()).Count();
+            var aa = m_center.Scores.Items.Where(sc => sc.IsLive() && !sc.IsVirtual());
+            foreach (var a in aa) Tools.LogMessage("+++ {0}", a.Name);
+            int nb = m_center == null ? 0 : aa.Count();
             if (m_liveEnabled)
             {
                 GUIPropertyManager.SetProperty("#ScoreCenter.Live", LocalizationManager.GetString(Labels.LiveOn, nb));
@@ -426,6 +428,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             if (m_liveEnabled)
             {
+                // stop the live
                 File.Delete(Config.GetFile(Config.Dir.Config, LiveSettingsFileName));
                 m_liveEnabled = false;
                 SetLiveStatus();
@@ -433,7 +436,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             else
             {
                 // create a settings with all live settings
-                var liveList = m_center.Scores.Items.Where(sc => sc.LiveConfig != null && sc.LiveConfig.enabled && sc.IsScore());
+                var liveList = m_center.Scores.Items.Where(sc => sc.IsLive() && !sc.IsVirtual());
                 if (liveList.Count() == 0)
                 {
                     // no live score configure
@@ -451,6 +454,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                     liveExport.Styles = m_center.Styles;
 
                     // clone the scores
+                    foreach (BaseScore sc in liveList)
+                    {
+                        m_center.ReadChildren(sc);
+                    }
+
+                    liveList = m_center.Scores.Items.Where(sc => sc.IsLive() && sc.IsScore());
                     var ll = new List<BaseScore>(liveList.Count());
                     foreach (BaseScore score in liveList)
                     {
@@ -462,8 +471,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                             livescore.Name = parent.LocName;
                             livescore.Image = parent.Image;
                         }
+                        livescore.ApplyRangeValue(true);
                         ll.Add(livescore);
-
                     }
                     liveExport.Scores = new ScoreCenterScores();
                     liveExport.Scores.Items = ll.ToArray();
@@ -500,16 +509,18 @@ namespace MediaPortal.Plugin.ScoreCenter
                     GUIControl.FocusControl(GetID, btnNextPage.GetID);
                 }
             }
-            //else if (control == btnNextScore || control == btnPreviousScore)
-            //{
-            //    ClearGrid();
-            //    if (m_currentScore != null)
-            //    {
-            //        int delta = control == btnPreviousScore ? -1 : 1;
-            //        //m_currentScore.variable += delta;
-            //        DisplayScore();
-            //    }
-            //}
+            else if (control == btnNextScore || control == btnPreviousScore)
+            {
+                ClearGrid();
+                if (m_currentScore != null)
+                {
+                    if (control == btnPreviousScore) m_currentScore.MovePrev();
+                    else m_currentScore.MoveNext();
+                    DisplayScore();
+                }
+
+                GUIControl.FocusControl(GetID, control.GetID);
+            }
             else if (control == lstDetails)
             {
                 GUIListItem item = lstDetails.SelectedListItem;
@@ -570,6 +581,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else
             {
+                if (sc != null) sc.ResetRangeValue();
                 if (currIsFolder) m_level++;
 
                 if (sc.IsContainer())
@@ -624,15 +636,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.IsFolder = sc.IsContainer();
                     item.IconImage = Tools.GetThumbs(sc.Image);
 
-                    if (sc.IsLive())
+                    if (sc.CanLive())
                     {
-                        item.PinImage = m_livePinImage; 
+                        item.PinImage = sc.IsLive() ? m_livePinImage : m_livePinImageDisabled;
                     }
-                    else if (sc.CanLive())
-                    {
-                        item.PinImage = m_livePinImageDisabled;
-                    }
-                    item.IsPlayed = sc.IsNew;
+                    item.IsPlayed = sc.IsNew();
                     item.TVTag = sc;
 
                     lstDetails.Add(item);
@@ -685,7 +693,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_currentColumn = 0;
             m_lines = results;
             ShowNextButton(false);
-            //ShowNextPrevScoreButtons(score.Url.Contains("{"));
+            ShowNextPrevScoreButtons(true);
 
             CreateGrid(results, score, 0, 0);
         }
@@ -792,6 +800,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             GUIPropertyManager.SetProperty("#ScoreCenter.Results", "");
             GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", "-");
             GUIPropertyManager.SetProperty("#ScoreCenter.LIco", "-");
+            GUIPropertyManager.SetProperty("#ScoreCenter.Round", " ");
             for (int i = start; i < 10; i++)
             {
                 GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), "-");
@@ -998,16 +1007,21 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
             }
 
-            GUIControl.FocusControl(GetID, id);
+            if (visible)
+                GUIControl.FocusControl(GetID, id);
         }
 
         private void ShowNextPrevScoreButtons(bool visible)
         {
-            //if (btnNextScore != null && btnPreviousScore != null)
-            //{
-            //    btnNextScore.Visible = visible;
-            //    btnPreviousScore.Visible = visible;
-            //}
+            bool vis = visible;
+            if (btnNextScore != null && btnPreviousScore != null && m_currentScore != null)
+            {
+                btnNextScore.Visible = visible && m_currentScore.HasNext();
+                btnPreviousScore.Visible = visible && m_currentScore.HasPrev();
+                vis = visible && (btnNextScore.Visible || btnPreviousScore.Visible);
+            }
+
+            GUIPropertyManager.SetProperty("#ScoreCenter.Round", m_currentScore == null ? " " : m_currentScore.GetRangeLabel());
         }
 
         #endregion

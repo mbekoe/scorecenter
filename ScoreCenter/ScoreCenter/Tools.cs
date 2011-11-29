@@ -206,7 +206,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (!keepVirtual)
             {
                 // remove children from virtual scores
-                scores.Scores.Items = scores.Scores.Items.Where(p => !p.IsVirtual).ToArray();
+                scores.Scores.Items = scores.Scores.Items.Where(p => !p.IsVirtual()).ToArray();
             }
 
             foreach (BaseScore sc in scores.Scores.Items)
@@ -465,10 +465,6 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The parsed URL.</returns>
         public static string ParseUrl(string url, ScoreParameter[] parameters)
         {
-            return ParseUrl(url, 0, parameters);
-        }
-        public static string ParseUrl(string url, int delta, ScoreParameter[] parameters)
-        {
             if (url.IndexOf("{") < 0)
                 return url;
 
@@ -498,7 +494,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // parse date format
             now = DateTime.Now; // reset
-            now = now.AddDays(delta);
             int start, end;
             while ((start = result.IndexOf('{') + 1) > 0)
             {

@@ -33,20 +33,28 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public abstract partial class BaseScore
     {
-        /// <summary>
-        /// Flag to identify new downloaded score.
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
-        public bool IsNew { get; set; }
+        /// <summary>Flag to identify new downloaded score.</summary>
+        [System.Xml.Serialization.XmlIgnore()]
+        protected bool m_new = false;
 
-        [System.Xml.Serialization.XmlIgnore(), DefaultValue(false)]
-        public bool IsVirtual { get; set; }
+        /// <summary>Flag to identify virtual score.</summary>
+        [System.Xml.Serialization.XmlIgnore()]
+        protected bool m_virtual = false;
 
         [System.Xml.Serialization.XmlIgnore()]
-        private bool m_canLive = true;
+        protected bool m_canLive = true;
 
         [System.Xml.Serialization.XmlIgnore()]
-        private bool m_virtualResolved = false;
+        protected bool m_virtualResolved = false;
+
+        [System.Xml.Serialization.XmlIgnore()]
+        public UrlRange Range = null;
+
+        public bool IsNew() { return m_new; }
+        public void SetNew(bool isNew) { m_new = isNew; }
+
+        public bool IsVirtual() { return m_virtual; }
+        public void SetVirtual(bool isVirtual) { m_virtual = isVirtual; }
 
         [System.Xml.Serialization.XmlIgnore()]
         public string LocName
@@ -59,67 +67,6 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         internal abstract BaseScore Clone(string id);
         internal abstract void SetDefaultIcon();
-
-        public virtual bool IsFolder()
-        {
-            return false;
-        }
-
-        public virtual bool IsVirtualFolder()
-        {
-            return false;
-        }
-
-        public bool IsContainer()
-        {
-            return IsFolder() || IsVirtualFolder();
-        }
-
-        public virtual bool IsScore()
-        {
-            return !IsFolder() && !IsVirtualFolder();
-        }
-
-        public virtual bool IsLive()
-        {
-            return this.LiveConfig != null && this.LiveConfig.enabled;
-        }
-
-        public virtual bool CanLive()
-        {
-            return m_canLive;
-        }
-
-        public virtual void SetCanLive(bool enable)
-        {
-            m_canLive = enable;
-        }
-
-        public virtual void SetLive(bool enable)
-        {
-            if (this.LiveConfig == null)
-            {
-                if (!enable)
-                    return;
-                this.LiveConfig = new LiveConfig();
-            }
-            this.LiveConfig.enabled = enable;
-        }
-
-        public bool IsVirtualResolved()
-        {
-            return m_virtualResolved;
-        }
-
-        public void SetVirtualResolved()
-        {
-            m_virtualResolved = true;
-        }
-
-        public virtual IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
-        {
-            return null;
-        }
 
         public virtual string GetSource()
         {
@@ -170,5 +117,68 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return this.Name;
         }
+
+        #region Folder/Container
+        public virtual bool IsFolder() { return false; }
+        public virtual bool IsVirtualFolder() { return false; }
+        public bool IsContainer()
+        {
+            return IsFolder() || IsVirtualFolder();
+        }
+
+        public virtual bool IsScore()
+        {
+            return !IsFolder() && !IsVirtualFolder();
+        }
+
+        public bool IsVirtualResolved() { return m_virtualResolved; }
+        public void SetVirtualResolved() { m_virtualResolved = true; }
+
+        public virtual IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
+        {
+            return null;
+        }
+
+        #endregion
+
+        #region Live
+        public virtual bool IsLive()
+        {
+            return this.LiveConfig != null && this.LiveConfig.enabled;
+        }
+
+        public virtual bool CanLive() { return m_canLive; }
+        public virtual void SetCanLive(bool enable) { m_canLive = enable; }
+
+        public virtual void SetLive(bool enable)
+        {
+            if (this.LiveConfig == null)
+            {
+                if (!enable)
+                    return;
+                this.LiveConfig = new LiveConfig();
+            }
+            this.LiveConfig.enabled = enable;
+        }
+        #endregion
+
+        #region Range Settings
+        public bool HasNext() { return this.Range != null && this.Range.HasNext(); }
+        public bool HasPrev() { return this.Range != null && this.Range.HasPrev(); }
+        public void MoveNext() { if (this.Range != null) this.Range.MoveNext(); }
+        public void MovePrev() { if (this.Range != null) this.Range.MovePrev(); }
+        public int GetRangeValue()
+        {
+            if (this.Range == null) return 0;
+            return this.Range.Value;
+        }
+        public string GetRangeLabel()
+        {
+            if (this.Range == null) return " ";
+            return this.Range.ToString();
+        }
+        public virtual void ApplyRangeValue(bool setDefault) { }
+        public virtual void ResetRangeValue() { if (this.Range != null) this.Range.Reset(); }
+        #endregion
     }
 }

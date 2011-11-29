@@ -8,7 +8,7 @@
 <window>
     <id>42000</id>
     <defaultcontrol>10</defaultcontrol>
-  <allowoverlay>no</allowoverlay>
+    <allowoverlay>no</allowoverlay>
     <controls>
         <import>common.time.xml</import>
         <control>
@@ -65,8 +65,7 @@
             <width>32</width>
             <height>30</height>
             <texture>#ScoreCenter.LiveIcon</texture>
-            <animation effect="fade" start="0" end="100" time="2000" tween="linear" pulse="true" reversible="false"
-                condition="string.equals(#ScoreCenter.LiveOn,1)">Conditional</animation>
+            <animation condition="string.equals(#ScoreCenter.LiveOn,1)" effect="Fade" end="100" pulse="TRUE" reversible="FALSE" start="0" time="2000" tween="Linear">Conditional</animation>
         </control>
         <control>
             <description>Current Image1</description>
@@ -138,7 +137,8 @@
             <id>10</id>
             <description>Scores</description>
             <type>listcontrol</type>
-            <onright>40</onright>
+            <onright>70</onright>
+            <ondown>40</ondown>
             <posX>10</posX>
             <posY>100</posY>
             <width>300</width>
@@ -168,12 +168,12 @@
             <description>Results</description>
             <type>textboxscrollup</type>
             <visible>yes</visible>
+            <colordiffuse>ffc0c0c0</colordiffuse>
             <posX>315</posX>
-            <posY>100</posY>
+            <posY>135</posY>
             <width>970</width>
             <height>510</height>
             <font>font10</font>
-            <colordiffuse>ffc0c0c0</colordiffuse>
         </control>
         <control>
             <id>40</id>
@@ -182,8 +182,8 @@
             <onleft>10</onleft>
             <onup>10</onup>
             <ondown>10</ondown>
-            <posX>210</posX>
-            <posY>660</posY>
+            <posX>315</posX>
+            <posY>655</posY>
             <width>100</width>
             <label>Next</label>
         </control>
@@ -203,5 +203,48 @@
     </control>
     -->
 
+        <control>
+            <id>70</id>
+            <description>Prev Score Button</description>
+            <type>button</type>
+            <onleft>10</onleft>
+            <onright>80</onright>
+            <onup>10</onup>
+            <ondown>10</ondown>
+            <visible>no</visible>
+            <posX>315</posX>
+            <posY>100</posY>
+            <width>23</width>
+            <height>30</height>
+            <textureFocus>arrow_round_left_focus.png</textureFocus>
+            <textureNoFocus>arrow_round_left_nofocus.png</textureNoFocus>
+            <textalign>LEFT</textalign>
+        </control>
+        <control>
+            <id>80</id>
+            <description>Next Score Button</description>
+            <type>button</type>
+            <onleft>70</onleft>
+            <onright>10</onright>
+            <onup>10</onup>
+            <ondown>10</ondown>
+            <visible>no</visible>
+            <posX>338</posX>
+            <posY>100</posY>
+            <width>23</width>
+            <height>30</height>
+            <textureFocus>arrow_round_right_focus.png</textureFocus>
+            <textureNoFocus>arrow_round_right_nofocus.png</textureNoFocus>
+        </control>
+        <control>
+            <description>round</description>
+            <type>fadelabel</type>
+            <posX>362</posX>
+            <posY>102</posY>
+            <width>500</width>
+            <font>font11</font>
+            <align>LEFT</align>
+            <label>#ScoreCenter.Round</label>
+        </control>
     </controls>
 </window>

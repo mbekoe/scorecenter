@@ -107,7 +107,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         toImport.Add(score);
                         result++;
-                        score.IsNew = isnew;
+                        score.SetNew(isnew);
                         score.enable = true;
                     }
                 }

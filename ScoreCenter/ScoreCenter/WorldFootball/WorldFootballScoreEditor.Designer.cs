@@ -54,14 +54,17 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ckxLiveEnabled = new System.Windows.Forms.CheckBox();
             this.tbxLiveFilter = new System.Windows.Forms.TextBox();
+            this.numRounds = new System.Windows.Forms.NumericUpDown();
             this.lblScoreId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
             this.lblLive = new System.Windows.Forms.Label();
             this.lblLiveDetails = new System.Windows.Forms.Label();
             this.lblLiveFilter = new System.Windows.Forms.Label();
+            this.lblRound = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRounds)).BeginInit();
             this.SuspendLayout();
             // 
             // tbxName
@@ -213,7 +216,7 @@
             this.tbxLevels.MaxLength = 100;
             this.tbxLevels.Name = "tbxLevels";
             this.tbxLevels.Size = new System.Drawing.Size(331, 20);
-            this.tbxLevels.TabIndex = 19;
+            this.tbxLevels.TabIndex = 21;
             this.toolTip1.SetToolTip(this.tbxLevels, "Configure Level Highlights");
             // 
             // lblName
@@ -293,7 +296,7 @@
             this.lblLevels.Location = new System.Drawing.Point(51, 215);
             this.lblLevels.Name = "lblLevels";
             this.lblLevels.Size = new System.Drawing.Size(38, 13);
-            this.lblLevels.TabIndex = 18;
+            this.lblLevels.TabIndex = 20;
             this.lblLevels.Text = "Levels";
             // 
             // cbxKind
@@ -331,7 +334,7 @@
             this.tbxHighlights.MaxLength = 100;
             this.tbxHighlights.Name = "tbxHighlights";
             this.tbxHighlights.Size = new System.Drawing.Size(331, 20);
-            this.tbxHighlights.TabIndex = 21;
+            this.tbxHighlights.TabIndex = 23;
             this.toolTip1.SetToolTip(this.tbxHighlights, "Elements to highlight (separated by \',\')");
             // 
             // lblHighlights
@@ -340,7 +343,7 @@
             this.lblHighlights.Location = new System.Drawing.Point(36, 241);
             this.lblHighlights.Name = "lblHighlights";
             this.lblHighlights.Size = new System.Drawing.Size(53, 13);
-            this.lblHighlights.TabIndex = 20;
+            this.lblHighlights.TabIndex = 22;
             this.lblHighlights.Text = "Highlights";
             // 
             // btnIcon
@@ -349,7 +352,7 @@
             this.btnIcon.Location = new System.Drawing.Point(464, 92);
             this.btnIcon.Name = "btnIcon";
             this.btnIcon.Size = new System.Drawing.Size(80, 23);
-            this.btnIcon.TabIndex = 27;
+            this.btnIcon.TabIndex = 29;
             this.btnIcon.Text = "Icon";
             this.toolTip1.SetToolTip(this.btnIcon, "Get the icon");
             this.btnIcon.UseVisualStyleBackColor = true;
@@ -401,7 +404,7 @@
             this.ckxLiveEnabled.Location = new System.Drawing.Point(95, 267);
             this.ckxLiveEnabled.Name = "ckxLiveEnabled";
             this.ckxLiveEnabled.Size = new System.Drawing.Size(15, 14);
-            this.ckxLiveEnabled.TabIndex = 23;
+            this.ckxLiveEnabled.TabIndex = 25;
             this.toolTip1.SetToolTip(this.ckxLiveEnabled, "Set as live");
             this.ckxLiveEnabled.UseVisualStyleBackColor = true;
             // 
@@ -412,8 +415,16 @@
             this.tbxLiveFilter.MaxLength = 100;
             this.tbxLiveFilter.Name = "tbxLiveFilter";
             this.tbxLiveFilter.Size = new System.Drawing.Size(331, 20);
-            this.tbxLiveFilter.TabIndex = 26;
+            this.tbxLiveFilter.TabIndex = 28;
             this.toolTip1.SetToolTip(this.tbxLiveFilter, "Nity only scores containing (separated by \',\')");
+            // 
+            // numRounds
+            // 
+            this.numRounds.Location = new System.Drawing.Point(229, 186);
+            this.numRounds.Name = "numRounds";
+            this.numRounds.Size = new System.Drawing.Size(64, 20);
+            this.numRounds.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.numRounds, "Set number of rounds");
             // 
             // lblScoreId
             // 
@@ -440,7 +451,7 @@
             this.lblLive.Location = new System.Drawing.Point(62, 267);
             this.lblLive.Name = "lblLive";
             this.lblLive.Size = new System.Drawing.Size(27, 13);
-            this.lblLive.TabIndex = 22;
+            this.lblLive.TabIndex = 24;
             this.lblLive.Text = "Live";
             // 
             // lblLiveDetails
@@ -449,7 +460,7 @@
             this.lblLiveDetails.Location = new System.Drawing.Point(116, 267);
             this.lblLiveDetails.Name = "lblLiveDetails";
             this.lblLiveDetails.Size = new System.Drawing.Size(93, 13);
-            this.lblLiveDetails.TabIndex = 24;
+            this.lblLiveDetails.TabIndex = 26;
             this.lblLiveDetails.Text = "(Last Results only)";
             // 
             // lblLiveFilter
@@ -458,13 +469,24 @@
             this.lblLiveFilter.Location = new System.Drawing.Point(37, 290);
             this.lblLiveFilter.Name = "lblLiveFilter";
             this.lblLiveFilter.Size = new System.Drawing.Size(52, 13);
-            this.lblLiveFilter.TabIndex = 25;
+            this.lblLiveFilter.TabIndex = 27;
             this.lblLiveFilter.Text = "Live Filter";
+            // 
+            // lblRound
+            // 
+            this.lblRound.AutoSize = true;
+            this.lblRound.Location = new System.Drawing.Point(179, 188);
+            this.lblRound.Name = "lblRound";
+            this.lblRound.Size = new System.Drawing.Size(44, 13);
+            this.lblRound.TabIndex = 18;
+            this.lblRound.Text = "Rounds";
             // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.numRounds);
+            this.Controls.Add(this.lblRound);
             this.Controls.Add(this.lblLiveFilter);
             this.Controls.Add(this.tbxLiveFilter);
             this.Controls.Add(this.ckxLiveEnabled);
@@ -501,6 +523,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRounds)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -538,5 +561,7 @@
         private System.Windows.Forms.Label lblLiveDetails;
         private System.Windows.Forms.TextBox tbxLiveFilter;
         private System.Windows.Forms.Label lblLiveFilter;
+        private System.Windows.Forms.NumericUpDown numRounds;
+        private System.Windows.Forms.Label lblRound;
     }
 }
