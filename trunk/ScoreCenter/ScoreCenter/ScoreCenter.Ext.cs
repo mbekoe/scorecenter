@@ -179,7 +179,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 return;
 
             score.enable = false;
-            foreach (BaseScore sc in this.ReadChildren(score))
+            foreach (BaseScore sc in this.Scores.Items.Where(s => s.enable && s.Parent == score.Id))
             {
                 DisableScore(sc);
             }
@@ -268,7 +268,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public void SetLiveScore(BaseScore score, bool enable)
         {
-            if (score.IsVirtual)
+            if (score.IsVirtual())
             {
                 BaseScore sc = FindScore(score.Parent);
                 if (sc != null) sc.SetLive(enable);
@@ -357,6 +357,58 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Value = String.IsNullOrEmpty(format) ? source.Value : format;
             copy.filter = source.filter;
             return copy;
+        }
+    }
+
+    public class UrlRange
+    {
+        public const string PARAM = "{#}";
+
+        public int Minimun { get; set; }
+        public int Maximum { get; set; }
+        public int Value { get; set; }
+        public int Default { get; set; }
+        public string Template { get; set; }
+
+        public UrlRange(int value, int minimum, int maximum, string template)
+        {
+            Minimun = minimum;
+            Maximum = maximum;
+            Value = value;
+            Default = value;
+            Template = template;
+        }
+
+        public UrlRange Clone()
+        {
+            UrlRange range = new UrlRange(Default, Minimun, Maximum, Template);
+            range.Value = this.Value;
+            range.Template = this.Template;
+            return range;
+        }
+
+        public bool HasPrev() { return Value > Minimun; }
+        public bool HasNext() { return Value < Maximum; }
+        public void MovePrev() { Value--; }
+        public void MoveNext() { Value++; }
+        public void Reset() { Value = Default; }
+
+        public string Apply(string url, string param)
+        {
+            return url.Replace(UrlRange.PARAM, param);
+        }
+        public string ApplyDefault(string url)
+        {
+            return Apply(url, Default.ToString());
+        }
+        public string ApplyCurrent(string url)
+        {
+            return Apply(url, Value.ToString());
+        }
+        public override string ToString()
+        {
+            if (String.IsNullOrEmpty(Template)) return Value.ToString();
+            return String.Format(Template, Value);
         }
     }
 }

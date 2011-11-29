@@ -41,8 +41,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string GLOBAL_XPATH = "//table[@class='standard_tabelle']";
         private const string EMBLEM_PATH = "//div[@class='emblem']//img";
         private const string IMG_RESULTS = "Results";
-        private const string IMG_NEXT = "Next";
-        private const string IMG_PREV = "Prev";
+        private const string IMG_NEXT = @"Misc\NextRound";
+        private const string IMG_PREV = @"Misc\PrevRound";
         private const string IMG_STANDINGS = "Standings";
         private const string IMG_HISTORY = "Trophy";
         private const string IMG_SCORER_HISTORY = @"Football\Top Scorers History";
@@ -158,7 +158,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.XPath = GLOBAL_XPATH;
             sc.Image = image;
             sc.Element = element;
-            sc.IsVirtual = true;
+            sc.SetVirtual(true);
             sc.SetCanLive(false);
 
             return sc;
@@ -277,9 +277,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             ScoreDetails details = GetScoreDetails(wfscore, parameters);
             int round = details.Round;
 
-            if (round > 1) details.AddResults(scores, round-1, IMG_PREV, fullname, index++);
+            // add results
             details.AddResults(scores, round, IMG_RESULTS, fullname, index++);
-            if (round < (wfscore.NbTeams * 2 - 2)) details.AddResults(scores, round+1, IMG_NEXT, fullname, index++);
 
             // Standings
             string element = "0";
@@ -539,8 +538,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             public void AddResults(List<BaseScore> scores, int round, string icon, string fullname, int index)
             {
                 // Round Results
-                GenericScore sc = CreateNewScore(m_score.Id, "round", "Round " + round, icon, "0", index);
-                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/", WF_URL, fullname, round);
+                GenericScore sc = CreateNewScore(m_score.Id, "round", "Results", icon, "0", index);
+                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/", WF_URL, fullname, UrlRange.PARAM);
+                sc.Range = new UrlRange(round, 1, m_score.Rounds, LocalizationManager.GetString(Labels.RoundLabel));
+                sc.SetCanLive(true);
+                sc.SetLive(m_score.IsLive());
                 sc.Sizes = GetParameter(m_parameters, "WF.LeagueRoundResults", SIZES_LEAGUE_ROUND_RESULTS);
                 sc.Dictionary = "WF.last";
                 AddRule(sc, 2, Operation.IsNull, "", RuleAction.FormatLine, "Header");

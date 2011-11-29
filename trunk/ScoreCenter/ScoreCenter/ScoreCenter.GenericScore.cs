@@ -155,5 +155,25 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return result;
         }
+        public string GetUrl()
+        {
+            if (this.Range == null)
+                return this.Url;
+            return this.Range.Apply(this.Url, this.Range.Value.ToString());
+        }
+        public override void ApplyRangeValue(bool setDefault)
+        {
+            if (this.Range == null)
+                return;
+
+            if (setDefault)
+            {
+                this.Url = this.Range.ApplyDefault(this.Url);
+            }
+            else
+            {
+                this.Url = this.Range.ApplyCurrent(this.Url);
+            }
+        }
     }
 }

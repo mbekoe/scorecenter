@@ -20,5 +20,6 @@
     <String id="17">Liveticker starten</String>
     <String id="18">Liveticker stoppen</String>
     <String id="19">Entferne alle Liveticker</String>
+    <String id="20">{0} Spieltag</String>
   </Section>
 </Language>

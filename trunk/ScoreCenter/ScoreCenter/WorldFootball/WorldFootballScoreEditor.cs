@@ -66,7 +66,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxCountry.Clear();
             tbxLeague.Clear();
             tbxSeason.Clear();
-            numNbTeams.Value = 20;
             tbxLevels.Clear();
             tbxHighlights.Clear();
             tbxDetails.Clear();
@@ -78,6 +77,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxLeague.Text = score.League;
             tbxSeason.Text = score.Season;
             numNbTeams.Value = score.NbTeams;
+            numRounds.Value = score.Rounds;
             tbxLevels.Text = score.Levels;
             cbxKind.SelectedValue = score.Kind;
             tbxHighlights.Text = score.Highlights;
@@ -116,6 +116,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.League = tbxLeague.Text;
             score.Season = tbxSeason.Text;
             score.NbTeams = (int)numNbTeams.Value;
+            score.Rounds = (int)numRounds.Value;
             score.Levels = tbxLevels.Text;
             score.Highlights = Tools.TrimList(tbxHighlights.Text);
             score.Details = Tools.TrimList(tbxDetails.Text);

@@ -95,6 +95,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                     return String.Format("?{0}", id);
             }
 
+            if (args == null || args.Count() == 0)
+                return loc.text;
+
             try
             {
                 return String.Format(loc.text, args);
@@ -174,6 +177,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const int StartLive = 17;
         public const int StopLive = 18;
         public const int ClearLive = 19;
+        public const int RoundLabel = 20;
     }
 
     public partial class ScoreDictionary

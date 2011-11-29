@@ -445,8 +445,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string dictionaryField;
         
-        private int variableField;
-        
         private Rule[] rulesField;
         
         public GenericScore() {
@@ -459,7 +457,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.maxLinesField = 0;
             this.parseOptionsField = "None";
             this.dictionaryField = "";
-            this.variableField = 0;
         }
         
         /// <remarks/>
@@ -593,18 +590,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(0)]
-        public int variable {
-            get {
-                return this.variableField;
-            }
-            set {
-                this.variableField = value;
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Rule", IsNullable=false)]
         public Rule[] Rules {
@@ -692,6 +677,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private int nbTeamsField;
         
+        private int roundsField;
+        
         private string levelsField;
         
         private string highlightsField;
@@ -699,7 +686,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         public WorldFootballScore() {
             this.kindField = WorldFootballKind.League;
             this.detailsField = "";
-            this.nbTeamsField = 99;
+            this.nbTeamsField = 0;
+            this.roundsField = 0;
             this.levelsField = "";
             this.highlightsField = "";
         }
@@ -763,13 +751,25 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute(99)]
+        [System.ComponentModel.DefaultValueAttribute(0)]
         public int NbTeams {
             get {
                 return this.nbTeamsField;
             }
             set {
                 this.nbTeamsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(0)]
+        public int Rounds {
+            get {
+                return this.roundsField;
+            }
+            set {
+                this.roundsField = value;
             }
         }
         

@@ -20,5 +20,6 @@
     <String id="17">Démarrer le Live</String>
     <String id="18">Arrêter le Live</String>
     <String id="19">Enlever tous les Live</String>
+    <String id="20">{0}e journée</String>
   </Section>
 </Language>
