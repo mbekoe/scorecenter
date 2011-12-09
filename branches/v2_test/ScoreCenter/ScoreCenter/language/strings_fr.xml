@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language name="French" characters="255">
+  <Section name="unmapped">
+    <String id="1">Vider le cache</String>
+    <String id="2">Utiliser le mode Auto</String>
+    <String id="3">Désactiver le mode Auto</String>
+    <String id="4">Mettre à jour en ligne</String>
+    <String id="5">Désactiver</String>
+    <String id="6">Utiliser le mode multi ligne</String>
+    <String id="7">Désactiver le mode multi ligne</String>
+    <String id="8">Choisir comme page de démarrage</String>
+    <String id="9">Supprimer la page de démarrage</String>
+  </Section>
+</Language>

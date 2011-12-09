@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Language name="German" characters="255">
+  <Section name="unmapped">
+    <String id="1">Cache leeren</String>
+    <String id="2">Automatische Spaltenausrichtung ein</String>
+    <String id="3">Automatische Spaltenausrichtung aus</String>
+    <String id="4">Online synchronisieren</String>
+    <String id="5">Deaktivieren '{0}'</String>
+    <String id="6">Automatischer Umbruch ein</String>
+    <String id="7">Automatischer Umbruch aus</String>
+    <String id="8">Als Start-Anzeige festlegen</String>
+    <String id="9">Start-Anzeige zurcksetzen</String>
+  </Section>
+</Language>
