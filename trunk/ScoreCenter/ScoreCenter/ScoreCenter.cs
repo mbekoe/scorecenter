@@ -52,6 +52,45 @@ namespace MediaPortal.Plugin.ScoreCenter {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class HomeScore {
+        
+        private string parentField;
+        
+        private string valueField;
+        
+        public HomeScore() {
+            this.parentField = "";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string parent {
+            get {
+                return this.parentField;
+            }
+            set {
+                this.parentField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(WorldFootballScore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RssScore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GenericScore))]
@@ -911,7 +950,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string updateRuleField;
         
-        private string homeField;
+        private HomeScore homeField;
         
         private int liveNotifTimeField;
         
@@ -932,7 +971,6 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.updateOnlineModeField = UpdateMode.Never;
             this.updateUrlField = "";
             this.updateRuleField = "";
-            this.homeField = "";
             this.liveNotifTimeField = 10;
             this.liveCheckDelayField = 2;
             this.livePlaySoundField = true;
@@ -1061,8 +1099,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        [System.ComponentModel.DefaultValueAttribute("")]
-        public string Home {
+        public HomeScore Home {
             get {
                 return this.homeField;
             }

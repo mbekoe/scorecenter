@@ -79,6 +79,13 @@
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
+  <xs:complexType name="HomeScore">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="parent" type="xs:string" default="" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:element name="ScoreParameter" nillable="false">
     <xs:complexType>
       <xs:simpleContent>
@@ -186,7 +193,8 @@
               <xs:element name="UpdateOnlineMode" type="UpdateMode" minOccurs="0" maxOccurs="1" default="Never" />
               <xs:element name="UpdateUrl" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
               <xs:element name="UpdateRule" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
-              <xs:element name="Home" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+              <xs:element name="Home" type="HomeScore" minOccurs="0" maxOccurs="1" />
+              <!-- <xs:element name="Home" type="xs:string" minOccurs="0" maxOccurs="1" default="" /> -->
               <xs:element name="LiveNotifTime" type="xs:int" minOccurs="0" maxOccurs="1" default="10" />
               <xs:element name="LiveCheckDelay" type="xs:int" minOccurs="0" maxOccurs="1" default="2" />
               <xs:element name="LivePlaySound" type="xs:boolean" minOccurs="0" maxOccurs="1" default="true" />
