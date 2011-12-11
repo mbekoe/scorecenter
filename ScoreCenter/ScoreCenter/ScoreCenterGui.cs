@@ -97,6 +97,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             get { return ScoreCenterPlugin.PluginId; }
             set { }
         }
+
         public override bool Init()
         {
             return Load(GUIGraphicsContext.Skin + @"\" + SkinFileName);
@@ -161,35 +162,28 @@ namespace MediaPortal.Plugin.ScoreCenter
                     UpdateSettings(false, false);
 
                     #region Set HOME
-                    if (String.IsNullOrEmpty(m_center.Setup.Home))
+                    BaseScore homeScore = m_center.GetHomeScore();
+                    if (homeScore == null)
                     {
                         LoadScores("");
                     }
                     else
                     {
-                        string firstId = m_center.Setup.Home;
-                        BaseScore score = m_center.FindScore(firstId);
-                        if (score == null)
-                        {
-                            LoadScores("");
-                            m_center.Setup.Home = "";
-                        }
-                        else
-                        {
-                            LoadScores(score.Parent);
-                            DisplayScore(score);
-                            m_level = m_center.GetLevel(score);
-                            SetScoreProperties(score);
-                        }
+                        m_level = m_center.GetLevel(homeScore) - 1;
+                        LoadScores(homeScore.Parent);
+                        m_level++;
+                        DisplayScore(homeScore);
+                        SetScoreProperties(homeScore);
+                        m_currentScore = homeScore;
                     }
                     #endregion
 
                     SetLiveStatus();
                     GUIControl.FocusControl(GetID, lstDetails.GetID);
                 }
-                catch (Exception ex)
+                catch (Exception exc)
                 {
-                    Tools.LogError("Error occured while executing the OnPageLoad: ", ex);
+                    Tools.LogError("Error occured while executing the OnPageLoad: ", exc);
                 }
                 finally
                 {
@@ -309,7 +303,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
             else if (menu.SelectedId == menuSetHome)
             {
-                m_center.Setup.Home = itemScore.Id;
+                m_center.SetHomeScore(itemScore);
                 SaveSettings();
             }
             else if (menu.SelectedId == menuSetLive)
@@ -349,7 +343,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             // clear home
             menu.Add(LocalizationManager.GetString(Labels.ClearHome));
-            int menuHome = menuIndice++;
+            int menuClearHome = menuIndice++;
 
             // auto mode
             if (m_autoSize) menu.Add(LocalizationManager.GetString(Labels.UnuseAutoMode));
@@ -379,9 +373,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 ClearGrid();
                 CreateGrid(m_lines, m_currentScore, 0, 0);
             }
-            else if (menu.SelectedId == menuHome)
+            else if (menu.SelectedId == menuClearHome)
             {
-                m_center.Setup.Home = "";
+                m_center.SetHomeScore(null);
                 SaveSettings();
             }
             else if (menu.SelectedId == menuSyncho)
@@ -817,7 +811,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     continue;
                 string image = Tools.GetThumbs(curr.Image);
                 GUIPropertyManager.SetProperty(String.Format("#ScoreCenter.Ico{0}", i), image);
-                //Tools.LogMessage(">>>> SetProperties Ico{0} = ", i, image);
+                //Tools.LogMessage(">>>> SetProperties Ico{0} = {1}", i, image);
 
                 if (i == 1) GUIPropertyManager.SetProperty("#ScoreCenter.CatIco", image);
                 else if (i == 2) GUIPropertyManager.SetProperty("#ScoreCenter.LeagueIco", image);

@@ -199,10 +199,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             return full;
         }
 
+        /// <summary>
+        /// Get the score level.
+        /// </summary>
+        /// <param name="score">The score.</param>
+        /// <returns>The score level.</returns>
         public int GetLevel(BaseScore score)
         {
             int level = 0;
-
             if (score != null)
             {
                 level = 1 + GetLevel(FindScore(score.Parent));
@@ -275,6 +279,44 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             score.SetLive(enable);
+        }
+
+        /// <summary>
+        /// Get the Home Score.
+        /// </summary>
+        /// <returns>The Home score or Null if not set or found.</returns>
+        public BaseScore GetHomeScore()
+        {
+            if (this.Setup.Home == null)
+                return null;
+
+            if (!String.IsNullOrEmpty(this.Setup.Home.parent))
+            {
+                // home score is a virtual score, we need to get its parent first
+                BaseScore parent = FindScore(this.Setup.Home.parent);
+                ReadChildren(parent);
+            }
+
+            return FindScore(this.Setup.Home.Value);
+        }
+
+        /// <summary>
+        /// Set the Home Score.
+        /// </summary>
+        /// <param name="score"></param>
+        public void SetHomeScore(BaseScore score)
+        {
+            if (score == null)
+            {
+                this.Setup.Home = null;
+            }
+            else
+            {
+                if (this.Setup.Home == null)
+                    this.Setup.Home = new HomeScore();
+                this.Setup.Home.Value = score.Id;
+                if (score.IsVirtual()) this.Setup.Home.parent = score.Parent;
+            }
         }
     }
 
