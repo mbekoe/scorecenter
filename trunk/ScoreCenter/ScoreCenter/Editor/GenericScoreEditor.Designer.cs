@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GenericScoreEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.ckxNewLine = new System.Windows.Forms.CheckBox();
             this.lblId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
             this.cbxBetweenElements = new System.Windows.Forms.ComboBox();
@@ -78,7 +79,6 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.ckxNewLine = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -131,6 +131,16 @@
             this.tpgGeneral.Size = new System.Drawing.Size(699, 294);
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "Parsing";
+            // 
+            // ckxNewLine
+            // 
+            this.ckxNewLine.AutoSize = true;
+            this.ckxNewLine.Location = new System.Drawing.Point(71, 233);
+            this.ckxNewLine.Name = "ckxNewLine";
+            this.ckxNewLine.Size = new System.Drawing.Size(99, 17);
+            this.ckxNewLine.TabIndex = 20;
+            this.ckxNewLine.Text = "Allow New Line";
+            this.ckxNewLine.UseVisualStyleBackColor = true;
             // 
             // lblId
             // 
@@ -483,6 +493,7 @@
             this.tbxSizes.Size = new System.Drawing.Size(462, 20);
             this.tbxSizes.TabIndex = 3;
             this.toolTip1.SetToolTip(this.tbxSizes, "Columns sizes");
+            this.tbxSizes.TextChanged += new System.EventHandler(this.tbxSizes_TextChanged);
             // 
             // tbxHeaders
             // 
@@ -582,16 +593,6 @@
             this.imageList1.Images.SetKeyName(0, "Web.png");
             this.imageList1.Images.SetKeyName(1, "gear_2.bmp");
             this.imageList1.Images.SetKeyName(2, "ColorHS.png");
-            // 
-            // ckxNewLine
-            // 
-            this.ckxNewLine.AutoSize = true;
-            this.ckxNewLine.Location = new System.Drawing.Point(71, 233);
-            this.ckxNewLine.Name = "ckxNewLine";
-            this.ckxNewLine.Size = new System.Drawing.Size(99, 17);
-            this.ckxNewLine.TabIndex = 20;
-            this.ckxNewLine.Text = "Allow New Line";
-            this.ckxNewLine.UseVisualStyleBackColor = true;
             // 
             // GenericScoreEditor
             // 
