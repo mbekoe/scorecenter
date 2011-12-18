@@ -178,6 +178,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         public const int StopLive = 18;
         public const int ClearLive = 19;
         public const int RoundLabel = 20;
+        public const int DisableAutoRefresh = 21;
+        public const int EnableAutoRefresh = 22;
     }
 
     public partial class ScoreDictionary

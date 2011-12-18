@@ -56,6 +56,45 @@ namespace MediaPortal.Plugin.ScoreCenter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class AutoRefreshSettings {
+        
+        private bool enabledField;
+        
+        private int valueField;
+        
+        public AutoRefreshSettings() {
+            this.enabledField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public int Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class HomeScore {
         
         private string parentField;
@@ -958,6 +997,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private bool livePlaySoundField;
         
+        private AutoRefreshSettings autoRefreshField;
+        
         private int versionField;
         
         public ScoreCenterSetup() {
@@ -1141,6 +1182,17 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.livePlaySoundField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public AutoRefreshSettings AutoRefresh {
+            get {
+                return this.autoRefreshField;
+            }
+            set {
+                this.autoRefreshField = value;
             }
         }
         

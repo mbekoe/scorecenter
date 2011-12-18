@@ -69,8 +69,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tpgUpdate = new System.Windows.Forms.TabPage();
             this.tpgParameters = new System.Windows.Forms.TabPage();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.numAutoRefreshDelay = new System.Windows.Forms.NumericUpDown();
+            this.ckxAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.lblAutoRefreshUnit = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tbcOptions.SuspendLayout();
@@ -81,6 +84,7 @@
             this.gbxGeneral.SuspendLayout();
             this.tpgUpdate.SuspendLayout();
             this.tpgParameters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
@@ -327,6 +331,9 @@
             // 
             // gbxGeneral
             // 
+            this.gbxGeneral.Controls.Add(this.lblAutoRefreshUnit);
+            this.gbxGeneral.Controls.Add(this.ckxAutoRefresh);
+            this.gbxGeneral.Controls.Add(this.numAutoRefreshDelay);
             this.gbxGeneral.Controls.Add(this.ckxUseAltColor);
             this.gbxGeneral.Controls.Add(this.label5);
             this.gbxGeneral.Controls.Add(this.lblName);
@@ -383,6 +390,38 @@
             this.imageList1.Images.SetKeyName(1, "SychronizeListHS.png");
             this.imageList1.Images.SetKeyName(2, "SymbolHS.png");
             // 
+            // numAutoRefreshDelay
+            // 
+            resources.ApplyResources(this.numAutoRefreshDelay, "numAutoRefreshDelay");
+            this.numAutoRefreshDelay.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numAutoRefreshDelay.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAutoRefreshDelay.Name = "numAutoRefreshDelay";
+            this.toolTip1.SetToolTip(this.numAutoRefreshDelay, resources.GetString("numAutoRefreshDelay.ToolTip"));
+            this.numAutoRefreshDelay.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // ckxAutoRefresh
+            // 
+            resources.ApplyResources(this.ckxAutoRefresh, "ckxAutoRefresh");
+            this.ckxAutoRefresh.Name = "ckxAutoRefresh";
+            this.ckxAutoRefresh.UseVisualStyleBackColor = true;
+            // 
+            // lblAutoRefreshUnit
+            // 
+            resources.ApplyResources(this.lblAutoRefreshUnit, "lblAutoRefreshUnit");
+            this.lblAutoRefreshUnit.Name = "lblAutoRefreshUnit";
+            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -413,6 +452,7 @@
             this.tpgUpdate.ResumeLayout(false);
             this.tpgUpdate.PerformLayout();
             this.tpgParameters.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -460,5 +500,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox ckxUseAltColor;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.CheckBox ckxAutoRefresh;
+        private System.Windows.Forms.NumericUpDown numAutoRefreshDelay;
+        private System.Windows.Forms.Label lblAutoRefreshUnit;
     }
 }

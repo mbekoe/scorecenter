@@ -21,5 +21,7 @@
     <String id="18">Arrêter le Live</String>
     <String id="19">Enlever tous les Live</String>
     <String id="20">{0}e journée</String>
+    <String id="21">Désactiver Rafraichissement Auto</String>
+    <String id="22">Activer Rafraichissement Auto</String>
   </Section>
 </Language>

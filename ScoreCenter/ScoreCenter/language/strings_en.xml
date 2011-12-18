@@ -21,5 +21,7 @@
     <String id="18">Stop Live</String>
     <String id="19">Remove All Live Scores</String>
     <String id="20">Round {0}</String>
+    <String id="21">Disable Auto Refresh</String>
+    <String id="22">Enable Auto Refresh</String>
   </Section>
 </Language>

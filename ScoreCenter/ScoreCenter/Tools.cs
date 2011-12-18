@@ -116,6 +116,12 @@ namespace MediaPortal.Plugin.ScoreCenter
                     scores = (ScoreCenter)xml.Deserialize(tr);
                 }
 
+                if (scores.Setup.AutoRefresh == null)
+                {
+                    scores.Setup.AutoRefresh = new AutoRefreshSettings();
+                    scores.Setup.AutoRefresh.Value = 30;
+                }
+                
                 if (scores.Scores != null && scores.Scores.Items != null)
                 {
                     foreach (BaseScore s in scores.Scores.Items)
