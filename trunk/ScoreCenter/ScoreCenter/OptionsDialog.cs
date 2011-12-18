@@ -116,6 +116,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             numCheckDelay.Value = CheckInt(m_center.Setup.LiveCheckDelay, numCheckDelay);
             ckxPlaySound.Checked = m_center.Setup.LivePlaySound;
             ckxUseAltColor.Checked = m_center.Setup.UseAltColor;
+            ckxAutoRefresh.Checked = m_center.Setup.AutoRefresh.enabled;
+            numAutoRefreshDelay.Value = CheckInt(m_center.Setup.AutoRefresh.Value, numAutoRefreshDelay);
 
             tbxUrl.Text = m_center.Setup.UpdateUrl;
             ImportOptions option = ImportOptions.None;
@@ -162,6 +164,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             m_center.Setup.LiveCheckDelay = (int)numCheckDelay.Value;
             m_center.Setup.LivePlaySound = ckxPlaySound.Checked;
             m_center.Setup.UseAltColor = ckxUseAltColor.Checked;
+            m_center.Setup.AutoRefresh.enabled = ckxAutoRefresh.Checked;
+            m_center.Setup.AutoRefresh.Value = (int)numAutoRefreshDelay.Value;
 
             m_center.Setup.UpdateOnlineMode = Tools.ParseEnum<UpdateMode>(comboBox1.SelectedValue.ToString());
             m_center.Setup.UpdateUrl = tbxUrl.Text;
