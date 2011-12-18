@@ -539,7 +539,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             {
                 // Round Results
                 GenericScore sc = CreateNewScore(m_score.Id, "round", "Results", icon, "0", index);
-                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/", WF_URL, fullname, UrlRange.PARAM);
+                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/ergebnisse/", WF_URL, fullname, UrlRange.PARAM);
                 sc.Range = new UrlRange(round, 1, m_score.Rounds, LocalizationManager.GetString(Labels.RoundLabel));
                 sc.SetCanLive(true);
                 sc.SetLive(m_score.IsLive());
