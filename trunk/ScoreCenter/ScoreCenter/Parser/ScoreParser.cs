@@ -78,6 +78,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             bool allowNewLine = GenericScore.CheckParsingOption(options, ParsingOptions.NewLine);
             bool useTheader = GenericScore.CheckParsingOption(options, ParsingOptions.UseTheader);
             bool useCaption = GenericScore.CheckParsingOption(options, ParsingOptions.Caption);
+            bool parseImgAlt = GenericScore.CheckParsingOption(options, ParsingOptions.ImgAlt);
 
             string xpathHeader = ".//tr";
             if (useTheader) xpathHeader += " | .//thead | .//tfoot";
@@ -118,7 +119,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 {
                     string value = column.InnerText.Normalize();
                     string tt = Tools.TransformHtml(value.Trim(' ', '\n', '\t', '\r'), allowNewLine).Trim();
-                    if (tt.Length == 0)
+                    if (tt.Length == 0 && parseImgAlt)
                     {
                         var images = column.SelectNodes(".//img");
                         if (images != null && images.Count > 0)
