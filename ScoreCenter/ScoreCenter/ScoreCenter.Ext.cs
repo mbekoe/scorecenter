@@ -56,7 +56,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         Caption = 2,
         NewLine = 4,
         WordWrap = 8,
-        Reverse = 16
+        Reverse = 16,
+        ImgAlt = 32
     }
 
     public static partial class EnumManager

@@ -8,6 +8,7 @@
       <xs:enumeration value="NewLine" />
       <xs:enumeration value="WordWrap" />
       <xs:enumeration value="ReverseOrder" />
+      <xs:enumeration value="ParseImgAlt" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="Operation">

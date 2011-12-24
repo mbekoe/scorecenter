@@ -79,6 +79,7 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ckxImgAlt = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -339,6 +340,7 @@
             // 
             // tpgPostPro
             // 
+            this.tpgPostPro.Controls.Add(this.ckxImgAlt);
             this.tpgPostPro.Controls.Add(this.gbxLive);
             this.tpgPostPro.Controls.Add(this.tbxDictionary);
             this.tpgPostPro.Controls.Add(this.lblDictionary);
@@ -370,7 +372,7 @@
             this.gbxLive.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.gbxLive.Name = "gbxLive";
             this.gbxLive.Size = new System.Drawing.Size(679, 100);
-            this.gbxLive.TabIndex = 10;
+            this.gbxLive.TabIndex = 11;
             this.gbxLive.TabStop = false;
             this.gbxLive.Text = "Live Settings";
             // 
@@ -440,7 +442,7 @@
             this.lblDictionary.Location = new System.Drawing.Point(12, 106);
             this.lblDictionary.Name = "lblDictionary";
             this.lblDictionary.Size = new System.Drawing.Size(54, 13);
-            this.lblDictionary.TabIndex = 8;
+            this.lblDictionary.TabIndex = 10;
             this.lblDictionary.Text = "Dictionary";
             // 
             // ckxReverseOrder
@@ -449,7 +451,7 @@
             this.ckxReverseOrder.Location = new System.Drawing.Point(72, 80);
             this.ckxReverseOrder.Name = "ckxReverseOrder";
             this.ckxReverseOrder.Size = new System.Drawing.Size(138, 17);
-            this.ckxReverseOrder.TabIndex = 7;
+            this.ckxReverseOrder.TabIndex = 8;
             this.ckxReverseOrder.Text = "Reverse Columns Order";
             this.ckxReverseOrder.UseVisualStyleBackColor = true;
             // 
@@ -469,7 +471,7 @@
             this.lblTotalSize.Location = new System.Drawing.Point(383, 58);
             this.lblTotalSize.Name = "lblTotalSize";
             this.lblTotalSize.Size = new System.Drawing.Size(151, 23);
-            this.lblTotalSize.TabIndex = 6;
+            this.lblTotalSize.TabIndex = 7;
             this.lblTotalSize.Text = "Total";
             this.lblTotalSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -594,6 +596,17 @@
             this.imageList1.Images.SetKeyName(1, "gear_2.bmp");
             this.imageList1.Images.SetKeyName(2, "ColorHS.png");
             // 
+            // ckxImgAlt
+            // 
+            this.ckxImgAlt.AutoSize = true;
+            this.ckxImgAlt.Location = new System.Drawing.Point(254, 57);
+            this.ckxImgAlt.Name = "ckxImgAlt";
+            this.ckxImgAlt.Size = new System.Drawing.Size(83, 17);
+            this.ckxImgAlt.TabIndex = 6;
+            this.ckxImgAlt.Text = "Use IMG Alt";
+            this.toolTip1.SetToolTip(this.ckxImgAlt, "Parse Alt attribute of IMG tags");
+            this.ckxImgAlt.UseVisualStyleBackColor = true;
+            // 
             // GenericScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,5 +680,6 @@
         private System.Windows.Forms.Label lblHeaders;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.CheckBox ckxNewLine;
+        private System.Windows.Forms.CheckBox ckxImgAlt;
     }
 }

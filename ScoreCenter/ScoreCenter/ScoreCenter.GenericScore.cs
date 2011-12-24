@@ -69,7 +69,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             return opt;
         }
 
-        public void SetParseOption(bool caption, bool theader, bool newLine, bool wordWrap, bool reverse)
+        public void SetParseOption(bool caption, bool theader, bool newLine, bool wordWrap, bool reverse, bool imgAlt)
         {
             ParsingOptions opt = ParsingOptions.None;
 
@@ -78,6 +78,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (newLine) opt |= ParsingOptions.NewLine;
             if (wordWrap) opt |= ParsingOptions.WordWrap;
             if (reverse) opt |= ParsingOptions.Reverse;
+            if (imgAlt) opt |= ParsingOptions.ImgAlt;
 
             this.ParseOptions = opt.ToString();
         }

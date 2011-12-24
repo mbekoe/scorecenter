@@ -76,6 +76,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxElement.Clear();
             ckxUseTheader.Checked = false;
             ckxUseCaption.Checked = false;
+            ckxImgAlt.Checked = false;
             ckxNewLine.Checked = false;
             ckxAllowWrapping.Checked = false;
             ckxLive.Checked = false;
@@ -116,6 +117,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             ckxNewLine.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.NewLine);
             ckxAllowWrapping.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.WordWrap);
             ckxReverseOrder.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.Reverse);
+            ckxImgAlt.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.ImgAlt);
             cbxBetweenElements.SelectedValue = score.BetweenElts;
             tbxScoreId.Text = score.Id;
 
@@ -139,7 +141,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.Dictionary = tbxDictionary.Text.Trim();
 
             score.SetParseOption(ckxUseCaption.Checked, ckxUseTheader.Checked,
-                ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked);
+                ckxNewLine.Checked, ckxAllowWrapping.Checked, ckxReverseOrder.Checked, ckxImgAlt.Checked);
             score.BetweenElts = (BetweenElements)Enum.Parse(typeof(BetweenElements), cbxBetweenElements.SelectedValue.ToString());
 
             if (tbxSkip.Text.Length == 0) score.Skip = 0;
