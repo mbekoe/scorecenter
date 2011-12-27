@@ -449,6 +449,24 @@ namespace MediaPortal.Plugin.ScoreCenter
             MediaPortal.ServiceImplementations.Log.Error("[ScoreCenter] " + message);
             MediaPortal.ServiceImplementations.Log.Error("[ScoreCenter] " + exc);
         }
+
+        public static string GetExceptionMessage(Exception exc)
+        {
+            if (exc == null) return "?";
+
+            string err = "";
+            Exception inner = exc;
+            while (inner != null)
+            {
+                err += inner.Message + Environment.NewLine;
+                inner = exc.InnerException;
+            }
+
+            // add stack
+            err += Environment.NewLine + exc.StackTrace;
+
+            return err;
+        }
         #endregion
 
         public static T ParseEnum<T>(string value)
