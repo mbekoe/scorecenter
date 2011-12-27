@@ -414,7 +414,7 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message, Properties.Resources.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Tools.GetExceptionMessage(exc), Properties.Resources.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
