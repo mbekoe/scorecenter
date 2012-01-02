@@ -136,7 +136,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         public static string[][] LocalizeScore(string[][] score, string dictionaryName)
         {
-            if (m_instance.m_scoreLocaliser.ScoreDictionaries == null
+            if (m_instance.m_scoreLocaliser == null || m_instance.m_scoreLocaliser.ScoreDictionaries == null
                 || m_instance.m_scoreLocaliser.ScoreDictionaries.Length == 0 || score == null)
                 return score;
 
