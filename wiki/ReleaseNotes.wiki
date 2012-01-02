@@ -1,8 +1,10 @@
 #labels Featured
-*next version*:
-    * Fix: Issue with Home Score when using a WorldFootball scores .
+*version 2.6.0.0 (2 January 2012)*:
+    * Fix: Issue with Home Score when using a WorldFootball scores.
+    * Fix: Issue when no localization file exists for current language.
     * Improve WorldFootball results by using "Result only" page, which is updated faster (better for live).
     * Add: Auto Refresh score.
+    * Add: Post-processing parameter to use "alt" attribute from _img_ tag or not.
 
 *version 2.5.0.0 (9 December 2011)*:
     * Improve: WorldFootball scores analyzed which items to show (last results, ranking, scorer).
