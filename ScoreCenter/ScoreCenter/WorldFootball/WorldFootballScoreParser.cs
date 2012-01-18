@@ -53,7 +53,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string IMG_STADIUM = @"Misc\Stadium";
         private const string IMG_TRANSFERS = @"Misc\Transfers";
         private const string WF_URL = "{@worldfootball}";
-        private const string ROUND_REGEX = @"spieltag/(?<round>[\w]+)/tabelle";
+        private const string ROUND_REGEX = @"spieltag/(?<round>[\w]+)/heim";
 
         private const string SIZES_LEAGUE_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_LEAGUE_ROUND_RESULTS = "11,20,+1,-20,8";
@@ -243,7 +243,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             ScoreDetails details = new ScoreDetails(wfscore, parameters);
 
             // get round
-            Regex re = new Regex(ROUND_REGEX);
+            string regex = GetParameter(parameters, "WF.RoundRegEx", ROUND_REGEX);
+            Regex re = new Regex(regex);
             Match fm = re.Match(html);
             int round = 0;
             int.TryParse(fm.Groups["round"].Value, out round);
