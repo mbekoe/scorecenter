@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  <Strings/>
+  <Globals>
+    <LocString id="finale">Finale</LocString>
+    <LocString id="1-runde">1st round</LocString>
+    <LocString id="2-runde">2nd round</LocString>
+    <LocString id="3-runde">3rd round</LocString>
+    <LocString id="achtelfinale">1/8</LocString>
+    <LocString id="viertelfinale">1/4</LocString>
+    <LocString id="halbfinale">1/2</LocString>
+    <LocString id="3-platz">3rd place</LocString>
+  </Globals>
+</ScoreLocalisation>

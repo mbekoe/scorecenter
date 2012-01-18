@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Language name="English" characters="255">
+  <Section name="unmapped">
+    <String id="1">Clear the cache</String>
+    <String id="2">Use Auto resize columns mode</String>
+    <String id="3">Disable Auto resize columns mode</String>
+    <String id="4">Synchronize Online</String>
+    <String id="5">Disable</String>
+    <String id="6">Use Auto wrap mode</String>
+    <String id="7">Disable Auto wrap mode</String>
+    <String id="8">Set as home score</String>
+    <String id="9">Clear home score</String>
+  </Section>
+</Language>

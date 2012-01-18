@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Language name="Hungarian" characters="255">
+  <Section name="unmapped">
+    <String id="1">Cache törlése</String>
+    <String id="2">Automatikus formázás</String>
+    <String id="3">Nincs automatikus formázás</String>
+    <String id="4">Online szinkronizálás</String>
+    <String id="5">Letiltás: {0}</String>
+    <String id="6">Automatikos sortörés</String>
+    <String id="7">Nincs automatikus sortörés</String>
+    <String id="8">Kezdőlapnak beállít</String>
+    <String id="9">Kezdőlap törlése</String>
+  </Section>
+</Language>

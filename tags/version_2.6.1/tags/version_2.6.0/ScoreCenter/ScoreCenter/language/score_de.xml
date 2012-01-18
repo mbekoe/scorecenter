@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  <Strings>
+    <LocString id="Athletics">Leichtathletik</LocString>
+    <LocString id="AUS_Football">Fussball Australien</LocString>
+    <LocString id="US_Football">US-Fussball</LocString>
+    <LocString id="Football">Fussball</LocString>
+    <LocString id="Boxing">Boxen</LocString>
+    <LocString id="Basketball">Basketball</LocString>
+    <LocString id="Cycling">Radsport</LocString>
+    <LocString id="Ice_Hockey">Eishockey</LocString>
+    <LocString id="Olympics">Olympiade</LocString>
+    <LocString id="Skiing">Ski</LocString>
+    <LocString id="Swimming">Schwimmen</LocString>
+    <LocString id="Motors">Motorsport</LocString>
+    <LocString id="Motors.Formula1">Formel 1</LocString>
+    <LocString id="Motors.Formula1.Pilots">Fahrerwertung</LocString>
+    <LocString id="Motors.Formula1.Teams">Teamwertung</LocString>
+    <LocString id="89cc812a-95d3-4ac7-b780-720571d204e9">Fahrerwertung</LocString>
+    <LocString id="Tennis.Australie">Australien</LocString>
+    <LocString id="Tennis.Roland_Garros">Roland Garros</LocString>
+    
+  </Strings>
+  <Globals>
+    <LocString id="finale">Finale</LocString>
+    <LocString id="1-runde">1. Runde</LocString>
+    <LocString id="2-runde">2. Runde</LocString>
+    <LocString id="3-runde">3. Runde</LocString>
+    <LocString id="achtelfinale">Achtelfinale</LocString>
+    <LocString id="viertelfinale">Viertelfinale</LocString>
+    <LocString id="halbfinale">Halbfinale</LocString>
+    <LocString id="3-platz">3. Platz</LocString>
+    <LocString id="Today">Heute</LocString>
+    <LocString id="Results">Ergebnisse</LocString>
+    <LocString id="Last Results">Letzter Spieltag</LocString>
+    <LocString id="Standings">Tabelle</LocString>
+    <LocString id="Rankings">Klassifizierungen</LocString>
+    <LocString id="Ranking">Klassifizierung</LocString>
+    <LocString id="Fixtures">Klassifizierungen</LocString>
+    <LocString id="Next Round">Nächster Spieltag</LocString>
+    <LocString id="Ladder">Klassifizierung</LocString>
+    <LocString id="Top Scorers">Torjäger</LocString>
+    <LocString id="Top Scorer History">Archiv Torjäger</LocString>
+    <LocString id="History">Archiv</LocString>
+    <LocString id="Stages">Etappen</LocString>
+    <LocString id="Mountain">Berg</LocString>
+    <LocString id="Team">Verein</LocString>
+    <LocString id="General">Allgemein</LocString>
+    <LocString id="Young Rider">Rookie</LocString>
+    <LocString id="Stage">Etappe</LocString>
+    <LocString id="Stages">Etappen</LocString>
+    <LocString id="Men">Männer</LocString>
+    <LocString id="Women">Frauen</LocString>
+    <LocString id="(?&lt;grp&gt;\.*)[\s*]Men" isRegEx="true">${grp} Männer</LocString>
+    <LocString id="(?&lt;grp&gt;\.*)[\s*]Women" isRegEx="true">${grp} Frauen</LocString>
+    <LocString id="Pool[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Pool ${grp}</LocString>
+    <LocString id="Group[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Gruppe ${grp}</LocString>
+    <LocString id="Standings[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Tabelle ${grp}</LocString>
+    <LocString id="World Records">Weltrekorde</LocString>
+    <LocString id="Leaderboard">Klassifizierung</LocString>
+    <LocString id="Schedule">Terminplan</LocString>
+    <LocString id="Round">Spieltag</LocString>
+    <!-- Countries -->
+    <LocString id="Algeria">Algerien</LocString>
+    <LocString id="Argentina">Argentinien</LocString>
+    <LocString id="Belgium">Belgien</LocString>
+    <LocString id="Brazil">Brasilien</LocString>
+    <LocString id="Czech Republic">Tschechische Rep.</LocString>
+    <LocString id="Denmark">Dänemark</LocString>
+    <LocString id="England">England</LocString>
+    <LocString id="Finland">Finnland</LocString>
+    <LocString id="France">Frankreich</LocString>
+    <LocString id="Germany">Deutschland</LocString>
+    <LocString id="Greece">Griechenland</LocString>
+    <LocString id="Hungary">Ungarn</LocString>
+    <LocString id="Italy">Italien</LocString>
+    <LocString id="Morocco">Marokko</LocString>
+    <LocString id="Netherlands">Niederlande</LocString>
+    <LocString id="Norway">Norwegen</LocString>
+    <LocString id="Poland">Polen</LocString>
+    <LocString id="Portugal">Portugal</LocString>
+    <LocString id="Russia">Russland</LocString>
+    <LocString id="Scotland">Schottland</LocString>
+    <LocString id="Spain">Spanien</LocString>
+    <LocString id="Sweden">Schweden</LocString>
+    <LocString id="Switzerland">Schweiz</LocString>
+    <LocString id="Tunisia">Tunesien</LocString>
+    <LocString id="Turkey">Türkei</LocString>
+    <LocString id="United-States">USA</LocString>
+    <LocString id="Bundesliga">1. Bundesliga</LocString>
+    <LocString id="Bundesliga 2">2. Bundesliga</LocString>
+  </Globals>
+</ScoreLocalisation>

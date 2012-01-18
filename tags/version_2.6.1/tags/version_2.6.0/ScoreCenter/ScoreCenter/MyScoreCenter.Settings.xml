@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreCenter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Setup>
+    <Name>My Score Center</Name>
+    <DefaultSkinColor>-16752449</DefaultSkinColor>
+    <UpdateOnlineMode>Once</UpdateOnlineMode>
+    <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter.Settings.xml</UpdateUrl>
+    <UpdateRule>New</UpdateRule>
+  </Setup>
+  <Images/>
+  <Styles>
+    <Style Name="Orange" ForeColor="-32768" />
+    <Style Name="Red" ForeColor="-65536" />
+    <Style Name="White" ForeColor="-1" />
+    <Style Name="Yellow" ForeColor="-128" />
+  </Styles>
+  <Scores/>
+</ScoreCenter>
