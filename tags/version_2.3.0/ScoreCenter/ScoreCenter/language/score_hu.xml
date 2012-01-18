@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  <Strings>
+    <LocString id="Athletics">Atlétika</LocString>
+    <LocString id="Baseball">Baseball</LocString>
+    <LocString id="Basketball">Kosárlabda</LocString>
+    <LocString id="Boxing">Boksz</LocString>
+    <LocString id="Cricket">Krikett</LocString>
+    <LocString id="Cycling">Kerékpár</LocString>
+    <LocString id="Football">Futball</LocString>
+    <LocString id="Golf">Golf</LocString>
+    <LocString id="Ice_Hockey">Jégkorong</LocString>
+    <LocString id="Motors">Autó/Motor</LocString>
+    <LocString id="Olympics">Olimpia</LocString>
+    <LocString id="Rugby">Rögbi</LocString>
+    <LocString id="Skiing">Síelés</LocString>
+    <LocString id="Swimming">Úszás</LocString>
+    <LocString id="Tennis">Tenisz</LocString>
+    <LocString id="Volleyball">Röplabda</LocString>
+  </Strings>
+  <Globals>
+    <!--Common strings-->
+    <LocString id="AUS Football">Ausztrál foci</LocString>
+    <LocString id="US Football">Amerikai foci</LocString>
+    <LocString id="World Records">Világrekordok</LocString>
+	<LocString id="Live">Élő</LocString>
+    <LocString id="Leader">Nyertesek</LocString>
+    <LocString id="Leaderboard">Tabella</LocString>
+    <LocString id="General">Ranglista</LocString>
+    <LocString id="Points">Pontszámok</LocString>
+    <LocString id="Ladder">Sorrend</LocString>
+    <LocString id="Medals">Éremtáblázat</LocString>
+	<LocString id="Fixtures">Következő események</LocString>
+    <LocString id="Results">Eredmények</LocString>
+    <LocString id="Schedule">Versenynaptár</LocString>
+    <LocString id="Next Round">Következő forduló</LocString>
+    <LocString id="Last Results">Eredmények</LocString>
+    <LocString id="Standings">Tabella</LocString>
+    <LocString id="Rankings">Ranglisták</LocString>
+    <LocString id="Ranking">Ranglista</LocString>
+	<LocString id="History">Visszatekintés</LocString>
+    <LocString id="Today">Mai eredmények</LocString>
+	<LocString id="Men">Férfi</LocString>
+    <LocString id="Women">Női</LocString>
+	<!--Baseball-->
+	<LocString id="East">Kelet</LocString>
+    <LocString id="Central">Közép</LocString>
+    <LocString id="West">Nyugat</LocString>
+    <!--Basketball-->
+	<LocString id="Euroleague Men">Férfi Euroliga</LocString>
+    <LocString id="Euroleague Women">Női Euroliga</LocString>
+	<LocString id="Playoffs East">Rájátszás: Kelet</LocString>
+    <LocString id="Playoffs West">Rájátszás: Nyugat</LocString>
+    <!--Boxing-->
+    <LocString id="Americas">Amerika</LocString>
+    <LocString id="Asia">Ázsia</LocString>
+    <LocString id="Europe">Európa</LocString>
+    <LocString id="Bantamweight">Pehelysúly</LocString>
+    <LocString id="Lightweight">Könnyűsúly</LocString>
+    <LocString id="Middleweight">Középsúly</LocString>
+    <LocString id="Light Heavyweight">Félnehézsúly</LocString>
+    <LocString id="Heavyweight">Nehézsúly</LocString>
+    <!--Cycling-->
+    <LocString id="Stages">Versenyek</LocString>
+	<LocString id="Mountain">Hegyi</LocString>
+    <LocString id="Young Rider">Ifjúsági</LocString>
+    <LocString id="Team">Csapat</LocString>
+	<!--Golf-->
+	<LocString id="Champions Tour">Bajnokok tornája</LocString>
+    <LocString id="European Tour">Európai torna</LocString>
+    <LocString id="LPGA Tour">LPGA torna</LocString>
+    <LocString id="LPGA Tour">PGA torna</LocString>
+    <LocString id="Nationwide Tour">Nemzeti torna</LocString>
+   	<!--Ice Hockey-->
+    <LocString id="East Conference">Keleti csoport</LocString>
+    <LocString id="Western Conference">Nyugati csoport</LocString>
+    <LocString id="News">Hírek</LocString>
+    <LocString id="Player Statistics">Játékos-statisztikák</LocString>
+    <LocString id="Team Statistics">Csapat-statisztikák</LocString>
+	<LocString id="Injuries">Sérülések</LocString>
+    <LocString id="Boston Fixtures">Bostoni versenynaptár</LocString>
+	<!--Motors-->
+    <LocString id="Formula 1">Forma 1</LocString>
+	<LocString id="Moto">Motorversenyek</LocString>
+	<LocString id="Standings Pilots">Pilóták ranglistája</LocString>
+    <LocString id="Standings Teams">Csapatok ranglistája</LocString>
+    <LocString id="Pilot (alt)">Pilóták eredeményei</LocString>
+    <LocString id="Results Cup">Kupaeredmények</LocString>
+    <LocString id="Sprint Cup">Gyorsulási kupa</LocString>
+    <LocString id="Results NW">Nemzeti bajnokság</LocString>
+    <LocString id="Nationwide">NB eredmények</LocString>
+    <LocString id="Truck">Kamionbajnokság</LocString>
+    <LocString id="Results Truck">Kamionsofőrök</LocString>
+    <!--Rugby-->
+	<LocString id="Play off">Kieséses szakasz</LocString>
+	<LocString id="Fixture">Következő események</LocString>
+	<!--Skiing-->
+	<LocString id="Calendar">Eseménynaptár</LocString>
+	<LocString id="Overall">Ranglista</LocString>
+	<LocString id="Downhill">Lesiklás</LocString>
+	<LocString id="Super G">Műlesiklás</LocString>
+	<LocString id="Gian Slalom">Óriás szlalom</LocString>
+	<LocString id="Slalom">Szlalom</LocString>
+	<LocString id="Combined">Kombinált</LocString>
+	<!--Tennis-->
+	<LocString id="ATP">ATP - Férfi tenisz</LocString>
+	<LocString id="WTA">WTA - Női tenisz</LocString>
+	<LocString id="Masters">Mesterek tornája</LocString>
+	<LocString id="Finals">Döntők</LocString>
+	<LocString id="History Men">Férfi bajnokok</LocString>
+	<LocString id="History Women">Női bajnokok</LocString>
+    <!--US Football-->
+	<LocString id="College">Egyetemi bajnokság</LocString>
+	<LocString id="Passing">Passzok</LocString>
+	<LocString id="Receiving">Elkapások</LocString>
+	<LocString id="Rushing">Futáshányados</LocString>
+	<LocString id="Play off">Touchdown</LocString>
+	<!--Volleyball-->
+	<LocString id="Final Round">Utolsó kör</LocString>
+    <!--Football-->
+	<LocString id="Top Scorers">Góllövőlista</LocString>
+	<LocString id="Top Scorer History">Gólkirályok</LocString>
+	<LocString id="Playoffs">Rájátszások</LocString>
+	<LocString id="Last">Korábbi eredmények</LocString>
+    <LocString id="World Cup Women">Női világbajnokság</LocString>
+	<LocString id="Champion's League">Bajnokok ligája</LocString>
+	<LocString id="Champion's League Qualif">BL selejtezők</LocString>
+	<LocString id="Europa League">Európa liga</LocString>
+    <!--Football/Nations-->
+    <LocString id="Algeria">Algéria</LocString>
+    <LocString id="Argentina">Argentina</LocString>
+    <LocString id="Belgium">Belgium</LocString>
+    <LocString id="Brazil">Brazília</LocString>
+    <LocString id="Czech Republic">Csehország</LocString>
+    <LocString id="Denmark">Dánia</LocString>
+    <LocString id="England">Anglia</LocString>
+    <LocString id="Finland">Finnország</LocString>
+    <LocString id="France">Franciaország</LocString>
+    <LocString id="Germany">Németország</LocString>
+    <LocString id="Greece">Görögország</LocString>
+    <LocString id="Hungary">Magyarország</LocString>
+    <LocString id="Italy">Olaszország</LocString>
+    <LocString id="Morocco">Marokkó</LocString>
+    <LocString id="Netherlands">Hollandia</LocString>
+    <LocString id="Norway">Norvégia</LocString>
+    <LocString id="Poland">Lengyelország</LocString>
+    <LocString id="Portugal">Portugália</LocString>
+    <LocString id="Russia">Oroszország</LocString>
+    <LocString id="Scotland">Skócia</LocString>
+    <LocString id="Spain">Spanyolország</LocString>
+    <LocString id="Sweden">Svédország</LocString>
+    <LocString id="Switzerland">Svájc</LocString>
+    <LocString id="Tunisia">Tunézia</LocString>
+    <LocString id="Turkey">Törökország</LocString>
+    <LocString id="United-States">Egyesült Államok</LocString>
+    <!--other strings-->
+	<LocString id="(?&lt;grp&gt;\.*)[\s*]Men" isRegEx="true">Férfi ${grp}</LocString>
+    <LocString id="(?&lt;grp&gt;\.*)[\s*]Women" isRegEx="true">Női ${grp}</LocString>
+    <LocString id="Pool[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Csoport ${grp}</LocString>
+    <LocString id="Group[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Csoport ${grp}</LocString>
+    <LocString id="Standings[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Helyezések ${grp}</LocString>
+    <LocString id="finale">Döntő</LocString>
+    <LocString id="1-runde">Első kör</LocString>
+    <LocString id="2-runde">Második kör</LocString>
+    <LocString id="3-runde">Harmadik kör</LocString>
+    <LocString id="achtelfinale">Nyolcaddöntők</LocString>
+    <LocString id="viertelfinale">Negyeddöntők</LocString>
+    <LocString id="halbfinale">Elődöntő</LocString>
+    <LocString id="3-platz">Bronz meccs</LocString>
+  </Globals>
+</ScoreLocalisation>

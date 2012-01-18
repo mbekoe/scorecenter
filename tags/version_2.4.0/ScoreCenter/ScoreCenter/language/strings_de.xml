@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Language name="German" characters="255">
+  <Section name="unmapped">
+    <String id="1">Cache leeren</String>
+    <String id="2">Automatische Spaltenausrichtung ein</String>
+    <String id="3">Automatische Spaltenausrichtung aus</String>
+    <String id="4">Online synchronisieren</String>
+    <String id="5">Deaktivieren '{0}'</String>
+    <String id="6">Automatischer Umbruch ein</String>
+    <String id="7">Automatischer Umbruch aus</String>
+    <String id="8">Als Start-Anzeige festlegen</String>
+    <String id="9">Start-Anzeige zurcksetzen</String>
+    <String id="10">LIVETICKER AKTIVIERT: {0} Seite(n)</String>
+    <String id="11">Liveticker deaktiviert: {0} Seite(n)</String>
+    <String id="12">ScoreCenter - Liveticker</String>
+    <String id="13">Schalte Liveticker für '{0}' aus</String>
+    <String id="14">Schalte Liveticker für '{0}' EIN</String>
+    <String id="15">Konfigurieren</String>
+    <String id="16">Keine Liveticker in den Einstellungen gefunden</String>
+    <String id="17">Liveticker starten</String>
+    <String id="18">Liveticker stoppen</String>
+    <String id="19">Entferne alle Liveticker</String>
+  </Section>
+</Language>

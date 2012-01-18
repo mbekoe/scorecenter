@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Language name="English" characters="255">
+  <Section name="unmapped">
+    <String id="1">Clear the cache</String>
+    <String id="2">Use Auto resize columns mode</String>
+    <String id="3">Disable Auto resize columns mode</String>
+    <String id="4">Synchronize Online</String>
+    <String id="5">Disable '{0}'</String>
+    <String id="6">Use Auto wrap mode</String>
+    <String id="7">Disable Auto wrap mode</String>
+    <String id="8">Set as home score</String>
+    <String id="9">Clear home score</String>
+    <String id="10">LIVE ON ({0})</String>
+    <String id="11">Live Off ({0})</String>
+    <String id="12">ScoreCenter - Live</String>
+    <String id="13">Disable Live for '{0}'</String>
+    <String id="14">Activate Live for '{0}'</String>
+    <String id="15">Configure</String>
+    <String id="16">No LIVE Score found in settings</String>
+    <String id="17">Start Live</String>
+    <String id="18">Stop Live</String>
+    <String id="19">Remove All Live Scores</String>
+    <String id="20">Round {0}</String>
+  </Section>
+</Language>
