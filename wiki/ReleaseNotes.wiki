@@ -1,4 +1,7 @@
 #labels Featured
+*version 2.6.1.0 (18 January 2012)*:
+    * Fix: Issue with Regular Expression used to find current round for WorldFootball scores.
+
 *version 2.6.0.0 (2 January 2012)*:
     * Fix: Issue with Home Score when using a WorldFootball scores.
     * Fix: Issue when no localization file exists for current language.
