@@ -73,16 +73,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// <param name="options">Parsing options.</param>
         /// <returns></returns>
         protected static string[][] ParseTable(HtmlNode table,
-            int skip, int max, ParsingOptions options)
+            int skip, int max, bool allowNewLine, bool useTheader, bool useCaption, bool parseImgAlt)
         {
-            bool allowNewLine = GenericScore.CheckParsingOption(options, ParsingOptions.NewLine);
-            bool useTheader = GenericScore.CheckParsingOption(options, ParsingOptions.UseTheader);
-            bool useCaption = GenericScore.CheckParsingOption(options, ParsingOptions.Caption);
-            bool parseImgAlt = GenericScore.CheckParsingOption(options, ParsingOptions.ImgAlt);
-
             string xpathHeader = ".//tr";
             if (useTheader) xpathHeader += " | .//thead | .//tfoot";
             if (useCaption) xpathHeader += " | .//caption";
+            
             HtmlNodeCollection lines = table.SelectNodes(xpathHeader);
             if (lines == null)
             {
@@ -91,6 +87,14 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 return aa;
             }
 
+            string[][] result = ParseLines(lines, ".//td | .//th", skip, max, allowNewLine, parseImgAlt);
+
+            return result.Where(l => l != null).ToArray();
+        }
+
+        protected static string[][] ParseLines(HtmlNodeCollection lines, string xpathCol,
+            int skip, int max, bool allowNewLine, bool parseImgAlt)
+        {
             string[][] result = new string[lines.Count][];
             int lineIndex = 0;
             int nbLines = 0;
@@ -107,8 +111,61 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     continue;
                 }
 
-                HtmlNodeCollection columns = line.SelectNodes(".//td | .//th");
+                HtmlNodeCollection columns = line.SelectNodes(xpathCol);
+                if (columns == null || columns.Count == 0)
+                {
+                    //continue;
+                    columns = new HtmlNodeCollection(line.ParentNode);
+                    columns.Add(line);
+                }
 
+                int i = 0;
+                int nbChar = 0;
+                string[] strLine = new string[columns.Count];
+                foreach (HtmlNode column in columns)
+                {
+                    string value = column.InnerText.Normalize();
+                    string tt = Tools.TransformHtml(value.Trim(' ', '\n', '\t', '\r'), allowNewLine).Trim();
+                    if (tt.Length == 0 && parseImgAlt)
+                    {
+                        var images = column.SelectNodes(".//img");
+                        if (images != null && images.Count > 0)
+                        {
+                            foreach (var img in images)
+                            {
+                                if (tt.Length > 0) tt += " ";
+                                tt += img.GetAttributeValue("alt", "");
+                            }
+                        }
+                    }
+
+                    nbChar += tt.Length;
+                    strLine[i] = tt;
+                    i++;
+                }
+
+                if (nbChar > 0)
+                    result[nbLines++] = strLine;
+            }
+            return result;
+        }
+
+        protected static string[][] _ParseLines(HtmlNodeCollection lines, string xpathCol, int skip, int max, ParsingOptions options)
+        {
+            bool allowNewLine = GenericScore.CheckParsingOption(options, ParsingOptions.NewLine);
+            bool parseImgAlt = GenericScore.CheckParsingOption(options, ParsingOptions.ImgAlt);
+
+            string[][] result = new string[lines.Count][];
+            int lineIndex = 0;
+            int nbLines = 0;
+            foreach (HtmlNode line in lines)
+            {
+                lineIndex++;
+                if ((skip > 0 && lineIndex <= skip)
+                    || (max > 0 && lineIndex > max))
+                    continue;
+
+                HtmlNodeCollection columns = line.SelectNodes(xpathCol);
                 if (columns == null || columns.Count == 0)
                     continue;
 
@@ -141,7 +198,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     result[nbLines++] = strLine;
             }
 
-            return result.Where(l => l != null).ToArray();
+            return result;
         }
 
         #region Format

@@ -545,7 +545,14 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
             // create node
             ThreeStateTreeNode node = new ThreeStateTreeNode(copy.Name);
             node.Tag = copy;
-            tvwScores.SelectedNode.Parent.Nodes.Add(node);
+            if (tvwScores.SelectedNode.Parent != null)
+            {
+                tvwScores.SelectedNode.Parent.Nodes.Add(node);
+            }
+            else
+            {
+                tvwScores.Nodes.Add(node);
+            }
         }
 
         private void tvwScores_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)

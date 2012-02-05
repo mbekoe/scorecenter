@@ -145,6 +145,7 @@
           <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
           <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="XPath" type="xs:string" minOccurs="0" maxOccurs="1" />
+          <xs:element name="XPathCol" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="Element" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="BetweenElts" type="BetweenElements" minOccurs="0" maxOccurs="1" default="None" />
           <xs:element name="Headers" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
