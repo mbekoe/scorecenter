@@ -42,17 +42,18 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             // get score definition
             string url = Tools.ParseUrl(score.GetUrl(), parameters);
 
-            ParsingOptions poptions = score.GetParseOption();
-            bool newLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
-
             // get the html
             string html = m_cache.GetScore(url, score.Encoding, reload);
             if (String.IsNullOrEmpty(html))
                 return null;
 
+            ParsingOptions poptions = score.GetParseOption();
+            bool newLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
             string rep = newLine ? Environment.NewLine : " ";
+            
             html = html.Replace("<br>", rep);
             html = html.Replace("<br/>", rep);
+            html = html.Replace("<br />", rep);
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
@@ -60,6 +61,38 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             // parse it
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
 
+            int skip = score.Skip;
+            int max = score.MaxLines;
+            if (max > 0) max += skip;
+
+            List<string[]> ll = new List<string[]>();
+            if (!String.IsNullOrEmpty(score.XPathCol))
+            {
+                AddHeaders(score, ll);
+                if (nodes != null)
+                {
+                    string[][] rr = ParseLines(nodes, score.XPathCol, skip, max, newLine, true);
+                    ll.AddRange(rr);
+                }
+            }
+            else
+            {
+                bool useTheader = GenericScore.CheckParsingOption(poptions, ParsingOptions.UseTheader);
+                bool useCaption = GenericScore.CheckParsingOption(poptions, ParsingOptions.Caption);
+                bool parseImgAlt = GenericScore.CheckParsingOption(poptions, ParsingOptions.ImgAlt);
+                ll.AddRange(ParseTables(score, nodes, skip, max, newLine, useTheader, useCaption, parseImgAlt));
+            }
+
+            int nbLines = ll.Count;
+            if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = Math.Min(ll.Count, score.MaxLines);
+            string[][] aa = new string[nbLines][];
+            ll.CopyTo(0, aa, 0, nbLines);
+            return LocalizationManager.LocalizeScore(aa, score.Dictionary);
+        }
+
+        private static List<string[]> ParseTables(GenericScore score, HtmlNodeCollection nodes, int skip, int max,
+            bool allowNewLine, bool useTheader, bool useCaption, bool parseImgAlt)
+        {
             // get list of indexes if defined
             List<int> indexes = null;
             if (score.Element.Length > 0)
@@ -79,11 +112,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             // build the score
             List<string[]> ll = new List<string[]>();
 
-            int skip = score.Skip;
-            int max = score.MaxLines;
-            if (max > 0) max += skip;
             bool first = true;
-
             if (nodes != null && nodes.Count > 0)
             {
                 int inode = -1;
@@ -93,7 +122,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     if (indexes != null && !indexes.Contains(inode))
                         continue;
 
-                    string[][] rr = ParseTable(node, skip, max, poptions);
+                    string[][] rr = ParseTable(node, skip, max, allowNewLine, useTheader, useCaption, parseImgAlt);
                     if (rr != null)
                     {
                         if (first)
@@ -117,12 +146,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     }
                 }
             }
-
-            int nbLines = ll.Count;
-            if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = Math.Min(ll.Count, score.MaxLines);
-            string[][] aa = new string[nbLines][];
-            ll.CopyTo(0, aa, 0, nbLines);
-            return LocalizationManager.LocalizeScore(aa, score.Dictionary);
+            return ll;
         }
         /// <summary>
         /// Adds a header line in the score.

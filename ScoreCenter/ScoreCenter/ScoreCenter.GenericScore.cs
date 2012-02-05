@@ -92,6 +92,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.Name = this.Name;
             copy.Url = this.Url;
             copy.XPath = this.XPath;
+            copy.XPathCol = this.XPathCol;
             copy.Headers = this.Headers;
             copy.Sizes = this.Sizes;
             copy.Skip = this.Skip;
@@ -126,6 +127,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 result |= (String.Compare(this.Url, newScore.Url, true) != 0)
                     || (String.Compare(this.XPath, newScore.XPath, true) != 0)
+                    || (String.Compare(this.XPathCol, newScore.XPathCol, true) != 0)
                     || (this.Skip != newScore.Skip)
                     || (this.MaxLines != newScore.MaxLines)
                     || (String.Compare(this.Encoding, newScore.Encoding, true) != 0)
@@ -133,6 +135,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
                 this.Url = newScore.Url;
                 this.XPath = newScore.XPath;
+                this.XPathCol = newScore.XPathCol;
                 this.Skip = newScore.Skip;
                 this.MaxLines = newScore.MaxLines;
                 this.Sizes = newScore.Sizes;

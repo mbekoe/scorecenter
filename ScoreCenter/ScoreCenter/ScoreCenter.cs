@@ -507,6 +507,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string xPathField;
         
+        private string xPathColField;
+        
         private string elementField;
         
         private BetweenElements betweenEltsField;
@@ -527,6 +529,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         public GenericScore() {
             this.encodingField = "";
+            this.xPathColField = "";
             this.elementField = "";
             this.betweenEltsField = BetweenElements.None;
             this.headersField = "";
@@ -568,6 +571,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.xPathField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string XPathCol {
+            get {
+                return this.xPathColField;
+            }
+            set {
+                this.xPathColField = value;
             }
         }
         
