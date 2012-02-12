@@ -416,7 +416,7 @@
             this.tbxLiveFilter.Name = "tbxLiveFilter";
             this.tbxLiveFilter.Size = new System.Drawing.Size(331, 20);
             this.tbxLiveFilter.TabIndex = 28;
-            this.toolTip1.SetToolTip(this.tbxLiveFilter, "Nity only scores containing (separated by \',\')");
+            this.toolTip1.SetToolTip(this.tbxLiveFilter, "Notify only scores containing (separated by \',\')");
             // 
             // numRounds
             // 

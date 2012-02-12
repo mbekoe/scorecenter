@@ -68,6 +68,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxScore.Clear();
             tbxUrl.Clear();
             tbxXpath.Clear();
+            tbxXPathRow.Clear();
             tbxXPathCol.Clear();
             tbxEncoding.Clear();
             tbxHeaders.Clear();
@@ -98,6 +99,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             tbxUrl.Text = score.Url;
             tbxXpath.Text = score.XPath;
+            tbxXPathRow.Text = score.XPathRow;
             tbxXPathCol.Text = score.XPathCol;
             tbxEncoding.Text = score.Encoding;
             tbxHeaders.Text = score.Headers;
@@ -136,6 +138,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.Name = tbxScore.Text;
             score.Url = tbxUrl.Text;
             score.XPath = tbxXpath.Text;
+            score.XPathRow = tbxXPathRow.Text;
             score.XPathCol = tbxXPathCol.Text;
             score.Headers = tbxHeaders.Text;
             score.Sizes = tbxSizes.Text;

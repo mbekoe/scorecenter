@@ -47,6 +47,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (String.IsNullOrEmpty(html))
                 return null;
 
+            // parse score options
             ParsingOptions poptions = score.GetParseOption();
             bool newLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
             string rep = newLine ? Environment.NewLine : " ";
@@ -58,30 +59,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
 
-            // parse it
+            // parse html
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(score.XPath);
-
-            int skip = score.Skip;
-            int max = score.MaxLines;
-            if (max > 0) max += skip;
-
             List<string[]> ll = new List<string[]>();
-            if (!String.IsNullOrEmpty(score.XPathCol))
-            {
-                AddHeaders(score, ll);
-                if (nodes != null)
-                {
-                    string[][] rr = ParseLines(nodes, score.XPathCol, skip, max, newLine, true);
-                    ll.AddRange(rr);
-                }
-            }
-            else
-            {
-                bool useTheader = GenericScore.CheckParsingOption(poptions, ParsingOptions.UseTheader);
-                bool useCaption = GenericScore.CheckParsingOption(poptions, ParsingOptions.Caption);
-                bool parseImgAlt = GenericScore.CheckParsingOption(poptions, ParsingOptions.ImgAlt);
-                ll.AddRange(ParseTables(score, nodes, skip, max, newLine, useTheader, useCaption, parseImgAlt));
-            }
+            ll.AddRange(ParseTables(score, nodes, poptions));
 
             int nbLines = ll.Count;
             if (nodes != null && nodes[0].Name != "table" && score.MaxLines > 0) nbLines = Math.Min(ll.Count, score.MaxLines);
@@ -90,8 +71,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return LocalizationManager.LocalizeScore(aa, score.Dictionary);
         }
 
-        private static List<string[]> ParseTables(GenericScore score, HtmlNodeCollection nodes, int skip, int max,
-            bool allowNewLine, bool useTheader, bool useCaption, bool parseImgAlt)
+        private static List<string[]> ParseTables(GenericScore score, HtmlNodeCollection tables, ParsingOptions poptions)
         {
             // get list of indexes if defined
             List<int> indexes = null;
@@ -113,16 +93,25 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             List<string[]> ll = new List<string[]>();
 
             bool first = true;
-            if (nodes != null && nodes.Count > 0)
+            if (tables != null && tables.Count > 0)
             {
-                int inode = -1;
-                foreach (HtmlNode node in nodes)
+                bool allowNewLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
+                bool useTheader = GenericScore.CheckParsingOption(poptions, ParsingOptions.UseTheader);
+                bool useCaption = GenericScore.CheckParsingOption(poptions, ParsingOptions.Caption);
+                bool parseImgAlt = GenericScore.CheckParsingOption(poptions, ParsingOptions.ImgAlt);
+
+                int skip = score.Skip;
+                int max = score.MaxLines;
+                if (max > 0) max += skip;
+
+                int itable = -1;
+                foreach (HtmlNode table in tables)
                 {
-                    inode++;
-                    if (indexes != null && !indexes.Contains(inode))
+                    itable++;
+                    if (indexes != null && !indexes.Contains(itable))
                         continue;
 
-                    string[][] rr = ParseTable(node, skip, max, allowNewLine, useTheader, useCaption, parseImgAlt);
+                    string[][] rr = ParseTable(table, score.XPathRow, score.XPathCol, skip, max, allowNewLine, useTheader, useCaption, parseImgAlt);
                     if (rr != null)
                     {
                         if (first)

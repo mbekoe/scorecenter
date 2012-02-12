@@ -72,14 +72,24 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// <param name="max">The maximum number of line to parse.</param>
         /// <param name="options">Parsing options.</param>
         /// <returns></returns>
-        protected static string[][] ParseTable(HtmlNode table,
+        protected static string[][] ParseTable(HtmlNode table, string xpathRow, string xpathCol,
             int skip, int max, bool allowNewLine, bool useTheader, bool useCaption, bool parseImgAlt)
         {
-            string xpathHeader = ".//tr";
-            if (useTheader) xpathHeader += " | .//thead | .//tfoot";
-            if (useCaption) xpathHeader += " | .//caption";
-            
-            HtmlNodeCollection lines = table.SelectNodes(xpathHeader);
+            string xrow = xpathRow;
+            if (String.IsNullOrEmpty(xrow))
+            {
+                xrow = ".//tr";
+                if (useTheader) xrow += " | .//thead | .//tfoot";
+                if (useCaption) xrow += " | .//caption";
+            }
+
+            string xcol = xpathCol;
+            if (String.IsNullOrEmpty(xcol))
+            {
+                xcol = ".//td | .//th";
+            }
+
+            HtmlNodeCollection lines = table.SelectNodes(xrow);
             if (lines == null)
             {
                 string[][] aa = new string[1][];
@@ -87,7 +97,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 return aa;
             }
 
-            string[][] result = ParseLines(lines, ".//td | .//th", skip, max, allowNewLine, parseImgAlt);
+            string[][] result = ParseLines(lines, xcol, skip, max, allowNewLine, parseImgAlt);
 
             return result.Where(l => l != null).ToArray();
         }

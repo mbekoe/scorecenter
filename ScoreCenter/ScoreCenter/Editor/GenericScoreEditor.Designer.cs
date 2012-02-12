@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GenericScoreEditor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpgGeneral = new System.Windows.Forms.TabPage();
+            this.lblXPathCol = new System.Windows.Forms.Label();
+            this.tbxXPathRow = new System.Windows.Forms.TextBox();
+            this.tbxXPathCol = new System.Windows.Forms.TextBox();
+            this.lblXPathRow = new System.Windows.Forms.Label();
             this.ckxNewLine = new System.Windows.Forms.CheckBox();
             this.lblId = new System.Windows.Forms.Label();
             this.tbxScoreId = new System.Windows.Forms.TextBox();
@@ -80,8 +84,6 @@
             this.colStyle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tbxXPathCol = new System.Windows.Forms.TextBox();
-            this.lblXPathCol = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpgGeneral.SuspendLayout();
@@ -106,8 +108,10 @@
             // 
             // tpgGeneral
             // 
-            this.tpgGeneral.Controls.Add(this.tbxXPathCol);
             this.tpgGeneral.Controls.Add(this.lblXPathCol);
+            this.tpgGeneral.Controls.Add(this.tbxXPathRow);
+            this.tpgGeneral.Controls.Add(this.tbxXPathCol);
+            this.tpgGeneral.Controls.Add(this.lblXPathRow);
             this.tpgGeneral.Controls.Add(this.ckxNewLine);
             this.tpgGeneral.Controls.Add(this.lblId);
             this.tpgGeneral.Controls.Add(this.tbxScoreId);
@@ -137,13 +141,51 @@
             this.tpgGeneral.TabIndex = 0;
             this.tpgGeneral.Text = "Parsing";
             // 
+            // lblXPathCol
+            // 
+            this.lblXPathCol.AutoSize = true;
+            this.lblXPathCol.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblXPathCol.Location = new System.Drawing.Point(12, 138);
+            this.lblXPathCol.Name = "lblXPathCol";
+            this.lblXPathCol.Size = new System.Drawing.Size(54, 13);
+            this.lblXPathCol.TabIndex = 11;
+            this.lblXPathCol.Text = "XPath Col";
+            // 
+            // tbxXPathRow
+            // 
+            this.tbxXPathRow.Location = new System.Drawing.Point(72, 109);
+            this.tbxXPathRow.MaxLength = 200;
+            this.tbxXPathRow.Name = "tbxXPathRow";
+            this.tbxXPathRow.Size = new System.Drawing.Size(461, 20);
+            this.tbxXPathRow.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.tbxXPathRow, "XPath expression to parse columns");
+            // 
+            // tbxXPathCol
+            // 
+            this.tbxXPathCol.Location = new System.Drawing.Point(72, 135);
+            this.tbxXPathCol.MaxLength = 200;
+            this.tbxXPathCol.Name = "tbxXPathCol";
+            this.tbxXPathCol.Size = new System.Drawing.Size(461, 20);
+            this.tbxXPathCol.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.tbxXPathCol, "XPath expression to parse columns");
+            // 
+            // lblXPathRow
+            // 
+            this.lblXPathRow.AutoSize = true;
+            this.lblXPathRow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblXPathRow.Location = new System.Drawing.Point(5, 112);
+            this.lblXPathRow.Name = "lblXPathRow";
+            this.lblXPathRow.Size = new System.Drawing.Size(61, 13);
+            this.lblXPathRow.TabIndex = 9;
+            this.lblXPathRow.Text = "XPath Row";
+            // 
             // ckxNewLine
             // 
             this.ckxNewLine.AutoSize = true;
-            this.ckxNewLine.Location = new System.Drawing.Point(71, 259);
+            this.ckxNewLine.Location = new System.Drawing.Point(284, 240);
             this.ckxNewLine.Name = "ckxNewLine";
             this.ckxNewLine.Size = new System.Drawing.Size(99, 17);
-            this.ckxNewLine.TabIndex = 22;
+            this.ckxNewLine.TabIndex = 24;
             this.ckxNewLine.Text = "Allow New Line";
             this.ckxNewLine.UseVisualStyleBackColor = true;
             // 
@@ -170,27 +212,27 @@
             // 
             this.cbxBetweenElements.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBetweenElements.FormattingEnabled = true;
-            this.cbxBetweenElements.Location = new System.Drawing.Point(391, 136);
+            this.cbxBetweenElements.Location = new System.Drawing.Point(391, 162);
             this.cbxBetweenElements.Name = "cbxBetweenElements";
             this.cbxBetweenElements.Size = new System.Drawing.Size(142, 21);
-            this.cbxBetweenElements.TabIndex = 15;
+            this.cbxBetweenElements.TabIndex = 17;
             this.toolTip1.SetToolTip(this.cbxBetweenElements, "Action between each elements");
             // 
             // tbxEncoding
             // 
-            this.tbxEncoding.Location = new System.Drawing.Point(72, 136);
+            this.tbxEncoding.Location = new System.Drawing.Point(72, 162);
             this.tbxEncoding.MaxLength = 20;
             this.tbxEncoding.Name = "tbxEncoding";
             this.tbxEncoding.Size = new System.Drawing.Size(119, 20);
-            this.tbxEncoding.TabIndex = 12;
+            this.tbxEncoding.TabIndex = 14;
             this.toolTip1.SetToolTip(this.tbxEncoding, "Web page encoding");
             // 
             // tbxElement
             // 
-            this.tbxElement.Location = new System.Drawing.Point(284, 136);
+            this.tbxElement.Location = new System.Drawing.Point(284, 162);
             this.tbxElement.Name = "tbxElement";
             this.tbxElement.Size = new System.Drawing.Size(100, 20);
-            this.tbxElement.TabIndex = 14;
+            this.tbxElement.TabIndex = 16;
             this.toolTip1.SetToolTip(this.tbxElement, "XPath elements to keep (separated by \';\')");
             // 
             // btnOpenUrl
@@ -218,7 +260,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblName.Location = new System.Drawing.Point(30, 34);
+            this.lblName.Location = new System.Drawing.Point(31, 34);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(35, 13);
             this.lblName.TabIndex = 2;
@@ -228,10 +270,10 @@
             // 
             this.ckxUseCaption.AutoSize = true;
             this.ckxUseCaption.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxUseCaption.Location = new System.Drawing.Point(72, 236);
+            this.ckxUseCaption.Location = new System.Drawing.Point(72, 262);
             this.ckxUseCaption.Name = "ckxUseCaption";
             this.ckxUseCaption.Size = new System.Drawing.Size(100, 17);
-            this.ckxUseCaption.TabIndex = 21;
+            this.ckxUseCaption.TabIndex = 23;
             this.ckxUseCaption.Text = "Include Caption";
             this.ckxUseCaption.UseVisualStyleBackColor = true;
             // 
@@ -239,10 +281,10 @@
             // 
             this.ckxUseTheader.AutoSize = true;
             this.ckxUseTheader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ckxUseTheader.Location = new System.Drawing.Point(72, 214);
+            this.ckxUseTheader.Location = new System.Drawing.Point(72, 240);
             this.ckxUseTheader.Name = "ckxUseTheader";
             this.ckxUseTheader.Size = new System.Drawing.Size(164, 17);
-            this.ckxUseTheader.TabIndex = 20;
+            this.ckxUseTheader.TabIndex = 22;
             this.ckxUseTheader.Text = "Include Header/Footer Rows";
             this.ckxUseTheader.UseVisualStyleBackColor = true;
             // 
@@ -250,38 +292,38 @@
             // 
             this.lblMaxLines.AutoSize = true;
             this.lblMaxLines.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMaxLines.Location = new System.Drawing.Point(10, 191);
+            this.lblMaxLines.Location = new System.Drawing.Point(11, 217);
             this.lblMaxLines.Name = "lblMaxLines";
             this.lblMaxLines.Size = new System.Drawing.Size(55, 13);
-            this.lblMaxLines.TabIndex = 18;
+            this.lblMaxLines.TabIndex = 20;
             this.lblMaxLines.Text = "Max Lines";
             // 
             // lblSkip
             // 
             this.lblSkip.AutoSize = true;
             this.lblSkip.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSkip.Location = new System.Drawing.Point(37, 165);
+            this.lblSkip.Location = new System.Drawing.Point(37, 191);
             this.lblSkip.Name = "lblSkip";
             this.lblSkip.Size = new System.Drawing.Size(28, 13);
-            this.lblSkip.TabIndex = 16;
+            this.lblSkip.TabIndex = 18;
             this.lblSkip.Text = "Skip";
             // 
             // tbxSkip
             // 
-            this.tbxSkip.Location = new System.Drawing.Point(71, 162);
+            this.tbxSkip.Location = new System.Drawing.Point(71, 188);
             this.tbxSkip.MaxLength = 3;
             this.tbxSkip.Name = "tbxSkip";
             this.tbxSkip.Size = new System.Drawing.Size(45, 20);
-            this.tbxSkip.TabIndex = 17;
+            this.tbxSkip.TabIndex = 19;
             this.toolTip1.SetToolTip(this.tbxSkip, "Number of line to skip");
             // 
             // tbxMaxLines
             // 
-            this.tbxMaxLines.Location = new System.Drawing.Point(72, 188);
+            this.tbxMaxLines.Location = new System.Drawing.Point(72, 214);
             this.tbxMaxLines.MaxLength = 3;
             this.tbxMaxLines.Name = "tbxMaxLines";
             this.tbxMaxLines.Size = new System.Drawing.Size(45, 20);
-            this.tbxMaxLines.TabIndex = 19;
+            this.tbxMaxLines.TabIndex = 21;
             this.toolTip1.SetToolTip(this.tbxMaxLines, "Maximum number of lines to keep");
             // 
             // tbxXpath
@@ -306,20 +348,20 @@
             // 
             this.lblXpathElement.AutoSize = true;
             this.lblXpathElement.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblXpathElement.Location = new System.Drawing.Point(197, 139);
+            this.lblXpathElement.Location = new System.Drawing.Point(197, 165);
             this.lblXpathElement.Name = "lblXpathElement";
             this.lblXpathElement.Size = new System.Drawing.Size(82, 13);
-            this.lblXpathElement.TabIndex = 13;
+            this.lblXpathElement.TabIndex = 15;
             this.lblXpathElement.Text = "XPath Elements";
             // 
             // lblEncoding
             // 
             this.lblEncoding.AutoSize = true;
             this.lblEncoding.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblEncoding.Location = new System.Drawing.Point(19, 139);
+            this.lblEncoding.Location = new System.Drawing.Point(14, 165);
             this.lblEncoding.Name = "lblEncoding";
             this.lblEncoding.Size = new System.Drawing.Size(52, 13);
-            this.lblEncoding.TabIndex = 11;
+            this.lblEncoding.TabIndex = 13;
             this.lblEncoding.Text = "Encoding";
             // 
             // lblXPath
@@ -611,25 +653,6 @@
             this.imageList1.Images.SetKeyName(1, "gear_2.bmp");
             this.imageList1.Images.SetKeyName(2, "ColorHS.png");
             // 
-            // tbxXPathCol
-            // 
-            this.tbxXPathCol.Location = new System.Drawing.Point(72, 109);
-            this.tbxXPathCol.MaxLength = 100;
-            this.tbxXPathCol.Name = "tbxXPathCol";
-            this.tbxXPathCol.Size = new System.Drawing.Size(461, 20);
-            this.tbxXPathCol.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.tbxXPathCol, "XPath expression to parse columns");
-            // 
-            // lblXPathCol
-            // 
-            this.lblXPathCol.AutoSize = true;
-            this.lblXPathCol.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblXPathCol.Location = new System.Drawing.Point(9, 112);
-            this.lblXPathCol.Name = "lblXPathCol";
-            this.lblXPathCol.Size = new System.Drawing.Size(57, 13);
-            this.lblXPathCol.TabIndex = 9;
-            this.lblXPathCol.Text = "2nd XPath";
-            // 
             // GenericScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -705,6 +728,8 @@
         private System.Windows.Forms.CheckBox ckxNewLine;
         private System.Windows.Forms.CheckBox ckxImgAlt;
         private System.Windows.Forms.TextBox tbxXPathCol;
+        private System.Windows.Forms.Label lblXPathRow;
+        private System.Windows.Forms.TextBox tbxXPathRow;
         private System.Windows.Forms.Label lblXPathCol;
     }
 }
