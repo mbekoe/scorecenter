@@ -111,6 +111,27 @@ namespace MediaPortal.Plugin.ScoreCenter
             return (BaseScore)copy;
         }
 
+        internal override bool CanApplySettings()
+        {
+            return true;
+        }
+
+        internal override void ApplySettings(BaseScore score)
+        {
+            GenericScore settings = score as GenericScore;
+            if (settings != null)
+            {
+                this.XPath = settings.XPath;
+                this.XPathRow = settings.XPathRow;
+                this.XPathCol = settings.XPathCol;
+                this.Skip = settings.Skip;
+                this.MaxLines = settings.MaxLines;
+                this.Element = settings.Element;
+                this.Encoding = settings.Encoding;
+                this.ParseOptions = settings.ParseOptions;
+            }
+        }
+
         internal override void SetDefaultIcon()
         {
             this.Image = @"Misc\score";

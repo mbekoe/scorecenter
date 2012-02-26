@@ -44,6 +44,7 @@ namespace MediaPortal.Plugin.ScoreCenter
     {
         private ScoreCenter m_center;
         private string m_settings;
+        private BaseScore m_scoreSettings = null;
 
         /// <summary>
         /// Default constructor.
@@ -267,11 +268,14 @@ namespace MediaPortal.Plugin.ScoreCenter
             SetIcon(bscore.Image);
 
             ClearTestGrid();
+            btnTest.Enabled = editor.HasTest;
             tsbMoveUp.Enabled = tvwScores.SelectedNode.PrevNode != null;
             tsbMoveDown.Enabled = tvwScores.SelectedNode.NextNode != null;
             tsbMoveBack.Enabled = tvwScores.SelectedNode.Parent != null;
             tsbMoveRight.Enabled = tsbMoveUp.Enabled;
-            btnTest.Enabled = editor.HasTest;
+
+            tsbCopySettings.Enabled = bscore.CanApplySettings();
+            tsbApplySettings.Enabled = tsbCopySettings.Enabled && m_scoreSettings != null && bscore.GetType() == m_scoreSettings.GetType();
         }
 
         private BaseScoreEditor GetEditor()
@@ -641,6 +645,42 @@ Are you sure you want to quit ?", "Score Center", MessageBoxButtons.YesNo, Messa
                         RefreshTree();
                     }
                 }
+            }
+        }
+
+        private void tsbCopySettings_Click(object sender, EventArgs e)
+        {
+            if (tvwScores.SelectedNode != null && tvwScores.SelectedNode.Tag != null)
+            {
+                m_scoreSettings = tvwScores.SelectedNode.Tag as BaseScore;
+                tsbApplySettings.Enabled = true;
+            }
+        }
+
+        private void tsbApplySettings_Click(object sender, EventArgs e)
+        {
+            if (m_scoreSettings == null) return;
+            if (tvwScores.SelectedNode == null || tvwScores.SelectedNode.Tag == null) return;
+
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+            if (score != m_scoreSettings && score.GetType() == m_scoreSettings.GetType())
+            {
+                score.ApplySettings(m_scoreSettings);
+                BaseScoreEditor editor = GetEditor();
+                if (editor != null)
+                    editor.LoadScore(score, m_center);
+            }
+        }
+
+        private void tsbApplySettings_EnabledChanged(object sender, EventArgs e)
+        {
+            if (tsbApplySettings.Enabled)
+            {
+                tsbApplySettings.ToolTipText = String.Format("Apply Settings from {0}", m_scoreSettings.Name);
+            }
+            else
+            {
+                tsbApplySettings.ToolTipText = "Apply Settings";
             }
         }
 

@@ -66,6 +66,8 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         internal abstract BaseScore Clone(string id);
+        internal abstract void ApplySettings(BaseScore score);
+        internal abstract bool CanApplySettings();
         internal abstract void SetDefaultIcon();
 
         public virtual string GetSource()

@@ -48,9 +48,12 @@
             this.tsbMoveBack = new System.Windows.Forms.ToolStripButton();
             this.tsbMoveRight = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
+            this.tsbCopySettings = new System.Windows.Forms.ToolStripButton();
+            this.tsbApplySettings = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
+            this.tsbEditStyles = new System.Windows.Forms.ToolStripButton();
             this.tsbOptions = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.alignementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,6 +177,9 @@
             this.tsbMoveBack,
             this.tsbMoveRight,
             this.toolStripSeparator1,
+            this.tsbCopySettings,
+            this.tsbApplySettings,
+            this.toolStripSeparator3,
             this.tsbExport,
             this.tsbImport,
             this.tsbEditStyles,
@@ -278,15 +284,29 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsbEditStyles
+            // tsbCopySettings
             // 
-            this.tsbEditStyles.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.ChooseColor;
-            this.tsbEditStyles.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbEditStyles.Name = "tsbEditStyles";
-            this.tsbEditStyles.Size = new System.Drawing.Size(57, 22);
-            this.tsbEditStyles.Text = "St&yles";
-            this.tsbEditStyles.ToolTipText = "Edit Styles";
-            this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
+            this.tsbCopySettings.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.FillUpHS;
+            this.tsbCopySettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCopySettings.Name = "tsbCopySettings";
+            this.tsbCopySettings.Size = new System.Drawing.Size(100, 22);
+            this.tsbCopySettings.Text = "Copy Settings";
+            this.tsbCopySettings.Click += new System.EventHandler(this.tsbCopySettings_Click);
+            // 
+            // tsbApplySettings
+            // 
+            this.tsbApplySettings.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.FillDownHS;
+            this.tsbApplySettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbApplySettings.Name = "tsbApplySettings";
+            this.tsbApplySettings.Size = new System.Drawing.Size(103, 22);
+            this.tsbApplySettings.Text = "Apply Settings";
+            this.tsbApplySettings.EnabledChanged += new System.EventHandler(this.tsbApplySettings_EnabledChanged);
+            this.tsbApplySettings.Click += new System.EventHandler(this.tsbApplySettings_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbExport
             // 
@@ -307,6 +327,16 @@
             this.tsbImport.Text = "&Import";
             this.tsbImport.ToolTipText = "Import settings";
             this.tsbImport.Click += new System.EventHandler(this.tsbImport_Click);
+            // 
+            // tsbEditStyles
+            // 
+            this.tsbEditStyles.Image = global::MediaPortal.Plugin.ScoreCenter.Properties.Resources.ChooseColor;
+            this.tsbEditStyles.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditStyles.Name = "tsbEditStyles";
+            this.tsbEditStyles.Size = new System.Drawing.Size(57, 22);
+            this.tsbEditStyles.Text = "St&yles";
+            this.tsbEditStyles.ToolTipText = "Edit Styles";
+            this.tsbEditStyles.Click += new System.EventHandler(this.tsbEditStyles_Click);
             // 
             // tsbOptions
             // 
@@ -481,5 +511,8 @@
         private System.Windows.Forms.ToolStripButton tsbMoveBack;
         private System.Windows.Forms.ToolStripButton tsbMoveRight;
         private System.Windows.Forms.Panel pnlEditor;
+        private System.Windows.Forms.ToolStripButton tsbCopySettings;
+        private System.Windows.Forms.ToolStripButton tsbApplySettings;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

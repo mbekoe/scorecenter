@@ -66,10 +66,12 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return true;
         }
+
         public override IList<BaseScore> GetVirtualScores(ScoreParameter[] parameters)
         {
             return Parser.WorldFootballScoreParser.GetRealScores(this, parameters);
         }
+
         internal override BaseScore Clone(string id)
         {
             WorldFootballScore copy = new WorldFootballScore();
@@ -96,6 +98,27 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return (BaseScore)copy;
         }
+
+        internal override bool CanApplySettings()
+        {
+            return true;
+        }
+
+        internal override void ApplySettings(BaseScore score)
+        {
+            WorldFootballScore settings = score as WorldFootballScore;
+            if (settings != null)
+            {
+                this.Kind = settings.Kind;
+                this.NbTeams = settings.NbTeams;
+                this.Rounds = settings.Rounds;
+                this.Levels = settings.Levels;
+                this.Highlights = settings.Highlights;
+                this.Details = settings.Details;
+                this.LiveConfig = settings.LiveConfig;
+            }
+        }
+
         internal override void SetDefaultIcon()
         {
             this.Image = @"Misc\wfb";
