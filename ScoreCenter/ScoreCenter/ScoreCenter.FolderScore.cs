@@ -44,7 +44,17 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return (BaseScore)copy;
         }
-        
+
+        internal override bool CanApplySettings()
+        {
+            return false;
+        }
+
+        internal override void ApplySettings(BaseScore settings)
+        {
+            // nothing
+        }
+
         internal override void SetDefaultIcon()
         {
             this.Image = @"Misc\folder";

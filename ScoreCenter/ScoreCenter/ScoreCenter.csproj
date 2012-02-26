@@ -229,6 +229,8 @@
     <None Include="Resources\BuilderDialog_moveright.bmp" />
     <Content Include="MyScoreCenter2.Settings.xml" />
     <None Include="Resources\wfb_logo.png" />
+    <None Include="Resources\FillUpHS.png" />
+    <None Include="Resources\FillDownHS.png" />
     <Content Include="skin\Defaultwide\hover_score center.png" />
     <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
     <Content Include="skin\Defaultwide\MyScoreCenterNotify.xml" />
