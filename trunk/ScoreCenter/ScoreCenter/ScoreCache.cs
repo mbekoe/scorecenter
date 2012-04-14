@@ -90,6 +90,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 Tools.LogMessage("Download = {0}", url);
                 html = Tools.DownloadFile(m_client, url, encoding);
+                html = Tools.FixHtml(html);
                 if (m_lifeTime > 0)
                 {
                     m_cache[url] = new CacheElement(m_lifeTime, html);

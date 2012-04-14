@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
@@ -310,6 +311,33 @@ namespace MediaPortal.Plugin.ScoreCenter
         };
 
         /// <summary>
+        /// Fix an HTML string by applying some rules.
+        /// </summary>
+        /// <param name="html">The html to fix.</param>
+        /// <returns></returns>
+        public static string FixHtml(string html)
+        {
+            if (String.IsNullOrEmpty(html))
+                return String.Empty;
+
+            // remove html comments
+            string removeComment = "<!--(.|\n)*?-->";
+            Regex r = new Regex(removeComment);
+            html = r.Replace(html, "");
+
+            // fix html caracters
+            for (int i = 0; i < HtmlCode.Length; i = i + 2)
+            {
+                html = html.Replace(HtmlCode[i], HtmlCode[i + 1]);
+            }
+
+            // remove the tabulation
+            html = html.Replace("\t", "  ");
+
+            return html;
+        }
+
+        /// <summary>
         /// Transform an HTML string.
         /// </summary>
         /// <param name="value">The HTML to transform.</param>
@@ -317,17 +345,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The transformed HTML.</returns>
         public static string TransformHtml(string value, bool allowNewLine)
         {
-            string result = value.Replace("\t", "  ");
-
+            string result = value;
             if (!allowNewLine)
             {
                 result = result.Replace("\r", " ");
                 result = result.Replace("\n", " ");
-            }
-
-            for (int i = 0; i < HtmlCode.Length; i = i + 2)
-            {
-                result = result.Replace(HtmlCode[i], HtmlCode[i + 1]);
             }
 
             string[] pp = result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
