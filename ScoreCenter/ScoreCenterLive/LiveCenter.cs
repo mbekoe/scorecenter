@@ -133,6 +133,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (newScore.Length <= iRow || newScore[iRow] == null)
                         continue;
 
+                    // format the row
                     string newRow = BuildScore(scoreFormat, newScore[iRow]);
 
                     // if old score is missing then new is new
@@ -142,8 +143,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                         continue;
                     }
 
+                    // format the old row the same way
                     string oldRow = BuildScore(scoreFormat, oldScore[iRow]);
 
+                    // compare old and new
                     if (!String.Equals(oldRow, newRow))
                     {
                         Tools.LogMessage("OLD = {0}", oldRow);
@@ -163,6 +166,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private static string AddToMessage(string message, string newRow, string[] filters)
         {
+            // check if filtered
             bool add = true;
             if (filters != null)
             {
