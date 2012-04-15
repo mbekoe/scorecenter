@@ -4,7 +4,7 @@
     <Name>My Score Center</Name>
     <DefaultSkinColor>-16752449</DefaultSkinColor>
     <UpdateOnlineMode>Always</UpdateOnlineMode>
-    <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter2.Settings.xml</UpdateUrl>
+    <UpdateUrl>http://sites.google.com/site/myscorecenter/MyScoreCenter2.Settings2.xml</UpdateUrl>
     <UpdateRule>All</UpdateRule>
   </Setup>
   <Parameters>
