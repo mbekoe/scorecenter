@@ -1,6 +1,7 @@
 #labels Featured
-*next version*:
+*version 2.7.0.0 (16 April 2012)*:
     * Add: New way to parse pages with no tables. First XPath expression is for lines and second (new field) is for columns.
+    * Fix: Issue with HTML comments when detecting the current round for WorldFootball scores.
 
 *version 2.6.1.0 (18 January 2012)*:
     * Fix: Issue with Regular Expression used to find current round for WorldFootball scores.
