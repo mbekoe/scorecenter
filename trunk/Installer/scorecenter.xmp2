@@ -355,8 +355,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -387,8 +387,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>6</Minor>
-      <Build>1</Build>
+      <Minor>7</Minor>
+      <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
@@ -396,10 +396,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
 
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>*Fix: Issue with WorlFootball scores to detect current round</VersionDescription>
+    <VersionDescription>*Add new way to parse scores.</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v[Version].mpe1</OnlineLocation>
-    <ReleaseDate>2012-01-18T18:55:45</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.7.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2012-04-15T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -594,14 +594,14 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2378445d-b39f-415a-9f83-fe4eaef6d5af}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{2121d6f5-b0b9-4f13-9cba-33ac72628aaf}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1fb2de19-d558-4bfe-8b4e-62f07cd50646}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8db24409-f466-4521-869d-9b09d82e01d9}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
