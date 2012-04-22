@@ -153,7 +153,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     {
                         Tools.LogMessage("OLD = {0}", oldRow);
                         Tools.LogMessage("NEW = {0}", newRow);
-                        message = AddToMessage(message, newRow, filters);
+                        var zz = score.GetDifferences(oldRow, newRow);
+                        message = AddToMessage(message, ScoreDifference.StringFromList(zz), filters);
                     }
                 }
             }

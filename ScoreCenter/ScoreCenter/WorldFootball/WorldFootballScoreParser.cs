@@ -540,8 +540,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             {
                 // Round Results
                 GenericScore sc = CreateNewScore(m_score.Id, "round", "Results", icon, "0", index);
-                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/ergebnisse/", WF_URL, fullname, UrlRange.PARAM);
-                sc.Range = new UrlRange(round, 1, m_score.Rounds, LocalizationManager.GetString(Labels.RoundLabel));
+                sc.Url = String.Format("{0}spielplan/{1}-spieltag/{2}/ergebnisse/", WF_URL, fullname, VariableUrl.PARAM);
+                sc.Range = new VariableUrl(round, 1, m_score.Rounds, LocalizationManager.GetString(Labels.RoundLabel));
                 sc.SetCanLive(true);
                 sc.SetLive(m_score.IsLive());
                 sc.Sizes = GetParameter(m_parameters, "WF.LeagueRoundResults", SIZES_LEAGUE_ROUND_RESULTS);

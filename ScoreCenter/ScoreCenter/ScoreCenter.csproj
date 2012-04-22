@@ -122,12 +122,14 @@
     <Compile Include="ScoreCenter.RssScore.cs">
       <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreDifference.cs" />
     <Compile Include="TestScoreSelector.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TestScoreSelector.Designer.cs">
       <DependentUpon>TestScoreSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="VariableUrl.cs" />
     <Compile Include="WorldFootball\ScoreCenter.WorldFootball.cs" />
     <Compile Include="WorldFootball\WorldFootballScoreBuilder.cs" />
     <Compile Include="WorldFootball\WorldFootballScoreEditor.cs">
