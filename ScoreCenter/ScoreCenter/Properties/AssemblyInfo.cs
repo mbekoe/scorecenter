@@ -11,7 +11,7 @@ using MediaPortal.Common.Utils;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FredP42")]
 [assembly: AssemblyProduct("ScoreCenter")]
-[assembly: AssemblyCopyright("Copyright ©  2009-2011")]
+[assembly: AssemblyCopyright("Copyright ©  2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,8 +33,8 @@ using MediaPortal.Common.Utils;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.7.0.0")]
-[assembly: AssemblyFileVersion("2.7.0.0")]
+[assembly: AssemblyVersion("2.8.0.0")]
+[assembly: AssemblyFileVersion("2.8.0.0")]
 
 [assembly: CompatibleVersion("1.2.0.0", "1.1.6.27644")]
 [assembly: UsesSubsystem("MP.SkinEngine")]

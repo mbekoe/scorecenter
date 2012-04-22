@@ -1,7 +1,7 @@
-﻿#region Copyright (C) 2005-2011 Team MediaPortal
+﻿#region Copyright (C) 2005-2012 Team MediaPortal
 
 /* 
- *      Copyright (C) 2005-2011 Team MediaPortal
+ *      Copyright (C) 2005-2012 Team MediaPortal
  *      http://www.team-mediaportal.com
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -36,11 +36,13 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public class LiveCenter : BackgroundWorker
     {
+        /// <summary>List of scores to check.</summary>
         private IEnumerable<BaseScore> m_scores;
+        /// <summary>The ScoreCenter to use.</summary>
         private ScoreCenter m_center;
-
+        /// <summary>A cache to keep the previous version of each scores.</summary>
         private Dictionary<BaseScore, string[][]> m_cache = new Dictionary<BaseScore, string[][]>();
-
+        /// <summary>The timer.</summary>
         public int SleepTimer { get; set; }
 
         /// <summary>
