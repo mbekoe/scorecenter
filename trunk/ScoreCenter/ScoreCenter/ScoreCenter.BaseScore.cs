@@ -48,7 +48,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         protected bool m_virtualResolved = false;
 
         [System.Xml.Serialization.XmlIgnore()]
-        public UrlRange Range = null;
+        public VariableUrl Range = null;
 
         public bool IsNew() { return m_new; }
         public void SetNew(bool isNew) { m_new = isNew; }
@@ -182,5 +182,21 @@ namespace MediaPortal.Plugin.ScoreCenter
         public virtual void ApplyRangeValue(bool setDefault) { }
         public virtual void ResetRangeValue() { if (this.Range != null) this.Range.Reset(); }
         #endregion
+
+        public virtual List<ScoreDifference> GetDifferences(string oldScore, string newScore)
+        {
+            List<ScoreDifference> res = ScoreDifference.ListFromString(newScore);
+            List<ScoreDifference> old = ScoreDifference.ListFromString(oldScore);
+
+            for (int i = 0; i < res.Count(); i++)
+            {
+                if (old.Count() <= i)
+                    res[i].IsNew = true;
+                else
+                    res[i].IsNew = !String.Equals(res[i].Word, old[i].Word);
+            }
+
+            return res;
+        }
     }
 }
