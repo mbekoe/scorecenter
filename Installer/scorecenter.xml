@@ -57,18 +57,18 @@
             <Id />
             <MinVersion>
               <Major>1</Major>
-              <Minor>1</Minor>
-              <Build>6</Build>
-              <Revision>27644</Revision>
+              <Minor>2</Minor>
+              <Build>100</Build>
+              <Revision>0</Revision>
             </MinVersion>
             <MaxVersion>
               <Major>1</Major>
-              <Minor>1</Minor>
-              <Build>6</Build>
-              <Revision>27644</Revision>
+              <Minor>2</Minor>
+              <Build>100</Build>
+              <Revision>0</Revision>
             </MaxVersion>
             <WarnOnly>false</WarnOnly>
-            <Message>Need version of MediaPortal with version betwen 1.1.0.6 - 1.2.0.0</Message>
+            <Message>Need version of MediaPortal with version greater than 1.2.100</Message>
             <Name>MediaPortal</Name>
           </DependencyItem>
         </Items>
@@ -79,8 +79,8 @@
             <CompatibleVersion>
               <Items>
                 <CompatibleVersionItem>
-                  <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-                  <DesignedForVersion>1.2.0.0</DesignedForVersion>
+                  <MinRequiredVersion>1.2.100.0</MinRequiredVersion>
+                  <DesignedForVersion>1.2.100.0</DesignedForVersion>
                 </CompatibleVersionItem>
               </Items>
             </CompatibleVersion>
@@ -95,8 +95,8 @@
             <CompatibleVersion>
               <Items>
                 <CompatibleVersionItem>
-                  <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-                  <DesignedForVersion>1.2.0.0</DesignedForVersion>
+                  <MinRequiredVersion>1.2.100.0</MinRequiredVersion>
+                  <DesignedForVersion>1.2.100.0</DesignedForVersion>
                 </CompatibleVersionItem>
               </Items>
             </CompatibleVersion>
@@ -119,18 +119,16 @@
         <Version>
           <Major>2</Major>
           <Minor>7</Minor>
-          <Build>0</Build>
+          <Build>1</Build>
           <Revision>0</Revision>
         </Version>
         <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
-
-
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-        <VersionDescription>*Add new way to parse scores.</VersionDescription>
+        <VersionDescription>*Add compatibility with MP1.3 alpha</VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.7.0.0.mpe1</OnlineLocation>
-        <ReleaseDate>2012-04-15T18:55:45</ReleaseDate>
+        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.7.1.0.mpe1</OnlineLocation>
+        <ReleaseDate>2012-09-23T18:55:45</ReleaseDate>
         <Tags>sport, online</Tags>
         <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
         <Params>
