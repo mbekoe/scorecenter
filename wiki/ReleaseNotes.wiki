@@ -1,4 +1,7 @@
 #labels Featured
+*version 2.7.1.0 (23 September 2012)*:
+    * Version compatible with MP1.3 alpha.
+
 *version 2.7.0.0 (15 April 2012)*:
     * Add: New way to parse pages with no tables. First XPath expression is for lines and second (new field) is for columns.
     * Fix: Issue with HTML comments when detecting the current round for WorldFootball scores.
