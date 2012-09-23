@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{30559869-F188-43F7-8322-A7D588607376}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MediaPortal.Plugin.ScoreCenter</RootNamespace>
+    <AssemblyName>ScoreCenter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Football.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\Common.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Dialogs, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.7.2.18, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Utils, Version=1.1.7.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Team MediaPortal\MediaPortal\Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateScoreDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateScoreDlg.Designer.cs">
+      <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\BaseScoreEditor.Designer.cs">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\FolderScoreEditor.Designer.cs">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\GenericScoreEditor.Designer.cs">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\RssScoreEditor.Designer.cs">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.BaseScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.FolderScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.GenericScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.RssScore.cs">
+      <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreDifference.cs" />
+    <Compile Include="TestScoreSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestScoreSelector.Designer.cs">
+      <DependentUpon>TestScoreSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariableUrl.cs" />
+    <Compile Include="WorldFootball\ScoreCenter.WorldFootball.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreBuilder.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorldFootball\WorldFootballScoreEditor.Designer.cs">
+      <DependentUpon>WorldFootballScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExchangeManager.cs" />
+    <Compile Include="ExportDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportDialog.Designer.cs">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportDialog.Designer.cs">
+      <DependentUpon>ImportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizationManager.cs" />
+    <Compile Include="OptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsDialog.Designer.cs">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parser\FolderScoreParser.cs" />
+    <Compile Include="Parser\GenericScoreParser.cs" />
+    <Compile Include="Parser\RssScoreParser.cs" />
+    <Compile Include="WorldFootball\WorldFootballScoreParser.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RuleEvaluator.cs" />
+    <Compile Include="ScoreBuilder.cs" />
+    <Compile Include="ScoreCache.cs" />
+    <Compile Include="ScoreCenter.cs">
+      <DependentUpon>ScoreCenter.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenter.Ext.cs" />
+    <Compile Include="ScoreCenterConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreCenterConfig.Designer.cs">
+      <DependentUpon>ScoreCenterConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreCenterGui.cs" />
+    <Compile Include="ScoreCenterPlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreFactory.cs" />
+    <Compile Include="ScoreLocalisation.cs">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Parser\ScoreParser.cs" />
+    <Compile Include="StyleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StyleControl.Designer.cs">
+      <DependentUpon>StyleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StyleDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StyleDialog.Designer.cs">
+      <DependentUpon>StyleDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThreeStateTreeNode.cs" />
+    <Compile Include="ThreeStateTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Football.ico" />
+    <Content Include="language\score_de.xml" />
+    <Content Include="language\score_en.xml" />
+    <Content Include="language\score_fr.xml" />
+    <Content Include="language\score_hu.xml" />
+    <Content Include="language\strings_de.xml" />
+    <Content Include="language\strings_en.xml" />
+    <Content Include="language\strings_fr.xml" />
+    <Content Include="language\strings_hu.xml" />
+    <Content Include="language\strings_pl.xml" />
+    <Content Include="language\strings_ru.xml" />
+    <Content Include="MyScoreCenter.Settings.xml" />
+    <None Include="Resources\openfolderHS.png" />
+    <None Include="Resources\DownloadDocument.bmp" />
+    <None Include="Resources\ChooseColor.bmp" />
+    <None Include="Resources\Webcontrol_Fileupload.bmp" />
+    <None Include="Resources\gear_32.bmp" />
+    <None Include="Resources\Web.png" />
+    <None Include="Resources\BuilderDialog_moveup.bmp" />
+    <None Include="Resources\BuilderDialog_movedown.bmp" />
+    <None Include="Resources\BuilderDialog_moveback.bmp" />
+    <None Include="Resources\BuilderDialog_moveright.bmp" />
+    <Content Include="MyScoreCenter2.Settings.xml" />
+    <None Include="Resources\wfb_logo.png" />
+    <None Include="Resources\FillUpHS.png" />
+    <None Include="Resources\FillDownHS.png" />
+    <Content Include="skin\Defaultwide\hover_score center.png" />
+    <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
+    <Content Include="skin\Defaultwide\MyScoreCenterNotify.xml" />
+    <Content Include="skin\Default\MyScoreCenter.xml" />
+    <Content Include="skin\PureVision\MyScoreCenter.xml" />
+    <Content Include="skin\Titanium\MyScoreCenter.xml" />
+    <None Include="Resources\CopyHS.png" />
+    <EmbeddedResource Include="Resources\ScoreCenterDisabled.png" />
+    <EmbeddedResource Include="Resources\ScoreCenter.png" />
+    <None Include="Resources\Help.png" />
+    <None Include="Resources\DeleteHS.png" />
+    <None Include="Resources\NewDocumentHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ScoreCenter.xsc">
+      <DependentUpon>ScoreCenter.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreCenter.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ScoreCenter.xss">
+      <DependentUpon>ScoreCenter.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreLocalisation.xsc">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </None>
+    <None Include="ScoreLocalisation.xsd">
+      <LastGenOutput>ScoreLocalisation.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ScoreLocalisation.xss">
+      <DependentUpon>ScoreLocalisation.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateScoreDlg.resx">
+      <DependentUpon>CreateScoreDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\BaseScoreEditor.resx">
+      <DependentUpon>BaseScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\FolderScoreEditor.resx">
+      <DependentUpon>FolderScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\GenericScoreEditor.resx">
+      <DependentUpon>GenericScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\RssScoreEditor.resx">
+      <DependentUpon>RssScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestScoreSelector.resx">
+      <DependentUpon>TestScoreSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldFootball\WorldFootballScoreEditor.resx">
+      <DependentUpon>WorldFootballScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportDialog.resx">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportDialog.resx">
+      <DependentUpon>ImportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsDialog.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreCenterConfig.resx">
+      <DependentUpon>ScoreCenterConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StyleControl.resx">
+      <DependentUpon>StyleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StyleDialog.resx">
+      <DependentUpon>StyleDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>sgen.exe /a:"$(TargetPath)" /force
+copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
+copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
+rem copy $(ProjectDir)skin\DefaultWide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\DefaultWide" /Y
+rem copy $(ProjectDir)skin\Default\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Default" /Y
+rem copy $(ProjectDir)MyScoreCenter2.Settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>
