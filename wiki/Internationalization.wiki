@@ -7,7 +7,8 @@ There are three different things that can be translated:
   * the scores content.
 
 the best way to create a new language file is to copy an existing and rename it with your language code and then replace the strings with the translation.
-Do not forget to share it with the MediaPortal community on the forum and then I will add it to the distribution.
+
+Do not forget to share it with the MediaPortal community on the [http://forum.team-mediaportal.com/mediaportal-plugins-47/my-score-center-67687/ forum] and then I will add it to the distribution.
 
 All the files are in the directory `%ProgramData%\Team MediaPortal\MediaPortal\language`.
 
