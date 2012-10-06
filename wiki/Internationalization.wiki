@@ -55,6 +55,36 @@ It is also possible to use Regular Expressions by setting the flag _isRegEx_ to 
 
 = Scores =
 
+It is also possible to translate the content of the scores.
+There are two ways to do that, by using dictionaries or rules.
+
 == Using Dictionaries ==
 
+The `scores_<lang>.xml` file can also be used to define dictionaries.
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  ...
+  <ScoreDictionaries>
+    <ScoreDictionary name="tennis">
+    <LocString id="Roger Federer">Roger</LocString>
+  </ScoreDictionary>
+</ScoreDictionaries>
+}}}
+
+A dictionary must have a name and you can have many dictionaries.
+To use a dictionary you need to set the name of the dictionary you want to use in the score configuration (on the "Post Processing" tab).
+
+*important*: when you use a dictionary each element of the score is processed with all element in the dictionary. So it is important to avoid big dictionary and better create a small dictionary for each category of scores.
+
 == Using Rules ==
+
+It is also possible to do text replacement by using a Rule (third tab in the configuration of the score).
+
+For example, if in the first column instead of "1" you want to see "One", then create a rule for your score with the following parameter:
+- Column: 1 (0 means any column, -1 means the rank of the line)
+- Operator: =
+- Value: 1,one
+- Action: Replace Text
+when using 'Replace text' the value field must contain the string to replace and the new value separated by a comma.
