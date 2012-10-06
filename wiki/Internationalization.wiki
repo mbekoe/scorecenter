@@ -2,8 +2,8 @@
 = Introduction =
 
 There are three different things that can be translated:
-  * the plugin strings (menu, ...),
-  * the scores names (shown in the navigation part),
+  * the plugin's strings (menu, ...),
+  * the scoress names (shown in the navigation part),
   * the scores content.
 
 The best way to create a new language file is to copy an existing and rename it with your language code and then replace the strings with the translation.
