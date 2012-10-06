@@ -1,0 +1,60 @@
+#summary How Internationalization works in ScoreCenter
+= Introduction =
+
+There are three different things that can be translated:
+  * the plugin strings (menu, ...),
+  * the scores names (shown in the navigation part),
+  * the scores content.
+
+the best way to create a new language file is to copy an existing and rename it with your language code and then replace the strings with the translation.
+Do not forget to share it with the MediaPortal community on the forum and then I will add it to the distribution.
+
+All the files are in the directory `%ProgramData%\Team MediaPortal\MediaPortal\language`.
+
+= Plugin =
+
+The internationalization of the plugin itself uses the standard MediaPortal way.
+
+The files are named `strings_<lang>.xml`.
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Language name="English" characters="255">
+  <Section name="unmapped">
+    <String id="1">Clear the cache</String>
+    ...
+  </Section>
+</Language>
+}}}
+
+= Name of Scores =
+
+In the default settings the name of the scores are always in English.
+If you want to translate them you will need to do it in the file named `scores_<lang>.xml`.
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<ScoreLocalisation>
+  <Strings>
+    <LocString id="Athletics">Athlétisme</LocString>
+    <LocString id="Olympics">Jeux Olympiques</LocString>
+    ...
+  </Strings>
+  <Globals>
+    <LocString id="Today">Aujourd'hui</LocString>
+    <LocString id="Results">Résultats</LocString>
+    <LocString id="Group[\s*](?&lt;grp&gt;\.*)" isRegEx="true">Groupe ${grp}</LocString>
+    ...
+  </Globals>
+</ScoreLocalisation>
+}}}
+
+The first section `<Strings>` is used to translate scores using their id.
+The second section `<Globals>` is used to translate globally all scores. For example, if all scores named "Today" will be translate the same way.
+It is also possible to use Regular Expressions by setting the flag _isRegEx_ to true (default is false). This is useful to translate similar strings. For example "Group A" and "Group B" are respectively translated to "Groupe A" and "Groupe B".
+
+= Scores =
+
+== Using Dictionaries ==
+
+== Using Rules ==
