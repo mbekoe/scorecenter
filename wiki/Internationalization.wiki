@@ -83,8 +83,8 @@ To use a dictionary you need to set the name of the dictionary you want to use i
 It is also possible to do text replacement by using a Rule (third tab in the configuration of the score).
 
 For example, if in the first column instead of "1" you want to see "One", then create a rule for your score with the following parameter:
-- Column: 1 (0 means any column, -1 means the rank of the line)
-- Operator: =
-- Value: 1,one
-- Action: Replace Text
+  * Column: 1 (0 means any column, -1 means the rank of the line)
+  * Operator: =
+  * Value: 1,one
+  * Action: Replace Text
 when using 'Replace text' the value field must contain the string to replace and the new value separated by a comma.
