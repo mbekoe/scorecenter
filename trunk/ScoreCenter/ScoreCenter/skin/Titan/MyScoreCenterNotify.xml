@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+    <id>42010</id>
+    <defaultcontrol>4</defaultcontrol>
+    <allowoverlay>no</allowoverlay>
+    <controls>
+        <control>
+            <description>group element</description>
+            <type>group</type>
+            <animation effect="slide" start="0,100" time="500">WindowOpen</animation>
+            <animation effect="fade" start="100" end="0" time="1000">WindowClose</animation>
+            <control>
+                <id>0</id>
+                <type>image</type>
+                <visible>yes</visible>
+                <posX>240</posX>
+                <posY>827</posY>
+                <width>800</width>
+                <height>205</height>
+                <texture>dialog_background.png</texture>
+            </control>
+            <control>
+                <id>3</id>
+                <description>Heading text label</description>
+                <type>label</type>
+                <posX>306</posX>
+                <posY>856</posY>
+                <font>font10</font>
+                <textcolor>ff000000</textcolor>
+                <label>181</label>
+            </control>
+            <control>
+                <id>4</id>
+                <description>OK button</description>
+                <type>button</type>
+                <onleft>4</onleft>
+                <onright>4</onright>
+                <onup>4</onup>
+                <ondown>4</ondown>
+                <posX>927</posX>
+                <posY>848</posY>
+                <width>50</width>
+                <height>30</height>
+                <textureFocus>dialogue_ok_focus.png</textureFocus>
+                <textureNoFocus>dialogue_ok_nofocus.png</textureNoFocus>
+                <label>-</label>
+            </control>
+            <control>
+                <id>5</id>
+                <description>logo</description>
+                <type>image</type>
+                <colordiffuse>ffffffff</colordiffuse>
+                <posX>298</posX>
+                <posY>887</posY>
+                <width>48</width>
+                <height>48</height>
+                <texture>#thumb</texture>
+                <colorkey>FFFF00FF</colorkey>
+                <keepaspectratio>yes</keepaspectratio>
+            </control>
+            <control>
+                <id>6</id>
+                <description>textarea</description>
+                <type>textbox</type>
+                <onleft>4</onleft>
+                <onright>4</onright>
+                <onup>4</onup>
+                <ondown>4</ondown>
+                <posX>351</posX>
+                <posY>886</posY>
+                <width>630</width>
+                <height>118</height>
+                <spinPosX>880</spinPosX>
+                <spinPosY>680</spinPosY>
+                <textcolor>ff000000</textcolor>
+                <label>-</label>
+            </control>
+        </control>
+    </controls>
+</window>
