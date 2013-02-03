@@ -239,6 +239,8 @@
     <Content Include="skin\Default\MyScoreCenter.xml" />
     <Content Include="skin\PureVision\MyScoreCenter.xml" />
     <Content Include="skin\Titanium\MyScoreCenter.xml" />
+    <Content Include="skin\Titan\MyScoreCenter.xml" />
+    <Content Include="skin\Titan\MyScoreCenterNotify.xml" />
     <None Include="Resources\CopyHS.png" />
     <EmbeddedResource Include="Resources\ScoreCenterDisabled.png" />
     <EmbeddedResource Include="Resources\ScoreCenter.png" />
@@ -329,6 +331,7 @@ copy $(TargetPath) "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 copy $(TargetDir)$(TargetName).XmlSerializers.dll "C:\Team MediaPortal\MediaPortal\plugins\Windows" /Y
 rem copy $(ProjectDir)skin\DefaultWide\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\DefaultWide" /Y
 rem copy $(ProjectDir)skin\Default\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Default" /Y
+rem copy $(ProjectDir)skin\Titan\MyScoreCenter.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Titan" /Y
 rem copy $(ProjectDir)MyScoreCenter2.Settings.xml "C:\ProgramData\Team MediaPortal\MediaPortal" /Y</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
