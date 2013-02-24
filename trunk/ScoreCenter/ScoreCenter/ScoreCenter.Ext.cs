@@ -327,6 +327,17 @@ namespace MediaPortal.Plugin.ScoreCenter
         {
             return String.Format("{0} {1} => {2}", this.Operator, this.Value, this.Action);
         }
+
+        public Rule Clone()
+        {
+            Rule r = new Rule();
+            r.columnField = this.columnField;
+            r.operatorField = this.operatorField;
+            r.valueField = this.valueField;
+            r.actionField = this.actionField;
+            r.formatField = this.formatField;
+            return r;
+        }
     }
 
     partial class Style
