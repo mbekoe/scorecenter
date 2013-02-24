@@ -106,6 +106,15 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.LiveConfig = this.LiveConfig;
             copy.Dictionary = this.Dictionary;
 
+            if (this.Rules.Length > 0)
+            {
+                copy.Rules = new Rule[this.Rules.Length];
+                for (int i = 0; i < this.Rules.Length; i++)
+                {
+                    copy.Rules[i] = this.Rules[i].Clone();
+                }
+            }
+
             if (this.Range != null) copy.Range = this.Range.Clone();
 
             return (BaseScore)copy;
