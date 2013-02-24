@@ -97,7 +97,7 @@ namespace MediaPortal.Dialogs
             else
                 this.SetImage(Tools.GetThumbs(icon));
 
-            this.SetText(text);
+            this.SetText(text + Environment.NewLine);
         }
 
         protected override void OnPageLoad()
