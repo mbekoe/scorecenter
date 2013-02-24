@@ -90,10 +90,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             string res = "";
             foreach (ScoreDifference diff in list)
             {
-                if (diff.IsNew)
-                    res += String.Format("*{0}*{1}", diff.Word, diff.Separator);
-                else
-                    res += diff.Word + diff.Separator;
+                res += String.Format("{2}{0}{2}{1}", diff.Word, diff.Separator, diff.IsNew ? "*" : "");
             }
             return res;
         }

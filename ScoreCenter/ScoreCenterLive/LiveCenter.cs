@@ -53,6 +53,18 @@ namespace MediaPortal.Plugin.ScoreCenter
         public LiveCenter(IEnumerable<BaseScore> scores, ScoreCenter center)
         {
             m_scores = scores;
+#if DEBUG
+            Rule r = new Rule();
+            r.Column = 2;
+            r.Operator = Operation.EqualTo;
+            r.Action = RuleAction.ReplaceText;
+            r.Value = "b,zz";
+
+            GenericScore sc = m_scores.First() as GenericScore;
+            sc.Rules = new Rule[1];
+            sc.Rules[0] = r;
+#endif
+
             m_center = center;
             this.WorkerReportsProgress = false;
             this.WorkerSupportsCancellation = true;
@@ -64,7 +76,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Lowest;
 
 #if DEBUG
-            this.SleepTimer = 15000; // 15ms
+            this.SleepTimer = 15000; // 15s
 #endif
 
             while (!this.CancellationPending)
@@ -72,19 +84,11 @@ namespace MediaPortal.Plugin.ScoreCenter
                 foreach (BaseScore score in m_scores)
                 {
 #if DEBUG
-                    string[] filters = score.LiveConfig.filter.Split(',');
-                    string message = LiveCenter.AddToMessage("", score.Name, filters);
-                    if (message.Length > 0)
-                    {
-                        Notify(score, message);
-                    }
-                    else
-                    {
-                        Tools.LogMessage("No NOTIFICATION for '{0}", score.Name);
-                    }
+                    string[][] results = { new string[] { DateTime.Now.TimeOfDay.ToString(), "b", "c" } };
 #else
-                    //Tools.LogMessage("\n\n>> {0} {1}", score.Name, score.GetType().ToString());
                     string[][] results = ScoreFactory.Parse(score, false, m_center.Parameters);
+#endif
+                    results = EvaluateRules(score, results);
                     if (!m_cache.ContainsKey(score))
                     {
                         m_cache[score] = results;
@@ -98,7 +102,6 @@ namespace MediaPortal.Plugin.ScoreCenter
                             m_cache[score] = results;
                         }
                     }
-#endif
                 }
 
                 System.Threading.Thread.Sleep(this.SleepTimer);
@@ -167,6 +170,87 @@ namespace MediaPortal.Plugin.ScoreCenter
             return message;
         }
 
+        private string[][] EvaluateRules(BaseScore score, string[][] labels)
+        {
+            GenericScore genScore = score as GenericScore;
+            if (genScore == null)
+                return null;
+
+            RuleEvaluator engine = new RuleEvaluator(genScore.Rules);
+
+            ParsingOptions opt = genScore.GetParseOption();
+            bool reverseOrder = GenericScore.CheckParsingOption(opt, ParsingOptions.Reverse);
+            bool wordWrap = GenericScore.CheckParsingOption(opt, ParsingOptions.WordWrap);
+
+            int lineNumber = -1;
+            // for all the rows
+            IList<string[]> controls = new List<string[]>();
+            int totalLines = labels.Count(p => p != null && p[0] != ScoreCenterPlugin.C_HEADER);
+            foreach (string[] row_ in labels)
+            {
+                // ignore empty lines
+                if (row_ == null || row_.Length == 0)
+                    continue;
+
+                lineNumber++;
+
+                bool isHeader = (row_[0] == ScoreCenterPlugin.C_HEADER);
+                string[] row = isHeader ? row_.Where(c => c != ScoreCenterPlugin.C_HEADER).ToArray() : row_;
+
+                // Evaluate rule for full line
+                if (!isHeader)
+                {
+                    Rule rule = engine.CheckLine(row, lineNumber, totalLines);
+                    if (rule != null)
+                    {
+                        // skip lines and continue
+                        if (rule.Action == RuleAction.SkipLine)
+                            continue;
+                    }
+                }
+
+                #region For all columns
+                for (int index = 0; index < row.Length; index++)
+                {
+                    int colIndex = reverseOrder ? row.Length - index - 1 : index;
+
+                    // get cell
+                    string cell = row[colIndex];
+
+                    #region Evaluate rule for the cell
+                    if (!isHeader)
+                    {
+                        Rule cellRule = engine.CheckCell(cell, colIndex);
+                        if (cellRule != null)
+                        {
+                            if (cellRule.Action == RuleAction.ReplaceText)
+                            {
+                                string str1 = cellRule.Value;
+                                string str2 = String.Empty;
+                                if (cellRule.Value.Contains(","))
+                                {
+                                    string[] elts = cellRule.Value.Split(',');
+                                    str1 = elts[0];
+                                    str2 = elts[1];
+                                }
+
+                                cell = cell.Replace(str1, str2);
+                            }
+                        }
+                    }
+                    #endregion
+
+                    row[colIndex] = cell;
+                }
+                #endregion
+
+                // create the control
+                controls.Add(row);
+            }
+
+            return controls.ToArray();
+        }
+
         private static string AddToMessage(string message, string newRow, string[] filters)
         {
             // check if filtered
@@ -196,6 +280,9 @@ namespace MediaPortal.Plugin.ScoreCenter
 
         private static string BuildScore(string format, string[] row)
         {
+            if (String.IsNullOrEmpty(format))
+                return String.Join(" ", row);
+
             try
             {
                 return String.Format(format, row);
@@ -221,7 +308,6 @@ namespace MediaPortal.Plugin.ScoreCenter
             LiveScoreNotifyDialog dlg = (LiveScoreNotifyDialog)GUIWindowManager.GetWindow(LiveScoreNotifyDialog.SCORE_NOTIFY_DIALOG_ID);
             dlg.PlaySound = m_center.Setup.LivePlaySound;
             dlg.SetScore(title, icon, message);
-            dlg.SetText(message);
             dlg.TimeOut = m_center.Setup.LiveNotifTime;
             dlg.DoModal(GUIWindowManager.ActiveWindow);
             //Tools.LogMessage("<< Notify\n");
