@@ -19,6 +19,7 @@
             <posY>0</posY>
             <width>1920</width>
             <height>1080</height>
+            <colordiffuse>50ffffff</colordiffuse>
             <texture>background.png</texture>
         </control>
         <!-- backdrop matching current sport -->
