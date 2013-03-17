@@ -11,7 +11,7 @@ using MediaPortal.Common.Utils;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FredP42")]
 [assembly: AssemblyProduct("ScoreCenterLive")]
-[assembly: AssemblyCopyright("Copyright ©  2011-2012")]
+[assembly: AssemblyCopyright("Copyright ©  2011-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
