@@ -85,12 +85,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             return list;
         }
 
-        public static string StringFromList(IEnumerable<ScoreDifference> list)
+        public static string StringFromList(IEnumerable<ScoreDifference> list, string separator)
         {
             string res = "";
             foreach (ScoreDifference diff in list)
             {
-                res += String.Format("{2}{0}{2}{1}", diff.Word, diff.Separator, diff.IsNew ? "*" : "");
+                res += String.Format("{2}{0}{2}{1}", diff.Word, diff.Separator, diff.IsNew ? separator : "");
             }
             return res;
         }

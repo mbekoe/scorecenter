@@ -271,6 +271,20 @@ namespace MediaPortal.Plugin.ScoreCenter
             return plist;
         }
 
+        public string GetParameterValue(string parameterName, string defaultValue)
+        {
+            string result = defaultValue;
+
+            if (this.Parameters != null && this.Parameters.Length > 0)
+            {
+                ScoreParameter p = this.Parameters.FirstOrDefault(pp => pp.name == parameterName);
+                if (p != null && !String.IsNullOrEmpty(p.Value))
+                    result = p.Value;
+            }
+
+            return result;
+        }
+
         public void SetLiveScore(BaseScore score, bool enable)
         {
             if (score.IsVirtual())

@@ -273,7 +273,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
             string fullname = wfscore.FullLeagueName + "-" + wfscore.Season;
-            if (wfscore.League == "otp-liga") fullname = "hun-monicomp-liga-" + wfscore.Season;
+            if (wfscore.League == "nb-i") fullname = "hun-otp-liga-" + wfscore.Season;
 
             ScoreDetails details = GetScoreDetails(wfscore, parameters);
             int round = details.Round;
