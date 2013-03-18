@@ -20,11 +20,11 @@ namespace UnitTests
             Assert.AreEqual(new ScoreDifference("1", ":"), a[1]);
             Assert.AreEqual(new ScoreDifference("0", " "), a[2]);
             Assert.AreEqual(new ScoreDifference("Marseille", ""), a[3]);
-            Assert.AreEqual("Paris 1:0 Marseille", ScoreDifference.StringFromList(a));
+            Assert.AreEqual("Paris 1:0 Marseille", ScoreDifference.StringFromList(a, "*"));
 
             BaseScore sc = new GenericScore();
             a = sc.GetDifferences("Paris 0:0 Marseille", "Paris 1:0 Marseille");
-            Assert.AreEqual("Paris *1*:0 Marseille", ScoreDifference.StringFromList(a));
+            Assert.AreEqual("Paris **1**:0 Marseille", ScoreDifference.StringFromList(a, "**"));
         }
     }
 }

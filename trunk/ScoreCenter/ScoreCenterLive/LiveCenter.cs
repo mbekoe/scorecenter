@@ -130,6 +130,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 }
 
                 string[] filters = score.LiveConfig.filter.Split(',');
+                string sep = m_center.GetParameterValue("DiffSeparator", "*");
 
                 // for all row of old score
                 for (int iRow = 0; iRow < oldScore.Length; iRow++)
@@ -157,7 +158,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                         Tools.LogMessage("OLD = {0}", oldRow);
                         Tools.LogMessage("NEW = {0}", newRow);
                         var zz = score.GetDifferences(oldRow, newRow);
-                        message = AddToMessage(message, ScoreDifference.StringFromList(zz), filters);
+                        message = AddToMessage(message, ScoreDifference.StringFromList(zz, sep), filters);
                     }
                 }
             }
