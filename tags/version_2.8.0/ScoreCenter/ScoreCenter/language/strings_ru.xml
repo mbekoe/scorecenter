@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Language name="English" characters="255">
+  <Section name="unmapped">
+    <String id="1">Очистить кэш</String>
+    <String id="2">Включить автоматическое форматирование ширины колонок</String>
+    <String id="3">Отключить автоматическое форматирование ширины колонок</String>
+    <String id="4">Синхронизировать</String>
+    <String id="5">Отключить '{0}'</String>
+  </Section>
+</Language>
