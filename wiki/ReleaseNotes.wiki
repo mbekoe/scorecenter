@@ -1,4 +1,8 @@
 #labels Featured
+*version 2.8.0.0 (24 March 2013)*:
+    * Skin files for Titan skin.
+    * Fix issue with Live Score to use rules (Skip and Replace only).
+
 *version 2.7.1.0 (23 September 2012)*:
     * Version compatible with MP1.3 alpha.
 
