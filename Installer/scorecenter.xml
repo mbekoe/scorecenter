@@ -45,6 +45,14 @@
               <Items />
             </Files>
           </GroupItem>
+          <GroupItem Name="TitanSkin">
+            <DisplayName>TitanSkin</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>TitanSkin</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
         </Items>
       </Groups>
       <Sections>
@@ -57,18 +65,18 @@
             <Id />
             <MinVersion>
               <Major>1</Major>
-              <Minor>2</Minor>
-              <Build>100</Build>
-              <Revision>0</Revision>
+              <Minor>1</Minor>
+              <Build>6</Build>
+              <Revision>27644</Revision>
             </MinVersion>
             <MaxVersion>
               <Major>1</Major>
-              <Minor>2</Minor>
-              <Build>100</Build>
-              <Revision>0</Revision>
+              <Minor>1</Minor>
+              <Build>6</Build>
+              <Revision>27644</Revision>
             </MaxVersion>
             <WarnOnly>false</WarnOnly>
-            <Message>Need version of MediaPortal with version greater than 1.2.100</Message>
+            <Message>This version of MyScoreCenter requires MediaPortal 1.2.0 Beta or higher!</Message>
             <Name>MediaPortal</Name>
           </DependencyItem>
         </Items>
@@ -86,8 +94,8 @@
             </CompatibleVersion>
             <SubSystemsUsed>
               <Items>
-                <SubSystemItem Name="MP.SkinEngine" />
                 <SubSystemItem Name="MP.Config" />
+                <SubSystemItem Name="MP.SkinEngine" />
               </Items>
             </SubSystemsUsed>
           </PluginDependencyItem>
@@ -102,8 +110,8 @@
             </CompatibleVersion>
             <SubSystemsUsed>
               <Items>
-                <SubSystemItem Name="MP.SkinEngine" />
                 <SubSystemItem Name="MP.Config" />
+                <SubSystemItem Name="MP.SkinEngine" />
               </Items>
             </SubSystemsUsed>
           </PluginDependencyItem>
@@ -118,17 +126,18 @@
         <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
         <Version>
           <Major>2</Major>
-          <Minor>7</Minor>
-          <Build>1</Build>
+          <Minor>8</Minor>
+          <Build>0</Build>
           <Revision>0</Revision>
         </Version>
         <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-        <VersionDescription>*Add compatibility with MP1.3 alpha</VersionDescription>
+        <VersionDescription>* Use Rules when parsing LiveScore (Skip and ReplaceText only)
+* Titan Skin</VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.7.1.0.mpe1</OnlineLocation>
-        <ReleaseDate>2012-09-23T18:55:45</ReleaseDate>
+        <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.8.0.0.mpe1</OnlineLocation>
+        <ReleaseDate>2013-02-24T18:55:45</ReleaseDate>
         <Tags>sport, online</Tags>
         <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
         <Params>
