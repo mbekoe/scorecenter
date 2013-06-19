@@ -39,7 +39,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         void ClearCache();
     }
 
-    public abstract class ScoreParser<T> : IScoreParser
+    public abstract class ScoreParser<T> : IScoreParser, IDisposable
         where T: BaseScore
     {
         protected ScoreCache m_cache;
@@ -257,6 +257,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         public void ClearCache()
         {
             m_cache.Clear(); ;
+        }
+
+        public void Dispose()
+        {
+            if (m_cache != null)
+                m_cache.Dispose();
         }
     }
 }

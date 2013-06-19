@@ -31,7 +31,7 @@ using System.Text;
 
 namespace MediaPortal.Plugin.ScoreCenter
 {
-    public class ScoreCache
+    public class ScoreCache : IDisposable
     {
         /// <summary>
         /// Cache.
@@ -129,6 +129,12 @@ namespace MediaPortal.Plugin.ScoreCenter
             {
                 get { return DateTime.Now > this.ExpirationDate; }
             }
+        }
+
+        public void Dispose()
+        {
+            if (m_client != null)
+                m_client.Dispose();
         }
     }
 }
