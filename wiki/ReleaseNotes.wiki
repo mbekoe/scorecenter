@@ -1,4 +1,8 @@
 #labels Featured
+*version 2.9.0 (4 September 2013)*:
+    * Fix issues with new layout of Worldfootball.
+    * Upgrade HtmlAgilityPack to version 1.4.6.
+
 *version 2.8.1.0 (19 June 2013)*:
     * Compatibility with MP1.4.
 
