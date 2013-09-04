@@ -112,6 +112,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Rows.Add(Operation.IsLast, "Is Last");
             dt.Rows.Add(Operation.InList, "In List");
             dt.Rows.Add(Operation.IsNull, "Is Null");
+            dt.Rows.Add(Operation.IsNotNull, "Is Not Null");
 
             return dt;
         }

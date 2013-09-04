@@ -28,6 +28,7 @@
       <xs:enumeration value="MOD" />
       <xs:enumeration value="InList" />
       <xs:enumeration value="IsNull" />
+      <xs:enumeration value="IsNotNull" />
       <xs:enumeration value="IsLast" />
     </xs:restriction>
   </xs:simpleType>
