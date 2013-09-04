@@ -197,6 +197,9 @@ namespace MediaPortal.Plugin.ScoreCenter
                 case Operation.IsNull:
                     result = String.IsNullOrEmpty(newText);
                     break;
+                case Operation.IsNotNull:
+                    result = !String.IsNullOrEmpty(newText);
+                    break;
                 case Operation.IsLast:
                     if (args != null && args.Length > 1)
                     {

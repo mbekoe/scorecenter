@@ -53,9 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Team MediaPortal\MediaPortal\plugins\Windows\Dialogs.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.7.2.18, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -226,6 +226,7 @@
     <Content Include="language\strings_pl.xml" />
     <Content Include="language\strings_ru.xml" />
     <Content Include="MyScoreCenter.Settings.xml" />
+    <None Include="packages.config" />
     <None Include="Resources\openfolderHS.png" />
     <None Include="Resources\DownloadDocument.bmp" />
     <None Include="Resources\ChooseColor.bmp" />

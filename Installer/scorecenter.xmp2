@@ -411,17 +411,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>8</Minor>
-      <Build>1</Build>
+      <Minor>9</Minor>
+      <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>* Compatibility with MP1.4</VersionDescription>
+    <VersionDescription>* Fix Issues with new Layout for WorldFootball
+* New version of HtmlAgilityPack</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.8.0.0.mpe1</OnlineLocation>
-    <ReleaseDate>2013-06-19T18:55:45</ReleaseDate>
+    <OnlineLocation>http://code.google.com/p/scorecenter/downloads/detail?name=ScoreCenter_v2.9.0.0.mpe1</OnlineLocation>
+    <ReleaseDate>2013-09-04T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
