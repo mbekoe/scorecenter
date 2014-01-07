@@ -1,5 +1,5 @@
 #labels Featured
-*version 2.10.0 (7 Janvier 2014)*:
+*version 2.10.0 (7 January 2014)*:
     * Update for MP 1.6.
     * Remove HtmlAgilityPack (included in MP).
 
