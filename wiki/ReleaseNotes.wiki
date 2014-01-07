@@ -1,4 +1,8 @@
 #labels Featured
+*version 2.10.0 (7 Janvier 2014)*:
+    * Update for MP 1.6.
+    * Remove HtmlAgilityPack (included in MP).
+
 *version 2.9.0 (4 September 2013)*:
     * Fix issues with new layout of Worldfootball.
     * Upgrade HtmlAgilityPack to version 1.4.6.
