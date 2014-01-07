@@ -666,12 +666,24 @@
   <data name="&gt;&gt;tbxUrl.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="colPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="colPName.HeaderText" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="colPName.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="colPName.Width" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
+  <metadata name="colPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="colPValue.HeaderText" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <data name="dataGridView1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -694,336 +706,6 @@
     <value>tpgParameters</value>
   </data>
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="ColumnPName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="ColumnPName.HeaderText" xml:space="preserve">
-    <value>Parameter</value>
-  </data>
-  <data name="ColumnPName.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="ColumnPName.Width" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
-  <metadata name="ColumnPValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="ColumnPValue.HeaderText" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Name" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Parent" xml:space="preserve">
-    <value>tpgPlugin</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Name" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Parent" xml:space="preserve">
-    <value>tpgPlugin</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tpgPlugin.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tpgPlugin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 23</value>
-  </data>
-  <data name="tpgPlugin.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 10, 3</value>
-  </data>
-  <data name="tpgPlugin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 320</value>
-  </data>
-  <data name="tpgPlugin.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tpgPlugin.Text" xml:space="preserve">
-    <value>Plugin</value>
-  </data>
-  <data name="&gt;&gt;tpgPlugin.Name" xml:space="preserve">
-    <value>tpgPlugin</value>
-  </data>
-  <data name="&gt;&gt;tpgPlugin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpgPlugin.Parent" xml:space="preserve">
-    <value>tbcOptions</value>
-  </data>
-  <data name="&gt;&gt;tpgPlugin.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tpgUpdate.ImageIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tpgUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 23</value>
-  </data>
-  <data name="tpgUpdate.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tpgUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 320</value>
-  </data>
-  <data name="tpgUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tpgUpdate.Text" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="&gt;&gt;tpgUpdate.Name" xml:space="preserve">
-    <value>tpgUpdate</value>
-  </data>
-  <data name="&gt;&gt;tpgUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpgUpdate.Parent" xml:space="preserve">
-    <value>tbcOptions</value>
-  </data>
-  <data name="&gt;&gt;tpgUpdate.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tpgParameters.ImageIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tpgParameters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 23</value>
-  </data>
-  <data name="tpgParameters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 320</value>
-  </data>
-  <data name="tpgParameters.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tpgParameters.Text" xml:space="preserve">
-    <value>Score Parameters</value>
-  </data>
-  <data name="&gt;&gt;tpgParameters.Name" xml:space="preserve">
-    <value>tpgParameters</value>
-  </data>
-  <data name="&gt;&gt;tpgParameters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tpgParameters.Parent" xml:space="preserve">
-    <value>tbcOptions</value>
-  </data>
-  <data name="&gt;&gt;tpgParameters.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tbcOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>283, 17</value>
-  </metadata>
-  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
-        DQAAAk1TRnQBSQFMAgEBAwEAAQQBAAEEAQABEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEYBgABDEsAAYwBRAEhAfEB7QHrBgABtwGiAZMBYwFJATUBYwFJATUBYwFJATUBYwFJ
-        ATUBYwFJATUBYwFJATUBYwFJATVjAAG5AaMBlQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFj
-        AUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNRIAAfkB+AH3AZIBRwEjAYwBRAEhAfEB7QHr
-        AwABvAGmAZcB/gHwAegB5gHTAcgB5wHPAcIB6AHLAbsB6AHIAbcB6AHHAbYBYwFJATVjAAG6AaUBlgH8
-        AfoB7wH6AfIB5gH2AekB2gHyAd4BzQHuAdMBvwHqAcgBsgHmAb4BpQHiAbQBmgHfAa0BkAHdAacBiQFj
-        AUkBNQ8AAfEB6wHoAbkBXQEvAboBZgE7AeABgQFPAY8BRgEjAfYB8QHvAb4BqQGaAf4B9AHuAbcBlAGB
-        AbQBjQF8AbABiQF2Aa4BhQFxAegByAG3AWMBSQE1BgAB1AGNAW4BvAFkAVYBpwFJAUABoQFEATQBowFE
-        ASwJAAHBAWUBNgGzAVQBPQGrAVQBPAGrAVkBQwGvAWUBVjYAAbwBpgGYAv8B9gG4AaUBnAG2AaIBmAH2
-        AegB2gGzAZ0BkAGyAZoBjQGxAZgBiwGxAZgBiwGxAZgBiwHfAa0BkAFjAUkBNQwAAfIB7gHrAcIBbwFE
-        AfQBtQGTAfkBqQF+Af0BlwFgAeABgQFPAbUBYQE2AcIBpAGRAf0B9wHzAf4B8wHsAf4B7gHlAf4B6QHd
-        Af4B5AHXAegByQG6AWMBSQE1BgAB6AGMATEB1QF1ASkBugFcAUYBqQFQAUgBsQFlAV0JAAHQAYEBUAHB
-        AWUBPwGyAVgBQgGoAUkBMAGjAU0BMjYAAb4BqAGZAv8B9gL/AfYB/QH6Ae8B+gHyAeUB9gHoAdoB8gHe
-        Ac0B7gHTAcAB6gHIAbIB5gG+AaYB4wG0AZoBYwFJATUMAAHmAa4BkgH2AbMBjQHVAYYBXQH2Ab8BoQH5
-        AaUBeAG1AWEBNgHuAd8B2AHDAa0BngH9AfsB9wHAAaEBkQG8AZsBigG4AZUBhAG1AZABfgHoAcwBvwG1
-        AasBogYAAfMBmQEuAfMB7AHoAfgB9gH1Ab4BWAE0AcwBlwGPCQAB2QGgAX0BzgF0ATgB9QHxAfAB6QHa
-        AdUBrgFTASc2AAHAAaoBnAL/AfYBtwGmAZwBtgGjAZgB/QH5Ae8BswGcAZABsgGZAY0BsQGYAYsBsQGY
-        AYsBsQGYAYsB5gG+AaUBYwFJATUMAAHqAcUBsgHMAYkBZwHkAd8B2wHUAXwBTQG1AWEBNgHhAdsB1wGU
-        AYMBdgHFAa8BoQH9Af4B/AH9AfoB9wH9AfYB8AH+AfEB6QH/AesB4QHoAc8BwwHaAdYB0wwAAeUBuwGh
-        AdMBewFCAfIB6wHqCQAB8wHsAekB1QGAAT8B0wGiAZI8AAHDAa4BngL/AfYC/wH2Av8B9gL/AfYB/QH5
-        Ae8B+gHyAeUB9gHoAdkB8wHeAc0B7gHTAcAB6gHIAbIBYwFJATUMAAHdAagBjgHSAa0BmQH8AesB4QHJ
-        AXgBTgHjAbwBpwHoAcsBuwHoAcgBtwHHAbIBogH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
-        AdMByAGMAUQBIQHzAfAB7wYAAfUB7wHtAdYBbgE3AdUBlQF9DwAB2gGWAWgBwgFiATgB7wHoAec5AAHF
-        AbABoAL/AfYC/wH2Av8B9gL/AfYC/wH2Af0B+gHvAcEBxAHFAUEBXAFyAfIB3gHNAe4B0wHAAWMBSQE1
-        CQAD/AHUAaUBjwHnAeAB3QH+AfQB7gHJAa4BoAHHAakBnAGwAYkBdgGuAYUBcQHJAbQBpAH9Af8B/gH9
-        Af8B/gH9AfwB+gH+AfkB9QH+AfQB7QHmAdcBzQGtAY0BewGwAYQBbgMAAfkB9wH2AdgBjgF7AcIBSAEv
-        AfAB5wHlDwAB7gHfAdYB1QF6ASgBuAFvAWoB9wL0NgABxwGxAaIB/gH9AfwB4gLpAV4BdQGEAd8C4wL/
-        AfYBwgHIAckBSgFhAXABLgGpAdYBIwE1AUcBrwGjAZkBYwFJATUGAAHNAdkBzwFBAYIBTAHeAcMBtgHf
-        Ac4BxQH7AfIB7QH+AfMB7AH+Ae4B5QH+AekB3QH+AeQB1wHLAbUBpgH9Af8B/gHTAb4BsgHQAbgBqwHL
-        AbIBpQHHAawBngHmAdsB1AHeAdcB0gGMAUQBIQMAAfIB6AHjAdUBegFfAccBbAFjFQAB2AGFAT8BugFa
-        AUIB6AHcAds2AAHJAbMBpQP+AY8BpAGsAYYB0wHlAUsBYQFwAa8BuAG9AUoBYQFwAWEBwQHeAUwBYQFv
-        ASkBtgHpARUBJwEzARABLAE6ARcBKQE1AagBrQGwAT0BdAFDAUsBpwFhAfcB9gH1AcUBhQFlAf0B+wH3
-        AcABoQGRAbwBmwGKAbgBlQGEAbUBkAF+AcwBtgGnAf0B/wH+Af0B/wH+Af0B/wH+AfcB6AHgAdMBZQEv
-        Af4B9wHyAb8BnAGJAZoBTgEpAwAB6gG9AZ8B1gFmATkB5QHRAdMVAAHfAa4BjgG/AVYBLgHNAaMBoDYA
-        AcsBtQGmA/4B5ALqAY8BpAGsAYMB4QH2AUsBYQFwAXoBzQHiAUwBYQFvAWUB0gHyAUUBXQFxATIBsgHf
-        AR0BmQHIARoBiAGzAR8BUwFtAU8BhAFYAUwBrAFkAwAB6wHnAeUB/QH+AfwB/QH6AfcB/QH2AfAB/gHx
-        AekB/wHrAeEBzAG2AacBywG1AaYBxwGyAaMB5wHZAdIBzwFkAS8BmQFMASYB4wHcAdcBmQFQAS0BwAGN
-        AXQDAAHqAbQBkAHgAXcBQAHdAb4BwhUAAd0BpwGGAcEBVQEvAcoBmQGUNgABzAG2AacBzAG2AacBygG1
-        AaYBvQGwAaYBjwGkAawBgwHhAfYBSwFhAXABgwHhAfYBPAFZAXMBZQHSAfIBUAHJAe8BOwG/AesBJwGy
-        AeQBHAGjAdYBZAGVAW4BUwG0AWwDAAHUAcYBvQH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
-        AdMByAFjAUkBNQH3AfQB8gHdAXgBRQH5AZ0BbAG+AWsBQQGaAU8BKgG8AWcBOwHeAcgBvAMAAfUB7wLr
-        AZoBYgHKAXkBegHvAeUB5g8AAeYBxAGzAd4BjwFjAcgBagFNAeoB3AHbQgAB8gLzAY8BpAGsAYMB4QH2
-        AUABWwFyAYMB4QH2AXcB2wH0AWUB0gHyAVAByQHvATsBvwHrASkBtgHpAXYBpQGDAV0BwAF4AwAByQG0
-        AaQB/QH/Af4B/QH/Af4B/QH8AfoB/gH5AfUB/gH0Ae0B5gHXAc0BcwFTATwB5wGaAXEB8wG3AZYB+wHE
-        AaYB+wGxAYgB7gGSAWEB0AF2AUcB9QHxAe8DAAP9Ae8B2wHPAe0BuwGYAdgBjwF/AdkBqQGlAekB1AHS
-        AesB2QHXAeMBvQG2AeIBoAF8AfEBnQFMAecBlwFUAecBzQHDA/1FAAHyAvMBjwGkAawBgwHhAfYBgwHh
-        AfYBgwHhAfYBdwHbAfQBZQHSAfIBXwGyAc8BegGLAZYBrgHBAaYBkwHTAZoDAAHLAbUBpgH9Af8B/gHT
-        Ab4BsgHQAbgBqwHLAbIBpQHHAawBngHmAdsB1AFjAUkBNQH0Ae4B6wHnAZoBcQH4AcIBpAHbAZEBagHs
-        AY8BXQH6AfkB+AkAA/0B+gH4AfcB8AHfAdQB8AHZAccB8QHCAZQB9QG0AXIB8gG8AYcB7wHRAbgB8AHd
-        AdEB9QHwAe0B+wL6SwAB8gLzAY8BpAGsAYwBoQGpAYgBnAGlAYMBlgGgAX4BkAGaAXoBiwGWAdUB2gHc
-        AZkBuAGcAa4BwQGmAwABzAG2AacB/QH/Af4B/QH/Af4B/QH/Af4B/QH+Af0B/gH7AfgB/gH3AfIBYwFJ
-        ATUDAAH0Ae4B6wHnAZoBcQHXAYQBV5wAAcwBtgGnAcsBtQGmAccBsgGjAcUBrwGgAcEBrAGdAb8BqQGa
-        AbsBpgGXAbgBpAGUBgAB9AHuAesB5wGaAXFpAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
-        AYAXAAP/AQAC/wHmAQEC/wMAAQ8BwgEBAv8DAAEPAYABAQKDAwABDwEAAQECgwMAAQ8BAAEBAoMDAAEP
-        AQABAQHjAY8DAAEPAgACxwMAAQ4CAAGHAcMDAAEMAgABjwHjBgABjwHjBAABgAEAAY8B4wQAAYABAAGH
-        AcMCAAHwAQABgAEAAYABAwIAAfgBAAGAAQEBwAEHAgAB/AEAAYABRwL/AgAC/wGAAWcC/wIACw==
-</value>
-  </data>
-  <data name="tbcOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tbcOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>581, 347</value>
-  </data>
-  <data name="tbcOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tbcOptions.Name" xml:space="preserve">
-    <value>tbcOptions</value>
-  </data>
-  <data name="&gt;&gt;tbcOptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbcOptions.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tbcOptions.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ckxPlaySound.Name" xml:space="preserve">
-    <value>ckxPlaySound</value>
-  </data>
-  <data name="&gt;&gt;ckxPlaySound.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckxPlaySound.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;ckxPlaySound.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblCheckUnit.Name" xml:space="preserve">
-    <value>lblCheckUnit</value>
-  </data>
-  <data name="&gt;&gt;lblCheckUnit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCheckUnit.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;lblCheckUnit.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;lblNotifUnit.Name" xml:space="preserve">
-    <value>lblNotifUnit</value>
-  </data>
-  <data name="&gt;&gt;lblNotifUnit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblNotifUnit.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;lblNotifUnit.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;numCheckDelay.Name" xml:space="preserve">
-    <value>numCheckDelay</value>
-  </data>
-  <data name="&gt;&gt;numCheckDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numCheckDelay.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;numCheckDelay.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;numNotificationTime.Name" xml:space="preserve">
-    <value>numNotificationTime</value>
-  </data>
-  <data name="&gt;&gt;numNotificationTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numNotificationTime.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;numNotificationTime.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;lblCheckDelay.Name" xml:space="preserve">
-    <value>lblCheckDelay</value>
-  </data>
-  <data name="&gt;&gt;lblCheckDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCheckDelay.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;lblCheckDelay.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;lblNotificationTime.Name" xml:space="preserve">
-    <value>lblNotificationTime</value>
-  </data>
-  <data name="&gt;&gt;lblNotificationTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblNotificationTime.Parent" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;lblNotificationTime.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="gbxLive.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="gbxLive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 170</value>
-  </data>
-  <data name="gbxLive.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 119</value>
-  </data>
-  <data name="gbxLive.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gbxLive.Text" xml:space="preserve">
-    <value>Live</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Name" xml:space="preserve">
-    <value>gbxLive</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.Parent" xml:space="preserve">
-    <value>tpgPlugin</value>
-  </data>
-  <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="ckxPlaySound.AutoSize" type="System.Boolean, mscorlib">
@@ -1218,6 +900,51 @@
   <data name="&gt;&gt;lblNotificationTime.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="gbxLive.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="gbxLive.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 170</value>
+  </data>
+  <data name="gbxLive.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 119</value>
+  </data>
+  <data name="gbxLive.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gbxLive.Text" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="&gt;&gt;gbxLive.Name" xml:space="preserve">
+    <value>gbxLive</value>
+  </data>
+  <data name="&gt;&gt;gbxLive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbxLive.Parent" xml:space="preserve">
+    <value>tpgPlugin</value>
+  </data>
+  <data name="&gt;&gt;gbxLive.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblAutoRefreshUnit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblAutoRefreshUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblAutoRefreshUnit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 103</value>
+  </data>
+  <data name="lblAutoRefreshUnit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 13</value>
+  </data>
+  <data name="lblAutoRefreshUnit.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="lblAutoRefreshUnit.Text" xml:space="preserve">
+    <value>seconds</value>
+  </data>
   <data name="&gt;&gt;lblAutoRefreshUnit.Name" xml:space="preserve">
     <value>lblAutoRefreshUnit</value>
   </data>
@@ -1229,6 +956,21 @@
   </data>
   <data name="&gt;&gt;lblAutoRefreshUnit.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="ckxAutoRefresh.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ckxAutoRefresh.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 102</value>
+  </data>
+  <data name="ckxAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 17</value>
+  </data>
+  <data name="ckxAutoRefresh.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="ckxAutoRefresh.Text" xml:space="preserve">
+    <value>Auto Refresh</value>
   </data>
   <data name="&gt;&gt;ckxAutoRefresh.Name" xml:space="preserve">
     <value>ckxAutoRefresh</value>
@@ -1242,6 +984,18 @@
   <data name="&gt;&gt;ckxAutoRefresh.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="numAutoRefreshDelay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 101</value>
+  </data>
+  <data name="numAutoRefreshDelay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 21</value>
+  </data>
+  <data name="numAutoRefreshDelay.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="numAutoRefreshDelay.ToolTip" xml:space="preserve">
+    <value>Delay in seconds for refresh</value>
+  </data>
   <data name="&gt;&gt;numAutoRefreshDelay.Name" xml:space="preserve">
     <value>numAutoRefreshDelay</value>
   </data>
@@ -1253,57 +1007,6 @@
   </data>
   <data name="&gt;&gt;numAutoRefreshDelay.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Name" xml:space="preserve">
-    <value>ckxUseAltColor</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;ckxUseAltColor.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gbxGeneral.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="gbxGeneral.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 3</value>
-  </data>
-  <data name="gbxGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 167</value>
-  </data>
-  <data name="gbxGeneral.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gbxGeneral.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Name" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.Parent" xml:space="preserve">
-    <value>tpgPlugin</value>
-  </data>
-  <data name="&gt;&gt;gbxGeneral.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="ckxUseAltColor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1365,85 +1068,208 @@
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="numAutoRefreshDelay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 101</value>
+  <data name="gbxGeneral.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="numAutoRefreshDelay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 21</value>
+  <data name="gbxGeneral.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 3</value>
   </data>
-  <data name="numAutoRefreshDelay.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="gbxGeneral.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 167</value>
   </data>
-  <data name="numAutoRefreshDelay.ToolTip" xml:space="preserve">
-    <value>Delay in seconds for refresh</value>
+  <data name="gbxGeneral.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;numAutoRefreshDelay.Name" xml:space="preserve">
-    <value>numAutoRefreshDelay</value>
+  <data name="gbxGeneral.Text" xml:space="preserve">
+    <value>General</value>
   </data>
-  <data name="&gt;&gt;numAutoRefreshDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numAutoRefreshDelay.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gbxGeneral.Name" xml:space="preserve">
     <value>gbxGeneral</value>
   </data>
-  <data name="&gt;&gt;numAutoRefreshDelay.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;gbxGeneral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ckxAutoRefresh.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;gbxGeneral.Parent" xml:space="preserve">
+    <value>tpgPlugin</value>
   </data>
-  <data name="ckxAutoRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 102</value>
-  </data>
-  <data name="ckxAutoRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 17</value>
-  </data>
-  <data name="ckxAutoRefresh.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="ckxAutoRefresh.Text" xml:space="preserve">
-    <value>Auto Refresh</value>
-  </data>
-  <data name="&gt;&gt;ckxAutoRefresh.Name" xml:space="preserve">
-    <value>ckxAutoRefresh</value>
-  </data>
-  <data name="&gt;&gt;ckxAutoRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckxAutoRefresh.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
-  </data>
-  <data name="&gt;&gt;ckxAutoRefresh.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;gbxGeneral.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="lblAutoRefreshUnit.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="tpgPlugin.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="lblAutoRefreshUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="tpgPlugin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 23</value>
   </data>
-  <data name="lblAutoRefreshUnit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 103</value>
+  <data name="tpgPlugin.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
   </data>
-  <data name="lblAutoRefreshUnit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 13</value>
+  <data name="tpgPlugin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>573, 320</value>
   </data>
-  <data name="lblAutoRefreshUnit.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="tpgPlugin.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="lblAutoRefreshUnit.Text" xml:space="preserve">
-    <value>seconds</value>
+  <data name="tpgPlugin.Text" xml:space="preserve">
+    <value>Plugin</value>
   </data>
-  <data name="&gt;&gt;lblAutoRefreshUnit.Name" xml:space="preserve">
-    <value>lblAutoRefreshUnit</value>
+  <data name="&gt;&gt;tpgPlugin.Name" xml:space="preserve">
+    <value>tpgPlugin</value>
   </data>
-  <data name="&gt;&gt;lblAutoRefreshUnit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tpgPlugin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblAutoRefreshUnit.Parent" xml:space="preserve">
-    <value>gbxGeneral</value>
+  <data name="&gt;&gt;tpgPlugin.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
   </data>
-  <data name="&gt;&gt;lblAutoRefreshUnit.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpgPlugin.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tpgUpdate.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tpgUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 23</value>
+  </data>
+  <data name="tpgUpdate.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tpgUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>573, 320</value>
+  </data>
+  <data name="tpgUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tpgUpdate.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;tpgUpdate.Name" xml:space="preserve">
+    <value>tpgUpdate</value>
+  </data>
+  <data name="&gt;&gt;tpgUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tpgUpdate.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
+  </data>
+  <data name="&gt;&gt;tpgUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tpgParameters.ImageIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tpgParameters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 23</value>
+  </data>
+  <data name="tpgParameters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>573, 320</value>
+  </data>
+  <data name="tpgParameters.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tpgParameters.Text" xml:space="preserve">
+    <value>Score Parameters</value>
+  </data>
+  <data name="&gt;&gt;tpgParameters.Name" xml:space="preserve">
+    <value>tpgParameters</value>
+  </data>
+  <data name="&gt;&gt;tpgParameters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tpgParameters.Parent" xml:space="preserve">
+    <value>tbcOptions</value>
+  </data>
+  <data name="&gt;&gt;tpgParameters.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbcOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>283, 17</value>
+  </metadata>
+  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
+        DQAAAk1TRnQBSQFMAgEBAwEAAQwBAAEMAQABEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEYBgABDEsAAYwBRAEhAfEB7QHrBgABtwGiAZMBYwFJATUBYwFJATUBYwFJATUBYwFJ
+        ATUBYwFJATUBYwFJATUBYwFJATVjAAG5AaMBlQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFj
+        AUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNQFjAUkBNRIAAfkB+AH3AZIBRwEjAYwBRAEhAfEB7QHr
+        AwABvAGmAZcB/gHwAegB5gHTAcgB5wHPAcIB6AHLAbsB6AHIAbcB6AHHAbYBYwFJATVjAAG6AaUBlgH8
+        AfoB7wH6AfIB5gH2AekB2gHyAd4BzQHuAdMBvwHqAcgBsgHmAb4BpQHiAbQBmgHfAa0BkAHdAacBiQFj
+        AUkBNQ8AAfEB6wHoAbkBXQEvAboBZgE7AeABgQFPAY8BRgEjAfYB8QHvAb4BqQGaAf4B9AHuAbcBlAGB
+        AbQBjQF8AbABiQF2Aa4BhQFxAegByAG3AWMBSQE1BgAB1AGNAW4BvAFkAVYBpwFJAUABoQFEATQBowFE
+        ASwJAAHBAWUBNgGzAVQBPQGrAVQBPAGrAVkBQwGvAWUBVjYAAbwBpgGYAv8B9gG4AaUBnAG2AaIBmAH2
+        AegB2gGzAZ0BkAGyAZoBjQGxAZgBiwGxAZgBiwGxAZgBiwHfAa0BkAFjAUkBNQwAAfIB7gHrAcIBbwFE
+        AfQBtQGTAfkBqQF+Af0BlwFgAeABgQFPAbUBYQE2AcIBpAGRAf0B9wHzAf4B8wHsAf4B7gHlAf4B6QHd
+        Af4B5AHXAegByQG6AWMBSQE1BgAB6AGMATEB1QF1ASkBugFcAUYBqQFQAUgBsQFlAV0JAAHQAYEBUAHB
+        AWUBPwGyAVgBQgGoAUkBMAGjAU0BMjYAAb4BqAGZAv8B9gL/AfYB/QH6Ae8B+gHyAeUB9gHoAdoB8gHe
+        Ac0B7gHTAcAB6gHIAbIB5gG+AaYB4wG0AZoBYwFJATUMAAHmAa4BkgH2AbMBjQHVAYYBXQH2Ab8BoQH5
+        AaUBeAG1AWEBNgHuAd8B2AHDAa0BngH9AfsB9wHAAaEBkQG8AZsBigG4AZUBhAG1AZABfgHoAcwBvwG1
+        AasBogYAAfMBmQEuAfMB7AHoAfgB9gH1Ab4BWAE0AcwBlwGPCQAB2QGgAX0BzgF0ATgB9QHxAfAB6QHa
+        AdUBrgFTASc2AAHAAaoBnAL/AfYBtwGmAZwBtgGjAZgB/QH5Ae8BswGcAZABsgGZAY0BsQGYAYsBsQGY
+        AYsBsQGYAYsB5gG+AaUBYwFJATUMAAHqAcUBsgHMAYkBZwHkAd8B2wHUAXwBTQG1AWEBNgHhAdsB1wGU
+        AYMBdgHFAa8BoQH9Af4B/AH9AfoB9wH9AfYB8AH+AfEB6QH/AesB4QHoAc8BwwHaAdYB0wwAAeUBuwGh
+        AdMBewFCAfIB6wHqCQAB8wHsAekB1QGAAT8B0wGiAZI8AAHDAa4BngL/AfYC/wH2Av8B9gL/AfYB/QH5
+        Ae8B+gHyAeUB9gHoAdkB8wHeAc0B7gHTAcAB6gHIAbIBYwFJATUMAAHdAagBjgHSAa0BmQH8AesB4QHJ
+        AXgBTgHjAbwBpwHoAcsBuwHoAcgBtwHHAbIBogH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
+        AdMByAGMAUQBIQHzAfAB7wYAAfUB7wHtAdYBbgE3AdUBlQF9DwAB2gGWAWgBwgFiATgB7wHoAec5AAHF
+        AbABoAL/AfYC/wH2Av8B9gL/AfYC/wH2Af0B+gHvAcEBxAHFAUEBXAFyAfIB3gHNAe4B0wHAAWMBSQE1
+        CQAD/AHUAaUBjwHnAeAB3QH+AfQB7gHJAa4BoAHHAakBnAGwAYkBdgGuAYUBcQHJAbQBpAH9Af8B/gH9
+        Af8B/gH9AfwB+gH+AfkB9QH+AfQB7QHmAdcBzQGtAY0BewGwAYQBbgMAAfkB9wH2AdgBjgF7AcIBSAEv
+        AfAB5wHlDwAB7gHfAdYB1QF6ASgBuAFvAWoB9wL0NgABxwGxAaIB/gH9AfwB4gLpAV4BdQGEAd8C4wL/
+        AfYBwgHIAckBSgFhAXABLgGpAdYBIwE1AUcBrwGjAZkBYwFJATUGAAHNAdkBzwFBAYIBTAHeAcMBtgHf
+        Ac4BxQH7AfIB7QH+AfMB7AH+Ae4B5QH+AekB3QH+AeQB1wHLAbUBpgH9Af8B/gHTAb4BsgHQAbgBqwHL
+        AbIBpQHHAawBngHmAdsB1AHeAdcB0gGMAUQBIQMAAfIB6AHjAdUBegFfAccBbAFjFQAB2AGFAT8BugFa
+        AUIB6AHcAds2AAHJAbMBpQP+AY8BpAGsAYYB0wHlAUsBYQFwAa8BuAG9AUoBYQFwAWEBwQHeAUwBYQFv
+        ASkBtgHpARUBJwEzARABLAE6ARcBKQE1AagBrQGwAT0BdAFDAUsBpwFhAfcB9gH1AcUBhQFlAf0B+wH3
+        AcABoQGRAbwBmwGKAbgBlQGEAbUBkAF+AcwBtgGnAf0B/wH+Af0B/wH+Af0B/wH+AfcB6AHgAdMBZQEv
+        Af4B9wHyAb8BnAGJAZoBTgEpAwAB6gG9AZ8B1gFmATkB5QHRAdMVAAHfAa4BjgG/AVYBLgHNAaMBoDYA
+        AcsBtQGmA/4B5ALqAY8BpAGsAYMB4QH2AUsBYQFwAXoBzQHiAUwBYQFvAWUB0gHyAUUBXQFxATIBsgHf
+        AR0BmQHIARoBiAGzAR8BUwFtAU8BhAFYAUwBrAFkAwAB6wHnAeUB/QH+AfwB/QH6AfcB/QH2AfAB/gHx
+        AekB/wHrAeEBzAG2AacBywG1AaYBxwGyAaMB5wHZAdIBzwFkAS8BmQFMASYB4wHcAdcBmQFQAS0BwAGN
+        AXQDAAHqAbQBkAHgAXcBQAHdAb4BwhUAAd0BpwGGAcEBVQEvAcoBmQGUNgABzAG2AacBzAG2AacBygG1
+        AaYBvQGwAaYBjwGkAawBgwHhAfYBSwFhAXABgwHhAfYBPAFZAXMBZQHSAfIBUAHJAe8BOwG/AesBJwGy
+        AeQBHAGjAdYBZAGVAW4BUwG0AWwDAAHUAcYBvQH9Af8B/gHKAbABogHGAaoBnAHCAaQBlAG+AZ0BjQHn
+        AdMByAFjAUkBNQH3AfQB8gHdAXgBRQH5AZ0BbAG+AWsBQQGaAU8BKgG8AWcBOwHeAcgBvAMAAfUB7wLr
+        AZoBYgHKAXkBegHvAeUB5g8AAeYBxAGzAd4BjwFjAcgBagFNAeoB3AHbQgAB8gLzAY8BpAGsAYMB4QH2
+        AUABWwFyAYMB4QH2AXcB2wH0AWUB0gHyAVAByQHvATsBvwHrASkBtgHpAXYBpQGDAV0BwAF4AwAByQG0
+        AaQB/QH/Af4B/QH/Af4B/QH8AfoB/gH5AfUB/gH0Ae0B5gHXAc0BcwFTATwB5wGaAXEB8wG3AZYB+wHE
+        AaYB+wGxAYgB7gGSAWEB0AF2AUcB9QHxAe8DAAP9Ae8B2wHPAe0BuwGYAdgBjwF/AdkBqQGlAekB1AHS
+        AesB2QHXAeMBvQG2AeIBoAF8AfEBnQFMAecBlwFUAecBzQHDA/1FAAHyAvMBjwGkAawBgwHhAfYBgwHh
+        AfYBgwHhAfYBdwHbAfQBZQHSAfIBXwGyAc8BegGLAZYBrgHBAaYBkwHTAZoDAAHLAbUBpgH9Af8B/gHT
+        Ab4BsgHQAbgBqwHLAbIBpQHHAawBngHmAdsB1AFjAUkBNQH0Ae4B6wHnAZoBcQH4AcIBpAHbAZEBagHs
+        AY8BXQH6AfkB+AkAA/0B+gH4AfcB8AHfAdQB8AHZAccB8QHCAZQB9QG0AXIB8gG8AYcB7wHRAbgB8AHd
+        AdEB9QHwAe0B+wL6SwAB8gLzAY8BpAGsAYwBoQGpAYgBnAGlAYMBlgGgAX4BkAGaAXoBiwGWAdUB2gHc
+        AZkBuAGcAa4BwQGmAwABzAG2AacB/QH/Af4B/QH/Af4B/QH/Af4B/QH+Af0B/gH7AfgB/gH3AfIBYwFJ
+        ATUDAAH0Ae4B6wHnAZoBcQHXAYQBV5wAAcwBtgGnAcsBtQGmAccBsgGjAcUBrwGgAcEBrAGdAb8BqQGa
+        AbsBpgGXAbgBpAGUBgAB9AHuAesB5wGaAXFpAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUA
+        AYAXAAP/AQAC/wHmAQEC/wMAAQ8BwgEBAv8DAAEPAYABAQKDAwABDwEAAQECgwMAAQ8BAAEBAoMDAAEP
+        AQABAQHjAY8DAAEPAgACxwMAAQ4CAAGHAcMDAAEMAgABjwHjBgABjwHjBAABgAEAAY8B4wQAAYABAAGH
+        AcMCAAHwAQABgAEAAYABAwIAAfgBAAGAAQEBwAEHAgAB/AEAAYABRwL/AgAC/wGAAWcC/wIACw==
+</value>
+  </data>
+  <data name="tbcOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tbcOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>581, 347</value>
+  </data>
+  <data name="tbcOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tbcOptions.Name" xml:space="preserve">
+    <value>tbcOptions</value>
+  </data>
+  <data name="&gt;&gt;tbcOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbcOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbcOptions.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1470,18 +1296,6 @@
   <data name="&gt;&gt;folderBrowserDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ColumnPName.Name" xml:space="preserve">
-    <value>ColumnPName</value>
-  </data>
-  <data name="&gt;&gt;ColumnPName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ColumnPValue.Name" xml:space="preserve">
-    <value>ColumnPValue</value>
-  </data>
-  <data name="&gt;&gt;ColumnPValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;imageList1.Name" xml:space="preserve">
     <value>imageList1</value>
   </data>
@@ -1493,6 +1307,18 @@
   </data>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colPName.Name" xml:space="preserve">
+    <value>colPName</value>
+  </data>
+  <data name="&gt;&gt;colPName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colPValue.Name" xml:space="preserve">
+    <value>colPValue</value>
+  </data>
+  <data name="&gt;&gt;colPValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>

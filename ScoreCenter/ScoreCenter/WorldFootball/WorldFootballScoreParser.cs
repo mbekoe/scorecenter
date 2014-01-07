@@ -265,6 +265,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             doc.OptionReadEncoding = false;
             doc.LoadHtml(html);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='navibox2']//li/a");
+            if (nodes == null)
+                throw new ArgumentException("div with class 'navibox2' not found, check site adress and WF.Competition parameter.");
             foreach (var node in nodes)
             {
                 details.AddDetail(node.InnerHtml, node.GetAttributeValue("href", ""));

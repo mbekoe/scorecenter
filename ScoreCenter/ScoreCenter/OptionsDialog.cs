@@ -75,6 +75,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
 
             dataGridView1.DataSource = dt;
+            dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
             
             if (selectUpdate)
             {
