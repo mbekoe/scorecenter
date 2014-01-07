@@ -52,8 +52,6 @@
             this.ckxMergeExisting = new System.Windows.Forms.CheckBox();
             this.tbxUrl = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbcOptions = new System.Windows.Forms.TabControl();
             this.tpgPlugin = new System.Windows.Forms.TabPage();
             this.gbxLive = new System.Windows.Forms.GroupBox();
@@ -65,15 +63,17 @@
             this.lblCheckDelay = new System.Windows.Forms.Label();
             this.lblNotificationTime = new System.Windows.Forms.Label();
             this.gbxGeneral = new System.Windows.Forms.GroupBox();
+            this.lblAutoRefreshUnit = new System.Windows.Forms.Label();
+            this.ckxAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.numAutoRefreshDelay = new System.Windows.Forms.NumericUpDown();
             this.ckxUseAltColor = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tpgUpdate = new System.Windows.Forms.TabPage();
             this.tpgParameters = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.numAutoRefreshDelay = new System.Windows.Forms.NumericUpDown();
-            this.ckxAutoRefresh = new System.Windows.Forms.CheckBox();
-            this.lblAutoRefreshUnit = new System.Windows.Forms.Label();
+            this.colPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tbcOptions.SuspendLayout();
@@ -82,9 +82,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCheckDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).BeginInit();
             this.gbxGeneral.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).BeginInit();
             this.tpgUpdate.SuspendLayout();
             this.tpgParameters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
@@ -211,23 +211,10 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnPName,
-            this.ColumnPValue});
+            this.colPName,
+            this.colPValue});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
-            // 
-            // ColumnPName
-            // 
-            this.ColumnPName.DataPropertyName = "Name";
-            resources.ApplyResources(this.ColumnPName, "ColumnPName");
-            this.ColumnPName.Name = "ColumnPName";
-            // 
-            // ColumnPValue
-            // 
-            this.ColumnPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnPValue.DataPropertyName = "Value";
-            resources.ApplyResources(this.ColumnPValue, "ColumnPValue");
-            this.ColumnPValue.Name = "ColumnPValue";
             // 
             // tbcOptions
             // 
@@ -347,6 +334,38 @@
             this.gbxGeneral.Name = "gbxGeneral";
             this.gbxGeneral.TabStop = false;
             // 
+            // lblAutoRefreshUnit
+            // 
+            resources.ApplyResources(this.lblAutoRefreshUnit, "lblAutoRefreshUnit");
+            this.lblAutoRefreshUnit.Name = "lblAutoRefreshUnit";
+            // 
+            // ckxAutoRefresh
+            // 
+            resources.ApplyResources(this.ckxAutoRefresh, "ckxAutoRefresh");
+            this.ckxAutoRefresh.Name = "ckxAutoRefresh";
+            this.ckxAutoRefresh.UseVisualStyleBackColor = true;
+            // 
+            // numAutoRefreshDelay
+            // 
+            resources.ApplyResources(this.numAutoRefreshDelay, "numAutoRefreshDelay");
+            this.numAutoRefreshDelay.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numAutoRefreshDelay.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAutoRefreshDelay.Name = "numAutoRefreshDelay";
+            this.toolTip1.SetToolTip(this.numAutoRefreshDelay, resources.GetString("numAutoRefreshDelay.ToolTip"));
+            this.numAutoRefreshDelay.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
             // ckxUseAltColor
             // 
             resources.ApplyResources(this.ckxUseAltColor, "ckxUseAltColor");
@@ -390,37 +409,18 @@
             this.imageList1.Images.SetKeyName(1, "SychronizeListHS.png");
             this.imageList1.Images.SetKeyName(2, "SymbolHS.png");
             // 
-            // numAutoRefreshDelay
+            // colPName
             // 
-            resources.ApplyResources(this.numAutoRefreshDelay, "numAutoRefreshDelay");
-            this.numAutoRefreshDelay.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numAutoRefreshDelay.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numAutoRefreshDelay.Name = "numAutoRefreshDelay";
-            this.toolTip1.SetToolTip(this.numAutoRefreshDelay, resources.GetString("numAutoRefreshDelay.ToolTip"));
-            this.numAutoRefreshDelay.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
+            this.colPName.DataPropertyName = "Name";
+            resources.ApplyResources(this.colPName, "colPName");
+            this.colPName.Name = "colPName";
             // 
-            // ckxAutoRefresh
+            // colPValue
             // 
-            resources.ApplyResources(this.ckxAutoRefresh, "ckxAutoRefresh");
-            this.ckxAutoRefresh.Name = "ckxAutoRefresh";
-            this.ckxAutoRefresh.UseVisualStyleBackColor = true;
-            // 
-            // lblAutoRefreshUnit
-            // 
-            resources.ApplyResources(this.lblAutoRefreshUnit, "lblAutoRefreshUnit");
-            this.lblAutoRefreshUnit.Name = "lblAutoRefreshUnit";
+            this.colPValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colPValue.DataPropertyName = "Value";
+            resources.ApplyResources(this.colPValue, "colPValue");
+            this.colPValue.Name = "colPValue";
             // 
             // OptionsDialog
             // 
@@ -437,8 +437,8 @@
             this.Name = "OptionsDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Load += new System.EventHandler(this.OptionsDialog_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsDialog_FormClosing);
+            this.Load += new System.EventHandler(this.OptionsDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numCacheExpiration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tbcOptions.ResumeLayout(false);
@@ -449,10 +449,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numNotificationTime)).EndInit();
             this.gbxGeneral.ResumeLayout(false);
             this.gbxGeneral.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).EndInit();
             this.tpgUpdate.ResumeLayout(false);
             this.tpgUpdate.PerformLayout();
             this.tpgParameters.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numAutoRefreshDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -485,8 +485,6 @@
         private System.Windows.Forms.TabPage tpgPlugin;
         private System.Windows.Forms.TabPage tpgUpdate;
         private System.Windows.Forms.TabPage tpgParameters;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPValue;
         private System.Windows.Forms.GroupBox gbxGeneral;
         private System.Windows.Forms.GroupBox gbxLive;
         private System.Windows.Forms.NumericUpDown numCheckDelay;
@@ -503,5 +501,7 @@
         private System.Windows.Forms.CheckBox ckxAutoRefresh;
         private System.Windows.Forms.NumericUpDown numAutoRefreshDelay;
         private System.Windows.Forms.Label lblAutoRefreshUnit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPValue;
     }
 }
