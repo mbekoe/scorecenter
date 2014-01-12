@@ -1,7 +1,7 @@
 ﻿#region
 
 /* 
- *      Copyright (C) 2009-2013 Team MediaPortal
+ *      Copyright (C) 2009-2014 Team MediaPortal
  *      http://www.team-mediaportal.com
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -63,6 +63,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string SIZES_SCORER = "6,-22,0,0,-20,-12";
         private const string SIZES_CUP_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_CUP_LEVEL = "11,-5,17,+1,-17,-15,0";
+        private const string SIZES_QUALIFICATION_LEVEL = "11,-5,17,+1,-17,-15,0";
         private const string SIZES_RESULTS = "-12,5,15,0,+1,0,-15,-8,0";
         private const string SIZES_GROUP_RESULTS = "-12,5,15,+1,-15,-8,0";
         private const string SIZES_GROUP_STANDINGS = "-6,0,-15,3,3,3,3,6,3,3";
@@ -429,7 +430,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
                 sc = CreateNewScore(wfscore.Id, "resgr" + g, "Standings", IMG_STANDINGS, "1", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-gruppe-{2}/0/", WF_URL, fullname, g);
-                sc.Skip = 2;
+                sc.Skip = 1;
                 sc.Headers = GetParameter(parameters, "WF.HeaderStandings", HEADERS_STANDINGS);
                 sc.Sizes = GetParameter(parameters, "WF.GroupStandings", SIZES_GROUP_STANDINGS);
                 sc.Image = IMG_STANDINGS;
@@ -443,7 +444,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 if (level == "stadium" || level == "referee") continue;
                 sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
-                sc.Sizes = GetParameter(parameters, "WF.CupLevel", SIZES_CUP_LEVEL);
+                sc.Sizes = GetParameter(parameters, "WF.QualificationLevel", SIZES_QUALIFICATION_LEVEL);
                 AddRule(sc, 3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                 scores.Add(sc);
             }
