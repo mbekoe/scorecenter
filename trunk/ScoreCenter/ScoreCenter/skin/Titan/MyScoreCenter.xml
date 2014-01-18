@@ -40,7 +40,7 @@
             <id>60</id>
             <description>Live Status</description>
             <type>label</type>
-            <posX>42</posX>
+            <posX>80</posX>
             <posY>10</posY>
             <width>200</width>
             <font>font12</font>
@@ -52,7 +52,7 @@
             <visible>yes</visible>
             <posX>8</posX>
             <posY>10</posY>
-            <width>32</width>
+            <width>57</width>
             <height>30</height>
             <texture>#ScoreCenter.LiveIcon</texture>
             <animation condition="string.equals(#ScoreCenter.LiveOn,1)" effect="Fade" end="100" pulse="TRUE" reversible="FALSE" start="0" time="2000" tween="Linear">Conditional</animation>
@@ -144,8 +144,8 @@
             <keepaspectratio>yes</keepaspectratio>
             <spinPosX>10</spinPosX>
             <spinPosY>660</spinPosY>
-            <PinIconWidth>25</PinIconWidth>
-            <PinIconHeight>25</PinIconHeight>
+            <PinIconWidth>57</PinIconWidth>
+            <PinIconHeight>30</PinIconHeight>
             <PinIconXOff>370</PinIconXOff>
             <PinIconYOff>3</PinIconYOff>
             <font>font12</font>
