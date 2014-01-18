@@ -87,8 +87,8 @@
             <CompatibleVersion>
               <Items>
                 <CompatibleVersionItem>
-                  <MinRequiredVersion>1.3.100.0</MinRequiredVersion>
-                  <DesignedForVersion>1.3.100.0</DesignedForVersion>
+                  <MinRequiredVersion>1.6.0.0</MinRequiredVersion>
+                  <DesignedForVersion>1.6.0.0</DesignedForVersion>
                 </CompatibleVersionItem>
               </Items>
             </CompatibleVersion>
@@ -103,8 +103,8 @@
             <CompatibleVersion>
               <Items>
                 <CompatibleVersionItem>
-                  <MinRequiredVersion>1.3.100.0</MinRequiredVersion>
-                  <DesignedForVersion>1.3.100.0</DesignedForVersion>
+                  <MinRequiredVersion>1.6.0.0</MinRequiredVersion>
+                  <DesignedForVersion>1.6.0.0</DesignedForVersion>
                 </CompatibleVersionItem>
               </Items>
             </CompatibleVersion>
@@ -126,17 +126,20 @@
         <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
         <Version>
           <Major>2</Major>
-          <Minor>10</Minor>
+          <Minor>11</Minor>
           <Build>0</Build>
           <Revision>0</Revision>
         </Version>
         <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-        <VersionDescription>* Update for MP1.6</VersionDescription>
+        <VersionDescription>* Fix issue with icon folder.
+* Update Default Wide Skin (thanks to catavolt).
+* Update Titan Skin live icon.
+* Add separate parameter for WorldFootball Qualification Level (WF.QualificationLevel).</VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
         <OnlineLocation>http://www.team-mediaportal.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=65&amp;cf_id=24</OnlineLocation>
-        <ReleaseDate>2014-01-07T18:55:45</ReleaseDate>
+        <ReleaseDate>2014-01-18T18:55:45</ReleaseDate>
         <Tags>sport, online</Tags>
         <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
         <Params>

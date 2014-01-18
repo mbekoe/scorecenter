@@ -203,6 +203,20 @@
               <ZipFileName>Installer{CopyFile}\{40e992bc-867c-4e35-b25f-181a4dbed251}-MyScoreCenterNotify.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\MyScoreCenterNotify.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\Media\ScoreCenterLive.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c615cb19-2971-49a9-a9c8-1662f928e0ce}-ScoreCenterLive.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ScoreCenterLive.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\Media\ScoreCenterLiveDisabled.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{37e8ebbe-6eb7-4ee8-bde2-1b4f0641459b}-ScoreCenterLiveDisabled.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\Media\ScoreCenterLiveDisabled.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -226,6 +240,20 @@
               <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\MyScoreCenterNotify.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{75a5317b-8b2e-45b4-a526-21c82ce372bb}-MyScoreCenterNotify.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\MyScoreCenterNotify.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\Media\ScoreCenterLive.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{52216c90-ce1c-434c-b13f-175636f4a5d5}-ScoreCenterLive.png</ZipFileName>
+              <DestinationFilename>%Skin%\Titan\Media\ScoreCenterLive.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\Media\ScoreCenterLiveDisabled.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{fd5a2f91-1f53-47d0-ba19-0d8ff7b4376d}-ScoreCenterLiveDisabled.png</ZipFileName>
+              <DestinationFilename>%Skin%\Titan\Media\ScoreCenterLiveDisabled.png</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -365,8 +393,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <CompatibleVersion>
           <Items>
             <CompatibleVersionItem>
-              <MinRequiredVersion>1.3.100.0</MinRequiredVersion>
-              <DesignedForVersion>1.3.100.0</DesignedForVersion>
+              <MinRequiredVersion>1.6.0.0</MinRequiredVersion>
+              <DesignedForVersion>1.6.0.0</DesignedForVersion>
             </CompatibleVersionItem>
           </Items>
         </CompatibleVersion>
@@ -381,8 +409,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <CompatibleVersion>
           <Items>
             <CompatibleVersionItem>
-              <MinRequiredVersion>1.3.100.0</MinRequiredVersion>
-              <DesignedForVersion>1.3.100.0</DesignedForVersion>
+              <MinRequiredVersion>1.6.0.0</MinRequiredVersion>
+              <DesignedForVersion>1.6.0.0</DesignedForVersion>
             </CompatibleVersionItem>
           </Items>
         </CompatibleVersion>
@@ -404,17 +432,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <UpdateUrl>http://code.google.com/p/scorecenter/source/browse/trunk/Installer/scorecenter.xml</UpdateUrl>
     <Version>
       <Major>2</Major>
-      <Minor>10</Minor>
+      <Minor>11</Minor>
       <Build>0</Build>
       <Revision>0</Revision>
     </Version>
     <ExtensionDescription>MyScoreCenter displays sport results from almost any web sites.
 
 The default configuration includes Football, Rugby, Motor Sports...</ExtensionDescription>
-    <VersionDescription>* Update for MP1.6</VersionDescription>
+    <VersionDescription>* Fix issue with icon folder.
+* Update Default Wide Skin (thanks to catavolt).
+* Update Titan Skin live icon.
+* Add separate parameter for WorldFootball Qualification Level (WF.QualificationLevel).</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://www.team-mediaportal.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=65&amp;cf_id=24</OnlineLocation>
-    <ReleaseDate>2014-01-07T18:55:45</ReleaseDate>
+    <ReleaseDate>2014-01-18T18:55:45</ReleaseDate>
     <Tags>sport, online</Tags>
     <Location>F:\svnroot\scorecenter\release\ScoreCenter_v[Version].mpe1</Location>
     <Params>
@@ -601,6 +632,20 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\Media\ScoreCenterLive.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c615cb19-2971-49a9-a9c8-1662f928e0ce}-ScoreCenterLive.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ScoreCenterLive.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Defaultwide\Media\ScoreCenterLiveDisabled.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{37e8ebbe-6eb7-4ee8-bde2-1b4f0641459b}-ScoreCenterLiveDisabled.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\Media\ScoreCenterLiveDisabled.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\MyScoreCenter.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{33e9c9ed-4699-41f2-a1e9-29691fed2473}-MyScoreCenter.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\MyScoreCenter.xml</DestinationFilename>
@@ -612,18 +657,32 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <ZipFileName>Installer{CopyFile}\{75a5317b-8b2e-45b4-a526-21c82ce372bb}-MyScoreCenterNotify.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\MyScoreCenterNotify.xml</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\Media\ScoreCenterLive.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{52216c90-ce1c-434c-b13f-175636f4a5d5}-ScoreCenterLive.png</ZipFileName>
+        <DestinationFilename>%Skin%\Titan\Media\ScoreCenterLive.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\ScoreCenter\ScoreCenter\skin\Titan\Media\ScoreCenterLiveDisabled.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{fd5a2f91-1f53-47d0-ba19-0d8ff7b4376d}-ScoreCenterLiveDisabled.png</ZipFileName>
+        <DestinationFilename>%Skin%\Titan\Media\ScoreCenterLiveDisabled.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>wizard.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{03c2a7b9-735d-4d9f-80b3-ed29ff6458ca}-wizard.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{2887225d-eaad-4796-b899-9498cca9ff9b}-wizard.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>scorecenter.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8522cf4e-a620-4eee-9e12-f6caa34a7bb7}-scorecenter.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{973c18f6-9712-41c9-b2ef-0745ea9f78db}-scorecenter.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -639,6 +698,16 @@ The default configuration includes Football, Rugby, Motor Sports...</ExtensionDe
         <Folder>..\ScoreCenter\ScoreCenter\language</Folder>
         <Group>Languages</Group>
         <Recursive>false</Recursive>
+      </FolderGroup>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{887f8403-9aa4-4758-a77c-d91eb2d9a566}-</ZipFileName>
+        <DestinationFilename>%Skin%\Titan\Media</DestinationFilename>
+        <Folder>..\ScoreCenter\ScoreCenter\skin\Titan\Media</Folder>
+        <Group>TitanSkin</Group>
+        <Recursive>true</Recursive>
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>scorecenter.xmp2</ProjectFilename>
