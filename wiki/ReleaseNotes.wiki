@@ -1,4 +1,10 @@
 #labels Featured
+*version 2.11.0 (18 January 2014)*:
+    * Fix issue with icon folder.
+    * Update Default Wide Skin (thanks to catavolt).
+    * Update Titan Skin live icon.
+    * Add separate parameter for WorldFootball Qualification Level (WF.QualificationLevel).
+
 *version 2.10.0 (7 January 2014)*:
     * Update for MP 1.6.
     * Remove HtmlAgilityPack (included in MP).
