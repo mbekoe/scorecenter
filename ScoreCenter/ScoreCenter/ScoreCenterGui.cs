@@ -557,6 +557,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     item.Label = sc.LocName;
                     item.IsFolder = sc.IsContainer();
                     item.IconImage = Tools.GetThumbs(sc.Image);
+                    item.ThumbnailImage = Tools.GetThumbs(sc.Image);
 
                     if (sc.CanLive())
                     {
