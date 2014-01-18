@@ -63,7 +63,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string SIZES_SCORER = "6,-22,0,0,-20,-12";
         private const string SIZES_CUP_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_CUP_LEVEL = "11,-5,17,+1,-17,-15,0";
-        private const string SIZES_QUALIFICATION_LEVEL = "11,-5,17,+1,-17,-15,0";
+        private const string SIZES_QUALIFICATION_LEVEL = "10,17,+3,-17,-15";
         private const string SIZES_RESULTS = "-12,5,15,0,+1,0,-15,-8,0";
         private const string SIZES_GROUP_RESULTS = "-12,5,15,+1,-15,-8,0";
         private const string SIZES_GROUP_STANDINGS = "-6,0,-15,3,3,3,3,6,3,3";
