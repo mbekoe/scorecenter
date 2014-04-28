@@ -86,6 +86,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             dt.Rows.Add(RuleAction.MergeCells.ToString(), "Merge Cells");
             dt.Rows.Add(RuleAction.ReplaceText.ToString(), "Replace Text");
             dt.Rows.Add(RuleAction.SkipLine.ToString(), "Skip Line");
+            dt.Rows.Add(RuleAction.CutAfter.ToString(), "Cut After");
+            dt.Rows.Add(RuleAction.CutBefore.ToString(), "Cut Before");
 
             return dt;
         }

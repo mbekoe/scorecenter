@@ -46,6 +46,8 @@
       <xs:enumeration value="MergeCells" />
       <xs:enumeration value="ReplaceText" />
       <xs:enumeration value="SkipLine" />
+      <xs:enumeration value="CutAfter" />
+      <xs:enumeration value="CutBefore" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="UpdateMode">

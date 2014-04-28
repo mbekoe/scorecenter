@@ -157,6 +157,7 @@
     <Compile Include="Editor\RssScoreEditor.Designer.cs">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="RuleProcessor.cs" />
     <Compile Include="ScoreCenter.BaseScore.cs">
       <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
     </Compile>
