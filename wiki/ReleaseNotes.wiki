@@ -1,4 +1,7 @@
 #labels Featured
+*version 2.12.0 (next version)*:
+    * Add new actions _CutAfter_ et _CutBefore_ for rules.
+
 *version 2.11.0 (18 January 2014)*:
     * Fix issue with icon folder.
     * Update Default Wide Skin (thanks to catavolt).
