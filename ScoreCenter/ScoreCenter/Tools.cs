@@ -308,6 +308,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             "&Uuml;", "Ü", "&Ucirc;", "Û",
             "&gt;", ">", "&lt;", "<", "&quot;", "\"",
             "&#233;", "é", "&#39;", "'",
+            "&#8203;", "",
         };
 
         /// <summary>
