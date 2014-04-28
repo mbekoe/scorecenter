@@ -59,7 +59,9 @@ namespace MediaPortal.Plugin.ScoreCenter
             foreach (Rule rule in m_rules)
             {
                 if (rule.Action != RuleAction.FormatCell
-                    && rule.Action != RuleAction.ReplaceText)
+                    && rule.Action != RuleAction.ReplaceText
+                    && rule.Action != RuleAction.CutAfter
+                    && rule.Action != RuleAction.CutBefore)
                     continue;
                 
                 if (rule.Column == 0 && Evaluate(rule, text))

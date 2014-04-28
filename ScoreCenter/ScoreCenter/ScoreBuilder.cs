@@ -295,23 +295,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                     if (!isHeader)
                     {
                         Rule cellRule = engine.CheckCell(cell, colIndex);
-                        if (cellRule != null)
-                        {
-                            cellStyle = FindStyle(cellRule.Format) ?? lineStyle;
-                            if (cellRule.Action == RuleAction.ReplaceText)
-                            {
-                                string str1 = cellRule.Value;
-                                string str2 = String.Empty;
-                                if (cellRule.Value.Contains(","))
-                                {
-                                    string[] elts = cellRule.Value.Split(',');
-                                    str1 = elts[0];
-                                    str2 = elts[1];
-                                }
-
-                                cell = cell.Replace(str1, str2);
-                            }
-                        }
+                        cell = RuleProcessor.Process(cell, cellRule);
                     }
                     #endregion
 
