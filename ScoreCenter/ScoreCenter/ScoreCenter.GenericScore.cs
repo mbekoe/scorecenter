@@ -250,5 +250,36 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.Rules = rules.ToArray();
         }
 
+        /// <summary>
+        /// Adds a highlight rule to a score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="highlights"></param>
+        /// <param name="col"></param>
+        /// <param name="action"></param>
+        public void AddHighlightRule(string highlights, int col, RuleAction action)
+        {
+            if (String.IsNullOrEmpty(highlights))
+                return;
+
+            List<MediaPortal.Plugin.ScoreCenter.Rule> rules = new List<MediaPortal.Plugin.ScoreCenter.Rule>();
+            if (this.Rules != null)
+                rules.AddRange(this.Rules.AsEnumerable());
+
+            string[] hh = highlights.Split(',');
+            foreach (string h in hh)
+            {
+                Rule rule = new Rule();
+                rule.Column = col;
+                rule.Operator = Operation.Contains;
+                rule.Value = h;
+                rule.Action = action;
+                rule.Format = "Highlight";
+                rules.Add(rule);
+                //Tools.LogMessage("Rule = {0}", rule);
+            }
+
+            this.Rules = rules.ToArray();
+        }
     }
 }
