@@ -161,38 +161,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         {
             return GenericScore.CreateNewScore(parent, id, name, GLOBAL_XPATH, image, element, index);
         }
-        
-        /// <summary>
-        /// Adds a highlight rule to a score.
-        /// </summary>
-        /// <param name="score"></param>
-        /// <param name="highlights"></param>
-        /// <param name="col"></param>
-        /// <param name="action"></param>
-        private static void AddHighlightRule(GenericScore score, string highlights, int col, RuleAction action)
-        {
-            if (String.IsNullOrEmpty(highlights))
-                return;
-
-            List<MediaPortal.Plugin.ScoreCenter.Rule> rules = new List<MediaPortal.Plugin.ScoreCenter.Rule>();
-            if (score.Rules != null)
-                rules.AddRange(score.Rules.AsEnumerable());
-
-            string[] hh = highlights.Split(',');
-            foreach (string h in hh)
-            {
-                MediaPortal.Plugin.ScoreCenter.Rule rule = new MediaPortal.Plugin.ScoreCenter.Rule();
-                rule.Column = col;
-                rule.Operator = Operation.Contains;
-                rule.Value = h;
-                rule.Action = action;
-                rule.Format = "Highlight";
-                rules.Add(rule);
-                //Tools.LogMessage("Rule = {0}", rule);
-            }
-
-            score.Rules = rules.ToArray();
-        }
 
         private static ScoreDetails GetScoreDetails(WorldFootballScore wfscore, ScoreParameter[] parameters)
         {
@@ -276,7 +244,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     }
                 }
             }
-            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
             List<string> items = wfscore.Details.ToLower().Split(',').ToList();
@@ -308,7 +276,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.CupResults", SIZES_CUP_RESULTS);
             sc.Dictionary = "WF.last";
             sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
-            AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
+            sc.AddHighlightRule(wfscore.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
             string fullname = wfscore.FullLeagueName;
@@ -374,7 +342,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.GroupResults", SIZES_GROUP_RESULTS);
                 sc.Image = String.Format(@"Groups\Group{0}", Char.ToUpper(g));
                 sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
-                AddHighlightRule(sc, wfscore.Highlights, 0, RuleAction.FormatCell);
+                sc.AddHighlightRule(wfscore.Highlights, 0, RuleAction.FormatCell);
                 scores.Add(sc);
 
                 sc = CreateNewScore(wfscore.Id, "resgr" + g, "Standings", IMG_STANDINGS, "1", index++);
@@ -383,7 +351,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc.Headers = ScoreCenter.GetParameter(parameters, "WF.HeaderStandings", HEADERS_STANDINGS);
                 sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.GroupStandings", SIZES_GROUP_STANDINGS);
                 sc.Image = IMG_STANDINGS;
-                AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+                sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
                 scores.Add(sc);
             }
 
@@ -435,7 +403,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "teamlast", "Last", IMG_PREV, "2", index++);
             sc.Url = String.Format("{0}teams/{1}/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.TeamLast", SIZES_TEAM_LAST);
-            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
             sc.AddRule(1, Operation.EndsWith, ";", RuleAction.SkipLine, "");
             scores.Add(sc);
 
@@ -471,7 +439,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc = CreateNewScore(wfscore.Id, "teamarchives", "History", IMG_HISTORY, "1", index++);
             sc.Url = String.Format("{0}teams/{1}/1/", WF_URL, wfscore.FullLeagueName);
             sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.TeamHistory", SIZES_TEAM_ARCHIVES);
-            AddHighlightRule(sc, wfscore.Highlights, 3, RuleAction.FormatLine);
+            sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
             sc.AddRule(1, Operation.Contains, " x ", RuleAction.FormatLine, "Header");
             scores.Add(sc);
 
@@ -514,7 +482,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc.Sizes = ScoreCenter.GetParameter(m_parameters, "WF.LeagueRoundResults", SIZES_LEAGUE_ROUND_RESULTS);
                 sc.Dictionary = "WF.last";
                 sc.AddRule(1, Operation.IsNotNull, "", RuleAction.FormatCell, "Header");
-                AddHighlightRule(sc, m_score.Highlights, 0, RuleAction.FormatCell);
+                sc.AddHighlightRule(m_score.Highlights, 0, RuleAction.FormatCell);
                 scores.Add(sc);
             }
 
@@ -530,7 +498,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     sc.Headers = ScoreCenter.GetParameter(m_parameters, "WF.HeaderScorer", HEADERS_SCORER);
                     sc.Dictionary = "WF.scorer";
                     sc.AddRule(-1, Operation.EqualTo, "1", RuleAction.FormatLine, "Level1");
-                    AddHighlightRule(sc, m_score.Highlights, 4, RuleAction.FormatLine);
+                    sc.AddHighlightRule(m_score.Highlights, 4, RuleAction.FormatLine);
                     scores.Add(sc);
                 }
             }
@@ -547,7 +515,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     sc.Headers = ScoreCenter.GetParameter(m_parameters, "WF.HeaderAssist", HEADERS_ASSIST);
                     sc.Dictionary = "WF.scorer";
                     sc.AddRule(-1, Operation.EqualTo, "1", RuleAction.FormatLine, "Level1");
-                    AddHighlightRule(sc, m_score.Highlights, 4, RuleAction.FormatLine);
+                    sc.AddHighlightRule(m_score.Highlights, 4, RuleAction.FormatLine);
                     scores.Add(sc);
                 }
             }
@@ -563,7 +531,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     sc.Skip = 1;
                     sc.Headers = ScoreCenter.GetParameter(m_parameters, "WF.HeaderScorerHist", HEADERS_SCORER_HIST);
                     sc.Dictionary = "WF.scorer";
-                    AddHighlightRule(sc, m_score.Highlights, 3, RuleAction.FormatLine);
+                    sc.AddHighlightRule(m_score.Highlights, 3, RuleAction.FormatLine);
                     scores.Add(sc);
                 }
             }
@@ -578,7 +546,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                     sc.Sizes = ScoreCenter.GetParameter(m_parameters, "WF.History", SIZES_HISTORY);
                     sc.Skip = 1;
                     sc.Dictionary = "WF.archives";
-                    AddHighlightRule(sc, m_score.Highlights, 3, RuleAction.FormatLine);
+                    sc.AddHighlightRule(m_score.Highlights, 3, RuleAction.FormatLine);
                     scores.Add(sc);
                 }
             }
