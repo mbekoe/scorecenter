@@ -288,6 +288,21 @@ namespace MediaPortal.Plugin.ScoreCenter
             return result;
         }
 
+        public static string GetParameter(ScoreParameter[] parameters, string name, string defaultValue)
+        {
+            string result = defaultValue;
+
+            if (parameters != null && parameters.Length > 0)
+            {
+                ScoreParameter p = parameters.FirstOrDefault(pp => pp.name == name);
+                if (p != null && !String.IsNullOrEmpty(p.Value))
+                    result = p.Value;
+            }
+
+            return result;
+        }
+
+
         public void SetLiveScore(BaseScore score, bool enable)
         {
             if (score.IsVirtual())

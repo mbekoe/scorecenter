@@ -194,12 +194,14 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return result;
         }
+        
         public string GetUrl()
         {
             if (this.Range == null)
                 return this.Url;
             return this.Range.Apply(this.Url, this.Range.Value.ToString());
         }
+        
         public override void ApplyRangeValue(bool setDefault)
         {
             if (this.Range == null)
@@ -214,5 +216,39 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Url = this.Range.ApplyCurrent(this.Url);
             }
         }
+
+        public static GenericScore CreateNewScore(string parent, string id, string name, string xpath, string image, string element, int index)
+        {
+            GenericScore sc = new GenericScore();
+            sc.Order = index;
+            sc.enable = true;
+            sc.Name = name;
+            sc.Id = String.Format("{0}-{1}", parent, id);
+            sc.Parent = parent;
+            sc.XPath = xpath;
+            sc.Image = image;
+            sc.Element = element;
+            sc.SetVirtual(true);
+            sc.SetCanLive(false);
+
+            return sc;
+        }
+
+        public void AddRule(int col, Operation ruleOperator, string ruleValue, RuleAction action, string ruleFormat)
+        {
+            MediaPortal.Plugin.ScoreCenter.Rule rule = new MediaPortal.Plugin.ScoreCenter.Rule();
+            rule.Column = col;
+            rule.Operator = ruleOperator;
+            rule.Value = ruleValue;
+            rule.Action = action;
+            rule.Format = ruleFormat;
+
+            List<MediaPortal.Plugin.ScoreCenter.Rule> rules = new List<MediaPortal.Plugin.ScoreCenter.Rule>();
+            if (this.Rules != null)
+                rules.AddRange(this.Rules.AsEnumerable());
+            rules.Add(rule);
+            this.Rules = rules.ToArray();
+        }
+
     }
 }
