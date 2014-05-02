@@ -339,7 +339,7 @@
             // 
             this.tbxUrl.Location = new System.Drawing.Point(72, 57);
             this.tbxUrl.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.tbxUrl.MaxLength = 200;
+            this.tbxUrl.MaxLength = 300;
             this.tbxUrl.Name = "tbxUrl";
             this.tbxUrl.Size = new System.Drawing.Size(461, 20);
             this.tbxUrl.TabIndex = 5;
@@ -418,8 +418,8 @@
             // 
             // gbxLive
             // 
-            this.gbxLive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxLive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbxLive.Controls.Add(this.ckxLive);
             this.gbxLive.Controls.Add(this.lblLiveFilter);
             this.gbxLive.Controls.Add(this.tbxLiveFilter);
