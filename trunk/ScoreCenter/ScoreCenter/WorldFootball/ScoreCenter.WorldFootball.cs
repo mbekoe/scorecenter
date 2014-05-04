@@ -85,6 +85,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             copy.League = this.League;
             copy.Season = this.Season;
             copy.Kind = this.Kind;
+            copy.TwoLegs = this.TwoLegs;
             copy.NbTeams = this.NbTeams;
             copy.Rounds = this.Rounds;
             copy.Levels = this.Levels;
@@ -116,6 +117,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Highlights = settings.Highlights;
                 this.Details = settings.Details;
                 this.LiveConfig = settings.LiveConfig;
+                this.TwoLegs = settings.TwoLegs;
             }
         }
 
@@ -142,7 +144,8 @@ namespace MediaPortal.Plugin.ScoreCenter
                     || (String.Compare(this.Season, newScore.Season, true) != 0)
                     || (this.NbTeams != newScore.NbTeams)
                     || (this.Rounds != newScore.Rounds)
-                    || (this.Kind != newScore.Kind);
+                    || (this.Kind != newScore.Kind)
+                    || (this.TwoLegs != newScore.TwoLegs);
 
                 this.Country = newScore.Country;
                 this.League = newScore.League;
@@ -151,6 +154,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 this.Rounds = newScore.Rounds;
                 this.Details = newScore.Details;
                 this.Kind = newScore.Kind;
+                this.TwoLegs = newScore.TwoLegs;
             }
 
             if ((option & ImportOptions.Rules) == ImportOptions.Rules)
