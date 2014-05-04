@@ -26,6 +26,10 @@
     <LocString id="Standings">Classement</LocString>
     <LocString id="Rankings">Classement</LocString>
     <LocString id="Ranking">Classement</LocString>
+    <LocString id="Home">Domicile</LocString>
+    <LocString id="Away">Extérieur</LocString>
+    <LocString id="1st Round">1ère manche</LocString>
+    <LocString id="2nd Round">2nd manche</LocString>
     <LocString id="Fixtures">Calendrier</LocString>
     <LocString id="Next Round">Calendrier</LocString>
     <LocString id="Ladder">Classement</LocString>
