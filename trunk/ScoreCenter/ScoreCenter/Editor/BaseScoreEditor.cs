@@ -32,6 +32,19 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
     public partial class BaseScoreEditor : UserControl
     {
         protected ScoreCenter m_center;
+        public event EventHandler<SetIconIconEventArgs> SetIcon = null;
+
+        public class SetIconIconEventArgs : EventArgs
+        {
+            public string Path { get; set; }
+        }
+        public void NotifySetIcon(string path)
+        {
+            if (this.SetIcon != null)
+            {
+                SetIcon(this, new SetIconIconEventArgs() { Path = path });
+            }
+        }
 
         public BaseScoreEditor()
         {

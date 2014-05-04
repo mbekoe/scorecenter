@@ -240,7 +240,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         /// </summary>
         /// <param name="html">The HTML of the home page of the score.</param>
         /// <returns>The URL of the icon.</returns>
-        public static string GetEmblemUrl(string html)
+        public static string GetEmblemUrl(string html, int index)
         {
             string url = GetUrl(html, C_KEY_RESULTS);
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
@@ -251,7 +251,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(EMBLEM_PATH);
             if (nodes == null)
                 return "";
-            return nodes[0].GetAttributeValue("src", "");
+            int v = index % nodes.Count;
+            return nodes[v].GetAttributeValue("src", "");
         }
 
         protected override string[][] Parse(FussballdeScore score, bool reload, ScoreParameter[] parameters)

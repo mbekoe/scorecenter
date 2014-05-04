@@ -45,6 +45,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 {
     public partial class FussballdeScoreEditor : BaseScoreEditor
     {
+        private int m_iconIndex = 0;
+
         public FussballdeScoreEditor()
         {
             InitializeComponent();
@@ -53,6 +55,8 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
         public override void LoadScore(BaseScore baseScore, ScoreCenter center)
         {
             FussballdeScore fsc = baseScore as FussballdeScore;
+            m_center = center;
+            m_iconIndex = 0;
 
             errorProvider1.Clear();
 
@@ -150,7 +154,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
                 string url = Tools.ParseUrl(FussballdeScoreParser.GetMainUrl(tbxUrl.Text), m_center.Parameters);
                 string home = cache.GetScore(url, "", false);
-                string emblemUrl = FussballdeScoreParser.GetEmblemUrl(home);
+                string emblemUrl = FussballdeScoreParser.GetEmblemUrl(home, m_iconIndex++);
 
                 if (String.IsNullOrEmpty(emblemUrl))
                     return;
@@ -169,6 +173,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                     string relpath = Path.Combine("Football", tbxScoreId.Text);
                     string path = Path.Combine(Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter"), relpath) + ".png";
                     icon.Save(path, ImageFormat.Png);
+                    NotifySetIcon(relpath);
                 }
                 finally
                 {
