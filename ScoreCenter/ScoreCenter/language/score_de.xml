@@ -30,6 +30,10 @@
     <LocString id="viertelfinale">Viertelfinale</LocString>
     <LocString id="halbfinale">Halbfinale</LocString>
     <LocString id="3-platz">3. Platz</LocString>
+    <LocString id="Home">Heim</LocString>
+    <LocString id="Away">Auswärts</LocString>
+    <LocString id="1st Round">Hinrunde</LocString>
+    <LocString id="2nd Round">Rückrunde</LocString>
     <LocString id="Today">Heute</LocString>
     <LocString id="Results">Ergebnisse</LocString>
     <LocString id="Last Results">Letzter Spieltag</LocString>
