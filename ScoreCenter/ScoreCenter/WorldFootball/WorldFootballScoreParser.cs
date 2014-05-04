@@ -62,8 +62,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string SIZES_SCORER_HISTORY = "-10,0,-20,0,-20,4";
         private const string SIZES_SCORER = "6,-22,0,0,-20,-12";
         private const string SIZES_CUP_RESULTS = "11,5,20,+1,-20,8";
-        private const string SIZES_CUP_LEVEL = "11,-5,17,+1,-17,-15,0";
-        private const string SIZES_QUALIFICATION_LEVEL = "10,17,+3,-17,-15";
+        private const string SIZES_CUP_LEVEL1 = "15,10,17,+1,-17,-15";
+        private const string SIZES_CUP_LEVEL2 = "10,17,+3,-17,-15";
+        private const string SIZES_QUALIFICATION_LEVEL1 = "15,10,17,+3,-17,-15";
+        private const string SIZES_QUALIFICATION_LEVEL2 = "10,17,+3,-17,-15";
         private const string SIZES_RESULTS = "-12,5,15,0,+1,0,-15,-8,0";
         private const string SIZES_GROUP_RESULTS = "-12,5,15,+1,-15,-8,0";
         private const string SIZES_GROUP_STANDINGS = "-6,0,-15,3,3,3,3,6,3,3";
@@ -272,7 +274,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 {
                     sc = CreateNewScore(wfscore.Id, round, round, IMG_RESULTS, "0", index++);
                     sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, round);
-                    sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.CupLevel", SIZES_CUP_LEVEL);
+                    sc.Sizes = wfscore.TwoLegs && round != "finale"
+                        ? ScoreCenter.GetParameter(parameters, "WF.CupLevel2", SIZES_CUP_LEVEL2)
+                        : ScoreCenter.GetParameter(parameters, "WF.CupLevel1", SIZES_CUP_LEVEL1);
                     sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                     scores.Add(sc);
                 }
@@ -343,7 +347,9 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 if (level == "stadium" || level == "referee") continue;
                 sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
-                sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.QualificationLevel", SIZES_QUALIFICATION_LEVEL);
+                sc.Sizes = wfscore.TwoLegs && level != "finale"
+                    ? ScoreCenter.GetParameter(parameters, "WF.QualificationLevel2", SIZES_QUALIFICATION_LEVEL2)
+                    : ScoreCenter.GetParameter(parameters, "WF.QualificationLevel1", SIZES_QUALIFICATION_LEVEL1);
                 sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                 scores.Add(sc);
             }

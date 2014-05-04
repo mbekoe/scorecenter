@@ -83,6 +83,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             tbxHighlights.Text = score.Highlights;
             tbxDetails.Text = score.Details;
             tbxScoreId.Text = score.Id;
+            ckxTwoGames.Checked = score.TwoLegs;
             
             if (score.LiveConfig != null)
             {
@@ -122,6 +123,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
             score.Details = Tools.TrimList(tbxDetails.Text);
             tbxDetails.Text = score.Details;
             score.Kind = (WorldFootballKind)Enum.Parse(typeof(WorldFootballKind), cbxKind.SelectedValue.ToString());
+            score.TwoLegs = ckxTwoGames.Checked;
 
             if (ckxLiveEnabled.Checked && tbxLiveFilter.Text.Length > 0)
             {

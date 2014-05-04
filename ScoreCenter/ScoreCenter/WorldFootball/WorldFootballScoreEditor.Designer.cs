@@ -61,6 +61,7 @@
             this.lblLiveDetails = new System.Windows.Forms.Label();
             this.lblLiveFilter = new System.Windows.Forms.Label();
             this.lblRound = new System.Windows.Forms.Label();
+            this.ckxTwoGames = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbTeams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -481,10 +482,22 @@
             this.lblRound.TabIndex = 18;
             this.lblRound.Text = "Rounds";
             // 
+            // ckxTwoGames
+            // 
+            this.ckxTwoGames.AutoSize = true;
+            this.ckxTwoGames.Location = new System.Drawing.Point(243, 136);
+            this.ckxTwoGames.Name = "ckxTwoGames";
+            this.ckxTwoGames.Size = new System.Drawing.Size(107, 17);
+            this.ckxTwoGames.TabIndex = 12;
+            this.ckxTwoGames.Text = "Two Legs games";
+            this.toolTip1.SetToolTip(this.ckxTwoGames, "For Cup/Tournament");
+            this.ckxTwoGames.UseVisualStyleBackColor = true;
+            // 
             // WorldFootballScoreEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ckxTwoGames);
             this.Controls.Add(this.numRounds);
             this.Controls.Add(this.lblRound);
             this.Controls.Add(this.lblLiveFilter);
@@ -563,5 +576,6 @@
         private System.Windows.Forms.Label lblLiveFilter;
         private System.Windows.Forms.NumericUpDown numRounds;
         private System.Windows.Forms.Label lblRound;
+        private System.Windows.Forms.CheckBox ckxTwoGames;
     }
 }

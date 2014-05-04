@@ -801,6 +801,8 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         private string highlightsField;
         
+        private bool twoLegsField;
+        
         public WorldFootballScore() {
             this.kindField = WorldFootballKind.League;
             this.detailsField = "";
@@ -808,6 +810,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
             this.roundsField = 0;
             this.levelsField = "";
             this.highlightsField = "";
+            this.twoLegsField = true;
         }
         
         /// <remarks/>
@@ -912,6 +915,18 @@ namespace MediaPortal.Plugin.ScoreCenter {
             }
             set {
                 this.highlightsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool TwoLegs {
+            get {
+                return this.twoLegsField;
+            }
+            set {
+                this.twoLegsField = value;
             }
         }
     }
