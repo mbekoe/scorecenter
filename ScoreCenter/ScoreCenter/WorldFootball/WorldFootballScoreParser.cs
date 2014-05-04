@@ -247,8 +247,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
-            List<string> items = wfscore.Details.ToLower().Split(',').ToList();
-
             details.AddTopScorerScore(scores, fullname, index++);
             details.AddAssistsScore(scores, fullname, index++);
             details.AddStadiumScore(scores, fullname, index++);

@@ -185,63 +185,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
 
             return String.Format("{{@worldfootball}}wettbewerb/{0}/", GetFullName());
         }
-        private string GetDefaultIconPath()
-        {
-            string path = Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter");
-            path = Path.Combine(Path.Combine(path, "Football"), GetFullName() + ".png");
-            return path;
-        }
 
         private void WorldFootballScoreEditor_Load(object sender, EventArgs e)
         {
             cbxKind.DataSource = EnumManager.ReadWorldFootballKind();
             cbxKind.ValueMember = "ID";
             cbxKind.DisplayMember = "NAME";
-        }
-
-        private static Image FixedSize(Bitmap imgPhoto, int width, int height, Color backColor)
-        {
-            int sourceWidth = imgPhoto.Width;
-            int sourceHeight = imgPhoto.Height;
-            int sourceX = 0;
-            int sourceY = 0;
-            int destX = 0;
-            int destY = 0;
-
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-
-            nPercentW = ((float)width / (float)sourceWidth);
-            nPercentH = ((float)height / (float)sourceHeight);
-            if (nPercentH < nPercentW)
-            {
-                nPercent = nPercentH;
-                destX = System.Convert.ToInt16((width - (sourceWidth * nPercent)) / 2);
-            }
-            else
-            {
-                nPercent = nPercentW;
-                destY = System.Convert.ToInt16((height - (sourceHeight * nPercent)) / 2);
-            }
-
-            int destWidth = (int)(sourceWidth * nPercent);
-            int destHeight = (int)(sourceHeight * nPercent);
-
-            Bitmap bmPhoto = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-            bmPhoto.SetResolution(imgPhoto.HorizontalResolution, imgPhoto.VerticalResolution);
-
-            Graphics grPhoto = Graphics.FromImage(bmPhoto);
-            grPhoto.Clear(backColor);
-            grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            grPhoto.DrawImage(imgPhoto,
-                new Rectangle(destX, destY, destWidth, destHeight),
-                new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-                GraphicsUnit.Pixel);
-
-            grPhoto.Dispose();
-            return bmPhoto;
         }
 
         private void btnIcon_Click(object sender, EventArgs e)
@@ -253,8 +202,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                     pictureBox1.Image.Dispose();
                     pictureBox1.Image = null;
                 }
-
-                string path = GetDefaultIconPath();
 
                 string url = Tools.ParseUrl(GetUrl(), m_center.Parameters);
                 ScoreCache cache = new ScoreCache(0);
@@ -272,9 +219,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 {
                     cache.GetImage(emblemUrl, tmpfile);
                     bmp = new Bitmap(tmpfile);
-                    Image icon = FixedSize(bmp, 48, 48, Color.White);
+                    Image icon = Tools.FixedBitmapSize(bmp, 48, 48, Color.White);
                     pictureBox1.Image = icon;
 
+                    string path = Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter");
+                    path = Path.Combine(path, "Football", GetFullName() + ".png");
                     icon.Save(path, ImageFormat.Png);
                 }
                 finally
