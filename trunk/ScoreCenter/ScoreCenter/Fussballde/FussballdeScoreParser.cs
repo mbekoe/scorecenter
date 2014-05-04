@@ -40,6 +40,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         #region Constants
         private const string MAIN_URL = @"http://ergebnisdienst.fussball.de";
         private const string EMBLEM_PATH = "//a[@class='egmAssociationLogo']/img";
+        private const string ROUND_XPATH = @"//select[@class='egmMatchDaySelect']/option";
 
         private const string IMG_REFEREE = @"Misc\Referee";
         private const string IMG_TOPSCORER = @"Football\Top Scorers";
@@ -55,7 +56,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string XPATH_FAIRPLAY = "//table[@class='egmSnippetContent']";
         private const string XPATH_SCORER = "//table[@class='egmSnippetContent']";
 
-        private const string SIZES_RESULTS = "-15,-12,20,+1,-20,-8";
+        private const string SIZES_RESULTS = "-10,-6,20,+1,-20,-6";
         private const string SIZES_TABELLE = "3,-25,3,3,3,3,6,4,4,0";
         private const string SIZES_FAIRPLAY = "3,-25,3,3,3,3,3,3,3,5";
         private const string SIZES_SCORER = "4,-25,-25,4";
@@ -96,6 +97,40 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             return GetUrl(url, C_KEY_RESULTS);
         }
 
+        private static void SetRound(GenericScore score)
+        {
+            // get main page
+            string html = s_cache.GetScore(score.Url, "", true);
+            // load it as html document
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.OptionReadEncoding = false;
+            doc.LoadHtml(html);
+            // search for nodes
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(ROUND_XPATH);
+            if (nodes != null)
+            {
+                int max = nodes.Count;
+                int round = -1;
+
+                foreach (var node in nodes)
+                {
+                    if (node.GetAttributeValue("selected", "") == "selected")
+                    {
+                        string rr = node.GetAttributeValue("value", "");
+                        var elements = rr.Split('/');
+                        int.TryParse(elements[elements.Length - 3], out round);
+                        break;
+                    }
+                }
+
+                if (round > 0)
+                {
+                    score.Url += String.Format("/spieltag/{0}/mandant/89", VariableUrl.PARAM);
+                    score.Range = new VariableUrl(round, 1, max, LocalizationManager.GetString(Labels.RoundLabel));
+                }
+            }
+        }
+
         public static IList<BaseScore> GetRealScores(FussballdeScore score, ScoreParameter[] parameters)
         {
             List<BaseScore> scores = new List<BaseScore>();
@@ -106,6 +141,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             sc = GenericScore.CreateNewScore(score.Id, C_KEY_RESULTS, "Results", XPATH_RESULTS, IMG_RESULTS, "", index++);
             sc.Url = GetUrl(score.Url, C_KEY_RESULTS);
+            SetRound(sc);
             sc.Skip = 1;
             sc.Dictionary = "Fussballde";
             sc.Sizes = ScoreCenter.GetParameter(parameters, "Fde.SizesResults", SIZES_RESULTS);
