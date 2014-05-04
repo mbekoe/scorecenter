@@ -130,6 +130,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FussballdeScore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(WorldFootballScore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RssScore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GenericScore))]
@@ -941,6 +942,76 @@ namespace MediaPortal.Plugin.ScoreCenter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("Fussballde", Namespace="", IsNullable=false)]
+    public partial class FussballdeScore : BaseScore {
+        
+        private string urlField;
+        
+        private string detailsField;
+        
+        private string levelsField;
+        
+        private string highlightsField;
+        
+        public FussballdeScore() {
+            this.detailsField = "";
+            this.levelsField = "";
+            this.highlightsField = "";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Url {
+            get {
+                return this.urlField;
+            }
+            set {
+                this.urlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Details {
+            get {
+                return this.detailsField;
+            }
+            set {
+                this.detailsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Levels {
+            get {
+                return this.levelsField;
+            }
+            set {
+                this.levelsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Highlights {
+            get {
+                return this.highlightsField;
+            }
+            set {
+                this.highlightsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class ScoreCenter {
@@ -1278,6 +1349,7 @@ namespace MediaPortal.Plugin.ScoreCenter {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Folder", typeof(FolderScore))]
+        [System.Xml.Serialization.XmlElementAttribute("Fussballde", typeof(FussballdeScore))]
         [System.Xml.Serialization.XmlElementAttribute("Rss", typeof(RssScore))]
         [System.Xml.Serialization.XmlElementAttribute("Score", typeof(GenericScore))]
         [System.Xml.Serialization.XmlElementAttribute("WorldFootball", typeof(WorldFootballScore))]

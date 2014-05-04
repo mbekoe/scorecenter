@@ -144,7 +144,7 @@
   <xs:complexType name="GenericScore">
     <xs:complexContent>
       <xs:extension base="BaseScore">
-          <xs:sequence>
+        <xs:sequence>
           <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
           <xs:element name="Encoding" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
           <xs:element name="XPath" type="xs:string" minOccurs="0" maxOccurs="1" />
@@ -186,10 +186,23 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="FussballdeScore">
+    <xs:complexContent>
+      <xs:extension base="BaseScore">
+        <xs:sequence>
+          <xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
+          <xs:element name="Details" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="Levels" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+          <xs:element name="Highlights" type="xs:string" minOccurs="0" maxOccurs="1" default="" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Folder" type="FolderScore" nillable="false"/>
   <xs:element name="Score" type="GenericScore" nillable="false"/>
   <xs:element name="Rss" type="RssScore" nillable="false"/>
   <xs:element name="WorldFootball" type="WorldFootballScore" nillable="false"/>
+  <xs:element name="Fussballde" type="FussballdeScore" nillable="false"/>
   <xs:element name="ScoreCenter" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
     <xs:complexType>
       <xs:sequence>
@@ -236,6 +249,7 @@
               <xs:element ref="Score" minOccurs="0" maxOccurs="unbounded" />
               <xs:element ref="Rss" minOccurs="0" maxOccurs="unbounded" />
               <xs:element ref="WorldFootball" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="Fussballde" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
           </xs:complexType>
         </xs:element>

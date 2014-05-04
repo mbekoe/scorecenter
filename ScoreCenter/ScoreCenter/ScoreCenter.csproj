@@ -157,6 +157,15 @@
     <Compile Include="Editor\RssScoreEditor.Designer.cs">
       <DependentUpon>RssScoreEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fussballde\ScoreCenter.FussballdeScore.cs" />
+    <Compile Include="Fussballde\FussballdeScoreBuilder.cs" />
+    <Compile Include="Fussballde\FussballdeScoreEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fussballde\FussballdeScoreEditor.Designer.cs">
+      <DependentUpon>FussballdeScoreEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fussballde\FussballdeScoreParser.cs" />
     <Compile Include="RuleProcessor.cs" />
     <Compile Include="ScoreCenter.BaseScore.cs">
       <DependentUpon>ScoreCenter.Ext.cs</DependentUpon>
@@ -282,6 +291,7 @@
     <None Include="Resources\wfb_logo.png" />
     <None Include="Resources\FillUpHS.png" />
     <None Include="Resources\FillDownHS.png" />
+    <None Include="Resources\fussballde.png" />
     <Content Include="skin\Defaultwide\hover_score center.png" />
     <Content Include="skin\Defaultwide\MyScoreCenter.xml" />
     <Content Include="skin\Defaultwide\MyScoreCenterNotify.xml" />
@@ -291,6 +301,9 @@
     <Content Include="skin\Titan\MyScoreCenter.xml" />
     <Content Include="skin\Titan\MyScoreCenterNotify.xml" />
     <None Include="Resources\CopyHS.png" />
+    <EmbeddedResource Include="Fussballde\FussballdeScoreEditor.resx">
+      <DependentUpon>FussballdeScoreEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ScoreCenterDisabled.png" />
     <EmbeddedResource Include="Resources\ScoreCenter.png" />
     <None Include="Resources\Help.png" />
