@@ -248,6 +248,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 if (editorType != prevEditor.GetType().Name)
                 {
                     pnlEditor.Controls.Clear();
+                    prevEditor.SetIcon -= new EventHandler<BaseScoreEditor.SetIconIconEventArgs>(editor_SetIcon);
                     (prevEditor as Control).Dispose();
                 }
                 else
@@ -259,6 +260,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (editor == null)
             {
                 var zeditor = ScoreFactory.Instance.CreateEditor(editorType, pnlTest);
+                zeditor.SetIcon += new EventHandler<BaseScoreEditor.SetIconIconEventArgs>(editor_SetIcon);
                 pnlEditor.Controls.Add(zeditor);
                 zeditor.Dock = DockStyle.Fill;
                 editor = zeditor as BaseScoreEditor;
@@ -276,6 +278,16 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             tsbCopySettings.Enabled = bscore.CanApplySettings();
             tsbApplySettings.Enabled = tsbCopySettings.Enabled && m_scoreSettings != null && bscore.GetType() == m_scoreSettings.GetType();
+        }
+
+        private void editor_SetIcon(object sender, BaseScoreEditor.SetIconIconEventArgs e)
+        {
+            if (tvwScores.SelectedNode == null)
+                return;
+
+            BaseScore score = tvwScores.SelectedNode.Tag as BaseScore;
+            score.Image = e.Path;
+            SetIcon(e.Path);
         }
 
         private BaseScoreEditor GetEditor()
@@ -309,7 +321,7 @@ namespace MediaPortal.Plugin.ScoreCenter
                 string path = Config.GetFile(Config.Dir.Thumbs, "ScoreCenter", name + ".png");
                 if (File.Exists(path))
                 {
-                    pbxIcon.Image = new Bitmap(path);
+                    pbxIcon.ImageLocation = path;
                 }
             }
         }

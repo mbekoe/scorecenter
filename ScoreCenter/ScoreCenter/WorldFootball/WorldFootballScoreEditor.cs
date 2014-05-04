@@ -224,9 +224,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                     Image icon = Tools.FixedBitmapSize(bmp, 48, 48, Color.White);
                     pictureBox1.Image = icon;
 
+                    string relpath = Path.Combine("Football", GetFullName());
                     string path = Config.GetSubFolder(Config.Dir.Thumbs, "ScoreCenter");
-                    path = Path.Combine(path, "Football", GetFullName() + ".png");
+                    path = Path.Combine(path, relpath + ".png");
                     icon.Save(path, ImageFormat.Png);
+                    NotifySetIcon(relpath);
                 }
                 finally
                 {
