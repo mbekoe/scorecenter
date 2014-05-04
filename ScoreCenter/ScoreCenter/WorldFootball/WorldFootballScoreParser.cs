@@ -205,7 +205,6 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
             string fullname = wfscore.FullLeagueName + "-" + wfscore.Season;
-            //if (wfscore.League == "nb-i") fullname = "hun-otp-liga-" + wfscore.Season;
 
             ScoreDetails details = GetScoreDetails(wfscore, parameters);
             int round = details.Round;
@@ -228,22 +227,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.LeagueStandings", SIZES_STANDINGS);
             sc.Dictionary = "WF.table";
             sc.Headers = ScoreCenter.GetParameter(parameters, "WF.HeaderStandings", HEADERS_STANDINGS);
-            if (String.IsNullOrEmpty(wfscore.Levels) == false)
-            {
-                int i = 0;
-                int j = 0;
-                foreach (string level in wfscore.Levels.Split(','))
-                {
-                    if (level.StartsWith("-"))
-                    {
-                        sc.AddRule(-1, Operation.IsLast, level.Substring(1), RuleAction.FormatLine, String.Format("Level{0}", --j));
-                    }
-                    else
-                    {
-                        sc.AddRule(-1, Operation.LE, level, RuleAction.FormatLine, String.Format("Level{0}", ++i));
-                    }
-                }
-            }
+            sc.AddLevelsRule(wfscore.Levels);
             sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
             scores.Add(sc);
 
@@ -283,11 +267,11 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             if (!String.IsNullOrEmpty(wfscore.Details))
             {
-                string[] levels = wfscore.Details.Split(',');
-                foreach (string level in levels)
+                string[] rounds = wfscore.Details.Split(',');
+                foreach (string round in rounds)
                 {
-                    sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
-                    sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
+                    sc = CreateNewScore(wfscore.Id, round, round, IMG_RESULTS, "0", index++);
+                    sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, round);
                     sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.CupLevel", SIZES_CUP_LEVEL);
                     sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
                     scores.Add(sc);
