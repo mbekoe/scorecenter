@@ -281,5 +281,29 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             this.Rules = rules.ToArray();
         }
+
+        /// <summary>
+        /// Adds rules for levels.
+        /// </summary>
+        /// <param name="levels"></param>
+        public void AddLevelsRule(string levels)
+        {
+            if (String.IsNullOrEmpty(levels) == false)
+            {
+                int i = 0;
+                int j = 0;
+                foreach (string level in levels.Split(','))
+                {
+                    if (level.StartsWith("-"))
+                    {
+                        this.AddRule(-1, Operation.IsLast, level.Substring(1), RuleAction.FormatLine, String.Format("Level{0}", --j));
+                    }
+                    else
+                    {
+                        this.AddRule(-1, Operation.LE, level, RuleAction.FormatLine, String.Format("Level{0}", ++i));
+                    }
+                }
+            }
+        }
     }
 }
