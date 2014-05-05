@@ -150,6 +150,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.AddRule(5, Operation.Contains, CUT_BEFORE, RuleAction.CutBefore, "");
             sc.AddRule(1, Operation.Contains, "vorheriger Spieltag", RuleAction.SkipLine, "");
             sc.AddRule(1, Operation.Contains, "Verlegte Spiele", RuleAction.MergeCells, "");
+            sc.AddHighlightRule(score.Highlights, 0, RuleAction.FormatCell);
             scores.Add(sc);
 
             sc = GenericScore.CreateNewScore(score.Id, C_KEY_TABELLE, "Standings", XPATH_TABELLE, IMG_TABELLE, "", index++);
