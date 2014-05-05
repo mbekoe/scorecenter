@@ -294,8 +294,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                     Style cellStyle = lineStyle;
                     if (!isHeader)
                     {
-                        Rule cellRule = engine.CheckCell(cell, colIndex);
-                        cell = RuleProcessor.Process(cell, cellRule);
+                        IList<Rule> cellRules = engine.CheckCell(cell, colIndex);
+                        foreach (var cellRule in cellRules)
+                        {
+                            cell = RuleProcessor.Process(cell, cellRule);
+                            if (cellRule != null && cellRule.Action == RuleAction.FormatCell)
+                                cellStyle = FindStyle(cellRule.Format) ?? lineStyle;
+                        }
                     }
                     #endregion
 
