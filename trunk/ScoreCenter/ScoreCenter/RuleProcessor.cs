@@ -12,8 +12,7 @@ namespace MediaPortal.Plugin.ScoreCenter
             if (rule == null)
                 return cell;
 
-            string res = String.Empty;
-            
+            string res = cell;
             switch (rule.Action)
             {
                 case RuleAction.ReplaceText:

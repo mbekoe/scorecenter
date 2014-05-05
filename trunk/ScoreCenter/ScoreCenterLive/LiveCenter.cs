@@ -221,22 +221,10 @@ namespace MediaPortal.Plugin.ScoreCenter
                     #region Evaluate rule for the cell
                     if (!isHeader)
                     {
-                        Rule cellRule = engine.CheckCell(cell, colIndex);
-                        if (cellRule != null)
+                        IList<Rule> cellRules = engine.CheckCell(cell, colIndex);
+                        foreach (var cellRule in cellRules)
                         {
-                            if (cellRule.Action == RuleAction.ReplaceText)
-                            {
-                                string str1 = cellRule.Value;
-                                string str2 = String.Empty;
-                                if (cellRule.Value.Contains(","))
-                                {
-                                    string[] elts = cellRule.Value.Split(',');
-                                    str1 = elts[0];
-                                    str2 = elts[1];
-                                }
-
-                                cell = cell.Replace(str1, str2);
-                            }
+                            cell = RuleProcessor.Process(cell, cellRule);
                         }
                     }
                     #endregion

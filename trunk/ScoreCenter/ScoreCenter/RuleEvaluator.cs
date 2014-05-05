@@ -51,11 +51,12 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <param name="text">The text of the cell.</param>
         /// <param name="colIndex">The index of the cell.</param>
         /// <returns>The first rule satisifed by the cell or null.</returns>
-        public Rule CheckCell(string text, int colIndex)
+        public IList<Rule> CheckCell(string text, int colIndex)
         {
             if (m_rules == null || m_rules.Length == 0)
                 return null;
 
+            List<Rule> rules = new List<Rule>();
             foreach (Rule rule in m_rules)
             {
                 if (rule.Action != RuleAction.FormatCell
@@ -65,13 +66,13 @@ namespace MediaPortal.Plugin.ScoreCenter
                     continue;
                 
                 if (rule.Column == 0 && Evaluate(rule, text))
-                    return rule;
+                    rules.Add(rule);
 
                 if ((rule.Column == colIndex + 1) && Evaluate(rule, text))
-                    return rule;
+                    rules.Add(rule);
             }
 
-            return null;
+            return rules;
         }
 
         /// <summary>
