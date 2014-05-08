@@ -58,7 +58,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
         private const string SIZES_LEAGUE_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_LEAGUE_ROUND_RESULTS = "11,5,20,+1,-20,8";
         private const string SIZES_HISTORY = "-10,0,-24";
-        private const string SIZES_STANDINGS = "5,0,-20,3,3,3,3,5,3,3";
+        private const string SIZES_STANDINGS = "5,0,-20,3,3,3,3,7,3,3";
         private const string SIZES_SCORER_HISTORY = "-10,0,-20,0,-20,4";
         private const string SIZES_SCORER = "6,-22,0,0,-20,-12";
         private const string SIZES_CUP_RESULTS = "11,5,20,+1,-20,8";
