@@ -254,6 +254,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             int index = 0;
             List<BaseScore> scores = new List<BaseScore>();
 
+            // add last results score
             GenericScore sc = CreateNewScore(wfscore.Id, "last", "Last Results", IMG_RESULTS, "2", index++);
             string competition = ScoreCenter.GetParameter(parameters, "WF.Competition", KEY_COMPETITION);
             sc.Url = String.Format("{0}{2}/{1}/", WF_URL, wfscore.FullLeagueName, competition);
@@ -267,6 +268,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (String.IsNullOrEmpty(wfscore.Season) == false)
                 fullname += "-" + wfscore.Season;
 
+            // add rounds if any
             if (!String.IsNullOrEmpty(wfscore.Details))
             {
                 string[] rounds = wfscore.Details.Split(',');
@@ -282,6 +284,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 }
             }
 
+            // add details
             ScoreDetails details = GetScoreDetails(wfscore, parameters);
             details.AddTopScorerScore(scores, fullname, index++);
             details.AddAssistsScore(scores, fullname, index++);
@@ -309,6 +312,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             if (String.IsNullOrEmpty(wfscore.Season) == false)
                 fullname += "-" + wfscore.Season;
 
+            // add results scores
             sc = CreateNewScore(wfscore.Id, "results", "Results", IMG_RESULTS, "2", index++);
             string competition = ScoreCenter.GetParameter(parameters, "WF.Competition", KEY_COMPETITION);
             sc.Url = String.Format("{0}{2}/{1}/", WF_URL, wfscore.FullLeagueName, competition);
@@ -319,10 +323,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             sc.Element = "0";
             scores.Add(sc);
 
+            // retrieve details: first element is the list of groups
             List<string> items = wfscore.Details.Split(',').ToList();
             char[] groups = items[0].ToCharArray();
             foreach (char g in groups)
             {
+                // add group results
                 sc = CreateNewScore(wfscore.Id, "gr" + g, String.Format("Group {0}", Char.ToUpper(g)), "", "0", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-gruppe-{2}/0/", WF_URL, fullname, g);
                 sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.GroupResults", SIZES_GROUP_RESULTS);
@@ -331,29 +337,33 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
                 sc.AddHighlightRule(wfscore.Highlights, 0, RuleAction.FormatCell);
                 scores.Add(sc);
 
-                sc = CreateNewScore(wfscore.Id, "resgr" + g, "Standings", IMG_STANDINGS, "1", index++);
+                // add group standings
+                sc = CreateNewScore(wfscore.Id, "resgr" + g, "Standings", "", "1", index++);
                 sc.Url = String.Format("{0}spielplan/{1}-gruppe-{2}/0/", WF_URL, fullname, g);
                 sc.Skip = 1;
                 sc.Headers = ScoreCenter.GetParameter(parameters, "WF.HeaderStandings", HEADERS_STANDINGS);
                 sc.Sizes = ScoreCenter.GetParameter(parameters, "WF.GroupStandings", SIZES_GROUP_STANDINGS);
-                sc.Image = IMG_STANDINGS;
+                sc.Image = String.Format(@"Groups\Table{0}", Char.ToUpper(g));
                 sc.AddHighlightRule(wfscore.Highlights, 3, RuleAction.FormatLine);
                 scores.Add(sc);
             }
 
-            foreach (string level in items)
+            // add rounds
+            foreach (string round in items)
             {
-                if (level == items[0]) continue;
-                if (level == "stadium" || level == "referee") continue;
-                sc = CreateNewScore(wfscore.Id, level, level, IMG_RESULTS, "0", index++);
-                sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, level);
-                sc.Sizes = wfscore.TwoLegs && level != "finale"
+                if (round == items[0]) continue;
+                if (round == "stadium" || round == "referee") continue;
+                sc = CreateNewScore(wfscore.Id, round, round, IMG_RESULTS, "0", index++);
+                sc.Url = String.Format("{0}spielplan/{1}-{2}/0/", WF_URL, fullname, round);
+                sc.Sizes = wfscore.TwoLegs && round != "finale"
                     ? ScoreCenter.GetParameter(parameters, "WF.QualificationLevel2", SIZES_QUALIFICATION_LEVEL2)
                     : ScoreCenter.GetParameter(parameters, "WF.QualificationLevel1", SIZES_QUALIFICATION_LEVEL1);
                 sc.AddRule(3, Operation.IsNull, "", RuleAction.MergeCells, "Header");
+                sc.AddRule(0, Operation.Contains, "{Rückspiel},", RuleAction.ReplaceText, "");
                 scores.Add(sc);
             }
 
+            // add details
             ScoreDetails details = GetScoreDetails(wfscore, parameters);
             details.AddTopScorerScore(scores, fullname, index++);
             details.AddAssistsScore(scores, fullname, index++);
