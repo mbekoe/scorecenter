@@ -611,6 +611,10 @@ namespace MediaPortal.Plugin.ScoreCenter
             return bmPhoto;
         }
 
+        public static bool CheckParsingOption(ParsingOptions opt, ParsingOptions o)
+        {
+            return (opt & o) == o;
+        }
     }
 
     /// <summary>

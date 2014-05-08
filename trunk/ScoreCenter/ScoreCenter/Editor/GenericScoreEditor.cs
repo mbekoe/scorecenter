@@ -116,12 +116,12 @@ namespace MediaPortal.Plugin.ScoreCenter.Editor
                 tbxLiveFilter.Text = score.LiveConfig.filter;
             }
 
-            ckxUseTheader.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.UseTheader);
-            ckxUseCaption.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.Caption);
-            ckxNewLine.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.NewLine);
-            ckxAllowWrapping.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.WordWrap);
-            ckxReverseOrder.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.Reverse);
-            ckxImgAlt.Checked = GenericScore.CheckParsingOption(options, ParsingOptions.ImgAlt);
+            ckxUseTheader.Checked = Tools.CheckParsingOption(options, ParsingOptions.UseTheader);
+            ckxUseCaption.Checked = Tools.CheckParsingOption(options, ParsingOptions.Caption);
+            ckxNewLine.Checked = Tools.CheckParsingOption(options, ParsingOptions.NewLine);
+            ckxAllowWrapping.Checked = Tools.CheckParsingOption(options, ParsingOptions.WordWrap);
+            ckxReverseOrder.Checked = Tools.CheckParsingOption(options, ParsingOptions.Reverse);
+            ckxImgAlt.Checked = Tools.CheckParsingOption(options, ParsingOptions.ImgAlt);
             cbxBetweenElements.SelectedValue = score.BetweenElts;
             tbxScoreId.Text = score.Id;
 
