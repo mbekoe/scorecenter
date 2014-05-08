@@ -32,57 +32,35 @@ namespace MediaPortal.Plugin.ScoreCenter
 {
     public partial class GenericScore
     {
-        public override string GetSource()
+        /// <summary>
+        /// Creates a new GenericScore.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="xpath"></param>
+        /// <param name="image"></param>
+        /// <param name="element"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static GenericScore CreateNewScore(string parent, string id, string name, string xpath, string image, string element, int index)
         {
-            return this.Url;
-        }
-        
-        public override IList<string> GetStyles()
-        {
-            if (this.Rules == null)
-                return base.GetStyles();
+            GenericScore sc = new GenericScore();
+            sc.Order = index;
+            sc.enable = true;
+            sc.Name = name;
+            sc.Id = String.Format("{0}-{1}", parent, id);
+            sc.Parent = parent;
+            sc.XPath = xpath;
+            sc.Image = image;
+            sc.Element = element;
+            sc.SetVirtual(true);
+            sc.SetCanLive(false);
 
-            List<string> styles = new List<string>();
-            foreach (Rule r in this.Rules)
-            {
-                if (styles.Contains(r.Format) == false)
-                    styles.Add(r.Format);
-            }
-
-            return styles;
-        }
-
-        public static bool CheckParsingOption(ParsingOptions opt, ParsingOptions o)
-        {
-            return (opt & o) == o;
-        }
-
-        public ParsingOptions GetParseOption()
-        {
-            ParsingOptions opt = ParsingOptions.None;
-            if (!String.IsNullOrEmpty(this.ParseOptions))
-            {
-                if (!String.IsNullOrEmpty(this.ParseOptions))
-                    opt = (ParsingOptions)Enum.Parse(typeof(ParsingOptions), this.ParseOptions);
-            }
-
-            return opt;
+            return sc;
         }
 
-        public void SetParseOption(bool caption, bool theader, bool newLine, bool wordWrap, bool reverse, bool imgAlt)
-        {
-            ParsingOptions opt = ParsingOptions.None;
-
-            if (caption) opt |= ParsingOptions.Caption;
-            if (theader) opt |= ParsingOptions.UseTheader;
-            if (newLine) opt |= ParsingOptions.NewLine;
-            if (wordWrap) opt |= ParsingOptions.WordWrap;
-            if (reverse) opt |= ParsingOptions.Reverse;
-            if (imgAlt) opt |= ParsingOptions.ImgAlt;
-
-            this.ParseOptions = opt.ToString();
-        }
-
+        #region Defines abstract methods from BaseScore
         internal override BaseScore Clone(string id)
         {
             GenericScore copy = new GenericScore();
@@ -146,6 +124,36 @@ namespace MediaPortal.Plugin.ScoreCenter
             this.Image = @"Misc\score";
         }
 
+        #endregion
+
+        /// <summary>
+        /// Gets the source (web site) for this score.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetSource()
+        {
+            return this.Url;
+        }
+        
+        /// <summary>
+        /// Gets all the styles used by this score.
+        /// </summary>
+        /// <returns>The list of styles' names.</returns>
+        public override IList<string> GetStyles()
+        {
+            if (this.Rules == null)
+                return base.GetStyles();
+
+            List<string> styles = new List<string>();
+            foreach (Rule r in this.Rules)
+            {
+                if (styles.Contains(r.Format) == false)
+                    styles.Add(r.Format);
+            }
+
+            return styles;
+        }
+
         public override bool Merge(BaseScore newBaseScore, ImportOptions option)
         {
             GenericScore newScore = newBaseScore as GenericScore;
@@ -194,14 +202,7 @@ namespace MediaPortal.Plugin.ScoreCenter
 
             return result;
         }
-        
-        public string GetUrl()
-        {
-            if (this.Range == null)
-                return this.Url;
-            return this.Range.Apply(this.Url, this.Range.Value.ToString());
-        }
-        
+
         public override void ApplyRangeValue(bool setDefault)
         {
             if (this.Range == null)
@@ -217,23 +218,52 @@ namespace MediaPortal.Plugin.ScoreCenter
             }
         }
 
-        public static GenericScore CreateNewScore(string parent, string id, string name, string xpath, string image, string element, int index)
+        public ParsingOptions GetParseOption()
         {
-            GenericScore sc = new GenericScore();
-            sc.Order = index;
-            sc.enable = true;
-            sc.Name = name;
-            sc.Id = String.Format("{0}-{1}", parent, id);
-            sc.Parent = parent;
-            sc.XPath = xpath;
-            sc.Image = image;
-            sc.Element = element;
-            sc.SetVirtual(true);
-            sc.SetCanLive(false);
+            ParsingOptions opt = ParsingOptions.None;
+            if (!String.IsNullOrEmpty(this.ParseOptions))
+            {
+                if (!String.IsNullOrEmpty(this.ParseOptions))
+                    opt = (ParsingOptions)Enum.Parse(typeof(ParsingOptions), this.ParseOptions);
+            }
 
-            return sc;
+            return opt;
         }
 
+        public void SetParseOption(bool caption, bool theader, bool newLine, bool wordWrap, bool reverse, bool imgAlt)
+        {
+            ParsingOptions opt = ParsingOptions.None;
+
+            if (caption) opt |= ParsingOptions.Caption;
+            if (theader) opt |= ParsingOptions.UseTheader;
+            if (newLine) opt |= ParsingOptions.NewLine;
+            if (wordWrap) opt |= ParsingOptions.WordWrap;
+            if (reverse) opt |= ParsingOptions.Reverse;
+            if (imgAlt) opt |= ParsingOptions.ImgAlt;
+
+            this.ParseOptions = opt.ToString();
+        }
+
+        /// <summary>
+        /// Gets the URL for this scores.
+        /// If the URL has a variable parameter, this method returns the URL with the parameter sets.
+        /// </summary>
+        /// <returns></returns>
+        public string GetUrl()
+        {
+            if (this.Range == null)
+                return this.Url;
+            return this.Range.Apply(this.Url, this.Range.Value.ToString());
+        }
+
+        /// <summary>
+        /// Adds a rule to the score.
+        /// </summary>
+        /// <param name="col">The column number: -1 = the line number, 0 = any columns</param>
+        /// <param name="ruleOperator"></param>
+        /// <param name="ruleValue"></param>
+        /// <param name="action"></param>
+        /// <param name="ruleFormat"></param>
         public void AddRule(int col, Operation ruleOperator, string ruleValue, RuleAction action, string ruleFormat)
         {
             MediaPortal.Plugin.ScoreCenter.Rule rule = new MediaPortal.Plugin.ScoreCenter.Rule();
@@ -251,12 +281,11 @@ namespace MediaPortal.Plugin.ScoreCenter
         }
 
         /// <summary>
-        /// Adds a highlight rule to a score.
+        /// Adds an highlight rule to a score.
         /// </summary>
-        /// <param name="score"></param>
-        /// <param name="highlights"></param>
-        /// <param name="col"></param>
-        /// <param name="action"></param>
+        /// <param name="highlights">The string to highlight.</param>
+        /// <param name="col">The column to search.</param>
+        /// <param name="action">The action to do (should be FormatLine or FormatMerge).</param>
         public void AddHighlightRule(string highlights, int col, RuleAction action)
         {
             if (String.IsNullOrEmpty(highlights))
@@ -285,7 +314,7 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <summary>
         /// Adds rules for levels.
         /// </summary>
-        /// <param name="levels"></param>
+        /// <param name="levels">The level string, ex: 1,3,-3,-2 </param>
         public void AddLevelsRule(string levels)
         {
             if (String.IsNullOrEmpty(levels) == false)
