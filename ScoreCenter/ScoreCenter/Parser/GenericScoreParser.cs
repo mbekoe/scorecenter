@@ -49,7 +49,7 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
 
             // parse score options
             ParsingOptions poptions = score.GetParseOption();
-            bool newLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
+            bool newLine = Tools.CheckParsingOption(poptions, ParsingOptions.NewLine);
             string rep = newLine ? Environment.NewLine : " ";
             
             html = html.Replace("<br>", rep);
@@ -95,10 +95,10 @@ namespace MediaPortal.Plugin.ScoreCenter.Parser
             bool first = true;
             if (tables != null && tables.Count > 0)
             {
-                bool allowNewLine = GenericScore.CheckParsingOption(poptions, ParsingOptions.NewLine);
-                bool useTheader = GenericScore.CheckParsingOption(poptions, ParsingOptions.UseTheader);
-                bool useCaption = GenericScore.CheckParsingOption(poptions, ParsingOptions.Caption);
-                bool parseImgAlt = GenericScore.CheckParsingOption(poptions, ParsingOptions.ImgAlt);
+                bool allowNewLine = Tools.CheckParsingOption(poptions, ParsingOptions.NewLine);
+                bool useTheader = Tools.CheckParsingOption(poptions, ParsingOptions.UseTheader);
+                bool useCaption = Tools.CheckParsingOption(poptions, ParsingOptions.Caption);
+                bool parseImgAlt = Tools.CheckParsingOption(poptions, ParsingOptions.ImgAlt);
 
                 int skip = score.Skip;
                 int max = score.MaxLines;

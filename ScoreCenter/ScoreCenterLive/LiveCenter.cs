@@ -180,8 +180,8 @@ namespace MediaPortal.Plugin.ScoreCenter
             RuleEvaluator engine = new RuleEvaluator(genScore.Rules);
 
             ParsingOptions opt = genScore.GetParseOption();
-            bool reverseOrder = GenericScore.CheckParsingOption(opt, ParsingOptions.Reverse);
-            bool wordWrap = GenericScore.CheckParsingOption(opt, ParsingOptions.WordWrap);
+            bool reverseOrder = Tools.CheckParsingOption(opt, ParsingOptions.Reverse);
+            bool wordWrap = Tools.CheckParsingOption(opt, ParsingOptions.WordWrap);
 
             int lineNumber = -1;
             // for all the rows
