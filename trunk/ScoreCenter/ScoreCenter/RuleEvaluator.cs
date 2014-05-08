@@ -53,10 +53,10 @@ namespace MediaPortal.Plugin.ScoreCenter
         /// <returns>The first rule satisifed by the cell or null.</returns>
         public IList<Rule> CheckCell(string text, int colIndex)
         {
-            if (m_rules == null || m_rules.Length == 0)
-                return null;
-
             List<Rule> rules = new List<Rule>();
+            if (m_rules == null || m_rules.Length == 0)
+                return rules;
+
             foreach (Rule rule in m_rules)
             {
                 if (rule.Action != RuleAction.FormatCell
